@@ -18,7 +18,7 @@ public class DBConnect {
         final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         final String URL = "jdbc:sqlserver://localhost:1433;databasename=QL_KHACH_SAN";
         final String USERNAME = "sa";
-        final String PASSWORD = "123abc";
+        final String PASSWORD = "Wildwolf123@";
         try {
             Class.forName(DRIVER);
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);

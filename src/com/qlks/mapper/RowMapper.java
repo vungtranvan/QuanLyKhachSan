@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.qlks.models;
+package com.qlks.mapper;
+
+import java.sql.ResultSet;
 
 /**
  *
- * @author hoangdung
+ * @author admin
  */
-public class NewClass {
-    
+public interface RowMapper<T> {
+    T mapRow(ResultSet rs);
 }
