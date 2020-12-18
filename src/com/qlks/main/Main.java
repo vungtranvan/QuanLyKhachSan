@@ -1,6 +1,8 @@
 package com.qlks.main;
 
+
 import com.qlks.view.MainJFrame;
+
 
 /**
  *
@@ -9,6 +11,10 @@ import com.qlks.view.MainJFrame;
 public class Main {
 
     public static void main(String[] args) {
-        new MainJFrame().setVisible(true);
+   
+        MainJFrame mainFrame = new MainJFrame();
+       
+
+       mainFrame.setVisible(true);
     }
 }
