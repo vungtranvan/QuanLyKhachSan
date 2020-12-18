@@ -1,6 +1,4 @@
-
 package com.qlks.dao.impl;
-
 
 import com.qlks.dao.GenericDAO;
 import java.sql.CallableStatement;
@@ -13,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.qlks.mapper.RowMapper;
 import com.qlks.utils.DBConnect;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -68,6 +68,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
                     cstm.setFloat(index, (float) parameter);
                 } else if (parameter instanceof Boolean) {
                     cstm.setBoolean(index, (boolean) parameter);
+                } else if (parameter instanceof LocalDate) {
+                    //cstm.setDate(index, (Date) parameter);
+                    cstm.setDate(index, (Date.valueOf((LocalDate) parameter)));
                 }
             }
         } catch (SQLException e) {
@@ -96,7 +99,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
                 }
             }
             Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
+        } finally {
             try {
                 if (conn != null) {
                     conn.close();
@@ -115,4 +118,3 @@ public class AbstractDAO<T> implements GenericDAO<T> {
     }
 
 }
-

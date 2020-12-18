@@ -11,15 +11,25 @@ package com.qlks.models;
  */
 public class QuyDinh {
 
+    private int maQuyDinh;
     private String tenQuyDinh;
     private String moTa;
 
     public QuyDinh() {
     }
 
-    public QuyDinh(String tenQuyDinh, String moTa) {
+    public QuyDinh(int maQuyDinh, String tenQuyDinh, String moTa) {
+        this.maQuyDinh = maQuyDinh;
         this.tenQuyDinh = tenQuyDinh;
         this.moTa = moTa;
+    }
+
+    public int getMaQuyDinh() {
+        return maQuyDinh;
+    }
+
+    public void setMaQuyDinh(int maQuyDinh) {
+        this.maQuyDinh = maQuyDinh;
     }
 
     public String getTenQuyDinh() {
