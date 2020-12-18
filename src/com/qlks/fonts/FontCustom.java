@@ -32,9 +32,7 @@ public class FontCustom {
             File font_file = new File(url);
             return Font.createFont(Font.TRUETYPE_FONT, font_file).deriveFont(size);
 
-        } catch (FontFormatException ex) {
-            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (FontFormatException | IOException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
