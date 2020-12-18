@@ -5,15 +5,20 @@
  */
 package com.qlks.dao;
 
-import com.qlks.mapper.RowMapper;
+import com.qlks.models.QuyDinh;
 import java.util.List;
-
 
 /**
  *
- * @author admin
+ * @author hello
  */
-public interface GenericDAO<T> {
-       <T> List <T> query(String sql, RowMapper<T> rowMapper, Object... parameter);
-       void update(String sql, Object... parameters);
+public interface IQuyDinhDAO {
+
+    List<QuyDinh> getAll();
+
+    void add(QuyDinh location);
+
+    void update(QuyDinh location);
+
+    void delete(QuyDinh location);
 }
