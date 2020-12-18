@@ -17,10 +17,10 @@ public class QuyDinhMapper implements RowMapper<QuyDinh> {
     @Override
     public QuyDinh mapRow(ResultSet rs) {
         try {
-            QuyDinh data = new QuyDinh(rs.getString("TenQuyDinh"), rs.getString("MoTa"));
+            QuyDinh data = new QuyDinh(rs.getInt("MaQuyDinh"), rs.getString("TenQuyDinh"), rs.getString("MoTa"));
             return data;
         } catch (Exception e) {
-            
+
         }
         return null;
     }
