@@ -35,18 +35,17 @@ public class MainJFrame extends javax.swing.JFrame {
         List<JPanel> listSubMenuItemRoom = new ArrayList<>();
         
         JPanel subMenuItemAdmin = new JPanel();
-        JLabel subMenuItemAdminLabel = new JLabel();
-        
+     
         JPanel subMenuItemRule = new JPanel();
-        JLabel subMenuItemRuleLabel = new JLabel();
+ 
         
-        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemAdmin, subMenuItemAdminLabel, "Quan ly nguoi dung"));
-        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemRule, subMenuItemRuleLabel, "Quan ly Quyen"));
+        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemAdmin, "Quan ly nguoi dung"));
+        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemRule,  "Quan ly Quyen"));
         
         JPanel subMenuItemRoom = new JPanel();
-        JLabel subMenuItemRoomLabel = new JLabel();
+  
 
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuItemRoom, subMenuItemRoomLabel, "Quan ly phong"));
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuItemRoom, "Quan ly phong"));
         
         jpnSubMenu.setVisible(false);
         jpnSubMenuClose.setBackground(new Color(0, 0, 0, 0));
@@ -113,23 +112,19 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-    private JPanel makeSubMenuItem(JPanel jp, JLabel jl, String label) {
-
+    private JPanel makeSubMenuItem(JPanel jp, String label) {
+        JLabel jl = new JLabel();
         jl.setText(label);
         jl.setForeground(Color.white);
         jl.setFont(subMenuItemFont);
 
-     
-        
-
-        
         jp.setPreferredSize(new Dimension(jpnSubMenu.getWidth(), 50));
         jp.setMaximumSize(jp.getPreferredSize());
         jp.setBackground(new Color(50, 55, 52));
         jp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
 
-        jl.setPreferredSize(jp.getPreferredSize());
+        jl.setPreferredSize(new Dimension(jpnSubMenu.getWidth()-30, 50));
         
         
         jp.add(jl);
