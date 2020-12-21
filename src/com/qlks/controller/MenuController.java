@@ -5,11 +5,6 @@
  */
 package com.qlks.controller;
 
-import com.qlks.bean.DanhMucBean;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.util.List;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -19,5 +14,9 @@ import javax.swing.JPanel;
 public class MenuController {
 
 
+    
+    public void setMenuBackGroundColor(JPanel jp){
+    
     }
+}
 
