@@ -35,9 +35,15 @@ public class QuyDinhDAO extends AbstractDAO<QuyDinh> implements IQuyDinhDAO {
     }
 
     @Override
-    public void delete(QuyDinh quydinh) {
+    public void delete(int maQuyDinh) {
         String sql = "{Call deleteQuyDinh(?)}";
-        this.update(sql, quydinh.getMaQuyDinh());
+        this.update(sql, maQuyDinh);
+    }
+
+    @Override
+    public List<QuyDinh> search(String tenQuyDinh) {
+        String sql = "{Call SearchQuyDinh(?)}";
+        return query(sql, new QuyDinhMapper(), tenQuyDinh);
     }
 
 }

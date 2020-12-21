@@ -7,6 +7,8 @@ package com.qlks.mapper;
 
 import com.qlks.models.QuyDinh;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,8 +21,8 @@ public class QuyDinhMapper implements RowMapper<QuyDinh> {
         try {
             QuyDinh data = new QuyDinh(rs.getInt("MaQuyDinh"), rs.getString("TenQuyDinh"), rs.getString("MoTa"));
             return data;
-        } catch (Exception e) {
-
+        } catch (Exception ex) {
+            Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

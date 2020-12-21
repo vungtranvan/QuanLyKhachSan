@@ -5,6 +5,8 @@
  */
 package com.qlks.models;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author hello
@@ -15,24 +17,33 @@ public class KhuyenMai {
     private String maPhieu;
     private float giaTri;
     private String noiDung;
+    private LocalDate ngayBatDau;
+    private LocalDate ngayKetThuc;
     private boolean kieuTinh;
+    private boolean trangThai;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(String maPhieu, float giaTri, String noiDung, boolean kieuTinh) {
+    public KhuyenMai(String maPhieu, float giaTri, String noiDung, LocalDate ngayBatDau, LocalDate ngayKetThuc, boolean kieuTinh, boolean trangThai) {
         this.maPhieu = maPhieu;
         this.giaTri = giaTri;
         this.noiDung = noiDung;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
         this.kieuTinh = kieuTinh;
+        this.trangThai = trangThai;
     }
 
-    public KhuyenMai(int maKhuyenMai, String maPhieu, float giaTri, String noiDung, boolean kieuTinh) {
+    public KhuyenMai(int maKhuyenMai, String maPhieu, float giaTri, String noiDung, LocalDate ngayBatDau, LocalDate ngayKetThuc, boolean kieuTinh, boolean trangThai) {
         this.maKhuyenMai = maKhuyenMai;
         this.maPhieu = maPhieu;
         this.giaTri = giaTri;
         this.noiDung = noiDung;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
         this.kieuTinh = kieuTinh;
+        this.trangThai = trangThai;
     }
 
     public int getMaKhuyenMai() {
@@ -67,12 +78,36 @@ public class KhuyenMai {
         this.noiDung = noiDung;
     }
 
+    public LocalDate getNgayBatDau() {
+        return ngayBatDau;
+    }
+
+    public void setNgayBatDau(LocalDate ngayBatDau) {
+        this.ngayBatDau = ngayBatDau;
+    }
+
+    public LocalDate getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(LocalDate ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
     public boolean isKieuTinh() {
         return kieuTinh;
     }
 
     public void setKieuTinh(boolean kieuTinh) {
         this.kieuTinh = kieuTinh;
+    }
+
+    public boolean isTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
     }
 
 }

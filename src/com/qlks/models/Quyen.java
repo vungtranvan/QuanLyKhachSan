@@ -17,6 +17,10 @@ public class Quyen {
     public Quyen() {
     }
 
+    public Quyen(String quyen) {
+        this.quyen = quyen;
+    }
+
     public Quyen(int maQuyen, String quyen) {
         this.maQuyen = maQuyen;
         this.quyen = quyen;
