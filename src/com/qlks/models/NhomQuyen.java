@@ -17,6 +17,10 @@ public class NhomQuyen {
     public NhomQuyen() {
     }
 
+    public NhomQuyen(String tenNhomQuyen) {
+        this.tenNhomQuyen = tenNhomQuyen;
+    }
+
     public NhomQuyen(int maNhomQuyen, String tenNhomQuyen) {
         this.maNhomQuyen = maNhomQuyen;
         this.tenNhomQuyen = tenNhomQuyen;

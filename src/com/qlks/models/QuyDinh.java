@@ -18,6 +18,11 @@ public class QuyDinh {
     public QuyDinh() {
     }
 
+    public QuyDinh(String tenQuyDinh, String moTa) {
+        this.tenQuyDinh = tenQuyDinh;
+        this.moTa = moTa;
+    }
+
     public QuyDinh(int maQuyDinh, String tenQuyDinh, String moTa) {
         this.maQuyDinh = maQuyDinh;
         this.tenQuyDinh = tenQuyDinh;

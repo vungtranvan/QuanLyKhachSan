@@ -20,5 +20,7 @@ public interface IQuyDinhDAO {
 
     void update(QuyDinh location);
 
-    void delete(QuyDinh location);
+    void delete(int maQuyDinh);
+
+    List<QuyDinh> search(String tenQuyDinh);
 }
