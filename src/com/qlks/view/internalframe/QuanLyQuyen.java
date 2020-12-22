@@ -5,7 +5,12 @@
  */
 package com.qlks.view.internalframe;
 
-
+import com.qlks.dao.impl.QuyenDAO;
+import com.qlks.models.Quyen;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +18,39 @@ package com.qlks.view.internalframe;
  */
 public class QuanLyQuyen extends javax.swing.JInternalFrame {
 
+    private QuyenDAO quyenDAO;
+    private List<Quyen> lstQuyen;
+    private DefaultTableModel dtmQuyen;
 
     /**
      * Creates new form QuanLyTaiSan
      */
     public QuanLyQuyen() {
         initComponents();
+        dtmQuyen = new DefaultTableModel();
+        quyenDAO = new QuyenDAO();
+        lstQuyen = quyenDAO.getAll();
+        loadData();
+        
+    }
+
+    public void loadData() {
+        lstQuyen.removeAll(lstQuyen);
+        
+        //Tạo tên cột
+        dtmQuyen.addColumn("Mã Quyền");
+        dtmQuyen.addColumn("Tên Quyền");
+
+        // Chèn Chèn dữ liệu ảo vào bảng
+        for (int i = 0; i < lstQuyen.size(); i++) {
+            Quyen quyen = lstQuyen.get(i);
+            Vector dataRow = new Vector();
+            dataRow.add(quyen.getMaQuyen());
+            dataRow.add(quyen.getQuyen());
+            dtmQuyen.addRow(dataRow);
+        }
+
+        tblQuyen.setModel(dtmQuyen);
     }
 
     /**
@@ -220,7 +252,16 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-
+        String tenQuyen = txtTenQuyen.getText().trim();
+        Vector sinhVien = new Vector();
+        sinhVien.add(tenQuyen);
+// Thêm vào list dữ liệu
+        Quyen quyen = new Quyen(tenQuyen);
+        lstQuyen.add(quyen);
+        dtmQuyen.addRow(sinhVien);
+        quyenDAO.add(new Quyen(tenQuyen));
+        JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+        loadData();
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
@@ -232,7 +273,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-      
+
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
