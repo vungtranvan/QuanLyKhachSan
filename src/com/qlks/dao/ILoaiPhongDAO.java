@@ -18,9 +18,9 @@ public interface ILoaiPhongDAO {
 
     List<LoaiPhong> search(String maLoaiPhong, String tenLoaiPhong, float donGia, int soNguoiChuan, int soNguoiToiDa);
 
-    void add(LoaiPhong loaiPhong);
+    int add(LoaiPhong loaiPhong);
 
-    void update(LoaiPhong loaiPhong);
+    int update(LoaiPhong loaiPhong);
 
-    void delete(String maLoaiPhong);
+    int delete(String maLoaiPhong);
 }

@@ -21,9 +21,9 @@ public interface INguoiDungDAO {
 
     List<NguoiDung> search(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String email, LocalDate ngaySinh, Boolean gioiTinh, int maNhomQuyen);
 
-    void add(NguoiDung nguoiDung);
+    int add(NguoiDung nguoiDung);
 
-    void update(NguoiDung nguoiDung);
+    int update(NguoiDung nguoiDung);
 
-    void delete(int maNguoiDung);
+    int delete(int maNguoiDung);
 }

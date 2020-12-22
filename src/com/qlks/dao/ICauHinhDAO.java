@@ -18,10 +18,10 @@ public interface ICauHinhDAO {
 
     List<CauHinh> search(String loaiCauHinh);
 
-    void add(CauHinh cauhinh);
+    int add(CauHinh cauhinh);
 
-    void update(CauHinh cauhinh);
+    int update(CauHinh cauhinh);
 
-    void delete(int maCauHinh);
+    int delete(int maCauHinh);
 
 }

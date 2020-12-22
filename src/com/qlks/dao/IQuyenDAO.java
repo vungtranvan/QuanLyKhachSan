@@ -18,9 +18,9 @@ public interface IQuyenDAO {
 
     List<Quyen> search(String tenQuyen);
 
-    void add(Quyen quyen);
+    int add(Quyen quyen);
 
-    void update(Quyen quyen);
+    int update(Quyen quyen);
 
-    void delete(Quyen quyen);
+    int delete(Quyen quyen);
 }

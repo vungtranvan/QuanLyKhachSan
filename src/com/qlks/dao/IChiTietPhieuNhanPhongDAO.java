@@ -18,5 +18,5 @@ public interface IChiTietPhieuNhanPhongDAO {
 
     List<ChiTietPhieuNhanPhong> getByMaNhanPhong(String maNhanPhong);
 
-    void add(ChiTietPhieuNhanPhong ct);
+    int add(ChiTietPhieuNhanPhong ct);
 }

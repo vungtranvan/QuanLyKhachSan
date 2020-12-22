@@ -36,21 +36,21 @@ public class KhuyenMaiDAO extends AbstractDAO<KhuyenMai> implements IKhuyenMaiDA
     }
 
     @Override
-    public void add(KhuyenMai khuyenMai) {
+    public int add(KhuyenMai khuyenMai) {
         String sql = "{Call insertKhuyenMai(?,?,?,?,?,?,?)}";
-        this.update(sql, khuyenMai.getMaPhieu(), khuyenMai.getGiaTri(), khuyenMai.getNoiDung(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc(), khuyenMai.isKieuTinh(), khuyenMai.isTrangThai());
+        return this.update(sql, khuyenMai.getMaPhieu(), khuyenMai.getGiaTri(), khuyenMai.getNoiDung(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc(), khuyenMai.isKieuTinh(), khuyenMai.isTrangThai());
     }
 
     @Override
-    public void update(KhuyenMai khuyenMai) {
+    public int update(KhuyenMai khuyenMai) {
         String sql = "{Call updateKhuyenMai(?,?,?,?,?,?,?,?)}";
-        this.update(sql, khuyenMai.getMaKhuyenMai(), khuyenMai.getMaPhieu(), khuyenMai.getGiaTri(), khuyenMai.getNoiDung(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc(), khuyenMai.isKieuTinh(), khuyenMai.isTrangThai());
+        return this.update(sql, khuyenMai.getMaKhuyenMai(), khuyenMai.getMaPhieu(), khuyenMai.getGiaTri(), khuyenMai.getNoiDung(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc(), khuyenMai.isKieuTinh(), khuyenMai.isTrangThai());
     }
 
     @Override
-    public void delete(int maKhuyenMai) {
+    public int delete(int maKhuyenMai) {
         String sql = "{Call deleteKhuyenMai(?)}";
-        this.update(sql, maKhuyenMai);
+        return this.update(sql, maKhuyenMai);
     }
 
 }

@@ -35,21 +35,21 @@ public class PhongDAO extends AbstractDAO<Phong> implements IPhongDAO {
     }
 
     @Override
-    public void add(Phong phong) {
+    public int add(Phong phong) {
         String sql = "{Call insertPhong(?,?,?,?)}";
-        this.update(sql, phong.getMaPhong(), phong.getMaLoaiPhong(), phong.getMaLoaiTinhTrangPhong(), phong.getGhiChu());
+        return this.update(sql, phong.getMaPhong(), phong.getMaLoaiPhong(), phong.getMaLoaiTinhTrangPhong(), phong.getGhiChu());
     }
 
     @Override
-    public void update(Phong phong) {
+    public int update(Phong phong) {
         String sql = "{Call updatePhong(?,?,?,?)}";
-        this.update(sql, phong.getMaPhong(), phong.getMaLoaiPhong(), phong.getMaLoaiTinhTrangPhong(), phong.getGhiChu());
+        return this.update(sql, phong.getMaPhong(), phong.getMaLoaiPhong(), phong.getMaLoaiTinhTrangPhong(), phong.getGhiChu());
     }
 
     @Override
-    public void delete(String maPhong) {
+    public int delete(String maPhong) {
         String sql = "{Call deletePhong(?)}";
-        this.update(sql, maPhong);
+        return this.update(sql, maPhong);
     }
 
 }

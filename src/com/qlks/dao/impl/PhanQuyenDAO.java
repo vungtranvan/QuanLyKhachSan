@@ -23,9 +23,9 @@ public class PhanQuyenDAO extends AbstractDAO<PhanQuyen> implements IPhanQuyenDA
     }
 
     @Override
-    public void add(PhanQuyen phanQuyen) {
+    public int add(PhanQuyen phanQuyen) {
         String sql = "{Call insertPhanQuyen(?,?)}";
-        this.update(sql, phanQuyen.getMaQuyen(), phanQuyen.getMaNhomQuyen());
+        return this.update(sql, phanQuyen.getMaQuyen(), phanQuyen.getMaNhomQuyen());
     }
 
 }

@@ -25,25 +25,25 @@ public class QuyenDAO extends AbstractDAO<Quyen> implements IQuyenDAO {
     @Override
     public List<Quyen> search(String tenQuyen) {
         String sql = "{Call SearchQuyen(?)}";
-        return query(sql, new QuyenMapper(),tenQuyen);
+        return query(sql, new QuyenMapper(), tenQuyen);
     }
 
     @Override
-    public void add(Quyen quyen) {
+    public int add(Quyen quyen) {
         String sql = "{Call insertQuyen(?)}";
-        this.update(sql, quyen.getQuyen());
+        return this.update(sql, quyen.getQuyen());
     }
 
     @Override
-    public void update(Quyen quyen) {
+    public int update(Quyen quyen) {
         String sql = "{Call updateQuyen(?,?)}";
-        this.update(sql, quyen.getQuyen(), quyen.getMaQuyen());
+        return this.update(sql, quyen.getQuyen(), quyen.getMaQuyen());
     }
 
     @Override
-    public void delete(Quyen quyen) {
+    public int delete(Quyen quyen) {
         String sql = "{Call deleteQuyen(?)}";
-        this.update(sql, quyen.getMaQuyen());
+        return this.update(sql, quyen.getMaQuyen());
     }
 
 }

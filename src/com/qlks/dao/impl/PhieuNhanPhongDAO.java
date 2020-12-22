@@ -35,21 +35,21 @@ public class PhieuNhanPhongDAO extends AbstractDAO<PhieuNhanPhong> implements IP
     }
 
     @Override
-    public void add(PhieuNhanPhong phieuNhanPhong) {
+    public int add(PhieuNhanPhong phieuNhanPhong) {
         String sql = "{Call insertPhieuNhanPhong(?,?,?)}";
-        this.update(sql, phieuNhanPhong.getMaNhanPhong(), phieuNhanPhong.getMaPhieuThue(), phieuNhanPhong.getMaKhachHang());
+        return this.update(sql, phieuNhanPhong.getMaNhanPhong(), phieuNhanPhong.getMaPhieuThue(), phieuNhanPhong.getMaKhachHang());
     }
 
     @Override
-    public void update(PhieuNhanPhong phieuNhanPhong) {
+    public int update(PhieuNhanPhong phieuNhanPhong) {
         String sql = "{Call updatePhieuNhanPhong(?,?,?)}";
-        this.update(sql, phieuNhanPhong.getMaNhanPhong(), phieuNhanPhong.getMaPhieuThue(), phieuNhanPhong.getMaKhachHang());
+        return this.update(sql, phieuNhanPhong.getMaNhanPhong(), phieuNhanPhong.getMaPhieuThue(), phieuNhanPhong.getMaKhachHang());
     }
 
     @Override
-    public void delete(String maNhanPhong) {
+    public int delete(String maNhanPhong) {
         String sql = "{Call deletePhieuNhanPhong(?)}";
-        this.update(sql, maNhanPhong);
+        return this.update(sql, maNhanPhong);
     }
 
 }

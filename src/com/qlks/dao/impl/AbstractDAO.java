@@ -69,7 +69,6 @@ public class AbstractDAO<T> implements GenericDAO<T> {
                 } else if (parameter instanceof Boolean) {
                     cstm.setBoolean(index, (boolean) parameter);
                 } else if (parameter instanceof LocalDate) {
-                    //cstm.setDate(index, (Date) parameter);
                     cstm.setDate(index, (Date.valueOf((LocalDate) parameter)));
                 }
             }
@@ -78,7 +77,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
     }
 
     @Override
-    public void update(String sql, Object... parameters) {
+    public int update(String sql, Object... parameters) {
         CallableStatement csmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -88,8 +87,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
             conn.setAutoCommit(false);
             csmt = conn.prepareCall(sql);
             setParameter(csmt, parameters);
-            csmt.executeUpdate();
+            int count = csmt.executeUpdate();
             conn.commit();
+            return count;
         } catch (SQLException ex) {
             if (conn != null) {
                 try {
@@ -114,7 +114,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
                 // TODO: handle exception
             }
         }
-
+        return 0;
     }
 
 }

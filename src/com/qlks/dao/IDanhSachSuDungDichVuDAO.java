@@ -20,9 +20,9 @@ public interface IDanhSachSuDungDichVuDAO {
 
     List<DanhSachSuDungDichVu> search(String maSuDungDVu, String maDichVu, String maNhanPhong);
 
-    void add(DanhSachSuDungDichVu dv);
+    int add(DanhSachSuDungDichVu dv);
 
-    void update(DanhSachSuDungDichVu dv);
+    int update(DanhSachSuDungDichVu dv);
 
-    void delete(String maSuDungDVu);
+    int delete(String maSuDungDVu);
 }

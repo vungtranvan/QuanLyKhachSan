@@ -16,5 +16,5 @@ public interface IPhieuThuePhongDAO {
 
     List<PhieuThuePhong> getAll();
 
-    void add(PhieuThuePhong phieuThuePhong);
+    int add(PhieuThuePhong phieuThuePhong);
 }

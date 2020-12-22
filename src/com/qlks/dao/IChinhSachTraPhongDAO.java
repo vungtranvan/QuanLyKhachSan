@@ -18,9 +18,9 @@ public interface IChinhSachTraPhongDAO {
 
     List<ChinhSachTraPhong> search(String maChinhSachTraPhong, String noiDungMaChinhSach);
 
-    void add(ChinhSachTraPhong chinhSach);
+    int add(ChinhSachTraPhong chinhSach);
 
-    void update(ChinhSachTraPhong chinhSach);
+    int update(ChinhSachTraPhong chinhSach);
 
-    void delete(String maChinhSachTraPhong);
+    int delete(String maChinhSachTraPhong);
 }

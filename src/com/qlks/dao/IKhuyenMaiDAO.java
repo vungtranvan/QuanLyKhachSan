@@ -21,9 +21,9 @@ public interface IKhuyenMaiDAO {
 
     List<KhuyenMai> search(int maKhuyenMai, String maPhieu, float giaTri, String noiDung, LocalDate ngayBatDau, LocalDate ngayKetThuc, Boolean kieuTinh, Boolean trangThai);
 
-    void add(KhuyenMai khuyenMai);
+    int add(KhuyenMai khuyenMai);
 
-    void update(KhuyenMai khuyenMai);
+    int update(KhuyenMai khuyenMai);
 
-    void delete(int maKhuyenMai);
+    int delete(int maKhuyenMai);
 }

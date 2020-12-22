@@ -17,9 +17,9 @@ public interface IThietBiDAO {
 
     List<ThietBi> search(String maThietBi, String maLoaiPhong, String tenThietBi, float gia);
 
-    void add(ThietBi thietBi);
+    int add(ThietBi thietBi);
 
-    void update(ThietBi thietBi);
+    int update(ThietBi thietBi);
 
-    void delete(String maThietBi);
+    int delete(String maThietBi);
 }

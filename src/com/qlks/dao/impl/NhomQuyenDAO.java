@@ -29,21 +29,21 @@ public class NhomQuyenDAO extends AbstractDAO<NhomQuyen> implements INhomQuyenDA
     }
 
     @Override
-    public void add(NhomQuyen nhomQuyen) {
+    public int add(NhomQuyen nhomQuyen) {
         String sql = "{Call insertNhomQuyen(?)}";
-        this.update(sql, nhomQuyen.getTenNhomQuyen());
+        return this.update(sql, nhomQuyen.getTenNhomQuyen());
     }
 
     @Override
-    public void update(NhomQuyen nhomQuyen) {
+    public int update(NhomQuyen nhomQuyen) {
         String sql = "{Call updateNhomQuyen(?,?)}";
-        this.update(sql, nhomQuyen.getMaNhomQuyen(), nhomQuyen.getTenNhomQuyen());
+        return this.update(sql, nhomQuyen.getMaNhomQuyen(), nhomQuyen.getTenNhomQuyen());
     }
 
     @Override
-    public void delete(int maNhomQuyen) {
+    public int delete(int maNhomQuyen) {
         String sql = "{Call deleteNhomQuyen(?)}";
-        this.update(sql, maNhomQuyen);
+        return this.update(sql, maNhomQuyen);
     }
 
 }

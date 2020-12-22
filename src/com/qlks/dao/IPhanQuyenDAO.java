@@ -16,5 +16,5 @@ public interface IPhanQuyenDAO {
 
     List<PhanQuyen> getAll();
 
-    void add(PhanQuyen phanQuyen);
+    int add(PhanQuyen phanQuyen);
 }

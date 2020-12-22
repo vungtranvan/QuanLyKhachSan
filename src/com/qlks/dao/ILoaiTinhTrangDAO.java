@@ -20,9 +20,9 @@ public interface ILoaiTinhTrangDAO {
 
     List<LoaiTinhTrang> search(int maLoaiTinhTrang, String tenLoaiTinhTrang);
 
-    void add(LoaiTinhTrang loaiTinhTrang);
+    int add(LoaiTinhTrang loaiTinhTrang);
 
-    void update(LoaiTinhTrang loaiTinhTrang);
+    int update(LoaiTinhTrang loaiTinhTrang);
 
-    void delete(int maLoaiTinhTrang);
+    int delete(int maLoaiTinhTrang);
 }

@@ -8,8 +8,9 @@ package com.qlks.view.internalframe;
 import com.qlks.dao.impl.QuyenDAO;
 import com.qlks.models.Quyen;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,28 +30,36 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
         initComponents();
         dtmQuyen = new DefaultTableModel();
         quyenDAO = new QuyenDAO();
-        lstQuyen = quyenDAO.getAll();
         loadData();
-        
     }
 
     public void loadData() {
-        lstQuyen.removeAll(lstQuyen);
-        
-        //Tạo tên cột
-        dtmQuyen.addColumn("Mã Quyền");
-        dtmQuyen.addColumn("Tên Quyền");
-
-        // Chèn Chèn dữ liệu ảo vào bảng
-        for (int i = 0; i < lstQuyen.size(); i++) {
-            Quyen quyen = lstQuyen.get(i);
-            Vector dataRow = new Vector();
-            dataRow.add(quyen.getMaQuyen());
-            dataRow.add(quyen.getQuyen());
-            dtmQuyen.addRow(dataRow);
+        Object[] columnNames = {"Mã Quyền", "Tên Quyền"};
+        lstQuyen = quyenDAO.getAll();
+        dtmQuyen = new DefaultTableModel(new Object[0][0], columnNames);
+        for (Quyen adv : lstQuyen) {
+            Object[] o = new Object[2];
+            o[0] = adv.getMaQuyen();
+            o[1] = adv.getQuyen();
+            dtmQuyen.addRow(o);
         }
-
         tblQuyen.setModel(dtmQuyen);
+
+        // Cài đặt sự kiện khi click từng dòng trong bảng
+        tblQuyen.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int currentRow = tblQuyen.getSelectedRow();
+                if (currentRow < 0) {
+                    currentRow = 0;
+                }
+
+                // Chèn dữ liệu lên form
+                lblID.setText(tblQuyen.getValueAt(currentRow, 0).toString());
+                txtTenQuyen.setText(tblQuyen.getValueAt(currentRow, 1).toString());
+            }
+        });
+        tblQuyen.changeSelection(0, 0, false, false);
     }
 
     /**
@@ -253,19 +262,28 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
         String tenQuyen = txtTenQuyen.getText().trim();
-        Vector sinhVien = new Vector();
-        sinhVien.add(tenQuyen);
-// Thêm vào list dữ liệu
-        Quyen quyen = new Quyen(tenQuyen);
-        lstQuyen.add(quyen);
-        dtmQuyen.addRow(sinhVien);
-        quyenDAO.add(new Quyen(tenQuyen));
-        JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+
+        int row = quyenDAO.add(new Quyen(tenQuyen));
+        if (row > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+            loadData();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+        }
         loadData();
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-
+        String tenQuyen = txtTenQuyen.getText().trim();
+        //int id = lblID.getText();
+        int row = quyenDAO.update(new Quyen(tenQuyen));
+        if (row > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+            loadData();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+        }
+        loadData();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -273,7 +291,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-
+        txtTenQuyen.setText("");
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed

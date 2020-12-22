@@ -23,9 +23,9 @@ public class CauHinhNguoiDungDAO extends AbstractDAO<CauHinhNguoiDung> implement
     }
 
     @Override
-    public void add(CauHinhNguoiDung cauHinhNguoiDung) {
+    public int add(CauHinhNguoiDung cauHinhNguoiDung) {
         String sql = "{Call insertLoaiDichVu(?,?)}";
-        this.update(sql, cauHinhNguoiDung.getMaCauHinh(), cauHinhNguoiDung.getMaNguoiDung(), cauHinhNguoiDung.getNoiDungCauHinh());
+        return this.update(sql, cauHinhNguoiDung.getMaCauHinh(), cauHinhNguoiDung.getMaNguoiDung(), cauHinhNguoiDung.getNoiDungCauHinh());
     }
 
 }

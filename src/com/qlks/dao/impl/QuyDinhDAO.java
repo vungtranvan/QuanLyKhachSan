@@ -23,21 +23,21 @@ public class QuyDinhDAO extends AbstractDAO<QuyDinh> implements IQuyDinhDAO {
     }
 
     @Override
-    public void add(QuyDinh quydinh) {
+    public int add(QuyDinh quydinh) {
         String sql = "{Call insertQuyDinh(?,?)}";
-        this.update(sql, quydinh.getTenQuyDinh(), quydinh.getMoTa());
+        return this.update(sql, quydinh.getTenQuyDinh(), quydinh.getMoTa());
     }
 
     @Override
-    public void update(QuyDinh quydinh) {
+    public int update(QuyDinh quydinh) {
         String sql = "{Call updateQuyDinh(?,?,?)}";
-        this.update(sql, quydinh.getTenQuyDinh(), quydinh.getMoTa(), quydinh.getMaQuyDinh());
+        return this.update(sql, quydinh.getTenQuyDinh(), quydinh.getMoTa(), quydinh.getMaQuyDinh());
     }
 
     @Override
-    public void delete(int maQuyDinh) {
+    public int delete(int maQuyDinh) {
         String sql = "{Call deleteQuyDinh(?)}";
-        this.update(sql, maQuyDinh);
+        return this.update(sql, maQuyDinh);
     }
 
     @Override

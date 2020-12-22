@@ -16,5 +16,5 @@ public interface IChiTietPhieuThuePhongDAO {
 
     List<ChiTietPhieuThuePhong> getAll();
 
-    void add(ChiTietPhieuThuePhong ct);
+    int add(ChiTietPhieuThuePhong ct);
 }

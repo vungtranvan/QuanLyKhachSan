@@ -29,21 +29,21 @@ public class DonViDAO extends AbstractDAO<DonVi> implements IDonViDAO {
     }
 
     @Override
-    public void add(DonVi donVi) {
+    public int add(DonVi donVi) {
         String sql = "{Call insertDonVi(?,?)}";
-        this.update(sql, donVi.getMaDonVi(), donVi.getTenDonVi());
+        return this.update(sql, donVi.getMaDonVi(), donVi.getTenDonVi());
     }
 
     @Override
-    public void update(DonVi donVi) {
+    public int update(DonVi donVi) {
         String sql = "{Call updateDonVi(?,?)}";
-        this.update(sql, donVi.getMaDonVi(), donVi.getTenDonVi());
+        return this.update(sql, donVi.getMaDonVi(), donVi.getTenDonVi());
     }
 
     @Override
-    public void delete(String maDonVi) {
+    public int delete(String maDonVi) {
         String sql = "{Call deleteDonVi(?)}";
-        this.update(sql, maDonVi);
+        return this.update(sql, maDonVi);
     }
 
 }
