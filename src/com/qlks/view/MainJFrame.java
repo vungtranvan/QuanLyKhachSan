@@ -17,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,7 +42,11 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     public MainJFrame() {
+        
         initComponents();
+        
+        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         jpnSubmenu.setVisible(false);
 
@@ -73,6 +78,14 @@ public class MainJFrame extends javax.swing.JFrame {
         invisibleSubMenu(closeSubMenu);
         setMenuBackGroundColor(36, 36, 36);
 
+    }
+    
+    private boolean logIn(){
+        do {
+            
+        } while (true);
+        
+        
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -292,8 +305,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jpnMenu = new javax.swing.JPanel();
         menuAdmin = new javax.swing.JLabel();
-        jpnMainSubMenu = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jpnMainSubMenu = new javax.swing.JPanel();
         jMain = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -323,11 +336,11 @@ public class MainJFrame extends javax.swing.JFrame {
         menuAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
         menuAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jpnMainSubMenu.setLayout(new javax.swing.BoxLayout(jpnMainSubMenu, javax.swing.BoxLayout.LINE_AXIS));
-
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jpnMainSubMenu.setLayout(new javax.swing.BoxLayout(jpnMainSubMenu, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout jpnMainLeftLayout = new javax.swing.GroupLayout(jpnMainLeft);
         jpnMainLeft.setLayout(jpnMainLeftLayout);
