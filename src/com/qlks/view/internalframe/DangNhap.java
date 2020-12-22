@@ -13,7 +13,7 @@ public class DangNhap extends javax.swing.JInternalFrame {
     /**
      * Creates new form Login
      */
-    private DangNhap() {
+    public DangNhap() {
         initComponents();
         this.getRootPane().setDefaultButton(btnDangNhap);
     }
