@@ -18,9 +18,9 @@ public interface IDonViDAO {
 
     List<DonVi> search(String maDonVi, String tenDonVi);
 
-    void add(DonVi donVi);
+    int add(DonVi donVi);
 
-    void update(DonVi donVi);
+    int update(DonVi donVi);
 
-    void delete(String maDonVi);
+    int delete(String maDonVi);
 }

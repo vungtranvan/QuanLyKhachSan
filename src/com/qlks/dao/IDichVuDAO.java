@@ -18,9 +18,9 @@ public interface IDichVuDAO {
 
     List<DichVu> search(String maDichVu, String maLoaiDichVu, String maDonVi, float donGia);
 
-    void add(DichVu dichVu);
+    int add(DichVu dichVu);
 
-    void update(DichVu dichVu);
+    int update(DichVu dichVu);
 
-    void delete(String maDichVu);
+    int delete(String maDichVu);
 }

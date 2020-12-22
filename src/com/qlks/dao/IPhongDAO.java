@@ -20,9 +20,9 @@ public interface IPhongDAO {
 
     List<Phong> search(String maPhong, String maLoaiPhong, String maLoaiTinhTrangPhong);
 
-    void add(Phong phong);
+    int add(Phong phong);
 
-    void update(Phong phong);
+    int update(Phong phong);
 
-    void delete(String maPhong);
+    int delete(String maPhong);
 }

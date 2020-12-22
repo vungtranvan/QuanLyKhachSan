@@ -23,9 +23,9 @@ public class PhieuThuePhongDAO extends AbstractDAO<PhieuThuePhong> implements IP
     }
 
     @Override
-    public void add(PhieuThuePhong phieuThuePhong) {
+    public int add(PhieuThuePhong phieuThuePhong) {
         String sql = "{Call insertPhieuThuePhong(?,?)}";
-        this.update(sql, phieuThuePhong.getMaPhieuThue(), phieuThuePhong.getMaKhachHang());
+        return this.update(sql, phieuThuePhong.getMaPhieuThue(), phieuThuePhong.getMaKhachHang());
     }
 
 }

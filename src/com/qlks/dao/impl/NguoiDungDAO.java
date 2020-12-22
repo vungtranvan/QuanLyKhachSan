@@ -31,25 +31,25 @@ public class NguoiDungDAO extends AbstractDAO<NguoiDung> implements INguoiDungDA
     }
 
     @Override
-    public void add(NguoiDung nguoiDung) {
+    public int add(NguoiDung nguoiDung) {
         String sql = "{Call insertNguoiDung(?,?,?,?,?,?,?,?)}";
-        this.update(sql, nguoiDung.getTenNguoiDung(), nguoiDung.getTenDangNhap(),
+        return this.update(sql, nguoiDung.getTenNguoiDung(), nguoiDung.getTenDangNhap(),
                 nguoiDung.getMatKhau(), nguoiDung.getAnh(), nguoiDung.getEmail(),
                 nguoiDung.getNgaySinh(), nguoiDung.isGioiTinh(), nguoiDung.getMaNhomQuyen());
     }
 
     @Override
-    public void update(NguoiDung nguoiDung) {
+    public int update(NguoiDung nguoiDung) {
         String sql = "{Call updateNguoiDung(?,?,?,?,?,?,?,?,?)}";
-        this.update(sql, nguoiDung.getTenNguoiDung(), nguoiDung.getTenDangNhap(),
+        return this.update(sql, nguoiDung.getTenNguoiDung(), nguoiDung.getTenDangNhap(),
                 nguoiDung.getMatKhau(), nguoiDung.getAnh(), nguoiDung.getEmail(),
                 nguoiDung.getNgaySinh(), nguoiDung.isGioiTinh(), nguoiDung.getMaNhomQuyen(), nguoiDung.getMaNguoiDung());
     }
 
     @Override
-    public void delete(int maNguoiDung) {
+    public int delete(int maNguoiDung) {
         String sql = "{Call deleteNguoiDung(?)}";
-        this.update(sql, maNguoiDung);
+        return this.update(sql, maNguoiDung);
     }
 
     @Override

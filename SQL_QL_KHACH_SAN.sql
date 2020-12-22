@@ -431,7 +431,7 @@ GO
 CREATE PROC getAllQuyen
 AS
 BEGIN 
-SELECT * FROM CauHinh
+SELECT * FROM Quyen
 END
 GO
 

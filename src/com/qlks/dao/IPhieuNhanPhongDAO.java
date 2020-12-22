@@ -20,9 +20,9 @@ public interface IPhieuNhanPhongDAO {
 
     List<PhieuNhanPhong> search(String maNhanPhong, String maPhieuThue, String maKhachHang);
 
-    void add(PhieuNhanPhong phieuNhanPhong);
+    int add(PhieuNhanPhong phieuNhanPhong);
 
-    void update(PhieuNhanPhong phieuNhanPhong);
+    int update(PhieuNhanPhong phieuNhanPhong);
 
-    void delete(String maNhanPhong);
+    int delete(String maNhanPhong);
 }

@@ -16,11 +16,11 @@ public interface IQuyDinhDAO {
 
     List<QuyDinh> getAll();
 
-    void add(QuyDinh location);
+    int add(QuyDinh location);
 
-    void update(QuyDinh location);
+    int update(QuyDinh location);
 
-    void delete(int maQuyDinh);
+    int delete(int maQuyDinh);
 
     List<QuyDinh> search(String tenQuyDinh);
 }

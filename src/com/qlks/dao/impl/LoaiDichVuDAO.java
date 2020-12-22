@@ -29,21 +29,21 @@ public class LoaiDichVuDAO extends AbstractDAO<LoaiDichVu> implements ILoaiDichV
     }
 
     @Override
-    public void add(LoaiDichVu loaiDichVu) {
+    public int add(LoaiDichVu loaiDichVu) {
         String sql = "{Call insertLoaiDichVu(?,?)}";
-        this.update(sql, loaiDichVu.getMaLoaiDichVu(), loaiDichVu.getTenLoaiDichVu());
+        return this.update(sql, loaiDichVu.getMaLoaiDichVu(), loaiDichVu.getTenLoaiDichVu());
     }
 
     @Override
-    public void update(LoaiDichVu loaiDichVu) {
+    public int update(LoaiDichVu loaiDichVu) {
         String sql = "{Call updateLoaiDichVu(?,?)}";
-        this.update(sql, loaiDichVu.getMaLoaiDichVu(), loaiDichVu.getTenLoaiDichVu());
+        return this.update(sql, loaiDichVu.getMaLoaiDichVu(), loaiDichVu.getTenLoaiDichVu());
     }
 
     @Override
-    public void delete(String maLoaiDichVu) {
+    public int delete(String maLoaiDichVu) {
         String sql = "{Call deleteLoaiDichVu(?,?)}";
-        this.update(sql, maLoaiDichVu);
+        return this.update(sql, maLoaiDichVu);
     }
 
 }

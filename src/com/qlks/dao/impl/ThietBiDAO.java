@@ -29,21 +29,21 @@ public class ThietBiDAO extends AbstractDAO<ThietBi> implements IThietBiDAO {
     }
 
     @Override
-    public void add(ThietBi thietbi) {
+    public int add(ThietBi thietbi) {
         String sql = "{Call insertThietBi(?,?,?,?,?)}";
-        this.update(sql, thietbi.getMaThietBi(), thietbi.getMaLoaiPhong(), thietbi.getTenThietBi(), thietbi.getSoLuong(), thietbi.getGia());
+        return this.update(sql, thietbi.getMaThietBi(), thietbi.getMaLoaiPhong(), thietbi.getTenThietBi(), thietbi.getSoLuong(), thietbi.getGia());
     }
 
     @Override
-    public void update(ThietBi thietbi) {
+    public int update(ThietBi thietbi) {
         String sql = "{Call updateThietBi(?,?,?,?,?)}";
-        this.update(sql, thietbi.getMaThietBi(), thietbi.getMaLoaiPhong(), thietbi.getTenThietBi(), thietbi.getSoLuong(), thietbi.getGia());
+        return this.update(sql, thietbi.getMaThietBi(), thietbi.getMaLoaiPhong(), thietbi.getTenThietBi(), thietbi.getSoLuong(), thietbi.getGia());
     }
 
     @Override
-    public void delete(String maThietBi) {
+    public int delete(String maThietBi) {
         String sql = "{Call deleteThietBi(?)}";
-        this.update(sql, maThietBi);
+        return this.update(sql, maThietBi);
     }
 
 }

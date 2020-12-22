@@ -29,21 +29,21 @@ public class CauHinhDAO extends AbstractDAO<CauHinh> implements ICauHinhDAO {
     }
 
     @Override
-    public void add(CauHinh cauhinh) {
+    public int add(CauHinh cauhinh) {
         String sql = "{Call insertCauHinh(?)}";
-        this.update(sql, cauhinh.getLoaiCauHinh());
+        return this.update(sql, cauhinh.getLoaiCauHinh());
     }
 
     @Override
-    public void update(CauHinh cauhinh) {
+    public int update(CauHinh cauhinh) {
         String sql = "{Call updateCauHinh(?,?)}";
-        this.update(sql, cauhinh.getLoaiCauHinh(), cauhinh.getMaCauHinh());
+        return this.update(sql, cauhinh.getLoaiCauHinh(), cauhinh.getMaCauHinh());
     }
 
     @Override
-    public void delete(int maCauHinh) {
+    public int delete(int maCauHinh) {
         String sql = "{Call deleteCauHinh(?)}";
-        this.update(sql, maCauHinh);
+        return this.update(sql, maCauHinh);
     }
 
 }

@@ -29,23 +29,23 @@ public class LoaiPhongDAO extends AbstractDAO<LoaiPhong> implements ILoaiPhongDA
     }
 
     @Override
-    public void add(LoaiPhong loaiPhong) {
+    public int add(LoaiPhong loaiPhong) {
         String sql = "{Call insertLoaiPhong(?,?,?,?,?,?)}";
-        this.update(sql, loaiPhong.getMaLoaiPhong(), loaiPhong.getTenLoaiPhong(),
+        return this.update(sql, loaiPhong.getMaLoaiPhong(), loaiPhong.getTenLoaiPhong(),
                 loaiPhong.getDonGia(), loaiPhong.getSoNguoiChuan(), loaiPhong.getSoNguoiToiDa(), loaiPhong.getTyLeTang());
     }
 
     @Override
-    public void update(LoaiPhong loaiPhong) {
+    public int update(LoaiPhong loaiPhong) {
         String sql = "{Call updateLoaiPhong(?,?,?,?,?,?)}";
-        this.update(sql, loaiPhong.getMaLoaiPhong(), loaiPhong.getTenLoaiPhong(),
+        return this.update(sql, loaiPhong.getMaLoaiPhong(), loaiPhong.getTenLoaiPhong(),
                 loaiPhong.getDonGia(), loaiPhong.getSoNguoiChuan(), loaiPhong.getSoNguoiToiDa(), loaiPhong.getTyLeTang());
     }
 
     @Override
-    public void delete(String maLoaiPhong) {
+    public int delete(String maLoaiPhong) {
         String sql = "{Call deleteLoaiPhong(?)}";
-        this.update(sql, maLoaiPhong);
+        return this.update(sql, maLoaiPhong);
     }
 
 }

@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface GenericDAO<T> {
        <T> List <T> query(String sql, RowMapper<T> rowMapper, Object... parameter);
-       void update(String sql, Object... parameters);
+       int update(String sql, Object... parameters);
 }

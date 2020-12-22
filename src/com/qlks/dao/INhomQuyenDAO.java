@@ -18,9 +18,9 @@ public interface INhomQuyenDAO {
 
     List<NhomQuyen> search(int maNhomQuyen, String tenNhomQuyen);
 
-    void add(NhomQuyen nhomQuyen);
+    int add(NhomQuyen nhomQuyen);
 
-    void update(NhomQuyen nhomQuyen);
+    int update(NhomQuyen nhomQuyen);
 
-    void delete(int maNhomQuyen);
+    int delete(int maNhomQuyen);
 }

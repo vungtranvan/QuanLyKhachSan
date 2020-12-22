@@ -25,9 +25,9 @@ public interface IHoaDonDAO {
 
     List<HoaDon> search(String maHoaDon, String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, LocalDateTime ngayLap);
 
-    void add(HoaDon hoaDon);
+    int add(HoaDon hoaDon);
 
-    void update(HoaDon hoaDon);
+    int update(HoaDon hoaDon);
 
-    void delete(String maHoaDon);
+    int delete(String maHoaDon);
 }

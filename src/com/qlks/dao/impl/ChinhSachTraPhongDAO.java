@@ -29,21 +29,21 @@ public class ChinhSachTraPhongDAO extends AbstractDAO<ChinhSachTraPhong> impleme
     }
 
     @Override
-    public void add(ChinhSachTraPhong chinhSach) {
+    public int add(ChinhSachTraPhong chinhSach) {
         String sql = "{Call insertChinhSachTraPhong(?,?,?)}";
-        this.update(sql, chinhSach.getMaChinhSach(), chinhSach.getNoiDung(), chinhSach.getPhuThu());
+        return this.update(sql, chinhSach.getMaChinhSach(), chinhSach.getNoiDung(), chinhSach.getPhuThu());
     }
 
     @Override
-    public void update(ChinhSachTraPhong chinhSach) {
+    public int update(ChinhSachTraPhong chinhSach) {
         String sql = "{Call updateChinhSachTraPhong(?,?,?)}";
-        this.update(sql, chinhSach.getMaChinhSach(), chinhSach.getNoiDung(), chinhSach.getPhuThu());
+        return this.update(sql, chinhSach.getMaChinhSach(), chinhSach.getNoiDung(), chinhSach.getPhuThu());
     }
 
     @Override
-    public void delete(String maChinhSachTraPhong) {
+    public int delete(String maChinhSachTraPhong) {
         String sql = "{Call deleteChinhSachTraPhong(?)}";
-        this.update(sql, maChinhSachTraPhong);
+        return this.update(sql, maChinhSachTraPhong);
     }
 
 }

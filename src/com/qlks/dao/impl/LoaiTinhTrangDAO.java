@@ -35,21 +35,21 @@ public class LoaiTinhTrangDAO extends AbstractDAO<LoaiTinhTrang> implements ILoa
     }
 
     @Override
-    public void add(LoaiTinhTrang loaiTinhTrang) {
+    public int add(LoaiTinhTrang loaiTinhTrang) {
         String sql = "{Call insertLoaiTinhTrang(?)}";
-        this.update(sql, loaiTinhTrang.getTenLoaiTinhTrang());
+        return this.update(sql, loaiTinhTrang.getTenLoaiTinhTrang());
     }
 
     @Override
-    public void update(LoaiTinhTrang loaiTinhTrang) {
+    public int update(LoaiTinhTrang loaiTinhTrang) {
         String sql = "{Call updateLoaiTinhTrang(?,?)}";
-        this.update(sql, loaiTinhTrang.getMaLoaiTinhTrangPhong(), loaiTinhTrang.getTenLoaiTinhTrang());
+        return this.update(sql, loaiTinhTrang.getMaLoaiTinhTrangPhong(), loaiTinhTrang.getTenLoaiTinhTrang());
     }
 
     @Override
-    public void delete(int maLoaiTinhTrang) {
+    public int delete(int maLoaiTinhTrang) {
         String sql = "{Call deleteLoaiTinhTrang(?)}";
-        this.update(sql, maLoaiTinhTrang);
+        return this.update(sql, maLoaiTinhTrang);
     }
 
 }

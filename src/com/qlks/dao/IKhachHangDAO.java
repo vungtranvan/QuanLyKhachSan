@@ -18,10 +18,10 @@ public interface IKhachHangDAO {
 
     List<KhachHang> search(String maKhachHang, String tenKhachHang, String CMND, String diaChi, int dienThoai, Boolean gioiTinh, String quocTich);
 
-    void add(KhachHang khachHang);
+    int add(KhachHang khachHang);
 
-    void update(KhachHang khachHang);
+    int update(KhachHang khachHang);
 
-    void delete(String maKhachHang);
+    int delete(String maKhachHang);
 
 }

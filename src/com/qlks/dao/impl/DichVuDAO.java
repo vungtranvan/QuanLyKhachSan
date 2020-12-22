@@ -29,21 +29,21 @@ public class DichVuDAO extends AbstractDAO<DichVu> implements IDichVuDAO {
     }
 
     @Override
-    public void add(DichVu dichVu) {
+    public int add(DichVu dichVu) {
         String sql = "{Call insertDichVu(?,?,?,?)}";
-        this.update(sql, dichVu.getMaDichVu(), dichVu.getMaLoaiDichVu(), dichVu.getMaDonVi(), dichVu.getDonGia());
+        return this.update(sql, dichVu.getMaDichVu(), dichVu.getMaLoaiDichVu(), dichVu.getMaDonVi(), dichVu.getDonGia());
     }
 
     @Override
-    public void update(DichVu dichVu) {
+    public int update(DichVu dichVu) {
         String sql = "{Call updateDichVu(?,?,?,?)}";
-        this.update(sql, dichVu.getMaDichVu(), dichVu.getMaLoaiDichVu(), dichVu.getMaDonVi(), dichVu.getDonGia());
+        return this.update(sql, dichVu.getMaDichVu(), dichVu.getMaLoaiDichVu(), dichVu.getMaDonVi(), dichVu.getDonGia());
     }
 
     @Override
-    public void delete(String maDichVu) {
+    public int delete(String maDichVu) {
         String sql = "{Call deleteDichVu(?)}";
-        this.update(sql, maDichVu);
+        return this.update(sql, maDichVu);
     }
 
 }

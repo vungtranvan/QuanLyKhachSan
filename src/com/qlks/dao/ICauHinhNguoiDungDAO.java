@@ -16,5 +16,5 @@ public interface ICauHinhNguoiDungDAO {
 
     List<CauHinhNguoiDung> getAll();
 
-    void add(CauHinhNguoiDung cauHinhNguoiDung);
+    int add(CauHinhNguoiDung cauHinhNguoiDung);
 }

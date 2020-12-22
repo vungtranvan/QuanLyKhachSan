@@ -35,21 +35,21 @@ public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> i
     }
 
     @Override
-    public void add(DanhSachSuDungDichVu dv) {
+    public int add(DanhSachSuDungDichVu dv) {
         String sql = "{Call insertDanhSachSuDungDichVu(?,?,?,?)}";
-        this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getSoLuong());
+        return this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getSoLuong());
     }
 
     @Override
-    public void update(DanhSachSuDungDichVu dv) {
+    public int update(DanhSachSuDungDichVu dv) {
         String sql = "{Call updateDanhSachSuDungDichVu(?,?,?,?)}";
-        this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getSoLuong());
+        return this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getSoLuong());
     }
 
     @Override
-    public void delete(String maSuDungDVu) {
+    public int delete(String maSuDungDVu) {
         String sql = "{Call deleteDanhSachSuDungDichVu(?)}";
-        this.update(sql, maSuDungDVu);
+        return this.update(sql, maSuDungDVu);
     }
 
 }

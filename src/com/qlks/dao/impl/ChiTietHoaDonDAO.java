@@ -29,9 +29,9 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
     }
 
     @Override
-    public void add(ChiTietHoaDon ct) {
+    public int add(ChiTietHoaDon ct) {
         String sql = "{Call insertChiTietHoaDon(?,?,?,?,?,?,?,?,?,?,?)}";
-        this.update(sql, ct.getMaHoaDon(), ct.getMaPhong(), ct.getMaSuDungDichVu(),
+        return this.update(sql, ct.getMaHoaDon(), ct.getMaPhong(), ct.getMaSuDungDichVu(),
                 ct.getMaChinhSach(), ct.getPhuThu(), ct.getTienPhong(), ct.getTienDichVu(),
                 ct.getGiamGiaKH(), ct.getHinhThucThanhToan(), ct.getSoNgay(), ct.getThanhTien());
     }
