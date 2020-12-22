@@ -58,7 +58,8 @@ public class MainJFrame extends javax.swing.JFrame {
         JPanel subMenuItemRule = new JPanel();
 
         listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemAdmin, "Quan ly nguoi dung"));
-        showInternalFrame(subMenuItemAdmin, new DangNhap());
+        JInternalFrame dangnhap = new DangNhap();
+        showInternalFrame(subMenuItemAdmin, dangnhap);
 
         listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemRule, "Quan ly Quyen"));
         showInternalFrame(subMenuItemRule, new QuanLyQuyen());
@@ -72,6 +73,15 @@ public class MainJFrame extends javax.swing.JFrame {
         invisibleSubMenu(closeSubMenu);
         setMenuBackGroundColor(36, 36, 36);
 
+    }
+
+    public void centerJIF(JInternalFrame jif) {
+        Dimension desktopSize = jMain.getSize();
+        Dimension jInternalFrameSize = jif.getSize();
+        int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+        int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+        jif.setLocation(width, height);
+        jif.setVisible(true);
     }
 
     private void setMenuBackGroundColor(int red, int green, int blue) {
@@ -205,14 +215,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void showInternalFrame(JPanel jb, JInternalFrame jif) {
 
-
-
         jb.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
 
                 if (!jif.isVisible()) {
                     jMain.add(jif);
+                    centerJIF(jif);
                     jif.setVisible(true);
                 }
 
@@ -358,7 +367,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpnMainLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1142, Short.MAX_VALUE))
+                .addComponent(jMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1332, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
