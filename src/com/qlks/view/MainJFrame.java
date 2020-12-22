@@ -70,7 +70,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         invisibleSubMenu(closeSubMenu);
         setMenuBackGroundColor(36, 36, 36);
-        FontCustom font = new FontCustom();
 
     }
 
@@ -104,9 +103,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
                 jpnSubmenu.add(makeSubMenuTitle(subMenuItemTitle, title));
 
-                for (JPanel item : items) {
+                items.forEach(item -> {
                     jpnSubmenu.add(item);
-                }
+                });
                 jpnSubmenu.revalidate();
                 jpnSubmenu.repaint();
 
@@ -204,12 +203,18 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     private void showInternalFrame(JPanel jb, JInternalFrame jif) {
+
+
+
         jb.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
 
-                jMain.add(jif);
-                jif.setVisible(true);
+                if (!jif.isVisible()) {
+                    jMain.add(jif);
+                    jif.setVisible(true);
+                }
+
             }
 
             @Override
