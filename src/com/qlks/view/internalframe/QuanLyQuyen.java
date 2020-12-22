@@ -55,8 +55,10 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
                 }
 
                 // Chèn dữ liệu lên form
-                lblID.setText(tblQuyen.getValueAt(currentRow, 0).toString());
-                txtTenQuyen.setText(tblQuyen.getValueAt(currentRow, 1).toString());
+                if (currentRow > 0) {
+                    lblID.setText(tblQuyen.getValueAt(currentRow, 0).toString());
+                    txtTenQuyen.setText(tblQuyen.getValueAt(currentRow, 1).toString());
+                }
             }
         });
         tblQuyen.changeSelection(0, 0, false, false);
