@@ -7,6 +7,7 @@ package com.qlks.view;
 
 import com.qlks.fonts.FontCustom;
 import com.qlks.view.internalframe.DangNhap;
+import com.qlks.view.internalframe.QuanLyQuyen;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -60,7 +61,7 @@ public class MainJFrame extends javax.swing.JFrame {
         showInternalFrame(subMenuItemAdmin, new DangNhap());
 
         listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemRule, "Quan ly Quyen"));
-
+        showInternalFrame(subMenuItemRule, new QuanLyQuyen());
         JPanel subMenuItemRoom = new JPanel();
 
         listSubMenuItemRoom.add(makeSubMenuItem(subMenuItemRoom, "Quan ly phong"));

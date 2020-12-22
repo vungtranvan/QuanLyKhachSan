@@ -39,9 +39,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
             Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if (conn != null) {
-                    conn.close();
-                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
                 if (csmt != null) {
                     csmt.close();
                 }
@@ -101,9 +101,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
             Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if (conn != null) {
-                    conn.close();
-                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
                 if (csmt != null) {
                     csmt.close();
                 }

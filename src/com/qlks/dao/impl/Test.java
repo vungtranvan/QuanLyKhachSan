@@ -5,7 +5,8 @@
  */
 package com.qlks.dao.impl;
 
-import com.qlks.models.QuyDinh;
+import com.qlks.models.KhuyenMai;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,11 +16,12 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) {
-        QuyDinhDAO dao = new QuyDinhDAO();
-        String name = "";
-        List<QuyDinh> data = dao.search(name);
-        for (QuyDinh data1 : data) {
-            System.out.println("Tên: " + data1.getTenQuyDinh());
+        KhuyenMaiDAO dao = new KhuyenMaiDAO();
+        //dao.add(new KhuyenMai("DBA1234", 40, "Demo khuyến mại", LocalDate.parse("2020-12-22"), LocalDate.parse("2020-12-30"), false, true));
+        
+        List<KhuyenMai> data = dao.getAll();
+        for (KhuyenMai data1 : data) {
+            System.out.println(data1.getMaPhieu());
         }
     }
 }
