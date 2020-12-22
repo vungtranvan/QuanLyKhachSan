@@ -36,6 +36,7 @@ public class LogInJFrame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(54, 54, 54));
 
         jlbLogInTitle.setFont(new java.awt.Font("Monospaced", 1, 24)); // NOI18N
+        jlbLogInTitle.setForeground(new java.awt.Color(255, 255, 255));
         jlbLogInTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbLogInTitle.setText("Đăng Nhập");
 
@@ -52,10 +53,10 @@ public class LogInJFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jlbLogInTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbLogInTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbLogInIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 301, Short.MAX_VALUE))
+                .addComponent(jlbLogInIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 375, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
