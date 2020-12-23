@@ -32,7 +32,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
         quyenDAO = new QuyenDAO();
         loadData();
         txtErrorTenQuyen.setText("");
-        lblID.setText("");
+        resetText();
     }
 
     public void loadData() {
@@ -309,18 +309,21 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        int id = Integer.parseInt(lblID.getText());
-//        if (id) {
-//            
-//        }
-        int row = quyenDAO.delete(id);
-        if (row > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Xóa thành công", null, JOptionPane.INFORMATION_MESSAGE);
-            resetText();
+
+        if (lblID.getText().length() > 0) {
+            int id = Integer.parseInt(lblID.getText());
+            int row = quyenDAO.delete(id);
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Xóa thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                resetText();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Xóa thất bại, Vui lòng kiểm tra lại", null, JOptionPane.ERROR_MESSAGE);
+            }
+            loadData();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Xóa thất bại, Vui lòng kiểm tra lại", null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa!", null, JOptionPane.WARNING_MESSAGE);
         }
-        loadData();
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
