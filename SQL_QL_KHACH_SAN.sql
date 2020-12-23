@@ -353,6 +353,7 @@ CREATE PROC SearchQuyDinh
 AS
 BEGIN 
 SELECT * FROM QuyDinh Where TenQuyDinh LIKE '%'+@TenQuyDinh+'%'
+ORDER BY MaQuyDinh DESC
 END
 GO
 
@@ -397,6 +398,7 @@ CREATE PROC SearchCauHinh
 AS
 BEGIN 
 SELECT * FROM CauHinh Where LoaiCauHinh LIKE '%'+@LoaiCauHinh+'%'
+ORDER BY MaCauHinh DESC
 END
 GO
 
@@ -440,6 +442,7 @@ CREATE PROC SearchQuyen
 AS
 BEGIN 
 SELECT * FROM Quyen Where Quyen LIKE '%'+@Quyen+'%'
+ORDER BY MaQuyen DESC
 END
 GO
 
@@ -490,6 +493,7 @@ BEGIN
 SELECT * FROM NguoiDung Where MaNguoiDung = @MaNguoiDung OR TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
 OR TenDangNhap LIKE '%'+@TenDangNhap+'%' OR Email LIKE '%'+@Email+'%' OR NgaySinh LIKE '%'+@NgaySinh+'%' 
 OR GioiTinh = @GioiTinh OR MaNhomQuyen =@MaNhomQuyen
+ORDER BY MaNguoiDung DESC
 END
 GO
 
@@ -1073,7 +1077,7 @@ CREATE PROC getByMaKhuyenMai
 @MaKhuyenMai int
 AS
 BEGIN 
-SELECT * FROM KhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai
+SELECT * FROM KhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai ORDER BY MaKhuyenMai DESC
 END
 GO
 
@@ -1092,6 +1096,7 @@ SELECT * FROM KhuyenMai
 Where MaKhuyenMai = @MaKhuyenMai OR MaPhieu LIKE '%'+@MaPhieu+'%'
 OR GiaTri =@GiaTri OR NoiDung LIKE '%'+@NoiDung+'%' OR NgayBatDau = @NgayBatDau
 OR NgayKetThuc =@NgayKetThuc OR KieuTinh =@KieuTinh OR TrangThai =@TrangThai
+ORDER BY MaKhuyenMai DESC
 END
 GO
 
@@ -1144,7 +1149,8 @@ CREATE PROC getByMaLoaiTinhTrang
 @MaLoaiTinhTrangPhong int
 AS
 BEGIN 
-SELECT * FROM LoaiTinhTrang WHERE MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong
+SELECT * FROM LoaiTinhTrang WHERE MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong 
+ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 
@@ -1155,6 +1161,7 @@ AS
 BEGIN 
 SELECT * FROM LoaiTinhTrang 
 Where MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong OR TenLoaiTinhTrang LIKE '%'+@TenLoaiTinhTrang+'%'
+ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 
