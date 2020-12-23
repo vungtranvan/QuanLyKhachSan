@@ -42,10 +42,10 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     public MainJFrame() {
+        logIn();
         
         initComponents();
-        
-        
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         jpnSubmenu.setVisible(false);
@@ -79,13 +79,14 @@ public class MainJFrame extends javax.swing.JFrame {
         setMenuBackGroundColor(36, 36, 36);
 
     }
-    
-    private boolean logIn(){
-        do {
-            
-        } while (true);
+
+    private void logIn() {
+        LogInJFrame logInJFrame = new LogInJFrame();
+        logInJFrame.setLocationRelativeTo(null);
+        logInJFrame.setVisible(true);
+       
         
-        
+
     }
 
     public void centerJIF(JInternalFrame jif) {
