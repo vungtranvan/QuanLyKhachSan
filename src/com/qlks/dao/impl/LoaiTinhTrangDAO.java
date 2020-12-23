@@ -29,9 +29,9 @@ public class LoaiTinhTrangDAO extends AbstractDAO<LoaiTinhTrang> implements ILoa
     }
 
     @Override
-    public List<LoaiTinhTrang> search(int maLoaiTinhTrang, String tenLoaiTinhTrang) {
-        String sql = "{Call SearchLoaiTinhTrang(?,?)}";
-        return query(sql, new LoaiTinhTrangMapper(), maLoaiTinhTrang, tenLoaiTinhTrang);
+    public List<LoaiTinhTrang> search(String tenLoaiTinhTrang) {
+        String sql = "{Call SearchLoaiTinhTrang(?)}";
+        return query(sql, new LoaiTinhTrangMapper(), tenLoaiTinhTrang);
     }
 
     @Override

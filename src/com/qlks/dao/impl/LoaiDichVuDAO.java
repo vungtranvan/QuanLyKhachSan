@@ -23,6 +23,12 @@ public class LoaiDichVuDAO extends AbstractDAO<LoaiDichVu> implements ILoaiDichV
     }
 
     @Override
+    public List<LoaiDichVu> getByMa(String maLoaiDVu) {
+        String sql = "{Call getLoaiDichVuByMa(?)}";
+        return query(sql, new LoaiDichVuMapper(),maLoaiDVu);
+    }
+
+    @Override
     public List<LoaiDichVu> search(String maLoaiDichVu, String tenLoaiDichVu) {
         String sql = "{Call SearchLoaiDichVu(?,?)}";
         return query(sql, new LoaiDichVuMapper(), maLoaiDichVu, tenLoaiDichVu);

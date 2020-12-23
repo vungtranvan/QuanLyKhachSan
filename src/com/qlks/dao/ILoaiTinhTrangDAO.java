@@ -18,7 +18,7 @@ public interface ILoaiTinhTrangDAO {
 
     List<LoaiTinhTrang> getByMaLoaiTinhTrang(int maLoaiTinhTrang);
 
-    List<LoaiTinhTrang> search(int maLoaiTinhTrang, String tenLoaiTinhTrang);
+    List<LoaiTinhTrang> search(String tenLoaiTinhTrang);
 
     int add(LoaiTinhTrang loaiTinhTrang);
 

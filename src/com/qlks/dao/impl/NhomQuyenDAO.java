@@ -23,9 +23,9 @@ public class NhomQuyenDAO extends AbstractDAO<NhomQuyen> implements INhomQuyenDA
     }
 
     @Override
-    public List<NhomQuyen> search(int maNhomQuyen, String tenNhomQuyen) {
-        String sql = "{Call SearchNhomQuyen(?,?)}";
-        return query(sql, new NhomQuyenMapper(), maNhomQuyen, tenNhomQuyen);
+    public List<NhomQuyen> search(String tenNhomQuyen) {
+        String sql = "{Call SearchNhomQuyen(?)}";
+        return query(sql, new NhomQuyenMapper(), tenNhomQuyen);
     }
 
     @Override

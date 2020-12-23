@@ -16,7 +16,7 @@ public interface INhomQuyenDAO {
 
     List<NhomQuyen> getAll();
 
-    List<NhomQuyen> search(int maNhomQuyen, String tenNhomQuyen);
+    List<NhomQuyen> search(String tenNhomQuyen);
 
     int add(NhomQuyen nhomQuyen);
 

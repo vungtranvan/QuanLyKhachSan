@@ -16,6 +16,8 @@ public interface ILoaiDichVuDAO {
 
     List<LoaiDichVu> getAll();
 
+    List<LoaiDichVu> getByMa(String maLoaiDVu);
+
     List<LoaiDichVu> search(String maLoaiDichVu, String tenLoaiDichVu);
 
     int add(LoaiDichVu loaiDichVu);

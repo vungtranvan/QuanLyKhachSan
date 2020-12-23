@@ -16,6 +16,8 @@ public interface IChinhSachTraPhongDAO {
 
     List<ChinhSachTraPhong> getAll();
 
+    List<ChinhSachTraPhong> getByMa(String maChinhSach);
+
     List<ChinhSachTraPhong> search(String maChinhSachTraPhong, String noiDungMaChinhSach);
 
     int add(ChinhSachTraPhong chinhSach);

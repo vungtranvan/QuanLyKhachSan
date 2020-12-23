@@ -23,6 +23,12 @@ public class ChinhSachTraPhongDAO extends AbstractDAO<ChinhSachTraPhong> impleme
     }
 
     @Override
+    public List<ChinhSachTraPhong> getByMa(String maChinhSach) {
+        String sql = "{Call getChinhSachTraPhongByMa(?)}";
+        return query(sql, new ChinhSachTraPhongMapper(), maChinhSach);
+    }
+
+    @Override
     public List<ChinhSachTraPhong> search(String maChinhSachTraPhong, String noiDungMaChinhSach) {
         String sql = "{Call SearchChinhSachTraPhong(?,?)}";
         return query(sql, new ChinhSachTraPhongMapper(), maChinhSachTraPhong, noiDungMaChinhSach);

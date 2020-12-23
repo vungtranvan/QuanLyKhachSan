@@ -23,6 +23,12 @@ public class DonViDAO extends AbstractDAO<DonVi> implements IDonViDAO {
     }
 
     @Override
+    public List<DonVi> getByMa(String maDVi) {
+        String sql = "{Call getDonViByMa(?)}";
+        return query(sql, new DonViMapper(), maDVi);
+    }
+
+    @Override
     public List<DonVi> search(String maDonVi, String tenDonVi) {
         String sql = "{Call SearchDonVi(?,?)}";
         return query(sql, new DonViMapper(), maDonVi, tenDonVi);

@@ -16,6 +16,8 @@ public interface IDonViDAO {
 
     List<DonVi> getAll();
 
+    List<DonVi> getByMa(String maDVi);
+
     List<DonVi> search(String maDonVi, String tenDonVi);
 
     int add(DonVi donVi);
