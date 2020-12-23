@@ -344,7 +344,7 @@ GO
 CREATE PROC getAllQuyDinh
 AS
 BEGIN 
-SELECT * FROM QuyDinh
+SELECT * FROM QuyDinh ORDER BY MaQuyDinh DESC
 END
 GO
 
@@ -388,7 +388,7 @@ GO
 CREATE PROC getAllCauHinh
 AS
 BEGIN 
-SELECT * FROM CauHinh
+SELECT * FROM CauHinh ORDER BY MaCauHinh DESC
 END
 GO
 
@@ -431,7 +431,7 @@ GO
 CREATE PROC getAllQuyen
 AS
 BEGIN 
-SELECT * FROM Quyen
+SELECT * FROM Quyen ORDER BY MaQuyen DESC
 END
 GO
 
@@ -473,7 +473,7 @@ GO
 CREATE PROC getAllNguoiDung
 AS
 BEGIN 
-SELECT * FROM NguoiDung
+SELECT * FROM NguoiDung ORDER BY MaNguoiDung DESC
 END
 GO
 
@@ -498,6 +498,15 @@ CREATE PROC getNguoiDungById
 AS
 BEGIN 
 SELECT * FROM NguoiDung Where MaNguoiDung = @MaNguoiDung
+END
+GO
+
+CREATE PROC checkLoginNguoiDung
+@TenDangNhap varchar (50),
+@MatKhau nvarchar (50)
+AS
+BEGIN 
+SELECT * FROM NguoiDung Where (TenDangNhap = @TenDangNhap OR Email = @TenDangNhap) AND MatKhau = @MatKhau
 END
 GO
 
@@ -1056,7 +1065,7 @@ GO
 CREATE PROC getAllKhuyenMai
 AS
 BEGIN 
-SELECT * FROM KhuyenMai
+SELECT * FROM KhuyenMai ORDER BY MaKhuyenMai DESC
 END
 GO
 
@@ -1127,7 +1136,7 @@ GO
 CREATE PROC getAllLoaiTinhTrang
 AS
 BEGIN 
-SELECT * FROM LoaiTinhTrang
+SELECT * FROM LoaiTinhTrang ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 

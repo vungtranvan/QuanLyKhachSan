@@ -31,37 +31,48 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
         dtmQuyen = new DefaultTableModel();
         quyenDAO = new QuyenDAO();
         loadData();
+        txtErrorTenQuyen.setText("");
+        lblID.setText("");
     }
 
     public void loadData() {
-        Object[] columnNames = {"Mã Quyền", "Tên Quyền"};
+        Object[] columnNames = {"STT", "Mã Quyền", "Tên Quyền"};
         lstQuyen = quyenDAO.getAll();
         dtmQuyen = new DefaultTableModel(new Object[0][0], columnNames);
+        int index = 1;
         for (Quyen adv : lstQuyen) {
-            Object[] o = new Object[2];
-            o[0] = adv.getMaQuyen();
-            o[1] = adv.getQuyen();
+            Object[] o = new Object[3];
+            o[0] = index;
+            o[1] = adv.getMaQuyen();
+            o[2] = adv.getQuyen();
             dtmQuyen.addRow(o);
+            index++;
         }
         tblQuyen.setModel(dtmQuyen);
 
         // Cài đặt sự kiện khi click từng dòng trong bảng
-        tblQuyen.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int currentRow = tblQuyen.getSelectedRow();
-                if (currentRow < 0) {
-                    currentRow = 0;
-                }
+        if (lstQuyen.size() > 0) {
+            tblQuyen.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    int currentRow = tblQuyen.getSelectedRow();
+                    if (currentRow < 0) {
+                        currentRow = 0;
+                    }
 
-                // Chèn dữ liệu lên form
-                if (currentRow > 0) {
-                    lblID.setText(tblQuyen.getValueAt(currentRow, 0).toString());
-                    txtTenQuyen.setText(tblQuyen.getValueAt(currentRow, 1).toString());
+                    // Chèn dữ liệu lên form
+                    if (currentRow >= 0) {
+                        lblID.setText(tblQuyen.getValueAt(currentRow, 1).toString());
+                        txtTenQuyen.setText(tblQuyen.getValueAt(currentRow, 2).toString());
+                    }
                 }
-            }
-        });
-        tblQuyen.changeSelection(0, 0, false, false);
+            });
+        }
+    }
+
+    public void resetText() {
+        lblID.setText("");
+        txtTenQuyen.setText("");
     }
 
     /**
@@ -84,6 +95,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
         lblResult = new javax.swing.JLabel();
         btnLamMoi = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
+        txtErrorTenQuyen = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblQuyen = new javax.swing.JTable();
@@ -94,7 +106,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Quyền"));
 
-        jLabel1.setText("ID:");
+        jLabel1.setText("Mã quyền:");
 
         lblID.setText("...");
 
@@ -144,33 +156,16 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
             }
         });
 
+        txtErrorTenQuyen.setForeground(new java.awt.Color(255, 51, 51));
+        txtErrorTenQuyen.setText("...");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTenQuyen))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnLamMoi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(btnThemMoi)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCapNhat)
-                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(77, 77, 77)
                         .addComponent(lblResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -179,7 +174,25 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
                         .addComponent(btnXoa)
                         .addGap(28, 28, 28)
                         .addComponent(btnTimKiem)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtErrorTenQuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtTenQuyen)
+                                    .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnLamMoi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                                .addComponent(btnThemMoi)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCapNhat)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,18 +205,20 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtTenQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(5, 5, 5)
+                .addComponent(txtErrorTenQuyen)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblResult)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThemMoi)
                     .addComponent(btnCapNhat)
                     .addComponent(btnLamMoi))
                 .addGap(10, 10, 10)
-                .addComponent(lblResult)
-                .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTimKiem)
                     .addComponent(btnXoa))
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -264,36 +279,53 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
         String tenQuyen = txtTenQuyen.getText().trim();
-
-        int row = quyenDAO.add(new Quyen(tenQuyen));
-        if (row > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+        if (tenQuyen.length() > 0) {
+            int row = quyenDAO.add(new Quyen(tenQuyen));
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                txtErrorTenQuyen.setText("");
+                loadData();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+            }
             loadData();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+            txtErrorTenQuyen.setText("Tên quyền không được để trống !");
         }
-        loadData();
+
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         String tenQuyen = txtTenQuyen.getText().trim();
-        //int id = lblID.getText();
-        int row = quyenDAO.update(new Quyen(tenQuyen));
+        int id = Integer.parseInt(lblID.getText());
+        int row = quyenDAO.update(new Quyen(id, tenQuyen));
         if (row > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
             loadData();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Cập nhật bại", null, JOptionPane.ERROR_MESSAGE);
         }
         loadData();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-
+        int id = Integer.parseInt(lblID.getText());
+//        if (id) {
+//            
+//        }
+        int row = quyenDAO.delete(id);
+        if (row > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Xóa thành công", null, JOptionPane.INFORMATION_MESSAGE);
+            resetText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Xóa thất bại, Vui lòng kiểm tra lại", null, JOptionPane.ERROR_MESSAGE);
+        }
+        loadData();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        txtTenQuyen.setText("");
+        resetText();
+        loadData();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -315,6 +347,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblResult;
     private javax.swing.JTable tblQuyen;
+    private javax.swing.JLabel txtErrorTenQuyen;
     private javax.swing.JTextField txtTenQuyen;
     // End of variables declaration//GEN-END:variables
 }

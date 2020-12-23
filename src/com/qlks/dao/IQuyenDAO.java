@@ -22,5 +22,5 @@ public interface IQuyenDAO {
 
     int update(Quyen quyen);
 
-    int delete(Quyen quyen);
+    int delete(int maQuyen);
 }

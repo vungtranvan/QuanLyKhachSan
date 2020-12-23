@@ -19,6 +19,8 @@ public interface INguoiDungDAO {
 
     List<NguoiDung> getByMa(int maNguoiDung);
 
+    List<NguoiDung> checkDangNhap(String tenDangNhap, String password);
+
     List<NguoiDung> search(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String email, LocalDate ngaySinh, Boolean gioiTinh, int maNhomQuyen);
 
     int add(NguoiDung nguoiDung);
