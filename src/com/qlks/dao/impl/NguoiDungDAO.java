@@ -31,6 +31,12 @@ public class NguoiDungDAO extends AbstractDAO<NguoiDung> implements INguoiDungDA
     }
 
     @Override
+    public List<NguoiDung> checkDangNhap(String tenDangNhap, String password) {
+        String sql = "{Call checkLoginNguoiDung(?,?)}";
+        return query(sql, new NguoiDungMapper(), tenDangNhap, password);
+    }
+
+    @Override
     public int add(NguoiDung nguoiDung) {
         String sql = "{Call insertNguoiDung(?,?,?,?,?,?,?,?)}";
         return this.update(sql, nguoiDung.getTenNguoiDung(), nguoiDung.getTenDangNhap(),

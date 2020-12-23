@@ -41,9 +41,9 @@ public class QuyenDAO extends AbstractDAO<Quyen> implements IQuyenDAO {
     }
 
     @Override
-    public int delete(Quyen quyen) {
+    public int delete(int maQuyen) {
         String sql = "{Call deleteQuyen(?)}";
-        return this.update(sql, quyen.getMaQuyen());
+        return this.update(sql, maQuyen);
     }
 
 }
