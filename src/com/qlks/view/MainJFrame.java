@@ -6,6 +6,7 @@
 package com.qlks.view;
 
 import com.qlks.fonts.FontCustom;
+import com.qlks.models.NguoiDung;
 import com.qlks.view.internalframe.DangNhap;
 import com.qlks.view.internalframe.QuanLyQuyen;
 import java.awt.Color;
@@ -31,6 +32,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
 
+    List<NguoiDung> listNd = new ArrayList<NguoiDung>();
+
     public Color MainColor = new Color(36, 36, 36);
     public Color subMenuColor = new Color(56, 56, 56);
 
@@ -42,8 +45,7 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     public MainJFrame() {
-        logIn();
-        
+
         initComponents();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -80,13 +82,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
     }
 
-    private void logIn() {
-        LogInJFrame logInJFrame = new LogInJFrame();
-        logInJFrame.setLocationRelativeTo(null);
-        logInJFrame.setVisible(true);
-       
-        
-
+    public void setListNd(List<NguoiDung> nd) {
+        this.listNd.removeAll(listNd);
+        this.listNd = nd;
     }
 
     public void centerJIF(JInternalFrame jif) {
