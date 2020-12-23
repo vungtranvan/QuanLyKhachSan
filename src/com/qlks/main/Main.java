@@ -1,5 +1,6 @@
 package com.qlks.main;
 
+import com.qlks.view.LogInJFrame;
 import com.qlks.view.MainJFrame;
 
 /**
@@ -12,7 +13,7 @@ public class Main {
         
         MainJFrame mainFrame = new MainJFrame();
         mainFrame.setLocationRelativeTo(null);
-        
+
         mainFrame.setVisible(true);
     }
 }

@@ -5,6 +5,10 @@
  */
 package com.qlks.view;
 
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 /**
  *
  * @author hoangdung
@@ -16,6 +20,41 @@ public class LogInJFrame extends javax.swing.JFrame {
      */
     public LogInJFrame() {
         initComponents();
+        jplPass.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+                jpassPass.setEchoChar((char) 0);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                jpassPass.setEchoChar('•');
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                jplPass.setBackground(Color.pink);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                jplPass.setBackground(Color.white);
+
+            }
+        });
+
+    }
+
+    public void getLogin() {
+    String userName = jtextName.getText();
+    String passWord = jpassPass.getText();
+    
+    
     }
 
     /**
@@ -30,12 +69,22 @@ public class LogInJFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jlbLogInTitle = new javax.swing.JLabel();
         jlbLogInIcon = new javax.swing.JLabel();
+        jlbName = new javax.swing.JLabel();
+        jtextName = new javax.swing.JTextField();
+        btnLogin = new javax.swing.JButton();
+        jlbName1 = new javax.swing.JLabel();
+        jplPass = new javax.swing.JPanel();
+        jlbpass = new javax.swing.JLabel();
+        jpassPass = new javax.swing.JPasswordField();
+        btnReset = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(54, 54, 54));
 
-        jlbLogInTitle.setFont(new java.awt.Font("Monospaced", 1, 24)); // NOI18N
+        jlbLogInTitle.setFont(new java.awt.Font("Monospaced", 1, 28)); // NOI18N
         jlbLogInTitle.setForeground(new java.awt.Color(255, 255, 255));
         jlbLogInTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbLogInTitle.setText("Đăng Nhập");
@@ -43,12 +92,109 @@ public class LogInJFrame extends javax.swing.JFrame {
         jlbLogInIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbLogInIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_login.png"))); // NOI18N
 
+        jlbName.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        jlbName.setForeground(new java.awt.Color(255, 255, 255));
+        jlbName.setText("Tên/Email");
+
+        jtextName.setBackground(new java.awt.Color(255, 255, 255));
+        jtextName.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        jtextName.setForeground(new java.awt.Color(0, 0, 0));
+        jtextName.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 15, 1, 15));
+        jtextName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtextName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtextNameActionPerformed(evt);
+            }
+        });
+
+        btnLogin.setBackground(new java.awt.Color(255, 255, 255));
+        btnLogin.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
+        btnLogin.setText("Đăng nhập");
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+
+        jlbName1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        jlbName1.setForeground(new java.awt.Color(255, 255, 255));
+        jlbName1.setText("Mật khẩu");
+
+        jplPass.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jplPassPropertyChange(evt);
+            }
+        });
+
+        jlbpass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbpass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_passwordeye.png"))); // NOI18N
+        jlbpass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout jplPassLayout = new javax.swing.GroupLayout(jplPass);
+        jplPass.setLayout(jplPassLayout);
+        jplPassLayout.setHorizontalGroup(
+            jplPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlbpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jplPassLayout.setVerticalGroup(
+            jplPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlbpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jpassPass.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        jpassPass.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 15));
+        jpassPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpassPassActionPerformed(evt);
+            }
+        });
+
+        btnReset.setBackground(new java.awt.Color(255, 255, 255));
+        btnReset.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
+        btnReset.setText("Nhập lại");
+        btnReset.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("DejaVu Serif", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(244, 16, 10));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jlbLogInTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jlbLogInIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(jlbLogInIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jlbName, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jtextName, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jlbName1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jpassPass, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, 0)
+                                    .addComponent(jplPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -56,7 +202,25 @@ public class LogInJFrame extends javax.swing.JFrame {
                 .addComponent(jlbLogInTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbLogInIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 375, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtextName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jlbName1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jpassPass, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                        .addComponent(jplPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 115, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -72,6 +236,26 @@ public class LogInJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtextNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtextNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtextNameActionPerformed
+
+    private void jpassPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpassPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpassPassActionPerformed
+
+    private void jplPassPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jplPassPropertyChange
+
+    }//GEN-LAST:event_jplPassPropertyChange
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,8 +293,17 @@ public class LogInJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnReset;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlbLogInIcon;
     private javax.swing.JLabel jlbLogInTitle;
+    private javax.swing.JLabel jlbName;
+    private javax.swing.JLabel jlbName1;
+    private javax.swing.JLabel jlbpass;
+    private javax.swing.JPasswordField jpassPass;
+    private javax.swing.JPanel jplPass;
+    private javax.swing.JTextField jtextName;
     // End of variables declaration//GEN-END:variables
 }
