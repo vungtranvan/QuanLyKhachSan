@@ -676,6 +676,14 @@ SELECT * FROM DonVi
 END
 GO
 
+CREATE PROC getDonViByMa
+@MaDonVi varchar (3)
+AS
+BEGIN 
+SELECT * FROM DonVi Where MaDonVi = @MaDonVi
+END
+GO
+
 CREATE PROC SearchDonVi
 @MaDonVi varchar (3),
 @TenDonVi nvarchar (50)
@@ -716,6 +724,14 @@ CREATE PROC getAllChinhSachTraPhong
 AS
 BEGIN 
 SELECT * FROM ChinhSachTraPhong
+END
+GO
+
+CREATE PROC getChinhSachTraPhongByMa
+@MaChinhSach varchar (5)
+AS
+BEGIN 
+SELECT * FROM ChinhSachTraPhong Where MaChinhSach = @MaChinhSach
 END
 GO
 
@@ -811,6 +827,14 @@ CREATE PROC getAllLoaiDichVu
 AS
 BEGIN 
 SELECT * FROM LoaiDichVu
+END
+GO
+
+CREATE PROC getLoaiDichVuByMa
+@MaLoaiDichVu varchar (5)
+AS
+BEGIN 
+SELECT * FROM LoaiDichVu Where MaLoaiDichVu = @MaLoaiDichVu
 END
 GO
 
@@ -931,11 +955,10 @@ END
 GO
 
 CREATE PROC SearchNhomQuyen
-@MaNhomQuyen int,
 @TenNhomQuyen nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM NhomQuyen Where MaNhomQuyen = @MaNhomQuyen OR TenNhomQuyen LIKE '%'+@TenNhomQuyen+'%'
+SELECT * FROM NhomQuyen Where TenNhomQuyen LIKE '%'+@TenNhomQuyen+'%'
 END
 GO
 
@@ -1155,12 +1178,11 @@ END
 GO
 
 CREATE PROC SearchLoaiTinhTrang
-@MaLoaiTinhTrangPhong int,
 @TenLoaiTinhTrang  nvarchar(50)
 AS
 BEGIN 
 SELECT * FROM LoaiTinhTrang 
-Where MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong OR TenLoaiTinhTrang LIKE '%'+@TenLoaiTinhTrang+'%'
+Where TenLoaiTinhTrang LIKE '%'+@TenLoaiTinhTrang+'%'
 ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO

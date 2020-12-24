@@ -2,11 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/LogInJFrame.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/main/Main.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyQuyen.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/dao/IDonViDAO.java</file>
+=======
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyCauHinh.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyQuyen.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyNhomQuyen.java</file>
+>>>>>>> a4d9e24ce4efa7124b9ec3b07d478d8ea6fd0f93
         </group>
     </open-files>
 </project-private>
