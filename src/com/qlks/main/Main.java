@@ -34,6 +34,7 @@ public class Main {
                 if (main.listnd != null) {
                     if (main.listnd.size() > 0) {
                         logInJFrame.setVisible(false);
+                        mainFrame.getJlbHello().setText("");
                         mainFrame.setVisible(true);
                     }
                 }

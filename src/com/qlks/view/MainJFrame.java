@@ -60,7 +60,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
-        globalMessager();
+   
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         jpnSubmenu.setVisible(false);
@@ -165,6 +165,15 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnMenu.setBackground(cl);
     }
 
+    public JLabel getJlbHello() {
+        return jlbAvatar;
+    }
+
+    public void setJlbHello(JLabel jlbHello) {
+        this.jlbAvatar = jlbHello;
+    }
+    
+   
     private void visibleSubMenu(JLabel jl, String title, List<JPanel> items) {
 
         jl.addMouseListener(new MouseListener() {
@@ -186,7 +195,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
                 closeSubMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-                jpnSubmenu.add(makeSubMenuTitle(subMenuItemTitle, title));
+                jpnSubmenu.add(makeSubMenuTitle(subMenuItemTitle, title.toUpperCase()));
 
                 items.forEach(item -> {
                     jpnSubmenu.add(item);
@@ -352,9 +361,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-    public void globalMessager() {
-        jlbMainMessage.setText("aaaaa");
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -378,7 +385,9 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jMain = new javax.swing.JDesktopPane();
         jpnMainMessage = new javax.swing.JPanel();
-        jlbMainMessage = new javax.swing.JLabel();
+        jlbMainMesange = new javax.swing.JLabel();
+        jlbAvatar = new javax.swing.JLabel();
+        jblHello = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -474,15 +483,33 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jpnMainMessage.setMaximumSize(new java.awt.Dimension(32767, 50));
 
+        jlbMainMesange.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        jlbMainMesange.setText("jLabel2");
+        jlbMainMesange.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 15));
+
+        jlbAvatar.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        jlbAvatar.setText("jLabel3");
+
+        jblHello.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        jblHello.setText("jLabel4");
+        jblHello.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 15));
+
         javax.swing.GroupLayout jpnMainMessageLayout = new javax.swing.GroupLayout(jpnMainMessage);
         jpnMainMessage.setLayout(jpnMainMessageLayout);
         jpnMainMessageLayout.setHorizontalGroup(
             jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbMainMessage)
+            .addGroup(jpnMainMessageLayout.createSequentialGroup()
+                .addComponent(jlbMainMesange, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jlbAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jpnMainMessageLayout.setVerticalGroup(
             jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbMainMessage)
+            .addComponent(jlbMainMesange, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jlbAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -491,22 +518,18 @@ public class MainJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpnMainLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addComponent(jpnMainMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jMain)))
+                    .addComponent(jMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1338, Short.MAX_VALUE)
+                    .addComponent(jpnMainMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jpnMainMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jMain)
-                    .addComponent(jpnMainLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jpnMainMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jMain))
+            .addComponent(jpnMainLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -524,7 +547,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JDesktopPane jMain;
-    private javax.swing.JLabel jlbMainMessage;
+    private javax.swing.JLabel jblHello;
+    private javax.swing.JLabel jlbAvatar;
+    public static javax.swing.JLabel jlbMainMesange;
     private javax.swing.JPanel jpnLogo;
     private javax.swing.JPanel jpnMainLeft;
     private javax.swing.JPanel jpnMainMessage;

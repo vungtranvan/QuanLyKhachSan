@@ -5,6 +5,8 @@
  */
 package com.qlks.utils;
 
+import com.qlks.view.MainJFrame;
+import java.awt.Color;
 import javax.swing.JLabel;
 
 /**
@@ -13,12 +15,18 @@ import javax.swing.JLabel;
  */
 public class MethodMain {
 
-    public static boolean checkNull(String Checker, String Message, JLabel show) {
-        if (Checker.isEmpty()) {
-            show.setText(Message);
-            return true;
-        } else {
-            return false;
-        }
+    public static void globalMessagerSuccess(String msg) {
+        MainJFrame.jlbMainMesange.setForeground(Color.GREEN);
+        MainJFrame.jlbMainMesange.setText(msg);
+    }
+
+    public static void globalMessagerError(String msg) {
+        MainJFrame.jlbMainMesange.setForeground(Color.RED);
+        MainJFrame.jlbMainMesange.setText(msg);
+    }
+
+    public static void globalMessagerWarning(String msg) {
+        MainJFrame.jlbMainMesange.setForeground(Color.YELLOW);
+        MainJFrame.jlbMainMesange.setText(msg);
     }
 }
