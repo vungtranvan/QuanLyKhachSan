@@ -5,12 +5,9 @@
  */
 package com.qlks.view.internalframe;
 
-import com.qlks.dao.impl.CauHinhDAO;
 import com.qlks.dao.impl.NhomQuyenDAO;
-import com.qlks.models.CauHinh;
 import com.qlks.models.NhomQuyen;
 import java.util.List;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -21,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author MinhVuFC
  */
 public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
-    
+
     private NhomQuyenDAO nhomQuyenDAO;
     private List<NhomQuyen> lstNhomQuyen;
     private DefaultTableModel dtmNhomQuyen;
@@ -37,7 +34,7 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         txtErrorTenNhomQuyen.setText("");
         resetText();
     }
-    
+
     public void loadData(String nameSeaechInput) {
         Object[] columnNames = {"STT", "Mã cấu hình", "Loại cấu hình"};
         if (nameSeaechInput != null) {
@@ -45,7 +42,7 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         } else {
             lstNhomQuyen = nhomQuyenDAO.getAll();
         }
-        
+
         dtmNhomQuyen = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (NhomQuyen adv : lstNhomQuyen) {
@@ -78,7 +75,7 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
             });
         }
     }
-    
+
     public void resetText() {
         lblID.setText("");
         txtTenNhomQuyen.setText("");
@@ -320,16 +317,31 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        String tenNhomQuyen = txtTenNhomQuyen.getText().trim();
-        int id = Integer.parseInt(lblID.getText());
-        int row = nhomQuyenDAO.update(new NhomQuyen(id, tenNhomQuyen));
-        if (row > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
-            loadData(null);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Cập nhật bại", null, JOptionPane.ERROR_MESSAGE);
+        String tenNhomQuyen = txtTenNhomQuyen.getText();
+        String maNhomQuyen = lblID.getText();
+        Boolean ckeck = true;
+
+        if (tenNhomQuyen.length() < 0) {
+            txtErrorTenNhomQuyen.setText("Tên quyền không được để trống !");
+            ckeck = false;
         }
-        loadData(null);
+
+        if (maNhomQuyen.length() <= 0) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật!", null, JOptionPane.WARNING_MESSAGE);
+            ckeck = false;
+        }
+        if (ckeck == true) {
+            int id = Integer.parseInt(maNhomQuyen);
+            int row = nhomQuyenDAO.update(new NhomQuyen(id, tenNhomQuyen));
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                txtErrorTenNhomQuyen.setText("");
+                loadData(null);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật bại", null, JOptionPane.ERROR_MESSAGE);
+            }
+            loadData(null);
+        }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -357,6 +369,7 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        tblNhomQuyen.clearSelection();
         if (txtSearch.getText() != null) {
             loadData(txtSearch.getText());
         } else {

@@ -48,7 +48,7 @@ public class LoaiDichVuDAO extends AbstractDAO<LoaiDichVu> implements ILoaiDichV
 
     @Override
     public int delete(String maLoaiDichVu) {
-        String sql = "{Call deleteLoaiDichVu(?,?)}";
+        String sql = "{Call deleteLoaiDichVu(?)}";
         return this.update(sql, maLoaiDichVu);
     }
 

@@ -301,7 +301,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        String tenQuyen = txtTenQuyen.getText().trim();
+        String tenQuyen = txtTenQuyen.getText();
         if (tenQuyen.length() > 0) {
             int row = quyenDAO.add(new Quyen(tenQuyen));
             if (row > 0) {
@@ -318,16 +318,32 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        String tenQuyen = txtTenQuyen.getText().trim();
-        int id = Integer.parseInt(lblID.getText());
-        int row = quyenDAO.update(new Quyen(id, tenQuyen));
-        if (row > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
-            loadData(null);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Cập nhật bại", null, JOptionPane.ERROR_MESSAGE);
+        String tenQuyen = txtTenQuyen.getText();
+        String maQuyen = lblID.getText();
+        Boolean ckeck = true;
+
+        if (tenQuyen.length() < 0) {
+            txtErrorTenQuyen.setText("Tên quyền không được để trống !");
+            ckeck = false;
         }
-        loadData(null);
+
+        if (maQuyen.length() <= 0) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật!", null, JOptionPane.WARNING_MESSAGE);
+            ckeck = false;
+        }
+
+        if (ckeck == true) {
+            int id = Integer.parseInt(maQuyen);
+            int row = quyenDAO.update(new Quyen(id, tenQuyen));
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                txtErrorTenQuyen.setText("");
+                loadData(null);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật bại", null, JOptionPane.ERROR_MESSAGE);
+            }
+            loadData(null);
+        }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -355,6 +371,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        tblQuyen.clearSelection();
         if (txtSearch.getText() != null) {
             loadData(txtSearch.getText());
         } else {
