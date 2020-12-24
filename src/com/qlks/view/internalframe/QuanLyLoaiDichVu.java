@@ -65,7 +65,7 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
                     if (currentRow < 0) {
                         currentRow = 0;
                     }
-
+                    resetText();
                     // Chèn dữ liệu lên form
                     if (currentRow >= 0) {
                         txtMaLoaiDichVu.setText(tblLoaiDichVu.getValueAt(currentRow, 1).toString());
@@ -320,21 +320,36 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        String maDVu = txtMaLoaiDichVu.getText().trim();
-        String tenDVu = txtTenLoaiDichVu.getText().trim();
+        String maDVu = txtMaLoaiDichVu.getText();
+        String tenDVu = txtTenLoaiDichVu.getText();
+        Boolean ckeck = true;
 
         List<LoaiDichVu> lstCheckID = loaiDVDAO.getByMa(maDVu);
-        if (maDVu.length() < 0) {
+        if (maDVu.length() <= 0) {
             txtErrorMaLoaiDichVu.setText("Mã không được để trống !");
-        } else if (maDVu.length() > 5) {
-            txtErrorMaLoaiDichVu.setText("Mã tối đa là 5 ký tự !");
-        } else if (lstCheckID.size() > 0) {
-            txtErrorMaLoaiDichVu.setText("Mã đơn vị đã tồn tại !");
-        } else if (tenDVu.length() < 0) {
-            txtErrorTenLoaiDichVu.setText("Tên không được để trống !");
-        } else if (tenDVu.length() > 50) {
-            txtErrorTenLoaiDichVu.setText("Tên tối đa là 50 ký tự !");
+            ckeck = false;
         } else {
+            txtErrorMaLoaiDichVu.setText("");
+        }
+        if (maDVu.length() > 5) {
+            txtErrorMaLoaiDichVu.setText("Mã tối đa là 5 ký tự !");
+            ckeck = false;
+        }
+        if (lstCheckID.size() > 0) {
+            txtErrorMaLoaiDichVu.setText("Mã đơn vị đã tồn tại !");
+            ckeck = false;
+        }
+        if (tenDVu.length() <= 0) {
+            txtErrorTenLoaiDichVu.setText("Tên không được để trống !");
+            ckeck = false;
+        } else {
+            txtErrorTenLoaiDichVu.setText("");
+        }
+        if (tenDVu.length() > 50) {
+            txtErrorTenLoaiDichVu.setText("Tên tối đa là 50 ký tự !");
+            ckeck = false;
+        }
+        if (ckeck == true) {
             int row = loaiDVDAO.add(new LoaiDichVu(maDVu, tenDVu));
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
@@ -350,17 +365,27 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         String maDVu = txtMaLoaiDichVu.getText().trim();
         String tenDVu = txtTenLoaiDichVu.getText().trim();
-
+        Boolean ckeck = true;
         List<LoaiDichVu> lstCheckID = loaiDVDAO.getByMa(maDVu);
-        if (maDVu.length() < 0) {
+        if (maDVu.length() <= 0) {
             txtErrorMaLoaiDichVu.setText("Mã không được để trống !");
-        } else if (maDVu.length() > 5) {
+            ckeck = false;
+        }
+        if (maDVu.length() > 5) {
             txtErrorMaLoaiDichVu.setText("Mã tối đa là 5 ký tự !");
-        } else if (tenDVu.length() < 0) {
+            ckeck = false;
+        }
+        if (tenDVu.length() <= 0) {
             txtErrorTenLoaiDichVu.setText("Tên không được để trống !");
-        } else if (tenDVu.length() > 50) {
-            txtErrorTenLoaiDichVu.setText("Tên tối đa là 50 ký tự !");
+            ckeck = false;
         } else {
+            txtErrorTenLoaiDichVu.setText("");
+        }
+        if (tenDVu.length() > 50) {
+            txtErrorTenLoaiDichVu.setText("Tên tối đa là 50 ký tự !");
+            ckeck = false;
+        }
+        if (ckeck == true) {
             if (lstCheckID.size() < 0) {
                 txtErrorMaLoaiDichVu.setText("Mã không tồn tại !");
             } else {
@@ -379,9 +404,8 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
-            String maDVu = txtMaLoaiDichVu.getText().trim();
+            String maDVu = txtMaLoaiDichVu.getText();
             if (maDVu.length() > 0) {
-                List<LoaiDichVu> lstCheckID = loaiDVDAO.getByMa(maDVu);
                 int row = loaiDVDAO.delete(maDVu);
                 if (row > 0) {
                     JOptionPane.showMessageDialog(rootPane, "Xóa thành công", null, JOptionPane.INFORMATION_MESSAGE);
@@ -391,13 +415,15 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
                 }
                 loadData(null, null);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng hoặc nhập mã loại dịch vụ để xóa!", null, JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         resetText();
+        txtSearchMaLoaiDV.setText("");
+        txtSearchTenLoaiDV.setText("");
         loadData(null, null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
@@ -409,6 +435,7 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
         } else if (tenDVuSearch == null) {
             tenDVuSearch = "";
         }
+        tblLoaiDichVu.clearSelection();
         loadData(maDVuSearch, tenDVuSearch);
         resetText();
     }//GEN-LAST:event_btnTimKiemActionPerformed

@@ -328,19 +328,33 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
         String maDVi = txtMaDonVi.getText().trim();
         String tenDVi = txtTenDonVi.getText().trim();
-
+        Boolean ckeck = true;
         List<DonVi> lstCheckID = donviDAO.getByMa(maDVi);
-        if (maDVi.length() < 0) {
+        if (maDVi.length() <= 0) {
             txtErrorMaDV.setText("Mã đơn vị không được để trống !");
-        } else if (maDVi.length() > 3) {
-            txtErrorMaDV.setText("Mã đơn vị tối đa là 3 ký tự !");
-        } else if (lstCheckID.size() > 0) {
-            txtErrorMaDV.setText("Mã đơn vị đã tồn tại !");
-        } else if (tenDVi.length() < 0) {
-            txtErrorTenDV.setText("Tên đơn vị không được để trống !");
-        } else if (tenDVi.length() > 50) {
-            txtErrorTenDV.setText("Tên đơn vị tối đa là 50 ký tự !");
+            ckeck = false;
         } else {
+            txtErrorMaDV.setText("");
+        }
+        if (maDVi.length() > 3) {
+            txtErrorMaDV.setText("Mã đơn vị tối đa là 3 ký tự !");
+            ckeck = false;
+        }
+        if (lstCheckID.size() > 0) {
+            txtErrorMaDV.setText("Mã đơn vị đã tồn tại !");
+            ckeck = false;
+        }
+        if (tenDVi.length() <= 0) {
+            txtErrorTenDV.setText("Tên đơn vị không được để trống !");
+            ckeck = false;
+        } else {
+            txtErrorTenDV.setText("");
+        }
+        if (tenDVi.length() > 50) {
+            txtErrorTenDV.setText("Tên đơn vị tối đa là 50 ký tự !");
+            ckeck = false;
+        }
+        if (ckeck == true) {
             int row = donviDAO.add(new DonVi(maDVi, tenDVi));
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
@@ -356,17 +370,31 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         String maDVi = txtMaDonVi.getText().trim();
         String tenDVi = txtTenDonVi.getText().trim();
+        Boolean ckeck = true;
 
         List<DonVi> lstCheckID = donviDAO.getByMa(maDVi);
-        if (maDVi.length() < 0) {
+
+        if (maDVi.length() <= 0) {
             txtErrorMaDV.setText("Mã đơn vị không được để trống !");
-        } else if (maDVi.length() > 3) {
-            txtErrorMaDV.setText("Mã đơn vị tối đa là 5 ký tự !");
-        } else if (tenDVi.length() < 0) {
-            txtErrorTenDV.setText("Tên đơn vị không được để trống !");
-        } else if (tenDVi.length() > 50) {
-            txtErrorTenDV.setText("Tên đơn vị tối đa là 50 ký tự !");
+            ckeck = false;
         } else {
+            txtErrorMaDV.setText("");
+        }
+        if (maDVi.length() > 3) {
+            txtErrorMaDV.setText("Mã đơn vị tối đa là 3 ký tự !");
+            ckeck = false;
+        }
+        if (tenDVi.length() <= 0) {
+            txtErrorTenDV.setText("Tên đơn vị không được để trống !");
+            ckeck = false;
+        } else {
+            txtErrorTenDV.setText("");
+        }
+        if (tenDVi.length() > 50) {
+            txtErrorTenDV.setText("Tên đơn vị tối đa là 50 ký tự !");
+            ckeck = false;
+        }
+        if (ckeck == true) {
             if (lstCheckID.size() < 0) {
                 txtErrorMaDV.setText("Mã đơn vị không tồn tại !");
             } else {
@@ -387,7 +415,6 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
         if (thongbao == JOptionPane.YES_OPTION) {
             String maDVi = txtMaDonVi.getText().trim();
             if (maDVi.length() > 0) {
-                List<DonVi> lstCheckID = donviDAO.getByMa(maDVi);
                 int row = donviDAO.delete(maDVi);
                 if (row > 0) {
                     JOptionPane.showMessageDialog(rootPane, "Xóa thành công", null, JOptionPane.INFORMATION_MESSAGE);
@@ -397,17 +424,20 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
                 }
                 loadData(null, null);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng hoặc nhập mã đơn vị để xóa!", null, JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         resetText();
+        txtSearchMaDV.setText("");
+        txtSearchTenDV.setText("");
         loadData(null, null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        tblDonVi.clearSelection();
         String maDViSearch = txtSearchMaDV.getText();
         String tenDViSearch = txtSearchTenDV.getText();
         if (maDViSearch == null) {
