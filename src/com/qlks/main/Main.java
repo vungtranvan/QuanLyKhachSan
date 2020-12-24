@@ -14,49 +14,52 @@ import javax.swing.JButton;
  */
 public class Main {
 
+    List<NguoiDung> listnd;
+
     public static void main(String[] args) {
-       
+        Main main = new Main();
         MainJFrame mainFrame = new MainJFrame();
         mainFrame.setLocationRelativeTo(null);
         LogInJFrame logInJFrame = new LogInJFrame();
-        
+
+        logInJFrame.setLocationRelativeTo(null);
+
+        logInJFrame.setVisible(true);
         JButton jbLogin = logInJFrame.getBtnLogin();
+
         jbLogin.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                main.listnd = logInJFrame.getLogin();
+                if (main.listnd != null) {
+                    if (main.listnd.size() > 0) {
+                        logInJFrame.setVisible(false);
+                        mainFrame.setVisible(true);
+                    }
+                }
+
             }
 
             @Override
             public void mousePressed(MouseEvent me) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
             }
 
             @Override
             public void mouseReleased(MouseEvent me) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
             }
 
             @Override
             public void mouseEntered(MouseEvent me) {
-               
+
             }
 
             @Override
             public void mouseExited(MouseEvent me) {
-                
+
             }
         });
-        
-        logInJFrame.setLocationRelativeTo(null);
-        logInJFrame.setVisible(true);
-        
-        List<NguoiDung> listnd = logInJFrame.getLogin();
-
-        if (listnd.size() > 0) {
-            logInJFrame.setVisible(false);
-            mainFrame.setVisible(true);
-        }
 
     }
 }
