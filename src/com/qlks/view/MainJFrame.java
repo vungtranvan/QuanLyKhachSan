@@ -8,7 +8,19 @@ package com.qlks.view;
 import com.qlks.fonts.FontCustom;
 import com.qlks.models.NguoiDung;
 import com.qlks.view.internalframe.DangNhap;
+import com.qlks.view.internalframe.QuanLyCauHinh;
+import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
+import com.qlks.view.internalframe.QuanLyDonVi;
+import com.qlks.view.internalframe.QuanLyKhachHang;
+import com.qlks.view.internalframe.QuanLyLoaiDichVu;
+import com.qlks.view.internalframe.QuanLyLoaiPhong;
+import com.qlks.view.internalframe.QuanLyLoaiTinhTrang;
+import com.qlks.view.internalframe.QuanLyMaKhuyenMai;
+import com.qlks.view.internalframe.QuanLyNguoiDung;
+import com.qlks.view.internalframe.QuanLyNhomQuyen;
+import com.qlks.view.internalframe.QuanLyQuyDinh;
 import com.qlks.view.internalframe.QuanLyQuyen;
+import com.qlks.view.internalframe.QuanLyThietBi;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -22,6 +34,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import jdk.nashorn.internal.objects.Global;
 
 /**
  *
@@ -47,7 +60,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
-
+        globalMessager();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         jpnSubmenu.setVisible(false);
@@ -59,23 +72,72 @@ public class MainJFrame extends javax.swing.JFrame {
 
         List<JPanel> listSubMenuItemAdmin = new ArrayList<>();
         List<JPanel> listSubMenuItemRoom = new ArrayList<>();
+        List<JPanel> listSubMenuItemCustomer = new ArrayList<>();
+        List<JPanel> listSubMenuItemConfig = new ArrayList<>();
 
         JPanel subMenuItemAdmin = new JPanel();
+
+        JPanel subMenuItemPermission = new JPanel();
+
+        JPanel subMenuItemGroupPermission = new JPanel();
 
         JPanel subMenuItemRule = new JPanel();
 
         listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemAdmin, "Quan ly nguoi dung"));
-        JInternalFrame dangnhap = new DangNhap();
-        showInternalFrame(subMenuItemAdmin, dangnhap);
+        showInternalFrame(subMenuItemAdmin, new QuanLyNguoiDung());
 
-        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemRule, "Quan ly Quyen"));
-        showInternalFrame(subMenuItemRule, new QuanLyQuyen());
+        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemPermission, "Quan ly Quyen"));
+        showInternalFrame(subMenuItemPermission, new QuanLyQuyen());
+
+        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemGroupPermission, "Quan ly Nhom Quyen"));
+        showInternalFrame(subMenuItemGroupPermission, new QuanLyNhomQuyen());
+
+        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuItemRule, "Quan ly Quy Dinh"));
+        showInternalFrame(subMenuItemRule, new QuanLyQuyDinh());
+
+        //phong
         JPanel subMenuItemRoom = new JPanel();
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuItemRoom, "Quan ly loai phong"));
+        showInternalFrame(subMenuItemRoom, new QuanLyLoaiPhong());
 
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuItemRoom, "Quan ly phong"));
+        JPanel subMenuStatus = new JPanel();
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuItemRoom, "Quan ly tinh trang phong"));
+        showInternalFrame(subMenuStatus, new QuanLyLoaiTinhTrang());
+
+        JPanel subMenuEquipment = new JPanel();
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuEquipment, "Quan ly Thiet Bi"));
+        showInternalFrame(subMenuEquipment, new QuanLyThietBi());
+
+        JPanel subMenuService = new JPanel();
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuService, "Quan ly Loai Dich Vu"));
+        showInternalFrame(subMenuService, new QuanLyLoaiDichVu());
+
+        JPanel subMenuUnit = new JPanel();
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuUnit, "Quan ly Loai Don Vi"));
+        showInternalFrame(subMenuUnit, new QuanLyDonVi());
+
+        JPanel subMenuCheckout = new JPanel();
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuCheckout, "Quản lý Chính sách trả phòng"));
+        showInternalFrame(subMenuCheckout, new QuanLyChinhSachTraPhong());
+
+        //khac hang
+        JPanel subMenuCustommer = new JPanel();
+        listSubMenuItemCustomer.add(makeSubMenuItem(subMenuCustommer, "Quản lý khách hàng"));
+        showInternalFrame(subMenuCustommer, new QuanLyKhachHang());
+
+        JPanel subMenuDiscount = new JPanel();
+        listSubMenuItemCustomer.add(makeSubMenuItem(subMenuDiscount, "Quản lý khuyến mại"));
+        showInternalFrame(subMenuDiscount, new QuanLyMaKhuyenMai());
+
+        // Cau hinh
+        JPanel subMenuConfig = new JPanel();
+        listSubMenuItemConfig.add(makeSubMenuItem(subMenuConfig, "Quản lý cấu hình"));
+        showInternalFrame(subMenuConfig, new QuanLyCauHinh());
 
         visibleSubMenu(menuAdmin, "Người Dùng", listSubMenuItemAdmin);
-        visibleSubMenu(jLabel3, "Phòng", listSubMenuItemRoom);
+        visibleSubMenu(menuRoom, "Phòng", listSubMenuItemRoom);
+        visibleSubMenu(menuCustomer, "Khách hàng", listSubMenuItemCustomer);
+        visibleSubMenu(menuConfig, "Cấu hình", listSubMenuItemConfig);
 
         invisibleSubMenu(closeSubMenu);
         setMenuBackGroundColor(36, 36, 36);
@@ -290,6 +352,10 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
+    public void globalMessager() {
+        jlbMainMessage.setText("aaaaa");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -304,9 +370,15 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jpnMenu = new javax.swing.JPanel();
         menuAdmin = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        menuRoom = new javax.swing.JLabel();
         jpnMainSubMenu = new javax.swing.JPanel();
+        menuCustomer = new javax.swing.JLabel();
+        menuConfig = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jMain = new javax.swing.JDesktopPane();
+        jpnMainMessage = new javax.swing.JPanel();
+        jlbMainMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -335,11 +407,27 @@ public class MainJFrame extends javax.swing.JFrame {
         menuAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
         menuAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuRoom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
+        menuRoom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jpnMainSubMenu.setLayout(new javax.swing.BoxLayout(jpnMainSubMenu, javax.swing.BoxLayout.LINE_AXIS));
+
+        menuCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
+        menuCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        menuConfig.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
+        menuConfig.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/admin.png"))); // NOI18N
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jpnMainLeftLayout = new javax.swing.GroupLayout(jpnMainLeft);
         jpnMainLeft.setLayout(jpnMainLeftLayout);
@@ -350,7 +438,11 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(jpnMainLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(menuAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(menuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menuCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -367,9 +459,30 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(menuAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 474, Short.MAX_VALUE))))
+                        .addComponent(menuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(menuCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 6, Short.MAX_VALUE))))
             .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jpnMainMessage.setMaximumSize(new java.awt.Dimension(32767, 50));
+
+        javax.swing.GroupLayout jpnMainMessageLayout = new javax.swing.GroupLayout(jpnMainMessage);
+        jpnMainMessage.setLayout(jpnMainMessageLayout);
+        jpnMainMessageLayout.setHorizontalGroup(
+            jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlbMainMessage)
+        );
+        jpnMainMessageLayout.setVerticalGroup(
+            jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlbMainMessage)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -379,12 +492,21 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpnMainLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1332, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(286, 286, 286)
+                        .addComponent(jpnMainMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jMain)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnMainLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jMain)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jpnMainMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jMain)
+                    .addComponent(jpnMainLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -399,12 +521,18 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JDesktopPane jMain;
+    private javax.swing.JLabel jlbMainMessage;
     private javax.swing.JPanel jpnLogo;
     private javax.swing.JPanel jpnMainLeft;
+    private javax.swing.JPanel jpnMainMessage;
     private javax.swing.JPanel jpnMainSubMenu;
     private javax.swing.JPanel jpnMenu;
     private javax.swing.JLabel menuAdmin;
+    private javax.swing.JLabel menuConfig;
+    private javax.swing.JLabel menuCustomer;
+    private javax.swing.JLabel menuRoom;
     // End of variables declaration//GEN-END:variables
 }
