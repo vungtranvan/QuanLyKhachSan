@@ -23,6 +23,12 @@ public class KhachHangDAO extends AbstractDAO<KhachHang> implements IKhachHangDA
     }
 
     @Override
+    public List<KhachHang> getByMa(String maKhachHang) {
+        String sql = "{Call getKhachHangByMa(?)}";
+        return query(sql, new KhachHangMapper(),maKhachHang);
+    }
+
+    @Override
     public List<KhachHang> search(String maKhachHang, String tenKhachHang, String CMND, String diaChi, int dienThoai, Boolean gioiTinh, String quocTich) {
         String sql = "{Call SearchKhachHang(?,?,?,?,?,?,?)}";
         return query(sql, new KhachHangMapper(), maKhachHang, tenKhachHang, CMND, diaChi, dienThoai, gioiTinh, quocTich);

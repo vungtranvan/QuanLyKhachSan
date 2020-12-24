@@ -562,6 +562,14 @@ SELECT * FROM KhachHang
 END
 GO
 
+CREATE PROC getKhachHangByMa
+@MaKhachHang varchar (3)
+AS
+BEGIN 
+SELECT * FROM KhachHang Where MaKhachHang = @MaKhachHang
+END
+GO
+
 CREATE PROC SearchKhachHang
 @MaKhachHang varchar (3),
 @TenKhachHang nvarchar (50),

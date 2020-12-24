@@ -8,7 +8,6 @@ package com.qlks.view.internalframe;
 import com.qlks.dao.impl.QuyenDAO;
 import com.qlks.models.Quyen;
 import java.util.List;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -55,7 +54,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
             index++;
         }
         tblQuyen.setModel(dtmQuyen);
-        
+
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstQuyen.size() > 0) {
             System.out.println(lstQuyen.isEmpty());
@@ -217,7 +216,7 @@ public class QuanLyQuyen extends javax.swing.JInternalFrame {
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(380, 380, 380))
+                .addGap(384, 384, 384))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());

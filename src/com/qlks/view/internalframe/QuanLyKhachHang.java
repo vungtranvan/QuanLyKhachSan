@@ -5,17 +5,100 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.dao.impl.KhachHangDAO;
+import com.qlks.models.KhachHang;
+import java.awt.Dimension;
+import java.util.List;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hello
  */
 public class QuanLyKhachHang extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form QuanLyQuyDinh
-     */
+    private KhachHangDAO khachHangDAO;
+    public List<KhachHang> lstKhachHang;
+    public DefaultTableModel dtmKhachHang;
+    public JDesktopPane jdek;
+
     public QuanLyKhachHang() {
         initComponents();
+        dtmKhachHang = new DefaultTableModel();
+        khachHangDAO = new KhachHangDAO();
+        jdek = new JDesktopPane();
+        loadData(null);
+    }
+
+    public void loadData(String nameSeaechInput) {
+        Object[] columnNames = {"STT", "Mã khách hàng", "Tên khách hàng", "CMND", "Địa chỉ", "Điện thoại", "Giới tính", "Quốc tịch"};
+        if (nameSeaechInput != null) {
+            //   lstKhachHang = khachHangDAO.search(nameSeaechInput);
+        } else {
+            lstKhachHang = khachHangDAO.getAll();
+        }
+
+        dtmKhachHang = new DefaultTableModel(new Object[0][0], columnNames);
+        int index = 1;
+        for (KhachHang adv : lstKhachHang) {
+            Object[] o = new Object[3];
+            o[0] = index;
+            o[1] = adv.getMaKhachHang();
+            o[2] = adv.getTenKhachHang();
+            o[3] = adv.getChungMinhThuNhanDan();
+            o[4] = adv.getDiaChi();
+            o[5] = adv.getDienThoai();
+            String gioiTinh = "Nữ";
+            if (adv.isGioiTinh() == true) {
+                gioiTinh = "Nam";
+            }
+            o[6] = gioiTinh;
+            o[7] = adv.getQuocTich();
+            dtmKhachHang.addRow(o);
+            index++;
+        }
+        tblKhachHang.setModel(dtmKhachHang);
+
+        // Cài đặt sự kiện khi click từng dòng trong bảng
+        if (lstKhachHang.size() > 0) {
+            System.out.println(lstKhachHang.isEmpty());
+            tblKhachHang.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    int currentRow = tblKhachHang.getSelectedRow();
+                    if (currentRow < 0) {
+                        currentRow = 0;
+                    }
+
+                    // Chèn dữ liệu lên form
+                    if (currentRow >= 0) {
+
+                    }
+                }
+            });
+        }
+    }
+
+    public void centerJIF(JInternalFrame jif) {
+        Dimension desktopSize = jdek.getSize();
+        Dimension jInternalFrameSize = jif.getSize();
+        int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+        int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+        jif.setLocation(width, height);
+        jif.setVisible(true);
+    }
+
+    public void showInternalFrame(JInternalFrame jif) {
+        if (!jif.isVisible()) {
+            jdek.add(jif);
+            centerJIF(jif);
+            jif.setVisible(true);
+            jdek.show();
+        }
     }
 
     /**
@@ -45,6 +128,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
 
         btnThemMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_add.png"))); // NOI18N
         btnThemMoi.setText("Thêm mới");
+        btnThemMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemMoiActionPerformed(evt);
+            }
+        });
 
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
@@ -130,6 +218,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
+        QuanLyCauHinh jInterFrame = new QuanLyCauHinh();
+        showInternalFrame(jInterFrame);
+    }//GEN-LAST:event_btnThemMoiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
