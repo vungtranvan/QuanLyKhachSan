@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+<<<<<<< HEAD
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/LogInJFrame.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/main/Main.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyQuyen.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/dao/IDonViDAO.java</file>
+=======
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyCauHinh.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyQuyen.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyNhomQuyen.java</file>
+>>>>>>> a4d9e24ce4efa7124b9ec3b07d478d8ea6fd0f93
+        </group>
+>>>>>>> 38a1a853cac9fc251527d4f1dd477b113aaed605
     </open-files>
 </project-private>
