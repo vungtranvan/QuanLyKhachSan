@@ -7,7 +7,6 @@ package com.qlks.view;
 
 import com.qlks.fonts.FontCustom;
 import com.qlks.models.NguoiDung;
-import com.qlks.view.internalframe.DangNhap;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
 import com.qlks.view.internalframe.QuanLyDonVi;
@@ -21,6 +20,7 @@ import com.qlks.view.internalframe.QuanLyNhomQuyen;
 import com.qlks.view.internalframe.QuanLyQuyDinh;
 import com.qlks.view.internalframe.QuanLyQuyen;
 import com.qlks.view.internalframe.QuanLyThietBi;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -30,6 +30,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -46,7 +47,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
 
-    List<NguoiDung> listNd = new ArrayList<NguoiDung>();
+    List<NguoiDung> listNd = new ArrayList<>();
 
     public Color MainColor = new Color(36, 36, 36);
     public Color subMenuColor = new Color(56, 56, 56);
@@ -61,7 +62,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
-   
+        
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         jpnSubmenu.setVisible(false);
@@ -168,13 +169,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
 
 
-    public JLabel getJblHello() {
-        return jblHello;
+
+
+    public JDesktopPane getjMain() {
+        return jMain;
     }
 
-    public void setJblHello(JLabel jblHello) {
-        this.jblHello = jblHello;
+    public void setjMain(JDesktopPane jMain) {
+        this.jMain = jMain;
     }
+    
+    
        
    
     private void visibleSubMenu(JLabel jl, String title, List<JPanel> items) {
@@ -389,9 +394,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jMain = new javax.swing.JDesktopPane();
-        jpnMainMessage = new javax.swing.JPanel();
-        jlbMainMesange = new javax.swing.JLabel();
-        jblHello = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -485,35 +487,6 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jpnMainMessage.setMaximumSize(new java.awt.Dimension(32767, 50));
-
-        jlbMainMesange.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
-        jlbMainMesange.setText("jLabel2");
-        jlbMainMesange.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 15));
-
-        jblHello.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
-        jblHello.setText("jLabel4");
-        jblHello.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 15));
-        jblHello.setIconTextGap(15);
-
-        javax.swing.GroupLayout jpnMainMessageLayout = new javax.swing.GroupLayout(jpnMainMessage);
-        jpnMainMessage.setLayout(jpnMainMessageLayout);
-        jpnMainMessageLayout.setHorizontalGroup(
-            jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnMainMessageLayout.createSequentialGroup()
-                .addComponent(jlbMainMesange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jpnMainMessageLayout.setVerticalGroup(
-            jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnMainMessageLayout.createSequentialGroup()
-                .addGroup(jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbMainMesange, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -521,17 +494,12 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpnMainLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1338, Short.MAX_VALUE)
-                    .addComponent(jpnMainMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1338, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jpnMainMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jMain))
             .addComponent(jpnMainLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jMain, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -549,11 +517,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JDesktopPane jMain;
-    private javax.swing.JLabel jblHello;
-    public static javax.swing.JLabel jlbMainMesange;
     private javax.swing.JPanel jpnLogo;
     private javax.swing.JPanel jpnMainLeft;
-    private javax.swing.JPanel jpnMainMessage;
     private javax.swing.JPanel jpnMainSubMenu;
     private javax.swing.JPanel jpnMenu;
     private javax.swing.JLabel menuAdmin;
