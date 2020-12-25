@@ -5,17 +5,51 @@
  */
 package com.qlks.view.internalframe.action;
 
+import com.qlks.dao.impl.KhachHangDAO;
+import com.qlks.models.KhachHang;
+import com.qlks.view.internalframe.QuanLyKhachHang;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hello
  */
 public class AddKhachHang extends javax.swing.JInternalFrame {
 
+    private KhachHangDAO khachHangDAO;
+    private QuanLyKhachHang quanlyKH;
+
+    CallBackAdd cb;
+
+    public interface CallBackAdd {
+
+        void doDelete();
+    }
+
     /**
      * Creates new form AddKhachHang
      */
-    public AddKhachHang() {
+    public AddKhachHang(CallBackAdd _cb) {
         initComponents();
+        resetText();
+        khachHangDAO = new KhachHangDAO();
+        this.cb = _cb;
+    }
+
+    public void resetText() {
+        txtErrorCMND.setText("");
+        txtErrorDiaChi.setText("");
+        txtErrorDienThoai.setText("");
+        txtErrorMaKH.setText("");
+        txtErrorQuocTich.setText("");
+        txtErrorTenKH.setText("");
+
+        txtDiaChi.setText("");
+        txtMaKH.setText("");
+        txtQuocTich.setText("");
+        txtTenKH.setText("");
+        txtDienThoai.setText("");
+        txtCMND.setText("");
     }
 
     /**
@@ -35,16 +69,14 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtTenKH = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCMND = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
         txtQuocTich = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        txtDienThoai = new javax.swing.JSpinner();
+        jRadioNam = new javax.swing.JRadioButton();
+        jRadioNu = new javax.swing.JRadioButton();
         btnHuyBo = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
@@ -54,6 +86,11 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
         txtErrorDiaChi = new javax.swing.JLabel();
         txtErrorDienThoai = new javax.swing.JLabel();
         txtErrorQuocTich = new javax.swing.JLabel();
+        txtCMND = new javax.swing.JTextField();
+        txtDienThoai = new javax.swing.JTextField();
+
+        setClosable(true);
+        setIconifiable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -69,8 +106,6 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("CMND:");
-
-        txtCMND.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Địa chỉ:");
@@ -88,27 +123,41 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Quốc tịch:");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jRadioButton1.setText("Nam");
+        buttonGroup1.add(jRadioNam);
+        jRadioNam.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jRadioNam.setSelected(true);
+        jRadioNam.setText("Nam");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jRadioButton2.setText("Nữ");
-
-        txtDienThoai.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        buttonGroup1.add(jRadioNu);
+        jRadioNu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jRadioNu.setText("Nữ");
 
         btnHuyBo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnHuyBo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_close.png"))); // NOI18N
         btnHuyBo.setText("Hủy bỏ");
+        btnHuyBo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyBoActionPerformed(evt);
+            }
+        });
 
         btnThemMoi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnThemMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_add.png"))); // NOI18N
         btnThemMoi.setText("Thêm mới");
+        btnThemMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemMoiActionPerformed(evt);
+            }
+        });
 
         btnLamMoi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_refresh.png"))); // NOI18N
         btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
 
         txtErrorMaKH.setForeground(new java.awt.Color(255, 51, 51));
         txtErrorMaKH.setText("...");
@@ -157,15 +206,15 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
+                                        .addComponent(jRadioNam)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton2))
+                                        .addComponent(jRadioNu))
                                     .addComponent(txtMaKH, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCMND, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                    .addComponent(txtDienThoai, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtErrorMaKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtErrorMaKH, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                                     .addComponent(txtErrorCMND, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtErrorDienThoai, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtErrorDienThoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtCMND)
+                                    .addComponent(txtDienThoai))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,22 +245,26 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtErrorMaKH)
                     .addComponent(txtErrorTenKH))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCMND, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCMND)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtErrorCMND)
                     .addComponent(txtErrorDiaChi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txtQuocTich, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuocTich, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtErrorDienThoai)
@@ -219,8 +272,8 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jRadioNam)
+                    .addComponent(jRadioNu))
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,6 +296,43 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        resetText();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
+        resetText();
+        dispose();
+    }//GEN-LAST:event_btnHuyBoActionPerformed
+
+    private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
+        Boolean check = true;
+        String maKH = txtMaKH.getText();
+        String tenKH = txtTenKH.getText();
+        String diaChi = txtDiaChi.getText();
+        String quocTich = txtQuocTich.getText();
+        String CMND = txtCMND.getText();
+        String dienThoai = txtDienThoai.getText();
+        Boolean gioiTinh = true;
+        if (jRadioNu.isSelected()) {
+            gioiTinh = false;
+        }
+        
+        if (check == true) {
+            int phone = Integer.parseInt(dienThoai);
+            int row = khachHangDAO.add(new KhachHang(maKH, tenKH, CMND, diaChi, phone, gioiTinh, quocTich));
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                resetText();
+                cb.doDelete();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_btnThemMoiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuyBo;
@@ -258,11 +348,11 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JSpinner txtCMND;
+    private javax.swing.JRadioButton jRadioNam;
+    private javax.swing.JRadioButton jRadioNu;
+    private javax.swing.JTextField txtCMND;
     private javax.swing.JTextField txtDiaChi;
-    private javax.swing.JSpinner txtDienThoai;
+    private javax.swing.JTextField txtDienThoai;
     private javax.swing.JLabel txtErrorCMND;
     private javax.swing.JLabel txtErrorDiaChi;
     private javax.swing.JLabel txtErrorDienThoai;

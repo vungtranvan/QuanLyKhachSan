@@ -5,7 +5,6 @@
  */
 package com.qlks.view.internalframe;
 
-
 import com.qlks.dao.impl.ChinhSachTraPhongDAO;
 import com.qlks.models.ChinhSachTraPhong;
 import java.util.List;
@@ -21,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
 
     private ChinhSachTraPhongDAO chinhsachtpDAO;
-    private List<ChinhSachTraPhong> lstCauHinh;
+    private List<ChinhSachTraPhong> lstCSTraPhong;
     private DefaultTableModel dtmCSTraPhong;
 
     /**
@@ -36,18 +35,16 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
     }
 
     public void loadData(String maSeaechInput, String noidungSearchInput) {
-        Object[] columnNames = {"STT", "Mã Chính Sách Trả Phòng", "Nội dung", "Phụ thu"};
-
-        if (maSeaechInput == null || noidungSearchInput == null) {
-            maSeaechInput = "";
-            noidungSearchInput = "";
+        if (maSeaechInput != null && noidungSearchInput != null) {
+            lstCSTraPhong = chinhsachtpDAO.search(maSeaechInput, noidungSearchInput);
+        } else {
+            lstCSTraPhong = chinhsachtpDAO.getAll();
         }
-        lstCauHinh = chinhsachtpDAO.search(maSeaechInput, noidungSearchInput);
-
+        Object[] columnNames = {"STT", "Mã Chính Sách Trả Phòng", "Nội dung", "Phụ thu"};
         dtmCSTraPhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
-        for (ChinhSachTraPhong adv : lstCauHinh) {
-            Object[] o = new Object[3];
+        for (ChinhSachTraPhong adv : lstCSTraPhong) {
+            Object[] o = new Object[4];
             o[0] = index;
             o[1] = adv.getMaChinhSach();
             o[2] = adv.getNoiDung();
@@ -58,8 +55,8 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
         tblChinhSachTraPhong.setModel(dtmCSTraPhong);
 
         // Cài đặt sự kiện khi click từng dòng trong bảng
-        if (lstCauHinh.size() > 0) {
-            System.out.println(lstCauHinh.isEmpty());
+        if (lstCSTraPhong.size() > 0) {
+            System.out.println(lstCSTraPhong.isEmpty());
             tblChinhSachTraPhong.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
@@ -353,35 +350,66 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        String maCS = txtMaChinhSach.getText().trim();
-        String noiDungSC = txtNoiDung.getText().trim();
-        Float phuThu = Float.parseFloat(txtPhuThu.getText());
+        String maCS = txtMaChinhSach.getText();
+        String noiDungSC = txtNoiDung.getText();
+        String phuThu = txtPhuThu.getText();
 
+        Boolean check = true;
         List<ChinhSachTraPhong> lstCheckID = chinhsachtpDAO.getByMa(maCS);
-        if (maCS.length() < 0) {
+        if (maCS.length() <= 0) {
             txtErrorMaChinhSach.setText("Mã chính sách không được để trống !");
-        } else if (maCS.length() > 5) {
-            txtErrorMaChinhSach.setText("Mã chính sách tối đa là 5 ký tự !");
-        } else if (lstCheckID.size() > 0) {
-            txtErrorMaChinhSach.setText("Mã chính sách đã tồn tại !");
-        } else if (noiDungSC.length() < 0) {
-            txtErrorNoiDung.setText("Nội dung không được để trống !");
-        } else if (noiDungSC.length() > 50) {
-            txtErrorNoiDung.setText("Nội dung tối đa là 50 ký tự !");
-        } else if (phuThu == null) {
-            txtErrorPhuThu.setText("Phụ thu không được để trống !");
-        } else if (phuThu < 0) {
-            txtErrorPhuThu.setText("Phụ thu phải lớn hơn hoặc bằng 0 !");
+            check = false;
         } else {
-            int row = chinhsachtpDAO.add(new ChinhSachTraPhong(maCS, noiDungSC, phuThu));
-            if (row > 0) {
-                JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
-                resetText();
-                loadData(null, null);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+            txtErrorMaChinhSach.setText("");
+        }
+        if (maCS.length() > 5) {
+            txtErrorMaChinhSach.setText("Mã chính sách tối đa là 5 ký tự !");
+            check = false;
+        }
+
+        if (lstCheckID.size() > 0) {
+            txtErrorMaChinhSach.setText("Mã chính sách đã tồn tại !");
+            check = false;
+        }
+
+        if (noiDungSC.length() <= 0) {
+            txtErrorNoiDung.setText("Nội dung không được để trống !");
+            check = false;
+        } else {
+            txtErrorNoiDung.setText("");
+        }
+        if (noiDungSC.length() > 50) {
+            txtErrorNoiDung.setText("Nội dung tối đa là 50 ký tự !");
+            check = false;
+        }
+        if (phuThu.length() <= 0) {
+            txtErrorPhuThu.setText("Phụ thu không được để trống !");
+            check = false;
+        } else {
+            txtErrorPhuThu.setText("");
+        }
+
+        if (check == true) {
+            Float phuThuT;
+            try {
+                phuThuT = Float.parseFloat(phuThu);
+                if (phuThuT < 0) {
+                    txtErrorPhuThu.setText("Phụ thu phải lớn hơn hoặc bằng 0 !");
+                } else {
+                    txtErrorPhuThu.setText("");
+                    int row = chinhsachtpDAO.add(new ChinhSachTraPhong(maCS, noiDungSC, phuThuT));
+                    if (row > 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                        resetText();
+                        loadData(null, null);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+                    }
+                    loadData(null, null);
+                }
+            } catch (Exception e) {
+                txtErrorPhuThu.setText("Phụ thu phải lớn hơn hoặc bằng 0 !");
             }
-            loadData(null, null);
         }
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
@@ -389,21 +417,39 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
         String maCS = txtMaChinhSach.getText().trim();
         String noiDungSC = txtNoiDung.getText().trim();
         Float phuThu = Float.parseFloat(txtPhuThu.getText());
-
+        Boolean check = true;
         List<ChinhSachTraPhong> lstCheckID = chinhsachtpDAO.getByMa(maCS);
-        if (maCS.length() < 0) {
+
+        if (maCS.length() <= 0) {
             txtErrorMaChinhSach.setText("Mã chính sách không được để trống !");
-        } else if (maCS.length() > 5) {
-            txtErrorMaChinhSach.setText("Mã chính sách tối đa là 5 ký tự !");
-        } else if (noiDungSC.length() < 0) {
-            txtErrorNoiDung.setText("Nội dung không được để trống !");
-        } else if (noiDungSC.length() > 50) {
-            txtErrorNoiDung.setText("Nội dung tối đa là 50 ký tự !");
-        } else if (phuThu == null) {
-            txtErrorPhuThu.setText("Phụ thu không được để trống !");
-        } else if (phuThu < 0) {
-            txtErrorPhuThu.setText("Phụ thu phải lớn hơn hoặc bằng 0 !");
+            check = false;
         } else {
+            txtErrorMaChinhSach.setText("");
+        }
+        if (maCS.length() > 5) {
+            txtErrorMaChinhSach.setText("Mã chính sách tối đa là 5 ký tự !");
+            check = false;
+        }
+        if (noiDungSC.length() <= 0) {
+            txtErrorNoiDung.setText("Nội dung không được để trống !");
+            check = false;
+        } else {
+            txtErrorNoiDung.setText("");
+        }
+        if (noiDungSC.length() > 50) {
+            txtErrorNoiDung.setText("Nội dung tối đa là 50 ký tự !");
+            check = false;
+        }
+        if (phuThu == null) {
+            txtErrorPhuThu.setText("Phụ thu không được để trống !");
+            check = false;
+        }
+        if (phuThu < 0) {
+            txtErrorPhuThu.setText("Phụ thu phải lớn hơn hoặc bằng 0 !");
+            check = false;
+        }
+
+        if (check == true) {
             if (lstCheckID.size() < 0) {
                 txtErrorMaChinhSach.setText("Mã chính sách không tồn tại !");
             } else {
@@ -445,6 +491,7 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        tblChinhSachTraPhong.clearSelection();
         String maCS = txtSeachMaCSach.getText();
         String noidungCS = txtSearchNoiDung.getText();
         if (maCS == null) {

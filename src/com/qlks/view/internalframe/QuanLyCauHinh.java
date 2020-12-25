@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author MinhVuFC
  */
 public class QuanLyCauHinh extends javax.swing.JInternalFrame {
-
+    
     private CauHinhDAO cauhinhDAO;
     private List<CauHinh> lstCauHinh;
     private DefaultTableModel dtmCauHinh;
@@ -31,10 +31,9 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
         dtmCauHinh = new DefaultTableModel();
         cauhinhDAO = new CauHinhDAO();
         loadData(null);
-        txtErrorTenCauHinh.setText("");
         resetText();
     }
-
+    
     public void loadData(String nameSeaechInput) {
         Object[] columnNames = {"STT", "Mã cấu hình", "Loại cấu hình"};
         if (nameSeaechInput != null) {
@@ -42,7 +41,7 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
         } else {
             lstCauHinh = cauhinhDAO.getAll();
         }
-
+        
         dtmCauHinh = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (CauHinh adv : lstCauHinh) {
@@ -75,7 +74,7 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
             });
         }
     }
-
+    
     public void resetText() {
         lblID.setText("");
         txtTenCauHinh.setText("");
@@ -350,10 +349,12 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         resetText();
+        txtSearch.setText("");
         loadData(null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        tblCauHinh.clearSelection();
         if (txtSearch.getText() != null) {
             loadData(txtSearch.getText());
         } else {

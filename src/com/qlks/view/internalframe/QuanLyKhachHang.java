@@ -7,19 +7,21 @@ package com.qlks.view.internalframe;
 
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.KhachHang;
+import com.qlks.view.internalframe.action.AddKhachHang;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
  * @author hello
  */
-public class QuanLyKhachHang extends javax.swing.JInternalFrame {
+public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKhachHang.CallBackAdd {
 
     private KhachHangDAO khachHangDAO;
     public List<KhachHang> lstKhachHang;
@@ -30,12 +32,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         initComponents();
         dtmKhachHang = new DefaultTableModel();
         khachHangDAO = new KhachHangDAO();
-        jdek = new JDesktopPane();
         loadData(null);
     }
 
     public void loadData(String nameSeaechInput) {
-        Object[] columnNames = {"STT", "Mã khách hàng", "Tên khách hàng", "CMND", "Địa chỉ", "Điện thoại", "Giới tính", "Quốc tịch"};
+        Object[] columnNames = {"STT", "Mã khách hàng", "Tên khách hàng", "CMND", "Địa chỉ", "Điện thoại", "Giới tính", "Quốc tịch", ""};
         if (nameSeaechInput != null) {
             //   lstKhachHang = khachHangDAO.search(nameSeaechInput);
         } else {
@@ -45,7 +46,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
         dtmKhachHang = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (KhachHang adv : lstKhachHang) {
-            Object[] o = new Object[3];
+            Object[] o = new Object[8];
             o[0] = index;
             o[1] = adv.getMaKhachHang();
             o[2] = adv.getTenKhachHang();
@@ -62,25 +63,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
             index++;
         }
         tblKhachHang.setModel(dtmKhachHang);
-
-        // Cài đặt sự kiện khi click từng dòng trong bảng
-        if (lstKhachHang.size() > 0) {
-            System.out.println(lstKhachHang.isEmpty());
-            tblKhachHang.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    int currentRow = tblKhachHang.getSelectedRow();
-                    if (currentRow < 0) {
-                        currentRow = 0;
-                    }
-
-                    // Chèn dữ liệu lên form
-                    if (currentRow >= 0) {
-
-                    }
-                }
-            });
-        }
+        addCheckBox(8, tblKhachHang);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -94,11 +77,22 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
 
     public void showInternalFrame(JInternalFrame jif) {
         if (!jif.isVisible()) {
+            jdek = getDesktopPane();
             jdek.add(jif);
             centerJIF(jif);
             jif.setVisible(true);
             jdek.show();
         }
+    }
+
+    public void addCheckBox(int column, JTable table) {
+        TableColumn tc = table.getColumnModel().getColumn(column);
+        tc.setCellEditor(table.getDefaultEditor(Boolean.class));
+        tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+    }
+
+    public boolean IsSelected(int row, int column, JTable table) {
+        return table.getValueAt(row, column) != null;
     }
 
     /**
@@ -125,6 +119,16 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
 
         btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_refresh.png"))); // NOI18N
         btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+        btnLamMoi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLamMoiKeyPressed(evt);
+            }
+        });
 
         btnThemMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_add.png"))); // NOI18N
         btnThemMoi.setText("Thêm mới");
@@ -136,6 +140,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
 
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
@@ -220,9 +229,45 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        QuanLyCauHinh jInterFrame = new QuanLyCauHinh();
-        showInternalFrame(jInterFrame);
+        //QuanLyCauHinh jInterFrame = new QuanLyCauHinh();
+        showInternalFrame(new AddKhachHang(this));
     }//GEN-LAST:event_btnThemMoiActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        String succesDeltete = "";
+        String errDeltete = "";
+        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (thongbao == JOptionPane.YES_OPTION) {
+
+            for (int i = 0; i < tblKhachHang.getRowCount(); i++) {
+//                if (IsSelected(i, 8, tblKhachHang)) {
+//                    //System.out.println(tblKhachHang.getValueAt(i, 1).toString());
+//                    System.out.println(tblKhachHang.getValueAt(i, 2).toString());
+//                    int rowSucces = khachHangDAO.delete(tblKhachHang.getValueAt(i, 1).toString());
+//                    if (rowSucces > 0) {
+//                        succesDeltete += "\t" + tblKhachHang.getValueAt(i, 2).toString() + "\n";
+//                        loadData(null);
+//                    } else {
+//                        errDeltete += "\t" + tblKhachHang.getValueAt(i, 2).toString() + "\n";
+//                    }
+//                }
+//            }
+                String mess = "Bạn đã xóa thành công: \n" + succesDeltete;
+                System.out.println(mess);
+                if (errDeltete.length() > 0) {
+                    mess += "Không thể xóa: \n" + errDeltete;
+                }
+                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLamMoiKeyPressed
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+
+    }//GEN-LAST:event_btnLamMoiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -235,4 +280,9 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblKhachHang;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void doDelete() {
+        loadData(null);
+    }
 }
