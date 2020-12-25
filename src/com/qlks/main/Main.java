@@ -6,6 +6,7 @@ import com.qlks.view.MainJFrame;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -34,8 +35,9 @@ public class Main {
                 if (main.listnd != null) {
                     if (main.listnd.size() > 0) {
                         logInJFrame.setVisible(false);
-                        mainFrame.getJlbHello().setText("");
                         mainFrame.setVisible(true);
+                        mainFrame.getJblHello().setText("Hi: " + main.listnd.get(0).getTenNguoiDung());
+                        mainFrame.getJblHello().setIcon(new ImageIcon("src/com/qlks/icon/icon_error_red.png"));
                     }
                 }
 

@@ -34,6 +34,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import jdk.nashorn.internal.objects.Global;
 
 /**
@@ -165,14 +166,16 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnMenu.setBackground(cl);
     }
 
-    public JLabel getJlbHello() {
-        return jlbAvatar;
+
+
+    public JLabel getJblHello() {
+        return jblHello;
     }
 
-    public void setJlbHello(JLabel jlbHello) {
-        this.jlbAvatar = jlbHello;
+    public void setJblHello(JLabel jblHello) {
+        this.jblHello = jblHello;
     }
-    
+       
    
     private void visibleSubMenu(JLabel jl, String title, List<JPanel> items) {
 
@@ -183,6 +186,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 jpnSubmenu.setPreferredSize(dmnsn);
                 jpnSubmenu.setSize(dmnsn);
                 jpnSubmenu.setMaximumSize(dmnsn);
+              
+                
                 jpnSubmenu.setVisible(true);
                 jpnSubmenu.removeAll();
 
@@ -386,7 +391,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jMain = new javax.swing.JDesktopPane();
         jpnMainMessage = new javax.swing.JPanel();
         jlbMainMesange = new javax.swing.JLabel();
-        jlbAvatar = new javax.swing.JLabel();
         jblHello = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -477,7 +481,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 6, Short.MAX_VALUE))))
+                        .addGap(0, 7, Short.MAX_VALUE))))
             .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -487,29 +491,27 @@ public class MainJFrame extends javax.swing.JFrame {
         jlbMainMesange.setText("jLabel2");
         jlbMainMesange.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 15));
 
-        jlbAvatar.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
-        jlbAvatar.setText("jLabel3");
-
         jblHello.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         jblHello.setText("jLabel4");
         jblHello.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 15));
+        jblHello.setIconTextGap(15);
 
         javax.swing.GroupLayout jpnMainMessageLayout = new javax.swing.GroupLayout(jpnMainMessage);
         jpnMainMessage.setLayout(jpnMainMessageLayout);
         jpnMainMessageLayout.setHorizontalGroup(
             jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnMainMessageLayout.createSequentialGroup()
-                .addComponent(jlbMainMesange, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
+                .addComponent(jlbMainMesange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jlbAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jpnMainMessageLayout.setVerticalGroup(
             jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbMainMesange, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jlbAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jpnMainMessageLayout.createSequentialGroup()
+                .addGroup(jpnMainMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbMainMesange, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -527,7 +529,7 @@ public class MainJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpnMainMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jMain))
             .addComponent(jpnMainLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -548,7 +550,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JDesktopPane jMain;
     private javax.swing.JLabel jblHello;
-    private javax.swing.JLabel jlbAvatar;
     public static javax.swing.JLabel jlbMainMesange;
     private javax.swing.JPanel jpnLogo;
     private javax.swing.JPanel jpnMainLeft;
