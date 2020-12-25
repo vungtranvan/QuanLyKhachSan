@@ -5,7 +5,12 @@
  */
 package com.qlks.utils;
 
-import javax.swing.JLabel;
+import com.qlks.view.MainJFrame;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 /**
  *
@@ -13,12 +18,39 @@ import javax.swing.JLabel;
  */
 public class MethodMain {
 
-    public static boolean checkNull(String Checker, String Message, JLabel show) {
-        if (Checker.isEmpty()) {
-            show.setText(Message);
-            return true;
-        } else {
-            return false;
-        }
+    public static void globalMessagerSuccess(String msg) {
+        MainJFrame.jlbMainMesange.setForeground(Color.GREEN);
+        MainJFrame.jlbMainMesange.setIcon(new ImageIcon("src/com/qlks/icon/icon_success_green.png"));
+        MainJFrame.jlbMainMesange.setText(msg);
+        Timer timer = new Timer(10000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                MainJFrame.jlbMainMesange.setIcon(null);
+                MainJFrame.jlbMainMesange.setText("");
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+
+    }
+
+    public static void globalMessagerError(String msg) {
+        MainJFrame.jlbMainMesange.setForeground(Color.RED);
+        MainJFrame.jlbMainMesange.setIcon(new ImageIcon("src/com/qlks/icon/icon_error_red.png"));
+        MainJFrame.jlbMainMesange.setText(msg);
+        Timer timer = new Timer(10000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                MainJFrame.jlbMainMesange.setIcon(null);
+                MainJFrame.jlbMainMesange.setText("");
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    public static void globalMessagerWarning(String msg) {
+        MainJFrame.jlbMainMesange.setForeground(Color.YELLOW);
+        MainJFrame.jlbMainMesange.setText(msg);
     }
 }

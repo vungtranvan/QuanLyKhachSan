@@ -6,7 +6,6 @@
 package com.qlks.view.internalframe;
 
 import com.qlks.dao.impl.KhachHangDAO;
-import com.qlks.models.ChinhSachTraPhong;
 import com.qlks.models.KhachHang;
 import com.qlks.view.internalframe.action.AddKhachHang;
 import java.awt.Dimension;
@@ -15,8 +14,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -125,6 +122,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiActionPerformed(evt);
+            }
+        });
+        btnLamMoi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLamMoiKeyPressed(evt);
             }
         });
 
@@ -250,17 +252,21 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 //                    }
 //                }
 //            }
-            String mess = "Bạn đã xóa thành công: \n" + succesDeltete;
-            System.out.println(mess);
-            if (errDeltete.length() > 0) {
-                mess += "Không thể xóa: \n" + errDeltete;
+                String mess = "Bạn đã xóa thành công: \n" + succesDeltete;
+                System.out.println(mess);
+                if (errDeltete.length() > 0) {
+                    mess += "Không thể xóa: \n" + errDeltete;
+                }
+                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
-            JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLamMoiKeyPressed
+
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        loadData(null);
+
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
 
