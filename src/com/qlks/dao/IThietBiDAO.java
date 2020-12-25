@@ -15,7 +15,7 @@ import java.util.List;
 public interface IThietBiDAO {
     List<ThietBi> getAll();
 
-    List<ThietBi> search(String maThietBi, String maLoaiPhong, String tenThietBi, float gia);
+    List<ThietBi> search(String maThietBi, String maLoaiPhong, String tenThietBi);
 
     int add(ThietBi thietBi);
 

@@ -16,7 +16,7 @@ public interface ILoaiPhongDAO {
 
     List<LoaiPhong> getAll();
 
-    List<LoaiPhong> search(String maLoaiPhong, String tenLoaiPhong, float donGia, int soNguoiChuan, int soNguoiToiDa);
+    List<LoaiPhong> search(String maLoaiPhong, String tenLoaiPhong);
 
     int add(LoaiPhong loaiPhong);
 

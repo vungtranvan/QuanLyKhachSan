@@ -5,35 +5,26 @@
  */
 package com.qlks.view.internalframe.action;
 
-import com.qlks.dao.impl.KhachHangDAO;
-import com.qlks.models.KhachHang;
-import com.qlks.view.internalframe.QuanLyKhachHang;
-import java.util.List;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author hello
  */
 public class SearchKhachHang extends javax.swing.JInternalFrame {
 
-    private KhachHangDAO khachHangDAO;
-    private QuanLyKhachHang quanlyKH;
+    CallBackSearch cb;
 
-    CallBackAdd cb;
+    public interface CallBackSearch {
 
-    public interface CallBackAdd {
-
-        void doDelete();
+        void doSearch(String maSearchInput, String tenSearchInput, String CMNDSearchInput,
+                String diaChiSearchInput, String dienThoaiSearchInput, Boolean gioiTinhSearchInput, String quocTichSearchInput);
     }
 
     /**
      * Creates new form AddKhachHang
      */
-    public SearchKhachHang(CallBackAdd _cb) {
+    public SearchKhachHang(CallBackSearch _cb) {
         initComponents();
         resetText();
-        khachHangDAO = new KhachHangDAO();
         this.cb = _cb;
     }
 
@@ -126,7 +117,6 @@ public class SearchKhachHang extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(jRadioNam);
         jRadioNam.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jRadioNam.setSelected(true);
         jRadioNam.setText("Nam");
 
         buttonGroup1.add(jRadioNu);
@@ -307,7 +297,6 @@ public class SearchKhachHang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        Boolean check = true;
         String maKH = txtMaKH.getText();
         String tenKH = txtTenKH.getText();
         String diaChi = txtDiaChi.getText();
@@ -318,89 +307,7 @@ public class SearchKhachHang extends javax.swing.JInternalFrame {
         if (jRadioNu.isSelected()) {
             gioiTinh = false;
         }
-
-        if (maKH.length() <= 0) {
-            txtErrorMaKH.setText("Mã không được để trống");
-            check = false;
-        } else if (maKH.length() > 3) {
-            txtErrorMaKH.setText("Mã có tối đa là 3 ký tự");
-            check = false;
-        } else {
-            txtErrorMaKH.setText("");
-        }
-        
-        List<KhachHang> lstCheckID = khachHangDAO.getByMa(maKH);
-        if (lstCheckID.size() > 0) {
-            txtErrorMaKH.setText("Mã khách hàng đã tồn tại !");
-            check = false;
-        }
-        
-        if (tenKH.length() <= 0) {
-            txtErrorTenKH.setText("Tên không được để trống");
-            check = false;
-        } else if (tenKH.length() > 50) {
-            txtErrorTenKH.setText("Tên có tối đa là 50 ký tự");
-            check = false;
-        } else {
-            txtErrorTenKH.setText("");
-        }
-
-        if (CMND.length() <= 0) {
-            txtErrorCMND.setText("CMND không được để trống");
-            check = false;
-        } else if (CMND.length() > 15) {
-            txtErrorCMND.setText("CMND có tối đa là 15 ký tự");
-            check = false;
-        } else {
-            txtErrorCMND.setText("");
-        }
-
-        if (diaChi.length() <= 0) {
-            txtErrorDiaChi.setText("Địa chỉ không được để trống");
-            check = false;
-        } else if (diaChi.length() > 50) {
-            txtErrorDiaChi.setText("Địa chỉ có tối đa là 50 ký tự");
-            check = false;
-        } else {
-            txtErrorDiaChi.setText("");
-        }
-
-        if (dienThoai.length() <= 0) {
-            txtErrorDienThoai.setText("Điện thoại không được để trống");
-            check = false;
-        }
-
-        if (quocTich.length() <= 0) {
-            txtErrorQuocTich.setText("Quốc tịch không được để trống");
-            check = false;
-        } else if (quocTich.length() > 50) {
-            txtErrorQuocTich.setText("Quốc tịch có tối đa là 50 ký tự");
-            check = false;
-        } else {
-            txtErrorQuocTich.setText("");
-        }
-        if (check == true) {
-            int phone;
-            try {
-                phone = Integer.parseInt(dienThoai);
-                if (phone < 0) {
-                    txtErrorDienThoai.setText("Số điện thoại không hợp lệ !");
-                } else {
-                    txtErrorDienThoai.setText("");
-                    int row = khachHangDAO.add(new KhachHang(maKH, tenKH, CMND, diaChi, phone, gioiTinh, quocTich));
-                    if (row > 0) {
-                        JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                        resetText();
-                        cb.doDelete();
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            } catch (Exception e) {
-                txtErrorDienThoai.setText("Số điện thoại không hợp lệ !");
-            }
-        }
+        cb.doSearch(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 

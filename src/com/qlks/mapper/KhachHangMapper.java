@@ -22,7 +22,7 @@ public class KhachHangMapper implements RowMapper<KhachHang> {
         try {
             KhachHang data = new KhachHang(rs.getString("MaKhachHang"),
                     rs.getString("TenKhachHang"), rs.getString("CMND"), rs.getString("DiaChi"),
-                    rs.getInt("DienThoai"), rs.getBoolean("GioiTinh"), rs.getString("QuocTich"));
+                    rs.getString("DienThoai"), rs.getBoolean("GioiTinh"), rs.getString("QuocTich"));
             return data;
 
         } catch (SQLException ex) {

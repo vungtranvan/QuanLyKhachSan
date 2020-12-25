@@ -23,7 +23,7 @@ public interface IHoaDonDAO {
 
     List<HoaDon> getByMaNhanPhong(String maNhanPhong);
 
-    List<HoaDon> search(String maHoaDon, String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, LocalDateTime ngayLap);
+    List<HoaDon> search(String maHoaDon, String maKhachHang, String maNhanPhong, String nhanVienLap, LocalDateTime ngayLap);
 
     int add(HoaDon hoaDon);
 

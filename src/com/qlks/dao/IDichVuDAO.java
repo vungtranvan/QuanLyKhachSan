@@ -16,7 +16,7 @@ public interface IDichVuDAO {
 
     List<DichVu> getAll();
 
-    List<DichVu> search(String maDichVu, String maLoaiDichVu, String maDonVi, float donGia);
+    List<DichVu> search(String maDichVu, String maLoaiDichVu, String maDonVi);
 
     int add(DichVu dichVu);
 

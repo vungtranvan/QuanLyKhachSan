@@ -19,7 +19,7 @@ public interface IKhuyenMaiDAO {
 
     List<KhuyenMai> getByMaKhuyenMai(int maKhuyenMai);
 
-    List<KhuyenMai> search(int maKhuyenMai, String maPhieu, float giaTri, String noiDung, LocalDate ngayBatDau, LocalDate ngayKetThuc, Boolean kieuTinh, Boolean trangThai);
+    List<KhuyenMai> search( String maPhieu, String noiDung, LocalDate ngayBatDau, LocalDate ngayKetThuc, Boolean trangThai);
 
     int add(KhuyenMai khuyenMai);
 
