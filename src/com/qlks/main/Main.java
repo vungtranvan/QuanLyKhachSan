@@ -1,6 +1,7 @@
 package com.qlks.main;
 
 import com.qlks.models.NguoiDung;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.LogInJFrame;
 import com.qlks.view.MainJFrame;
 import java.awt.event.MouseEvent;
@@ -18,6 +19,7 @@ public class Main {
     List<NguoiDung> listnd;
 
     public static void main(String[] args) {
+
         Main main = new Main();
         MainJFrame mainFrame = new MainJFrame();
         mainFrame.setLocationRelativeTo(null);
@@ -26,6 +28,7 @@ public class Main {
         logInJFrame.setLocationRelativeTo(null);
 
         logInJFrame.setVisible(true);
+
         JButton jbLogin = logInJFrame.getBtnLogin();
 
         jbLogin.addMouseListener(new MouseListener() {
@@ -36,8 +39,9 @@ public class Main {
                     if (main.listnd.size() > 0) {
                         logInJFrame.setVisible(false);
                         mainFrame.setVisible(true);
-                        mainFrame.getJblHello().setText("Hi: " + main.listnd.get(0).getTenNguoiDung());
-                        mainFrame.getJblHello().setIcon(new ImageIcon("src/com/qlks/icon/icon_error_red.png"));
+                        String loginSuccess = "Dang nhap thanh cong";
+                        MethodMain.globalMessagerSuccess(loginSuccess,mainFrame.getjMain());
+
                     }
                 }
 

@@ -99,8 +99,7 @@ public class LogInJFrame extends javax.swing.JFrame {
         if (check == true) {
             List<NguoiDung> listNguoiDung = nddao.checkDangNhap(userName, passWord);
             if (listNguoiDung.size() > 0) {
-                String loginSuccess = "Dang nhap thanh cong";
-                MethodMain.globalMessagerSuccess(loginSuccess);
+ 
                 return listNguoiDung;
             } else {
                 jpnMessager.removeAll();
