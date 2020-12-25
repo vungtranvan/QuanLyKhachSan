@@ -5,9 +5,11 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.custom.CustomButtonClumnJTable;
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.KhachHang;
 import com.qlks.view.internalframe.action.AddKhachHang;
+import com.qlks.view.internalframe.action.UpdateKhachHang;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JDesktopPane;
@@ -21,7 +23,7 @@ import javax.swing.table.TableColumn;
  *
  * @author hello
  */
-public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKhachHang.CallBackAdd {
+public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKhachHang.CallBackAdd, UpdateKhachHang.CallBackUpdate {
 
     private KhachHangDAO khachHangDAO;
     public List<KhachHang> lstKhachHang;
@@ -46,7 +48,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         dtmKhachHang = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (KhachHang adv : lstKhachHang) {
-            Object[] o = new Object[8];
+            Object[] o = new Object[9];
             o[0] = index;
             o[1] = adv.getMaKhachHang();
             o[2] = adv.getTenKhachHang();
@@ -92,7 +94,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
     }
 
     public boolean IsSelected(int row, int column, JTable table) {
-        return table.getValueAt(row, column) != null;
+        System.out.println("ok " + table.getValueAt(row, column));
+        if (table.getValueAt(row, column) != null && Boolean.parseBoolean(table.getValueAt(row, column).toString()) != false) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -109,6 +115,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
+        btnCapNhat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKhachHang = new javax.swing.JTable();
@@ -149,20 +156,30 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
 
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_edit.png"))); // NOI18N
+        btnCapNhat.setText("Cập nhật");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(196, 196, 196)
+                .addGap(114, 114, 114)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(28, 28, 28)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,8 +188,9 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -201,7 +219,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,41 +254,66 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         String succesDeltete = "";
         String errDeltete = "";
+        Boolean check = false;
         int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblKhachHang.getRowCount(); i++) {
-//                if (IsSelected(i, 8, tblKhachHang)) {
-//                    //System.out.println(tblKhachHang.getValueAt(i, 1).toString());
-//                    System.out.println(tblKhachHang.getValueAt(i, 2).toString());
-//                    int rowSucces = khachHangDAO.delete(tblKhachHang.getValueAt(i, 1).toString());
-//                    if (rowSucces > 0) {
-//                        succesDeltete += "\t" + tblKhachHang.getValueAt(i, 2).toString() + "\n";
-//                        loadData(null);
-//                    } else {
-//                        errDeltete += "\t" + tblKhachHang.getValueAt(i, 2).toString() + "\n";
-//                    }
-//                }
-//            }
+                System.out.println("getRowCount= " + tblKhachHang.getRowCount());
+                if (IsSelected(i, 8, tblKhachHang)) {
+                    check = true;
+                    //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
+
+                    int rowSucces = khachHangDAO.delete(tblKhachHang.getValueAt(i, 1).toString());
+                    if (rowSucces > 0) {
+                        succesDeltete += "\t" + tblKhachHang.getValueAt(i, 2).toString() + "\n";
+                    } else {
+                        errDeltete += "\t" + tblKhachHang.getValueAt(i, 2).toString() + "\n";
+                    }
+                }
+            }
+            loadData(null);
+            if (check == true) {
                 String mess = "Bạn đã xóa thành công: \n" + succesDeltete;
-                System.out.println(mess);
                 if (errDeltete.length() > 0) {
                     mess += "Không thể xóa: \n" + errDeltete;
                 }
                 JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
+
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
-        // TODO add your handling code here:
+        loadData(null);
     }//GEN-LAST:event_btnLamMoiKeyPressed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-
+        loadData(null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+        int currentRow = tblKhachHang.getSelectedRow();
+        String maKH = dtmKhachHang.getValueAt(currentRow, 1).toString();
+        String tenKH = dtmKhachHang.getValueAt(currentRow, 2).toString();
+        String CMND = dtmKhachHang.getValueAt(currentRow, 3).toString();
+        String diaChi = dtmKhachHang.getValueAt(currentRow, 4).toString();
+        int dienThoai = Integer.parseInt(dtmKhachHang.getValueAt(currentRow, 5).toString());
+        String gioiTinhInTable = dtmKhachHang.getValueAt(currentRow, 6).toString();
+        Boolean gioiTinh = true;
+        if (gioiTinhInTable.equals("Nữ")) {
+            gioiTinh = false;
+        }
+        String quocTich = dtmKhachHang.getValueAt(currentRow, 7).toString();
+        KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
+        showInternalFrame(new UpdateKhachHang(dataKH, this));
+    }//GEN-LAST:event_btnCapNhatActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
@@ -283,6 +326,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 
     @Override
     public void doDelete() {
+        loadData(null);
+    }
+
+    @Override
+    public void doUpdate() {
         loadData(null);
     }
 }
