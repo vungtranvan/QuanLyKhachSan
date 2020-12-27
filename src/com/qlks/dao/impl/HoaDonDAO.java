@@ -42,9 +42,9 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO {
     }
 
     @Override
-    public List<HoaDon> search(String maHoaDon, String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, LocalDateTime ngayLap) {
-        String sql = "{Call SearchNHoaDon(?,?,?,?,?,?)}";
-        return query(sql, new HoaDonMapper(), maHoaDon, maKhachHang, maNhanPhong, maKhuyenMai, nhanVienLap, ngayLap);
+    public List<HoaDon> search(String maHoaDon, String maKhachHang, String maNhanPhong, String nhanVienLap, LocalDateTime ngayLap) {
+        String sql = "{Call SearchNHoaDon(?,?,?,?,?)}";
+        return query(sql, new HoaDonMapper(), maHoaDon, maKhachHang, maNhanPhong, nhanVienLap, ngayLap);
     }
 
     @Override

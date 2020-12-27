@@ -23,9 +23,9 @@ public class DichVuDAO extends AbstractDAO<DichVu> implements IDichVuDAO {
     }
 
     @Override
-    public List<DichVu> search(String maDichVu, String maLoaiDichVu, String maDonVi, float donGia) {
-        String sql = "{Call SearchDichVu(?,?,?,?}";
-        return query(sql, new DichVuMapper(), maDichVu, maLoaiDichVu, maDonVi, donGia);
+    public List<DichVu> search(String maDichVu, String maLoaiDichVu, String maDonVi) {
+        String sql = "{Call SearchDichVu(?,?,?}";
+        return query(sql, new DichVuMapper(), maDichVu, maLoaiDichVu, maDonVi);
     }
 
     @Override

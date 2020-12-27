@@ -21,7 +21,7 @@ public interface INguoiDungDAO {
 
     List<NguoiDung> checkDangNhap(String tenDangNhap, String password);
 
-    List<NguoiDung> search(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String email, LocalDate ngaySinh, Boolean gioiTinh, int maNhomQuyen);
+    List<NguoiDung> search(String tenNguoiDung, String tenDangNhap, String email, LocalDate ngaySinh, Boolean gioiTinh, int maNhomQuyen);
 
     int add(NguoiDung nguoiDung);
 

@@ -23,9 +23,9 @@ public class ThietBiDAO extends AbstractDAO<ThietBi> implements IThietBiDAO {
     }
 
     @Override
-    public List<ThietBi> search(String maThietBi, String maLoaiPhong, String tenThietBi, float gia) {
-        String sql = "{Call SearchThietBi(?,?,?,?)}";
-        return query(sql, new ThietBiMapper(), maThietBi, maLoaiPhong, tenThietBi, gia);
+    public List<ThietBi> search(String maThietBi, String maLoaiPhong, String tenThietBi) {
+        String sql = "{Call SearchThietBi(?,?,?)}";
+        return query(sql, new ThietBiMapper(), maThietBi, maLoaiPhong, tenThietBi);
     }
 
     @Override

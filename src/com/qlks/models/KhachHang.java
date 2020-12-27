@@ -15,14 +15,14 @@ public class KhachHang {
     private String tenKhachHang;
     private String chungMinhThuNhanDan;
     private String diaChi;
-    private int dienThoai;
+    private String dienThoai;
     private boolean gioiTinh;
     private String quocTich;
 
     public KhachHang() {
     }
 
-    public KhachHang(String maKhachHang, String tenKhachHang, String chungMinhThuNhanDan, String diaChi, int dienThoai, boolean gioiTinh, String quocTich) {
+    public KhachHang(String maKhachHang, String tenKhachHang, String chungMinhThuNhanDan, String diaChi, String dienThoai, boolean gioiTinh, String quocTich) {
         this.maKhachHang = maKhachHang;
         this.tenKhachHang = tenKhachHang;
         this.chungMinhThuNhanDan = chungMinhThuNhanDan;
@@ -64,11 +64,11 @@ public class KhachHang {
         this.diaChi = diaChi;
     }
 
-    public int getDienThoai() {
+    public String getDienThoai() {
         return dienThoai;
     }
 
-    public void setDienThoai(int dienThoai) {
+    public void setDienThoai(String dienThoai) {
         this.dienThoai = dienThoai;
     }
 

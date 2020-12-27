@@ -39,14 +39,14 @@ public class UpdateKhachHang extends javax.swing.JInternalFrame {
         txtMaKH.setText(khachhang.getMaKhachHang());
         txtQuocTich.setText(khachhang.getQuocTich());
         txtTenKH.setText(khachhang.getTenKhachHang());
-        txtDienThoai.setText(Integer.toString(khachhang.getDienThoai()));
+        txtDienThoai.setText(khachhang.getDienThoai());
         txtCMND.setText(khachhang.getChungMinhThuNhanDan());
         if (khachhang.isGioiTinh() == true) {
             jRadioNam.setSelected(true);
         } else {
             jRadioNu.setSelected(true);
         }
-        
+
     }
 
     public void resetText() {
@@ -332,21 +332,6 @@ public class UpdateKhachHang extends javax.swing.JInternalFrame {
             gioiTinh = false;
         }
 
-//        if (maKH.length() <= 0) {
-//            txtErrorMaKH.setText("Mã không được để trống");
-//            check = false;
-//        } else if (maKH.length() > 3) {
-//            txtErrorMaKH.setText("Mã có tối đa là 3 ký tự");
-//            check = false;
-//        } else {
-//            txtErrorMaKH.setText("");
-//        }
-//
-//        List<KhachHang> lstCheckID = khachHangDAO.getByMa(maKH);
-//        if (lstCheckID.size() > 0) {
-//            txtErrorMaKH.setText("Mã khách hàng đã tồn tại !");
-//            check = false;
-//        }
         if (tenKH.length() <= 0) {
             txtErrorTenKH.setText("Tên không được để trống");
             check = false;
@@ -380,6 +365,11 @@ public class UpdateKhachHang extends javax.swing.JInternalFrame {
         if (dienThoai.length() <= 0) {
             txtErrorDienThoai.setText("Điện thoại không được để trống");
             check = false;
+        } else if (dienThoai.length() > 15) {
+            txtErrorDienThoai.setText("Điện thoại có tối đa là 15 số");
+            check = false;
+        } else {
+            txtErrorDienThoai.setText("");
         }
 
         if (quocTich.length() <= 0) {
@@ -392,25 +382,15 @@ public class UpdateKhachHang extends javax.swing.JInternalFrame {
             txtErrorQuocTich.setText("");
         }
         if (check == true) {
-            int phone;
-            try {
-                phone = Integer.parseInt(dienThoai);
-                if (phone < 0) {
-                    txtErrorDienThoai.setText("Số điện thoại không hợp lệ !");
-                } else {
-                    txtErrorDienThoai.setText("");
-                    int row = khachHangDAO.update(new KhachHang(maKH, tenKH, CMND, diaChi, phone, gioiTinh, quocTich));
-                    if (row > 0) {
-                        JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                        resetText();
-                        cb.doUpdate();
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            } catch (Exception e) {
-                txtErrorDienThoai.setText("Số điện thoại không hợp lệ !");
+            txtErrorDienThoai.setText("");
+            int row = khachHangDAO.update(new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich));
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                resetText();
+                cb.doUpdate();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed

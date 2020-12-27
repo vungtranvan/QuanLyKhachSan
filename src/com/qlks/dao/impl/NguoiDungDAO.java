@@ -59,9 +59,9 @@ public class NguoiDungDAO extends AbstractDAO<NguoiDung> implements INguoiDungDA
     }
 
     @Override
-    public List<NguoiDung> search(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String email, LocalDate ngaySinh, Boolean gioiTinh, int maNhomQuyen) {
+    public List<NguoiDung> search(String tenNguoiDung, String tenDangNhap, String email, LocalDate ngaySinh, Boolean gioiTinh, int maNhomQuyen) {
         String sql = "{Call SearchNguoiDung(?,?,?,?,?,?,?)}";
-        return query(sql, new NguoiDungMapper(), maNguoiDung, tenNguoiDung, tenDangNhap, email, ngaySinh, gioiTinh, maNhomQuyen);
+        return query(sql, new NguoiDungMapper(), tenNguoiDung, tenDangNhap, email, ngaySinh, gioiTinh, maNhomQuyen);
     }
 
 }

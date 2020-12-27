@@ -18,7 +18,7 @@ public interface IKhachHangDAO {
 
     List<KhachHang> getByMa(String maKhachHang);
 
-    List<KhachHang> search(String maKhachHang, String tenKhachHang, String CMND, String diaChi, int dienThoai, Boolean gioiTinh, String quocTich);
+    List<KhachHang> search(String maKhachHang, String tenKhachHang, String CMND, String diaChi, String dienThoai, Boolean gioiTinh, String quocTich);
 
     int add(KhachHang khachHang);
 

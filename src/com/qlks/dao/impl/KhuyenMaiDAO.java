@@ -30,9 +30,9 @@ public class KhuyenMaiDAO extends AbstractDAO<KhuyenMai> implements IKhuyenMaiDA
     }
 
     @Override
-    public List<KhuyenMai> search(int maKhuyenMai, String maPhieu, float giaTri, String noiDung, LocalDate ngayBatDau, LocalDate ngayKetThuc, Boolean kieuTinh, Boolean trangThai) {
-        String sql = "{Call SearchKhuyenMai(?,?,?,?,?,?,?,?)}";
-        return query(sql, new KhuyenMaiMapper(), maKhuyenMai, maPhieu, giaTri, noiDung, ngayBatDau, ngayKetThuc, kieuTinh, trangThai);
+    public List<KhuyenMai> search(String maPhieu, String noiDung, LocalDate ngayBatDau, LocalDate ngayKetThuc, Boolean trangThai) {
+        String sql = "{Call SearchKhuyenMai(?,?,?,?,?)}";
+        return query(sql, new KhuyenMaiMapper(), maPhieu, noiDung, ngayBatDau, ngayKetThuc, trangThai);
     }
 
     @Override

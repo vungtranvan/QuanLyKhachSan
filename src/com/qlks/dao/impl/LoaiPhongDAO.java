@@ -23,9 +23,9 @@ public class LoaiPhongDAO extends AbstractDAO<LoaiPhong> implements ILoaiPhongDA
     }
 
     @Override
-    public List<LoaiPhong> search(String maLoaiPhong, String tenLoaiPhong, float donGia, int soNguoiChuan, int soNguoiToiDa) {
-        String sql = "{Call SearchLoaiPhong(?,?,?,?,?)}";
-        return query(sql, new LoaiPhongMapper(), maLoaiPhong, tenLoaiPhong, donGia, soNguoiChuan, soNguoiToiDa);
+    public List<LoaiPhong> search(String maLoaiPhong, String tenLoaiPhong) {
+        String sql = "{Call SearchLoaiPhong(?,?)}";
+        return query(sql, new LoaiPhongMapper(), maLoaiPhong, tenLoaiPhong);
     }
 
     @Override

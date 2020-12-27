@@ -61,7 +61,7 @@ CREATE TABLE KhachHang
 	TenKhachHang nvarchar (50),
 	CMND nvarchar (15) NOT NULL,
 	DiaChi nvarchar (50),
-	DienThoai int,
+	DienThoai varchar (15),
 	GioiTinh bit,
 	QuocTich nvarchar(50)
 )
@@ -337,6 +337,13 @@ ALTER TABLE CauHinhNguoiDung
 ADD FOREIGN KEY (MaCauHinh) REFERENCES CauHinh (MaCauHinh);
 GO
 
+--         Thêm data vào bảng
+--Bảng NhomQuyen
+insert into NhomQuyen(TenNhomQuyen) Values('Admin')
+GO
+
+Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values('Admin Manager','admin','123','admin.jpg','admin@gmail.com','2020-12-12',1,1)
+GO
 
 --  TẠO THỦ TỤC
 
@@ -481,7 +488,6 @@ END
 GO
 
 CREATE PROC SearchNguoiDung
-@MaNguoiDung int,
 @TenNguoiDung nvarchar (50),
 @TenDangNhap varchar (50),
 @Email varchar (50),
@@ -490,7 +496,7 @@ CREATE PROC SearchNguoiDung
 @MaNhomQuyen int
 AS
 BEGIN 
-SELECT * FROM NguoiDung Where MaNguoiDung = @MaNguoiDung AND TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
+SELECT * FROM NguoiDung Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
 AND TenDangNhap LIKE '%'+@TenDangNhap+'%' AND Email LIKE '%'+@Email+'%' AND NgaySinh LIKE '%'+@NgaySinh+'%' 
 AND GioiTinh = @GioiTinh AND MaNhomQuyen =@MaNhomQuyen
 ORDER BY MaNguoiDung DESC
@@ -575,7 +581,7 @@ CREATE PROC SearchKhachHang
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
@@ -591,7 +597,7 @@ CREATE PROC insertKhachHang
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
@@ -605,7 +611,7 @@ CREATE PROC updateKhachHang
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
@@ -634,12 +640,11 @@ GO
 CREATE PROC SearchThietBi
 @MaThietBi varchar (8),
 @MaLoaiPhong varchar (3),
-@TenThietBi nvarchar (50),
-@Gia float
+@TenThietBi nvarchar (50)
 AS
 BEGIN 
 SELECT * FROM ThietBi Where MaThietBi LIKE '%'+@MaThietBi+'%' AND MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' 
-AND TenThietBi LIKE '%'+@TenThietBi+'%' AND Gia = @Gia
+AND TenThietBi LIKE '%'+@TenThietBi+'%'
 END
 GO
 
@@ -791,12 +796,11 @@ GO
 CREATE PROC SearchDichVu
 @MaDichVu varchar (5),
 @MaLoaiDichVu varchar (5),
-@MaDonVi varchar (3),
-@DonGia float
+@MaDonVi varchar (3)
 AS
 BEGIN 
 SELECT * FROM DichVu Where MaDichVu LIKE '%'+@MaDichVu+'%' AND MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%' 
-AND MaDonVi LIKE '%'+@MaDonVi+'%' AND DonGia = DonGia
+AND MaDonVi LIKE '%'+@MaDonVi+'%'
 END
 GO
 
@@ -891,13 +895,10 @@ GO
 
 CREATE PROC SearchLoaiPhong
 @MaLoaiPhong Varchar (3),
-@TenLoaiPhong nvarchar (50),
-@DonGia Float,
-@SoNguoiChuan int,
-@SoNguoiToiDa int
+@TenLoaiPhong nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM LoaiPhong Where MaLoaiPhong  LIKE '%'+@MaLoaiPhong +'%' AND TenLoaiPhong LIKE '%'+@TenLoaiPhong+'%'  AND DonGia = @DonGia AND SoNguoiChuan = @SoNguoiChuan AND SoNguoiToiDa = @SoNguoiToiDa
+SELECT * FROM LoaiPhong Where MaLoaiPhong  LIKE '%'+@MaLoaiPhong +'%' AND TenLoaiPhong LIKE '%'+@TenLoaiPhong+'%'
 END
 GO
 
@@ -1050,13 +1051,12 @@ CREATE PROC SearchNHoaDon
 @MaHoaDon varchar (3),
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
-@MaKhuyenMai int,
 @NhanVienLap nvarchar (50),
 @NgayLap datetime
 AS
 BEGIN 
 SELECT * FROM HoaDon Where MaHoaDon LIKE '%'+@MaHoaDon+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%' 
-AND MaNhanPhong LIKE '%'+@MaNhanPhong+'%' AND MaKhuyenMai=@MaKhuyenMai AND NhanVienLap LIKE '%'+@NhanVienLap+'%' AND NgayLap = @NgayLap
+AND MaNhanPhong LIKE '%'+@MaNhanPhong+'%' AND NhanVienLap LIKE '%'+@NhanVienLap+'%' AND NgayLap = @NgayLap
 END
 GO
 
@@ -1113,20 +1113,17 @@ END
 GO
 
 CREATE PROC SearchKhuyenMai
-@MaKhuyenMai int,
 @MaPhieu varchar (50),
-@GiaTri float,
 @NoiDung nvarchar(100),
 @NgayBatDau datetime,
 @NgayKetThuc datetime,
-@KieuTinh bit,
 @TrangThai bit
 AS
 BEGIN 
 SELECT * FROM KhuyenMai 
-Where MaKhuyenMai = @MaKhuyenMai AND MaPhieu LIKE '%'+@MaPhieu+'%'
-AND GiaTri =@GiaTri AND NoiDung LIKE '%'+@NoiDung+'%' AND NgayBatDau = @NgayBatDau
-AND NgayKetThuc =@NgayKetThuc AND KieuTinh =@KieuTinh AND TrangThai =@TrangThai
+Where MaPhieu LIKE '%'+@MaPhieu+'%'
+AND NoiDung LIKE '%'+@NoiDung+'%' AND NgayBatDau = @NgayBatDau
+AND NgayKetThuc =@NgayKetThuc AND TrangThai =@TrangThai
 ORDER BY MaKhuyenMai DESC
 END
 GO

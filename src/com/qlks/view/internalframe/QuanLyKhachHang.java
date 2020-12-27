@@ -5,10 +5,10 @@
  */
 package com.qlks.view.internalframe;
 
-import com.qlks.custom.CustomButtonClumnJTable;
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.KhachHang;
 import com.qlks.view.internalframe.action.AddKhachHang;
+import com.qlks.view.internalframe.action.SearchKhachHang;
 import com.qlks.view.internalframe.action.UpdateKhachHang;
 import java.awt.Dimension;
 import java.util.List;
@@ -23,7 +23,7 @@ import javax.swing.table.TableColumn;
  *
  * @author hello
  */
-public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKhachHang.CallBackAdd, UpdateKhachHang.CallBackUpdate {
+public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKhachHang.CallBackAdd, UpdateKhachHang.CallBackUpdate, SearchKhachHang.CallBackSearch {
 
     private KhachHangDAO khachHangDAO;
     public List<KhachHang> lstKhachHang;
@@ -34,17 +34,21 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         initComponents();
         dtmKhachHang = new DefaultTableModel();
         khachHangDAO = new KhachHangDAO();
-        loadData(null);
+        loadData(null, null, null, null, null, null, null);
     }
 
-    public void loadData(String nameSeaechInput) {
-        Object[] columnNames = {"STT", "Mã khách hàng", "Tên khách hàng", "CMND", "Địa chỉ", "Điện thoại", "Giới tính", "Quốc tịch", ""};
-        if (nameSeaechInput != null) {
-            //   lstKhachHang = khachHangDAO.search(nameSeaechInput);
+    public void loadData(String maSearchInput, String tenSearchInput, String CMNDSearchInput,
+            String diaChiSearchInput, String dienThoaiSearchInput, Boolean gioiTinhSearchInput, String quocTichSearchInput) {
+
+        if (maSearchInput != null || tenSearchInput != null || CMNDSearchInput != null
+                || diaChiSearchInput != null || dienThoaiSearchInput != null || gioiTinhSearchInput != null || quocTichSearchInput != null) {
+            lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput, dienThoaiSearchInput, gioiTinhSearchInput, quocTichSearchInput);
+
         } else {
             lstKhachHang = khachHangDAO.getAll();
         }
 
+        Object[] columnNames = {"STT", "Mã khách hàng", "Tên khách hàng", "CMND", "Địa chỉ", "Điện thoại", "Giới tính", "Quốc tịch", ""};
         dtmKhachHang = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (KhachHang adv : lstKhachHang) {
@@ -155,6 +159,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_edit.png"))); // NOI18N
         btnCapNhat.setText("Cập nhật");
@@ -272,7 +281,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
                     }
                 }
             }
-            loadData(null);
+            loadData(null, null, null, null, null, null, null);
             if (check == true) {
                 String mess = "Bạn đã xóa thành công: \n" + succesDeltete;
                 if (errDeltete.length() > 0) {
@@ -287,11 +296,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
-        loadData(null);
+        loadData(null, null, null, null, null, null, null);
     }//GEN-LAST:event_btnLamMoiKeyPressed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        loadData(null);
+        loadData(null, null, null, null, null, null, null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
@@ -300,7 +309,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         String tenKH = dtmKhachHang.getValueAt(currentRow, 2).toString();
         String CMND = dtmKhachHang.getValueAt(currentRow, 3).toString();
         String diaChi = dtmKhachHang.getValueAt(currentRow, 4).toString();
-        int dienThoai = Integer.parseInt(dtmKhachHang.getValueAt(currentRow, 5).toString());
+        String dienThoai = dtmKhachHang.getValueAt(currentRow, 5).toString();
         String gioiTinhInTable = dtmKhachHang.getValueAt(currentRow, 6).toString();
         Boolean gioiTinh = true;
         if (gioiTinhInTable.equals("Nữ")) {
@@ -310,6 +319,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
         showInternalFrame(new UpdateKhachHang(dataKH, this));
     }//GEN-LAST:event_btnCapNhatActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        showInternalFrame(new SearchKhachHang(this));
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -326,11 +339,16 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 
     @Override
     public void doDelete() {
-        loadData(null);
+        loadData(null, null, null, null, null, null, null);
     }
 
     @Override
     public void doUpdate() {
-        loadData(null);
+        loadData(null, null, null, null, null, null, null);
+    }
+
+    @Override
+    public void doSearch(String maSearchInput, String tenSearchInput, String CMNDSearchInput, String diaChiSearchInput, String dienThoaiSearchInput, Boolean gioiTinhSearchInput, String quocTichSearchInput) {
+        loadData(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput, dienThoaiSearchInput, gioiTinhSearchInput, quocTichSearchInput);
     }
 }
