@@ -41,7 +41,6 @@ public class Main {
                         mainFrame.setVisible(true);
                         String loginSuccess = "Dang nhap thanh cong";
                         MethodMain.globalMessagerSuccess(loginSuccess,mainFrame.getjMain());
-
                     }
                 }
 
