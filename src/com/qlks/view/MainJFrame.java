@@ -20,7 +20,6 @@ import com.qlks.view.internalframe.QuanLyNhomQuyen;
 import com.qlks.view.internalframe.QuanLyQuyDinh;
 import com.qlks.view.internalframe.QuanLyQuyen;
 import com.qlks.view.internalframe.QuanLyThietBi;
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
