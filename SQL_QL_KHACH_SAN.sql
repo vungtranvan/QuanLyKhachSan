@@ -905,18 +905,6 @@ SELECT * FROM PhanQuyen
 END
 GO
 
-<<<<<<< HEAD
-=======
-CREATE PROC getMaQuyenByMaNhomQuyen
-@MaNhomQuyen int
-AS
-BEGIN 
-SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaNhomQuyen;
-END
-GO
-
-
->>>>>>> 68ad23233e72aa4fa101639eed73e3a47ec046df
 CREATE PROC insertPhanQuyen
 @MaQuyen int,
 @MaNhomQuyen int
