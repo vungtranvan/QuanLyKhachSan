@@ -5,6 +5,7 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.KhachHang;
 import com.qlks.view.internalframe.action.AddKhachHang;
@@ -15,9 +16,7 @@ import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -26,14 +25,16 @@ import javax.swing.table.TableColumn;
 public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKhachHang.CallBackAdd, UpdateKhachHang.CallBackUpdate, SearchKhachHang.CallBackSearch {
 
     private KhachHangDAO khachHangDAO;
-    public List<KhachHang> lstKhachHang;
-    public DefaultTableModel dtmKhachHang;
-    public JDesktopPane jdek;
+    private List<KhachHang> lstKhachHang;
+    private DefaultTableModel dtmKhachHang;
+    private JDesktopPane jdek;
+    private FunctionBase funcBase;
 
     public QuanLyKhachHang() {
         initComponents();
         dtmKhachHang = new DefaultTableModel();
         khachHangDAO = new KhachHangDAO();
+        funcBase = new FunctionBase();
         loadData(null, null, null, null, null, null, null);
     }
 
@@ -69,7 +70,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             index++;
         }
         tblKhachHang.setModel(dtmKhachHang);
-        addCheckBox(8, tblKhachHang);
+        funcBase.addCheckBox(8, tblKhachHang);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -89,20 +90,6 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             jif.setVisible(true);
             jdek.show();
         }
-    }
-
-    public void addCheckBox(int column, JTable table) {
-        TableColumn tc = table.getColumnModel().getColumn(column);
-        tc.setCellEditor(table.getDefaultEditor(Boolean.class));
-        tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
-    }
-
-    public boolean IsSelected(int row, int column, JTable table) {
-        System.out.println("ok " + table.getValueAt(row, column));
-        if (table.getValueAt(row, column) != null && Boolean.parseBoolean(table.getValueAt(row, column).toString()) != false) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -269,7 +256,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 
             for (int i = 0; i < tblKhachHang.getRowCount(); i++) {
                 System.out.println("getRowCount= " + tblKhachHang.getRowCount());
-                if (IsSelected(i, 8, tblKhachHang)) {
+                if (funcBase.IsSelected(i, 8, tblKhachHang)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 
@@ -283,7 +270,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             }
             loadData(null, null, null, null, null, null, null);
             if (check == true) {
-                String mess = "Bạn đã xóa thành công: \n" + succesDeltete;
+                String mess = "";
+                if (succesDeltete.length() > 0) {
+                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
+                }
                 if (errDeltete.length() > 0) {
                     mess += "Không thể xóa: \n" + errDeltete;
                 }
@@ -305,19 +295,24 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         int currentRow = tblKhachHang.getSelectedRow();
-        String maKH = dtmKhachHang.getValueAt(currentRow, 1).toString();
-        String tenKH = dtmKhachHang.getValueAt(currentRow, 2).toString();
-        String CMND = dtmKhachHang.getValueAt(currentRow, 3).toString();
-        String diaChi = dtmKhachHang.getValueAt(currentRow, 4).toString();
-        String dienThoai = dtmKhachHang.getValueAt(currentRow, 5).toString();
-        String gioiTinhInTable = dtmKhachHang.getValueAt(currentRow, 6).toString();
-        Boolean gioiTinh = true;
-        if (gioiTinhInTable.equals("Nữ")) {
-            gioiTinh = false;
+
+        if (currentRow >= 0) {
+            String maKH = dtmKhachHang.getValueAt(currentRow, 1).toString();
+            String tenKH = dtmKhachHang.getValueAt(currentRow, 2).toString();
+            String CMND = dtmKhachHang.getValueAt(currentRow, 3).toString();
+            String diaChi = dtmKhachHang.getValueAt(currentRow, 4).toString();
+            String dienThoai = dtmKhachHang.getValueAt(currentRow, 5).toString();
+            String gioiTinhInTable = dtmKhachHang.getValueAt(currentRow, 6).toString();
+            Boolean gioiTinh = true;
+            if (gioiTinhInTable.equals("Nữ")) {
+                gioiTinh = false;
+            }
+            String quocTich = dtmKhachHang.getValueAt(currentRow, 7).toString();
+            KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
+            showInternalFrame(new UpdateKhachHang(dataKH, this));
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
-        String quocTich = dtmKhachHang.getValueAt(currentRow, 7).toString();
-        KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
-        showInternalFrame(new UpdateKhachHang(dataKH, this));
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -338,7 +333,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void doDelete() {
+    public void doAdd() {
         loadData(null, null, null, null, null, null, null);
     }
 

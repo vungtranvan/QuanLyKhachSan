@@ -5,6 +5,7 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.DonViDAO;
 import com.qlks.models.DonVi;
 import java.util.List;
@@ -22,6 +23,7 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
     private DonViDAO donviDAO;
     private List<DonVi> lstDonVi;
     private DefaultTableModel dtmDonVi;
+    private FunctionBase funcBase;
 
     /**
      * Creates new form QuanLyTaiSan
@@ -30,12 +32,13 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
         initComponents();
         dtmDonVi = new DefaultTableModel();
         donviDAO = new DonViDAO();
+        funcBase = new FunctionBase();
         loadData(null, null);
         resetText();
     }
 
     public void loadData(String maSeaechInput, String noidungSearchInput) {
-        Object[] columnNames = {"STT", "Mã đơn vị", "Tên đơn vị"};
+        Object[] columnNames = {"STT", "Mã đơn vị", "Tên đơn vị", ""};
 
         if (maSeaechInput == null || noidungSearchInput == null) {
             maSeaechInput = "";
@@ -46,7 +49,7 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
         dtmDonVi = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (DonVi adv : lstDonVi) {
-            Object[] o = new Object[3];
+            Object[] o = new Object[4];
             o[0] = index;
             o[1] = adv.getMaDonVi();
             o[2] = adv.getTenDonVi();
@@ -54,6 +57,7 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
             index++;
         }
         tblDonVi.setModel(dtmDonVi);
+        funcBase.addCheckBox(3, tblDonVi);
 
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstDonVi.size() > 0) {
@@ -358,82 +362,105 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
             int row = donviDAO.add(new DonVi(maDVi, tenDVi));
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
-                resetText();
                 loadData(null, null);
+                resetText();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
             }
-            loadData(null, null);
         }
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        String maDVi = txtMaDonVi.getText().trim();
-        String tenDVi = txtTenDonVi.getText().trim();
-        Boolean ckeck = true;
+        int currentRow = tblDonVi.getSelectedRow();
 
-        List<DonVi> lstCheckID = donviDAO.getByMa(maDVi);
+        if (currentRow >= 0) {
+            String maDVi = txtMaDonVi.getText().trim();
+            String tenDVi = txtTenDonVi.getText().trim();
+            Boolean ckeck = true;
 
-        if (maDVi.length() <= 0) {
-            txtErrorMaDV.setText("Mã đơn vị không được để trống !");
-            ckeck = false;
-        } else {
-            txtErrorMaDV.setText("");
-        }
-        if (maDVi.length() > 3) {
-            txtErrorMaDV.setText("Mã đơn vị tối đa là 3 ký tự !");
-            ckeck = false;
-        }
-        if (tenDVi.length() <= 0) {
-            txtErrorTenDV.setText("Tên đơn vị không được để trống !");
-            ckeck = false;
-        } else {
-            txtErrorTenDV.setText("");
-        }
-        if (tenDVi.length() > 50) {
-            txtErrorTenDV.setText("Tên đơn vị tối đa là 50 ký tự !");
-            ckeck = false;
-        }
-        if (ckeck == true) {
-            if (lstCheckID.size() < 0) {
-                txtErrorMaDV.setText("Mã đơn vị không tồn tại !");
+            List<DonVi> lstCheckID = donviDAO.getByMa(maDVi);
+
+            if (maDVi.length() <= 0) {
+                txtErrorMaDV.setText("Mã đơn vị không được để trống !");
+                ckeck = false;
             } else {
-                int row = donviDAO.update(new DonVi(maDVi, tenDVi));
-                if (row > 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
-                    resetText();
-                    loadData(null, null);
+                txtErrorMaDV.setText("");
+            }
+            if (maDVi.length() > 3) {
+                txtErrorMaDV.setText("Mã đơn vị tối đa là 3 ký tự !");
+                ckeck = false;
+            }
+            if (tenDVi.length() <= 0) {
+                txtErrorTenDV.setText("Tên đơn vị không được để trống !");
+                ckeck = false;
+            } else {
+                txtErrorTenDV.setText("");
+            }
+            if (tenDVi.length() > 50) {
+                txtErrorTenDV.setText("Tên đơn vị tối đa là 50 ký tự !");
+                ckeck = false;
+            }
+            if (ckeck == true) {
+                if (lstCheckID.size() < 0) {
+                    txtErrorMaDV.setText("Mã đơn vị không tồn tại !");
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại", null, JOptionPane.ERROR_MESSAGE);
+                    int row = donviDAO.update(new DonVi(maDVi, tenDVi));
+                    if (row > 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                        loadData(null, null);
+                        resetText();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại", null, JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        String succesDeltete = "";
+        String errDeltete = "";
+        Boolean check = false;
         int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
-            String maDVi = txtMaDonVi.getText().trim();
-            if (maDVi.length() > 0) {
-                int row = donviDAO.delete(maDVi);
-                if (row > 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Xóa thành công", null, JOptionPane.INFORMATION_MESSAGE);
-                    resetText();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Xóa thất bại, Vui lòng kiểm tra lại", null, JOptionPane.ERROR_MESSAGE);
+
+            for (int i = 0; i < tblDonVi.getRowCount(); i++) {
+                System.out.println("getRowCount= " + tblDonVi.getRowCount());
+                if (funcBase.IsSelected(i, 3, tblDonVi)) {
+                    check = true;
+                    int rowSucces = donviDAO.delete(tblDonVi.getValueAt(i, 1).toString());
+                    tblDonVi.clearSelection();
+                    if (rowSucces > 0) {
+                        succesDeltete += "\t" + tblDonVi.getValueAt(i, 2).toString() + "\n";
+                    } else {
+                        errDeltete += "\t" + tblDonVi.getValueAt(i, 2).toString() + "\n";
+                    }
                 }
-                loadData(null, null);
+            }
+            loadData(null, null);
+            resetText();
+            if (check == true) {
+                String mess = "";
+                if (succesDeltete.length() > 0) {
+                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
+                }
+                if (errDeltete.length() > 0) {
+                    mess += "Không thể xóa: \n" + errDeltete;
+                }
+                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng hoặc nhập mã đơn vị để xóa!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        resetText();
         txtSearchMaDV.setText("");
         txtSearchTenDV.setText("");
         loadData(null, null);
+        resetText();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed

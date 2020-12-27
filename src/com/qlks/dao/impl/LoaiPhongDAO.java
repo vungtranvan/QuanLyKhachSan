@@ -23,6 +23,12 @@ public class LoaiPhongDAO extends AbstractDAO<LoaiPhong> implements ILoaiPhongDA
     }
 
     @Override
+    public List<LoaiPhong> getByMa(String maLoaiPhong) {
+        String sql = "{Call getLoaiPhongByMa(?)}";
+        return query(sql, new LoaiPhongMapper(),maLoaiPhong);
+    }
+
+    @Override
     public List<LoaiPhong> search(String maLoaiPhong, String tenLoaiPhong) {
         String sql = "{Call SearchLoaiPhong(?,?)}";
         return query(sql, new LoaiPhongMapper(), maLoaiPhong, tenLoaiPhong);
