@@ -1,8 +1,10 @@
 package com.qlks.main;
 
 import com.qlks.dao.impl.NhomQuyenDAO;
+import com.qlks.dao.impl.PhanQuyenDAO;
 import com.qlks.dao.impl.QuyenDAO;
 import com.qlks.models.NguoiDung;
+import com.qlks.models.PhanQuyen;
 import com.qlks.models.Quyen;
 import com.qlks.utils.MethodMain;
 import com.qlks.view.LogInJFrame;
@@ -30,10 +32,11 @@ public class Main {
         listnd = logInJFrame.getLogin();
         if (listnd != null) {
             if (listnd.size() > 0) {
+
+                PhanQuyenDAO pqdao = new PhanQuyenDAO();
                 
-                QuyenDAO qdao = new QuyenDAO();
-//                List<Quyen> listQuyen = qdao.;
-                
+                List<PhanQuyen> listQuyen = pqdao.getMaQuyenByMaQuyen(listnd.get(0).getMaNhomQuyen());
+ 
                 MainJFrame mainFrame = new MainJFrame(listnd);
 
 //                mainFrame.setListNd(listnd);

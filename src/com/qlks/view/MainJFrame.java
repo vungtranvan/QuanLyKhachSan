@@ -60,6 +60,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame(List<NguoiDung> listNd) {
         
         initComponents();
+        
         System.out.println(listNd.get(0).getTenNguoiDung());
         
         setExtendedState(JFrame.MAXIMIZED_BOTH);

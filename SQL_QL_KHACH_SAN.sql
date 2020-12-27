@@ -899,8 +899,8 @@ SELECT * FROM PhanQuyen
 END
 GO
 
-CREATE PROC getMaQuyenByMaQuyen
-@MaQuyen int
+CREATE PROC getMaQuyenByMaNhomQuyen
+@MaNhomQuyen int
 AS
 BEGIN 
 SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaQuyen;
