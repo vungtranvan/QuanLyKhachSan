@@ -953,6 +953,14 @@ SELECT * FROM PhanQuyen
 END
 GO
 
+CREATE PROC getMaQuyenByMaQuyen
+@MaQuyen int
+AS
+BEGIN 
+SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaQuyen;
+END
+GO
+
 CREATE PROC insertPhanQuyen
 @MaQuyen int,
 @MaNhomQuyen int

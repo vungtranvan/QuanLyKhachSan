@@ -15,6 +15,8 @@ import java.util.List;
 public interface IPhanQuyenDAO {
 
     List<PhanQuyen> getAll();
+    
+    List<PhanQuyen> getMaQuyenByMaQuyen(int maQuyen);
 
     int add(PhanQuyen phanQuyen);
 }
