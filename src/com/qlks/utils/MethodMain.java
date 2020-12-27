@@ -5,12 +5,10 @@
  */
 package com.qlks.utils;
 
-import com.qlks.view.MainJFrame;
 import com.qlks.view.internalframe.ThongBao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.Timer;
 
