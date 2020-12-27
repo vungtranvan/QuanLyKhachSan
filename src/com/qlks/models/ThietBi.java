@@ -16,6 +16,7 @@ public class ThietBi {
     private String tenThietBi;
     private int soLuong;
     private float gia;
+    private String tenLoaiPhong;
 
     public ThietBi() {
     }
@@ -26,6 +27,15 @@ public class ThietBi {
         this.tenThietBi = tenThietBi;
         this.soLuong = soLuong;
         this.gia = gia;
+    }
+
+    public ThietBi(String maThietBi, String maLoaiPhong, String tenThietBi, int soLuong, float gia, String tenLoaiPhong) {
+        this.maThietBi = maThietBi;
+        this.maLoaiPhong = maLoaiPhong;
+        this.tenThietBi = tenThietBi;
+        this.soLuong = soLuong;
+        this.gia = gia;
+        this.tenLoaiPhong = tenLoaiPhong;
     }
 
     public String getMaThietBi() {
@@ -66,6 +76,14 @@ public class ThietBi {
 
     public void setGia(float gia) {
         this.gia = gia;
+    }
+
+    public String getTenLoaiPhong() {
+        return tenLoaiPhong;
+    }
+
+    public void setTenLoaiPhong(String tenLoaiPhong) {
+        this.tenLoaiPhong = tenLoaiPhong;
     }
 
 }

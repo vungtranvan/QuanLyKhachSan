@@ -61,7 +61,7 @@ CREATE TABLE KhachHang
 	TenKhachHang nvarchar (50),
 	CMND nvarchar (15) NOT NULL,
 	DiaChi nvarchar (50),
-	DienThoai int,
+	DienThoai varchar (15),
 	GioiTinh bit,
 	QuocTich nvarchar(50)
 )
@@ -337,14 +337,80 @@ ALTER TABLE CauHinhNguoiDung
 ADD FOREIGN KEY (MaCauHinh) REFERENCES CauHinh (MaCauHinh);
 GO
 
+--         Thêm data vào bảng
+--Bảng NhomQuyen
+insert into NhomQuyen(TenNhomQuyen) Values('Admin')
+GO
 
+Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values('Admin Manager','admin','123','admin.jpg','admin@gmail.com','2020-12-12',1,1)
+GO
+
+INSERT INTO QuyDinh(TenQuyDinh,MoTa) VALUES
+(N'Quy định 1',N'1. Quý khách vui lòng xuất trình hộ chiếu hoặc chứng minh nhân dân để làm thủ tục nhận phòng tại Lễ tân.'),
+(N'Quy định 2',N'2. Khách sạn chỉ chịu trách nhiệm với những tài sản hoặc tiền được gửi tại quầy Lễ tân.'),
+(N'Quy định 3',N'3. Không mang súng đạn, chất cháy nổ, chất độc hại, các chất gây nghiện, vật nuôi hoặc thực phẩm có mùi tanh hôi vào phòng nghỉ. Không nấu nướng, giặt là trong phòng nghỉ.'),
+(N'Quy định 4',N'4. Không thay đổi, di chuyển đồ đạc trong phòng hoặc từ phòng này sang phòng khác. Trường hợp tài sản, đồ dùng trong phòng bị mất, hỏng do chủ quan Quý khách sẽ phải bồi thường 100% giá trị.'),
+(N'Quy định 5',N'5. Xin vui lòng không thay đổi phòng hoặc đưa thêm người vào phòng khi chưa đăng ký trước với Lễ tân.'),
+(N'Quy định 6',N'6. Nếu có người thân đến thăm, xin quý khách vui lòng liên hệ với Lễ tân để bổ trí nơi tiếp đón.'),
+(N'Quy định 7',N'7. Khi ra khỏi phòng, Quý khách vui lòng rút thẻ chìa khoá ra khỏi ổ điện và gửi tại quầy lễ tân. Điện trong phòng sẽ tự động ngắt khi cửa đã được khép.'),
+(N'Quy định 8',N'8. Nếu Quý khách phát hiện có hiện tượng cháy trong Khách sạn, xin khẩn trương tìm cách thông báo cho người ở khu vực gần nhất và bình tĩnh làm theo chỉ dẫn phòng chống cháy nổ.'),
+(N'Quy định 9',N'9. Thời gian trả phòng là 12h30, nếu muộn hơn sẽ phải thanh toán thêm phụ phí tương ứng. Trong trường hợp cần thiết, xin vui lòng liên hệ với Lễ tân.'),
+(N'Quy định 10',N'10. Trước khi rời khỏi khách sạn, xin Quý khách vui lòng thanh toán toàn bộ các hoá đơn và trả lại chìa khoá phòng cho Lễ tân.')
+GO
+
+INSERT INTO KhachHang(MaKhachHang,TenKhachHang,CMND,DiaChi,DienThoai,GioiTinh,QuocTich) VALUES 
+('A1',N'Nguyễn Thị A', '871333',N'Hà Nội','099999999',0,N'Việt Nam'),
+('A2',N'Tom', '77777777',N'LonDon','055557999',1,N'Anh'),
+('A3',N'Nguyễn Văn B', '33555533',N'Ba Vì','09475989',1,N'Việt Nam'),
+('A4',N'Trần Minh Anh', '333301333',N'Sơn La','099975449',1,N'Việt Nam'),
+('A5',N'Hoàng Trung Dũng', '262433333',N'Yên Bái','09947599',1,N'Việt Nam'),
+('A6',N'Phan Anh Minh', '12411333',N'Phú Thọ','03745922',1,N'Việt Nam'),
+('A7',N'Lê Minh Hoàng', '45141333',N'Hồ Chí Minh','02554586',1,N'Việt Nam'),
+('A8',N'Phan Lan Thanh', '89553333',N'Hà Nội','06276832',0,N'Việt Nam'),
+('A9',N'Quýt', '4253333',N'Hà Nội','09958639',0,N'Việt Nam'),
+('A10',N'Siro', '12533333',N'Lạng Sơn','0995328999',0,N'Việt Nam')
+GO
+
+INSERT INTO LoaiPhong(MaLoaiPhong,TenLoaiPhong,DonGia,SoNguoiChuan,SoNguoiToiDa,TyLeTang) VALUES
+('B01',N'Thường Đơn',500000,1,2,1),
+('B02',N'Thường Đôi',800000,2,3,1),
+('B03',N'Vip Đơn',1500000,1,2,1),
+('B04',N'Vip Đôi',5000000,2,2,1)
+GO
+
+Insert into ThietBi(MaThietBi,MaLoaiPhong,TenThietBi,SoLuong,Gia) Values
+('TB01','B01',N'Tivi',1,50000000),
+('TB02','B02',N'Tivi',2,100000000),
+('TB03','B01',N'Giường',1,50000000),
+('TB04','B02',N'Giường',2,100000000),
+('TB05','B01',N'Tủ quần áo',1,10000000),
+('TB06','B03',N'Tivi',1,50000000),
+('TB07','B03',N'Giường',1,50000000),
+('TB08','B04',N'Tivi',2,50000000),
+('TB09','B02',N'Tủ quần áo',2,100000000),
+('TB10','B04',N'Giường',2,100000000)
+GO
+
+INSERT INTO LoaiTinhTrang(TenLoaiTinhTrang) VALUES
+(N'Trống'),
+(N'Đã đặt cọc'),
+(N'Có người ở'),
+(N'Đang sửa chữa')
+GO 
+
+INSERT INTO KhuyenMai(MaPhieu,GiaTri,NoiDung,NgayBatDau,NgayKetThuc,KieuTinh,TrangThai) VALUES
+('CTKM01',10,N'Khuyến mại 1','2020-12-20','2020-01-20',1,0),
+('TRIANKHACHHANG',10,N'Tri ân khách hàng','2020-01-01','2020-01-15',1,0),
+('HOLIDAY',500000,N'Khuyến mại 1','2020-12-20','2020-01-20',0,0),
+('OK123',40,N'Khuyến mại 2','2020-12-20','2020-01-20',1,1)
+GO
 --  TẠO THỦ TỤC
 
 -- BẢNG QuyDinh
 CREATE PROC getAllQuyDinh
 AS
 BEGIN 
-SELECT * FROM QuyDinh
+SELECT * FROM QuyDinh ORDER BY MaQuyDinh DESC
 END
 GO
 
@@ -353,6 +419,7 @@ CREATE PROC SearchQuyDinh
 AS
 BEGIN 
 SELECT * FROM QuyDinh Where TenQuyDinh LIKE '%'+@TenQuyDinh+'%'
+ORDER BY MaQuyDinh DESC
 END
 GO
 
@@ -388,7 +455,7 @@ GO
 CREATE PROC getAllCauHinh
 AS
 BEGIN 
-SELECT * FROM CauHinh
+SELECT * FROM CauHinh ORDER BY MaCauHinh DESC
 END
 GO
 
@@ -397,6 +464,7 @@ CREATE PROC SearchCauHinh
 AS
 BEGIN 
 SELECT * FROM CauHinh Where LoaiCauHinh LIKE '%'+@LoaiCauHinh+'%'
+ORDER BY MaCauHinh DESC
 END
 GO
 
@@ -431,7 +499,7 @@ GO
 CREATE PROC getAllQuyen
 AS
 BEGIN 
-SELECT * FROM Quyen
+SELECT * FROM Quyen ORDER BY MaQuyen DESC
 END
 GO
 
@@ -440,6 +508,7 @@ CREATE PROC SearchQuyen
 AS
 BEGIN 
 SELECT * FROM Quyen Where Quyen LIKE '%'+@Quyen+'%'
+ORDER BY MaQuyen DESC
 END
 GO
 
@@ -473,12 +542,11 @@ GO
 CREATE PROC getAllNguoiDung
 AS
 BEGIN 
-SELECT * FROM NguoiDung
+SELECT * FROM NguoiDung ORDER BY MaNguoiDung DESC
 END
 GO
 
 CREATE PROC SearchNguoiDung
-@MaNguoiDung int,
 @TenNguoiDung nvarchar (50),
 @TenDangNhap varchar (50),
 @Email varchar (50),
@@ -487,9 +555,10 @@ CREATE PROC SearchNguoiDung
 @MaNhomQuyen int
 AS
 BEGIN 
-SELECT * FROM NguoiDung Where MaNguoiDung = @MaNguoiDung OR TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
-OR TenDangNhap LIKE '%'+@TenDangNhap+'%' OR Email LIKE '%'+@Email+'%' OR NgaySinh LIKE '%'+@NgaySinh+'%' 
-OR GioiTinh = @GioiTinh OR MaNhomQuyen =@MaNhomQuyen
+SELECT * FROM NguoiDung Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
+AND TenDangNhap LIKE '%'+@TenDangNhap+'%' AND Email LIKE '%'+@Email+'%' AND NgaySinh LIKE '%'+@NgaySinh+'%' 
+AND GioiTinh = @GioiTinh AND MaNhomQuyen =@MaNhomQuyen
+ORDER BY MaNguoiDung DESC
 END
 GO
 
@@ -498,6 +567,15 @@ CREATE PROC getNguoiDungById
 AS
 BEGIN 
 SELECT * FROM NguoiDung Where MaNguoiDung = @MaNguoiDung
+END
+GO
+
+CREATE PROC checkLoginNguoiDung
+@TenDangNhap varchar (50),
+@MatKhau nvarchar (50)
+AS
+BEGIN 
+SELECT * FROM NguoiDung Where (TenDangNhap = @TenDangNhap OR Email = @TenDangNhap) AND MatKhau = @MatKhau
 END
 GO
 
@@ -549,19 +627,27 @@ SELECT * FROM KhachHang
 END
 GO
 
+CREATE PROC getKhachHangByMa
+@MaKhachHang varchar (3)
+AS
+BEGIN 
+SELECT * FROM KhachHang Where MaKhachHang = @MaKhachHang
+END
+GO
+
 CREATE PROC SearchKhachHang
 @MaKhachHang varchar (3),
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
 BEGIN 
-SELECT * FROM KhachHang Where MaKhachHang LIKE '%'+@MaKhachHang+'%' OR TenKhachHang LIKE '%'+@TenKhachHang+'%' 
-OR CMND LIKE '%'+@CMND+'%' OR DiaChi LIKE '%'+@DiaChi+'%' OR DienThoai LIKE '%'+@DienThoai+'%' 
-OR GioiTinh = @GioiTinh OR QuocTich LIKE '%'+@QuocTich+'%'
+SELECT * FROM KhachHang Where MaKhachHang LIKE '%'+@MaKhachHang+'%' AND TenKhachHang LIKE '%'+@TenKhachHang+'%' 
+AND CMND LIKE '%'+@CMND+'%' AND DiaChi LIKE '%'+@DiaChi+'%' AND DienThoai LIKE '%'+@DienThoai+'%' 
+AND GioiTinh = @GioiTinh AND QuocTich LIKE '%'+@QuocTich+'%'
 END
 GO
 
@@ -570,7 +656,7 @@ CREATE PROC insertKhachHang
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
@@ -584,7 +670,7 @@ CREATE PROC updateKhachHang
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
@@ -669,12 +755,20 @@ SELECT * FROM DonVi
 END
 GO
 
+CREATE PROC getDonViByMa
+@MaDonVi varchar (3)
+AS
+BEGIN 
+SELECT * FROM DonVi Where MaDonVi = @MaDonVi
+END
+GO
+
 CREATE PROC SearchDonVi
 @MaDonVi varchar (3),
 @TenDonVi nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM DonVi Where MaDonVi LIKE '%'+@MaDonVi+'%' OR TenDonVi LIKE '%'+@TenDonVi+'%' 
+SELECT * FROM DonVi Where MaDonVi LIKE '%'+@MaDonVi+'%' AND TenDonVi LIKE '%'+@TenDonVi+'%' 
 END
 GO
 
@@ -712,12 +806,20 @@ SELECT * FROM ChinhSachTraPhong
 END
 GO
 
+CREATE PROC getChinhSachTraPhongByMa
+@MaChinhSach varchar (5)
+AS
+BEGIN 
+SELECT * FROM ChinhSachTraPhong Where MaChinhSach = @MaChinhSach
+END
+GO
+
 CREATE PROC SearchChinhSachTraPhong
 @MaChinhSach varchar (5),
 @NoiDung nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM ChinhSachTraPhong Where MaChinhSach LIKE '%'+@MaChinhSach+'%' OR NoiDung LIKE '%'+@NoiDung+'%' 
+SELECT * FROM ChinhSachTraPhong Where MaChinhSach LIKE '%'+@MaChinhSach+'%' AND NoiDung LIKE '%'+@NoiDung+'%' 
 END
 GO
 
@@ -760,12 +862,11 @@ GO
 CREATE PROC SearchDichVu
 @MaDichVu varchar (5),
 @MaLoaiDichVu varchar (5),
-@MaDonVi varchar (3),
-@DonGia float
+@MaDonVi varchar (3)
 AS
 BEGIN 
-SELECT * FROM DichVu Where MaDichVu LIKE '%'+@MaDichVu+'%' OR MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%' 
-OR MaDonVi LIKE '%'+@MaDonVi+'%' OR DonGia = DonGia
+SELECT * FROM DichVu Where MaDichVu LIKE '%'+@MaDichVu+'%' AND MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%' 
+AND MaDonVi LIKE '%'+@MaDonVi+'%'
 END
 GO
 
@@ -807,12 +908,20 @@ SELECT * FROM LoaiDichVu
 END
 GO
 
+CREATE PROC getLoaiDichVuByMa
+@MaLoaiDichVu varchar (5)
+AS
+BEGIN 
+SELECT * FROM LoaiDichVu Where MaLoaiDichVu = @MaLoaiDichVu
+END
+GO
+
 CREATE PROC SearchLoaiDichVu
 @MaLoaiDichVu varchar (5),
 @TenLoaiDichVu nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM LoaiDichVu Where TenLoaiDichVu LIKE '%'+@TenLoaiDichVu+'%' OR MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%'
+SELECT * FROM LoaiDichVu Where TenLoaiDichVu LIKE '%'+@TenLoaiDichVu+'%' AND MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%'
 END
 GO
 
@@ -850,15 +959,20 @@ SELECT * FROM LoaiPhong
 END
 GO
 
-CREATE PROC SearchLoaiPhong
-@MaLoaiPhong Varchar (3),
-@TenLoaiPhong nvarchar (50),
-@DonGia Float,
-@SoNguoiChuan int,
-@SoNguoiToiDa int
+CREATE PROC getLoaiPhongByMa
+@MaLoaiPhong Varchar (3)
 AS
 BEGIN 
-SELECT * FROM LoaiPhong Where MaLoaiPhong  LIKE '%'+@MaLoaiPhong +'%' OR TenLoaiPhong LIKE '%'+@TenLoaiPhong+'%'  OR DonGia = @DonGia OR SoNguoiChuan = @SoNguoiChuan OR SoNguoiToiDa = @SoNguoiToiDa
+SELECT * FROM LoaiPhong Where MaLoaiPhong = @MaLoaiPhong
+END
+GO
+
+CREATE PROC SearchLoaiPhong
+@MaLoaiPhong Varchar (3),
+@TenLoaiPhong nvarchar (50)
+AS
+BEGIN 
+SELECT * FROM LoaiPhong Where MaLoaiPhong  LIKE '%'+@MaLoaiPhong +'%' AND TenLoaiPhong LIKE '%'+@TenLoaiPhong+'%'
 END
 GO
 
@@ -932,11 +1046,10 @@ END
 GO
 
 CREATE PROC SearchNhomQuyen
-@MaNhomQuyen int,
 @TenNhomQuyen nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM NhomQuyen Where MaNhomQuyen = @MaNhomQuyen OR TenNhomQuyen LIKE '%'+@TenNhomQuyen+'%'
+SELECT * FROM NhomQuyen Where TenNhomQuyen LIKE '%'+@TenNhomQuyen+'%'
 END
 GO
 
@@ -1020,13 +1133,12 @@ CREATE PROC SearchNHoaDon
 @MaHoaDon varchar (3),
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
-@MaKhuyenMai int,
 @NhanVienLap nvarchar (50),
 @NgayLap datetime
 AS
 BEGIN 
-SELECT * FROM HoaDon Where MaHoaDon LIKE '%'+@MaHoaDon+'%' OR MaKhachHang LIKE '%'+@MaKhachHang+'%' 
-OR MaNhanPhong LIKE '%'+@MaNhanPhong+'%' OR MaKhuyenMai=@MaKhuyenMai OR NhanVienLap LIKE '%'+@NhanVienLap+'%' OR NgayLap = @NgayLap
+SELECT * FROM HoaDon Where MaHoaDon LIKE '%'+@MaHoaDon+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%' 
+AND MaNhanPhong LIKE '%'+@MaNhanPhong+'%' AND NhanVienLap LIKE '%'+@NhanVienLap+'%' AND NgayLap = @NgayLap
 END
 GO
 
@@ -1070,7 +1182,7 @@ GO
 CREATE PROC getAllKhuyenMai
 AS
 BEGIN 
-SELECT * FROM KhuyenMai
+SELECT * FROM KhuyenMai ORDER BY MaKhuyenMai DESC
 END
 GO
 
@@ -1078,25 +1190,28 @@ CREATE PROC getByMaKhuyenMai
 @MaKhuyenMai int
 AS
 BEGIN 
-SELECT * FROM KhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai
+SELECT * FROM KhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai ORDER BY MaKhuyenMai DESC
+END
+GO
+
+CREATE PROC getByMaPhieuKhuyenMai
+@MaPhieu varchar (50)
+AS
+BEGIN 
+SELECT * FROM KhuyenMai WHERE MaPhieu = @MaPhieu
 END
 GO
 
 CREATE PROC SearchKhuyenMai
-@MaKhuyenMai int,
 @MaPhieu varchar (50),
-@GiaTri float,
 @NoiDung nvarchar(100),
-@NgayBatDau datetime,
-@NgayKetThuc datetime,
-@KieuTinh bit,
 @TrangThai bit
 AS
 BEGIN 
 SELECT * FROM KhuyenMai 
-Where MaKhuyenMai = @MaKhuyenMai OR MaPhieu LIKE '%'+@MaPhieu+'%'
-OR GiaTri =@GiaTri OR NoiDung LIKE '%'+@NoiDung+'%' OR NgayBatDau = @NgayBatDau
-OR NgayKetThuc =@NgayKetThuc OR KieuTinh =@KieuTinh OR TrangThai =@TrangThai
+Where MaPhieu LIKE '%'+@MaPhieu+'%'
+AND NoiDung LIKE '%'+@NoiDung+'%' AND TrangThai =@TrangThai
+ORDER BY MaKhuyenMai DESC
 END
 GO
 
@@ -1141,7 +1256,7 @@ GO
 CREATE PROC getAllLoaiTinhTrang
 AS
 BEGIN 
-SELECT * FROM LoaiTinhTrang
+SELECT * FROM LoaiTinhTrang ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 
@@ -1149,17 +1264,18 @@ CREATE PROC getByMaLoaiTinhTrang
 @MaLoaiTinhTrangPhong int
 AS
 BEGIN 
-SELECT * FROM LoaiTinhTrang WHERE MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong
+SELECT * FROM LoaiTinhTrang WHERE MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong 
+ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 
 CREATE PROC SearchLoaiTinhTrang
-@MaLoaiTinhTrangPhong int,
 @TenLoaiTinhTrang  nvarchar(50)
 AS
 BEGIN 
 SELECT * FROM LoaiTinhTrang 
-Where MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong OR TenLoaiTinhTrang LIKE '%'+@TenLoaiTinhTrang+'%'
+Where TenLoaiTinhTrang LIKE '%'+@TenLoaiTinhTrang+'%'
+ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 
@@ -1211,7 +1327,7 @@ CREATE PROC SearchPhieuNhanPhong
 AS
 BEGIN 
 SELECT * FROM PhieuNhanPhong 
-Where MaNhanPhong LIKE '%'+@MaNhanPhong+'%' OR MaPhieuThue LIKE '%'+@MaPhieuThue+'%' OR MaKhachHang LIKE '%'+@MaKhachHang+'%'
+Where MaNhanPhong LIKE '%'+@MaNhanPhong+'%' AND MaPhieuThue LIKE '%'+@MaPhieuThue+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%'
 END
 GO
 
@@ -1283,7 +1399,7 @@ CREATE PROC SearchPhong
 AS
 BEGIN 
 SELECT * FROM Phong 
-Where MaPhong LIKE '%'+@MaPhong+'%' OR  MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' OR MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong
+Where MaPhong LIKE '%'+@MaPhong+'%' AND  MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' AND MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong
 END
 GO
 
@@ -1340,7 +1456,7 @@ CREATE PROC SearchDanhSachSuDungDichVu
 AS
 BEGIN 
 SELECT * FROM DanhSachSuDungDichVu 
-Where MaSuDungDVu LIKE '%'+@MaSuDungDVu+'%' OR  MaDichVu LIKE '%'+@MaDichVu+'%' OR  MaNhanPhong LIKE '%'+@MaNhanPhong+'%'
+Where MaSuDungDVu LIKE '%'+@MaSuDungDVu+'%' AND  MaDichVu LIKE '%'+@MaDichVu+'%' AND  MaNhanPhong LIKE '%'+@MaNhanPhong+'%'
 END
 GO
 
@@ -1458,4 +1574,4 @@ BEGIN
 Insert into ChiTietHoaDon(MaHoaDon,MaPhong,MaSuDungDichVu,MaChinhSach,PhuThu,TienPhong,TienDichVu,GiamGiaKH,HinhThucThanhToan,SoNgay,ThanhTien) 
 Values(@MaHoaDon,@MaPhong,@MaSuDungDichVu,@MaChinhSach,@PhuThu,@TienPhong,@TienDichVu,@GiamGiaKH,@HinhThucThanhToan,@SoNgay,@ThanhTien)
 END
-GO
+GO 
