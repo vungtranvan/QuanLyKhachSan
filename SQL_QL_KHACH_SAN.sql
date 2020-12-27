@@ -903,7 +903,7 @@ CREATE PROC getMaQuyenByMaNhomQuyen
 @MaNhomQuyen int
 AS
 BEGIN 
-SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaQuyen;
+SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaNhomQuyen;
 END
 GO
 
