@@ -61,7 +61,7 @@ CREATE TABLE KhachHang
 	TenKhachHang nvarchar (50),
 	CMND nvarchar (15) NOT NULL,
 	DiaChi nvarchar (50),
-	DienThoai int,
+	DienThoai varchar (15),
 	GioiTinh bit,
 	QuocTich nvarchar(50)
 )
@@ -337,6 +337,13 @@ ALTER TABLE CauHinhNguoiDung
 ADD FOREIGN KEY (MaCauHinh) REFERENCES CauHinh (MaCauHinh);
 GO
 
+--         Thêm data vào bảng
+--Bảng NhomQuyen
+insert into NhomQuyen(TenNhomQuyen) Values('Admin')
+GO
+
+Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values('Admin Manager','admin','123','admin.jpg','admin@gmail.com','2020-12-12',1,1)
+GO
 
 --  TẠO THỦ TỤC
 
@@ -344,7 +351,7 @@ GO
 CREATE PROC getAllQuyDinh
 AS
 BEGIN 
-SELECT * FROM QuyDinh
+SELECT * FROM QuyDinh ORDER BY MaQuyDinh DESC
 END
 GO
 
@@ -353,6 +360,7 @@ CREATE PROC SearchQuyDinh
 AS
 BEGIN 
 SELECT * FROM QuyDinh Where TenQuyDinh LIKE '%'+@TenQuyDinh+'%'
+ORDER BY MaQuyDinh DESC
 END
 GO
 
@@ -388,7 +396,7 @@ GO
 CREATE PROC getAllCauHinh
 AS
 BEGIN 
-SELECT * FROM CauHinh
+SELECT * FROM CauHinh ORDER BY MaCauHinh DESC
 END
 GO
 
@@ -397,6 +405,7 @@ CREATE PROC SearchCauHinh
 AS
 BEGIN 
 SELECT * FROM CauHinh Where LoaiCauHinh LIKE '%'+@LoaiCauHinh+'%'
+ORDER BY MaCauHinh DESC
 END
 GO
 
@@ -431,7 +440,7 @@ GO
 CREATE PROC getAllQuyen
 AS
 BEGIN 
-SELECT * FROM Quyen
+SELECT * FROM Quyen ORDER BY MaQuyen DESC
 END
 GO
 
@@ -440,6 +449,7 @@ CREATE PROC SearchQuyen
 AS
 BEGIN 
 SELECT * FROM Quyen Where Quyen LIKE '%'+@Quyen+'%'
+ORDER BY MaQuyen DESC
 END
 GO
 
@@ -473,12 +483,11 @@ GO
 CREATE PROC getAllNguoiDung
 AS
 BEGIN 
-SELECT * FROM NguoiDung
+SELECT * FROM NguoiDung ORDER BY MaNguoiDung DESC
 END
 GO
 
 CREATE PROC SearchNguoiDung
-@MaNguoiDung int,
 @TenNguoiDung nvarchar (50),
 @TenDangNhap varchar (50),
 @Email varchar (50),
@@ -487,9 +496,10 @@ CREATE PROC SearchNguoiDung
 @MaNhomQuyen int
 AS
 BEGIN 
-SELECT * FROM NguoiDung Where MaNguoiDung = @MaNguoiDung OR TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
-OR TenDangNhap LIKE '%'+@TenDangNhap+'%' OR Email LIKE '%'+@Email+'%' OR NgaySinh LIKE '%'+@NgaySinh+'%' 
-OR GioiTinh = @GioiTinh OR MaNhomQuyen =@MaNhomQuyen
+SELECT * FROM NguoiDung Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
+AND TenDangNhap LIKE '%'+@TenDangNhap+'%' AND Email LIKE '%'+@Email+'%' AND NgaySinh LIKE '%'+@NgaySinh+'%' 
+AND GioiTinh = @GioiTinh AND MaNhomQuyen =@MaNhomQuyen
+ORDER BY MaNguoiDung DESC
 END
 GO
 
@@ -498,6 +508,15 @@ CREATE PROC getNguoiDungById
 AS
 BEGIN 
 SELECT * FROM NguoiDung Where MaNguoiDung = @MaNguoiDung
+END
+GO
+
+CREATE PROC checkLoginNguoiDung
+@TenDangNhap varchar (50),
+@MatKhau nvarchar (50)
+AS
+BEGIN 
+SELECT * FROM NguoiDung Where (TenDangNhap = @TenDangNhap OR Email = @TenDangNhap) AND MatKhau = @MatKhau
 END
 GO
 
@@ -549,19 +568,27 @@ SELECT * FROM KhachHang
 END
 GO
 
+CREATE PROC getKhachHangByMa
+@MaKhachHang varchar (3)
+AS
+BEGIN 
+SELECT * FROM KhachHang Where MaKhachHang = @MaKhachHang
+END
+GO
+
 CREATE PROC SearchKhachHang
 @MaKhachHang varchar (3),
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
 BEGIN 
-SELECT * FROM KhachHang Where MaKhachHang LIKE '%'+@MaKhachHang+'%' OR TenKhachHang LIKE '%'+@TenKhachHang+'%' 
-OR CMND LIKE '%'+@CMND+'%' OR DiaChi LIKE '%'+@DiaChi+'%' OR DienThoai LIKE '%'+@DienThoai+'%' 
-OR GioiTinh = @GioiTinh OR QuocTich LIKE '%'+@QuocTich+'%'
+SELECT * FROM KhachHang Where MaKhachHang LIKE '%'+@MaKhachHang+'%' AND TenKhachHang LIKE '%'+@TenKhachHang+'%' 
+AND CMND LIKE '%'+@CMND+'%' AND DiaChi LIKE '%'+@DiaChi+'%' AND DienThoai LIKE '%'+@DienThoai+'%' 
+AND GioiTinh = @GioiTinh AND QuocTich LIKE '%'+@QuocTich+'%'
 END
 GO
 
@@ -570,7 +597,7 @@ CREATE PROC insertKhachHang
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
@@ -584,7 +611,7 @@ CREATE PROC updateKhachHang
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @DiaChi nvarchar (50),
-@DienThoai int,
+@DienThoai varchar (15),
 @GioiTinh bit,
 @QuocTich nvarchar(50)
 AS
@@ -613,12 +640,11 @@ GO
 CREATE PROC SearchThietBi
 @MaThietBi varchar (8),
 @MaLoaiPhong varchar (3),
-@TenThietBi nvarchar (50),
-@Gia float
+@TenThietBi nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM ThietBi Where MaThietBi LIKE '%'+@MaThietBi+'%' OR MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' 
-OR TenThietBi LIKE '%'+@TenThietBi+'%' OR Gia = @Gia
+SELECT * FROM ThietBi Where MaThietBi LIKE '%'+@MaThietBi+'%' AND MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' 
+AND TenThietBi LIKE '%'+@TenThietBi+'%'
 END
 GO
 
@@ -663,12 +689,20 @@ SELECT * FROM DonVi
 END
 GO
 
+CREATE PROC getDonViByMa
+@MaDonVi varchar (3)
+AS
+BEGIN 
+SELECT * FROM DonVi Where MaDonVi = @MaDonVi
+END
+GO
+
 CREATE PROC SearchDonVi
 @MaDonVi varchar (3),
 @TenDonVi nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM DonVi Where MaDonVi LIKE '%'+@MaDonVi+'%' OR TenDonVi LIKE '%'+@TenDonVi+'%' 
+SELECT * FROM DonVi Where MaDonVi LIKE '%'+@MaDonVi+'%' AND TenDonVi LIKE '%'+@TenDonVi+'%' 
 END
 GO
 
@@ -706,12 +740,20 @@ SELECT * FROM ChinhSachTraPhong
 END
 GO
 
+CREATE PROC getChinhSachTraPhongByMa
+@MaChinhSach varchar (5)
+AS
+BEGIN 
+SELECT * FROM ChinhSachTraPhong Where MaChinhSach = @MaChinhSach
+END
+GO
+
 CREATE PROC SearchChinhSachTraPhong
 @MaChinhSach varchar (5),
 @NoiDung nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM ChinhSachTraPhong Where MaChinhSach LIKE '%'+@MaChinhSach+'%' OR NoiDung LIKE '%'+@NoiDung+'%' 
+SELECT * FROM ChinhSachTraPhong Where MaChinhSach LIKE '%'+@MaChinhSach+'%' AND NoiDung LIKE '%'+@NoiDung+'%' 
 END
 GO
 
@@ -754,12 +796,11 @@ GO
 CREATE PROC SearchDichVu
 @MaDichVu varchar (5),
 @MaLoaiDichVu varchar (5),
-@MaDonVi varchar (3),
-@DonGia float
+@MaDonVi varchar (3)
 AS
 BEGIN 
-SELECT * FROM DichVu Where MaDichVu LIKE '%'+@MaDichVu+'%' OR MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%' 
-OR MaDonVi LIKE '%'+@MaDonVi+'%' OR DonGia = DonGia
+SELECT * FROM DichVu Where MaDichVu LIKE '%'+@MaDichVu+'%' AND MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%' 
+AND MaDonVi LIKE '%'+@MaDonVi+'%'
 END
 GO
 
@@ -801,12 +842,20 @@ SELECT * FROM LoaiDichVu
 END
 GO
 
+CREATE PROC getLoaiDichVuByMa
+@MaLoaiDichVu varchar (5)
+AS
+BEGIN 
+SELECT * FROM LoaiDichVu Where MaLoaiDichVu = @MaLoaiDichVu
+END
+GO
+
 CREATE PROC SearchLoaiDichVu
 @MaLoaiDichVu varchar (5),
 @TenLoaiDichVu nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM LoaiDichVu Where TenLoaiDichVu LIKE '%'+@TenLoaiDichVu+'%' OR MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%'
+SELECT * FROM LoaiDichVu Where TenLoaiDichVu LIKE '%'+@TenLoaiDichVu+'%' AND MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%'
 END
 GO
 
@@ -844,15 +893,20 @@ SELECT * FROM LoaiPhong
 END
 GO
 
-CREATE PROC SearchLoaiPhong
-@MaLoaiPhong Varchar (3),
-@TenLoaiPhong nvarchar (50),
-@DonGia Float,
-@SoNguoiChuan int,
-@SoNguoiToiDa int
+CREATE PROC getLoaiPhongByMa
+@MaLoaiPhong Varchar (3)
 AS
 BEGIN 
-SELECT * FROM LoaiPhong Where MaLoaiPhong  LIKE '%'+@MaLoaiPhong +'%' OR TenLoaiPhong LIKE '%'+@TenLoaiPhong+'%'  OR DonGia = @DonGia OR SoNguoiChuan = @SoNguoiChuan OR SoNguoiToiDa = @SoNguoiToiDa
+SELECT * FROM LoaiPhong Where MaLoaiPhong = @MaLoaiPhong
+END
+GO
+
+CREATE PROC SearchLoaiPhong
+@MaLoaiPhong Varchar (3),
+@TenLoaiPhong nvarchar (50)
+AS
+BEGIN 
+SELECT * FROM LoaiPhong Where MaLoaiPhong  LIKE '%'+@MaLoaiPhong +'%' AND TenLoaiPhong LIKE '%'+@TenLoaiPhong+'%'
 END
 GO
 
@@ -899,14 +953,6 @@ SELECT * FROM PhanQuyen
 END
 GO
 
-CREATE PROC getMaQuyenByMaQuyen
-@MaQuyen int
-AS
-BEGIN 
-SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaQuyen;
-END
-GO
-
 CREATE PROC insertPhanQuyen
 @MaQuyen int,
 @MaNhomQuyen int
@@ -926,11 +972,10 @@ END
 GO
 
 CREATE PROC SearchNhomQuyen
-@MaNhomQuyen int,
 @TenNhomQuyen nvarchar (50)
 AS
 BEGIN 
-SELECT * FROM NhomQuyen Where MaNhomQuyen = @MaNhomQuyen OR TenNhomQuyen LIKE '%'+@TenNhomQuyen+'%'
+SELECT * FROM NhomQuyen Where TenNhomQuyen LIKE '%'+@TenNhomQuyen+'%'
 END
 GO
 
@@ -1014,13 +1059,12 @@ CREATE PROC SearchNHoaDon
 @MaHoaDon varchar (3),
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
-@MaKhuyenMai int,
 @NhanVienLap nvarchar (50),
 @NgayLap datetime
 AS
 BEGIN 
-SELECT * FROM HoaDon Where MaHoaDon LIKE '%'+@MaHoaDon+'%' OR MaKhachHang LIKE '%'+@MaKhachHang+'%' 
-OR MaNhanPhong LIKE '%'+@MaNhanPhong+'%' OR MaKhuyenMai=@MaKhuyenMai OR NhanVienLap LIKE '%'+@NhanVienLap+'%' OR NgayLap = @NgayLap
+SELECT * FROM HoaDon Where MaHoaDon LIKE '%'+@MaHoaDon+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%' 
+AND MaNhanPhong LIKE '%'+@MaNhanPhong+'%' AND NhanVienLap LIKE '%'+@NhanVienLap+'%' AND NgayLap = @NgayLap
 END
 GO
 
@@ -1064,7 +1108,7 @@ GO
 CREATE PROC getAllKhuyenMai
 AS
 BEGIN 
-SELECT * FROM KhuyenMai
+SELECT * FROM KhuyenMai ORDER BY MaKhuyenMai DESC
 END
 GO
 
@@ -1072,25 +1116,28 @@ CREATE PROC getByMaKhuyenMai
 @MaKhuyenMai int
 AS
 BEGIN 
-SELECT * FROM KhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai
+SELECT * FROM KhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai ORDER BY MaKhuyenMai DESC
+END
+GO
+
+CREATE PROC getByMaPhieuKhuyenMai
+@MaPhieu varchar (50)
+AS
+BEGIN 
+SELECT * FROM KhuyenMai WHERE MaPhieu = @MaPhieu
 END
 GO
 
 CREATE PROC SearchKhuyenMai
-@MaKhuyenMai int,
 @MaPhieu varchar (50),
-@GiaTri float,
 @NoiDung nvarchar(100),
-@NgayBatDau datetime,
-@NgayKetThuc datetime,
-@KieuTinh bit,
 @TrangThai bit
 AS
 BEGIN 
 SELECT * FROM KhuyenMai 
-Where MaKhuyenMai = @MaKhuyenMai OR MaPhieu LIKE '%'+@MaPhieu+'%'
-OR GiaTri =@GiaTri OR NoiDung LIKE '%'+@NoiDung+'%' OR NgayBatDau = @NgayBatDau
-OR NgayKetThuc =@NgayKetThuc OR KieuTinh =@KieuTinh OR TrangThai =@TrangThai
+Where MaPhieu LIKE '%'+@MaPhieu+'%'
+AND NoiDung LIKE '%'+@NoiDung+'%' AND TrangThai =@TrangThai
+ORDER BY MaKhuyenMai DESC
 END
 GO
 
@@ -1135,7 +1182,7 @@ GO
 CREATE PROC getAllLoaiTinhTrang
 AS
 BEGIN 
-SELECT * FROM LoaiTinhTrang
+SELECT * FROM LoaiTinhTrang ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 
@@ -1143,17 +1190,18 @@ CREATE PROC getByMaLoaiTinhTrang
 @MaLoaiTinhTrangPhong int
 AS
 BEGIN 
-SELECT * FROM LoaiTinhTrang WHERE MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong
+SELECT * FROM LoaiTinhTrang WHERE MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong 
+ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 
 CREATE PROC SearchLoaiTinhTrang
-@MaLoaiTinhTrangPhong int,
 @TenLoaiTinhTrang  nvarchar(50)
 AS
 BEGIN 
 SELECT * FROM LoaiTinhTrang 
-Where MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong OR TenLoaiTinhTrang LIKE '%'+@TenLoaiTinhTrang+'%'
+Where TenLoaiTinhTrang LIKE '%'+@TenLoaiTinhTrang+'%'
+ORDER BY MaLoaiTinhTrangPhong DESC
 END
 GO
 
@@ -1205,7 +1253,7 @@ CREATE PROC SearchPhieuNhanPhong
 AS
 BEGIN 
 SELECT * FROM PhieuNhanPhong 
-Where MaNhanPhong LIKE '%'+@MaNhanPhong+'%' OR MaPhieuThue LIKE '%'+@MaPhieuThue+'%' OR MaKhachHang LIKE '%'+@MaKhachHang+'%'
+Where MaNhanPhong LIKE '%'+@MaNhanPhong+'%' AND MaPhieuThue LIKE '%'+@MaPhieuThue+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%'
 END
 GO
 
@@ -1277,7 +1325,7 @@ CREATE PROC SearchPhong
 AS
 BEGIN 
 SELECT * FROM Phong 
-Where MaPhong LIKE '%'+@MaPhong+'%' OR  MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' OR MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong
+Where MaPhong LIKE '%'+@MaPhong+'%' AND  MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' AND MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong
 END
 GO
 
@@ -1334,7 +1382,7 @@ CREATE PROC SearchDanhSachSuDungDichVu
 AS
 BEGIN 
 SELECT * FROM DanhSachSuDungDichVu 
-Where MaSuDungDVu LIKE '%'+@MaSuDungDVu+'%' OR  MaDichVu LIKE '%'+@MaDichVu+'%' OR  MaNhanPhong LIKE '%'+@MaNhanPhong+'%'
+Where MaSuDungDVu LIKE '%'+@MaSuDungDVu+'%' AND  MaDichVu LIKE '%'+@MaDichVu+'%' AND  MaNhanPhong LIKE '%'+@MaNhanPhong+'%'
 END
 GO
 
@@ -1452,4 +1500,4 @@ BEGIN
 Insert into ChiTietHoaDon(MaHoaDon,MaPhong,MaSuDungDichVu,MaChinhSach,PhuThu,TienPhong,TienDichVu,GiamGiaKH,HinhThucThanhToan,SoNgay,ThanhTien) 
 Values(@MaHoaDon,@MaPhong,@MaSuDungDichVu,@MaChinhSach,@PhuThu,@TienPhong,@TienDichVu,@GiamGiaKH,@HinhThucThanhToan,@SoNgay,@ThanhTien)
 END
-GO
+GO 

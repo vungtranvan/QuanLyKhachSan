@@ -9,7 +9,7 @@ import com.qlks.fonts.FontCustom;
 import com.qlks.models.NguoiDung;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
-import com.qlks.view.internalframe.QuanLyDatPhong;
+
 import com.qlks.view.internalframe.QuanLyDonVi;
 import com.qlks.view.internalframe.QuanLyKhachHang;
 import com.qlks.view.internalframe.QuanLyLoaiDichVu;
@@ -45,7 +45,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
 
-    List<NguoiDung> listNd = new ArrayList<>();
+
 
     public Color MainColor = new Color(36, 36, 36);
     public Color subMenuColor = new Color(56, 56, 56);
@@ -57,9 +57,10 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    public MainJFrame() {
-
+    public MainJFrame(List<NguoiDung> listNd) {
+        
         initComponents();
+        System.out.println(listNd.get(0).getTenNguoiDung());
         
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -70,7 +71,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jpnMainSubMenu.add(jpnSubmenu);
         
-        showInternalFrame(menuChecking, new QuanLyDatPhong());
+//        showInternalFrame(menuChecking, new QuanLyDatPhong());
 
         List<JPanel> listSubMenuItemAdmin = new ArrayList<>();
         List<JPanel> listSubMenuItemRoom = new ArrayList<>();
@@ -149,10 +150,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     }
 
-    public void setListNd(List<NguoiDung> nd) {
-        this.listNd.removeAll(listNd);
-        this.listNd = nd;
-    }
+
 
     public void centerJIF(JInternalFrame jif) {
         Dimension desktopSize = jMain.getSize();
@@ -226,7 +224,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 jpnSubmenu.revalidate();
                 jpnSubmenu.repaint();
 
-                System.out.println(jl.getLabelFor());
+
 
             }
 
