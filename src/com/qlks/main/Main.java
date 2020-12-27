@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -26,6 +28,8 @@ public class Main {
                 logInJFrame.setVisible(false);
                 mainFrame.setVisible(true);
                 String loginSuccess = "Dang nhap thanh cong";
+                mainFrame.getMenuAvatar().setIcon(new ImageIcon("src/com/qlks/icon/"+listnd.get(0).getAnh()));
+                mainFrame.setTitle("Quản lý khách sạn [ "+listnd.get(0).getTenNguoiDung()+" ]");
                 MethodMain.globalMessagerSuccess(loginSuccess, mainFrame.getjMain());
             }
         }

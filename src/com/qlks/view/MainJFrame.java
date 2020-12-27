@@ -175,6 +175,14 @@ public class MainJFrame extends javax.swing.JFrame {
     public void setjMain(JDesktopPane jMain) {
         this.jMain = jMain;
     }
+
+    public JLabel getMenuAvatar() {
+        return menuAvatar;
+    }
+
+    public void setMenuAvatar(JLabel menuAvatar) {
+        this.menuAvatar = menuAvatar;
+    }
     
     
        
@@ -389,8 +397,9 @@ public class MainJFrame extends javax.swing.JFrame {
         menuRoom = new javax.swing.JLabel();
         jpnMainSubMenu = new javax.swing.JPanel();
         menuCustomer = new javax.swing.JLabel();
-        menuConfig = new javax.swing.JLabel();
         menuChecking = new javax.swing.JLabel();
+        menuConfig = new javax.swing.JLabel();
+        menuAvatar = new javax.swing.JLabel();
         jMain = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -430,13 +439,16 @@ public class MainJFrame extends javax.swing.JFrame {
         menuCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_custommer.png"))); // NOI18N
         menuCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        menuChecking.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuChecking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_checking.png"))); // NOI18N
+        menuChecking.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         menuConfig.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         menuConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_config.png"))); // NOI18N
         menuConfig.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        menuChecking.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        menuChecking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_checking.png"))); // NOI18N
-        menuChecking.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuAvatar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuAvatar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jpnMainLeftLayout = new javax.swing.GroupLayout(jpnMainLeft);
         jpnMainLeft.setLayout(jpnMainLeftLayout);
@@ -449,8 +461,9 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(menuAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(menuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(menuCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menuChecking, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(menuChecking, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(menuAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -474,6 +487,8 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(menuCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(menuAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7))))
             .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -511,6 +526,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jpnMainSubMenu;
     private javax.swing.JPanel jpnMenu;
     private javax.swing.JLabel menuAdmin;
+    private javax.swing.JLabel menuAvatar;
     private javax.swing.JLabel menuChecking;
     private javax.swing.JLabel menuConfig;
     private javax.swing.JLabel menuCustomer;
