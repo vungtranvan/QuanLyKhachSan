@@ -9,6 +9,7 @@ import com.qlks.fonts.FontCustom;
 import com.qlks.models.NguoiDung;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
+import com.qlks.view.internalframe.QuanLyDatPhong;
 import com.qlks.view.internalframe.QuanLyDonVi;
 import com.qlks.view.internalframe.QuanLyKhachHang;
 import com.qlks.view.internalframe.QuanLyLoaiDichVu;
@@ -68,11 +69,16 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnSubmenu.setLayout(new BoxLayout(jpnSubmenu, BoxLayout.Y_AXIS));
 
         jpnMainSubMenu.add(jpnSubmenu);
+        
+        showInternalFrame(menuChecking, new QuanLyDatPhong());
 
         List<JPanel> listSubMenuItemAdmin = new ArrayList<>();
         List<JPanel> listSubMenuItemRoom = new ArrayList<>();
         List<JPanel> listSubMenuItemCustomer = new ArrayList<>();
         List<JPanel> listSubMenuItemConfig = new ArrayList<>();
+        
+        
+        
 
         JPanel subMenuItemAdmin = new JPanel();
 
@@ -316,6 +322,41 @@ public class MainJFrame extends javax.swing.JFrame {
     private void showInternalFrame(JPanel jb, JInternalFrame jif) {
        
         jb.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+
+                if (!jif.isVisible()) {
+                    jMain.add(jif);
+                    centerJIF(jif);
+                    jif.setVisible(true);
+                }
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+
+            }
+        });
+    }
+    private void showInternalFrame(JLabel jlMenu, JInternalFrame jif) {
+       
+        jlMenu.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
 

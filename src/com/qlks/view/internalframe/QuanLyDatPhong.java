@@ -5,6 +5,11 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.dao.impl.PhongDAO;
+import com.qlks.models.NguoiDung;
+import com.qlks.models.Phong;
+import java.util.List;
+
 /**
  *
  * @author hoangdung
@@ -17,9 +22,12 @@ public class QuanLyDatPhong extends javax.swing.JInternalFrame {
     public QuanLyDatPhong() {
         initComponents();
     }
-    private void showRoom(){
-    
-        
+
+    private void showRoom() {
+        PhongDAO pdao = new PhongDAO();
+        List<Phong> listPhong = pdao.getAll();
+        System.out.println(listPhong.size());
+
     }
 
     /**
@@ -33,6 +41,10 @@ public class QuanLyDatPhong extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 5, 15, 15));
 
