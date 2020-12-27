@@ -404,6 +404,7 @@ INSERT INTO KhuyenMai(MaPhieu,GiaTri,NoiDung,NgayBatDau,NgayKetThuc,KieuTinh,Tra
 ('HOLIDAY',500000,N'Khuyến mại 1','2020-12-20','2020-01-20',0,0),
 ('OK123',40,N'Khuyến mại 2','2020-12-20','2020-01-20',1,1)
 GO
+
 --  TẠO THỦ TỤC
 
 -- BẢNG QuyDinh
