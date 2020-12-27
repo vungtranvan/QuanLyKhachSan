@@ -98,7 +98,6 @@ public class LogInJFrame extends javax.swing.JFrame {
         char[] passWordChar = jpassPass.getPassword();
         String passWord = new String(passWordChar);
 
-        System.out.println(passWord);
         NguoiDungDAO nddao = new NguoiDungDAO();
         String ms = "";
         jpnMessager.removeAll();

@@ -9,7 +9,7 @@ import com.qlks.fonts.FontCustom;
 import com.qlks.models.NguoiDung;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
-import com.qlks.view.internalframe.QuanLyDatPhong;
+
 import com.qlks.view.internalframe.QuanLyDonVi;
 import com.qlks.view.internalframe.QuanLyKhachHang;
 import com.qlks.view.internalframe.QuanLyLoaiDichVu;
@@ -70,7 +70,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jpnMainSubMenu.add(jpnSubmenu);
         
-        showInternalFrame(menuChecking, new QuanLyDatPhong());
+//        showInternalFrame(menuChecking, new QuanLyDatPhong());
 
         List<JPanel> listSubMenuItemAdmin = new ArrayList<>();
         List<JPanel> listSubMenuItemRoom = new ArrayList<>();
@@ -226,7 +226,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 jpnSubmenu.revalidate();
                 jpnSubmenu.repaint();
 
-                System.out.println(jl.getLabelFor());
+
 
             }
 
