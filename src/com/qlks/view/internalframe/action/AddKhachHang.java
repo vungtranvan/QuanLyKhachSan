@@ -7,7 +7,6 @@ package com.qlks.view.internalframe.action;
 
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.KhachHang;
-import com.qlks.view.internalframe.QuanLyKhachHang;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -18,13 +17,12 @@ import javax.swing.JOptionPane;
 public class AddKhachHang extends javax.swing.JInternalFrame {
 
     private KhachHangDAO khachHangDAO;
-    private QuanLyKhachHang quanlyKH;
 
     CallBackAdd cb;
 
     public interface CallBackAdd {
 
-        void doDelete();
+        void doAdd();
     }
 
     /**
@@ -391,7 +389,7 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 resetText();
-                cb.doDelete();
+                cb.doAdd();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);

@@ -5,6 +5,7 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.CauHinhDAO;
 import com.qlks.models.CauHinh;
 import java.util.List;
@@ -18,10 +19,11 @@ import javax.swing.table.DefaultTableModel;
  * @author MinhVuFC
  */
 public class QuanLyCauHinh extends javax.swing.JInternalFrame {
-    
+
     private CauHinhDAO cauhinhDAO;
     private List<CauHinh> lstCauHinh;
     private DefaultTableModel dtmCauHinh;
+    private FunctionBase funcBase;
 
     /**
      * Creates new form QuanLyTaiSan
@@ -30,22 +32,23 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
         initComponents();
         dtmCauHinh = new DefaultTableModel();
         cauhinhDAO = new CauHinhDAO();
+        funcBase = new FunctionBase();
         loadData(null);
         resetText();
     }
-    
+
     public void loadData(String nameSeaechInput) {
-        Object[] columnNames = {"STT", "Mã cấu hình", "Loại cấu hình"};
+        Object[] columnNames = {"STT", "Mã cấu hình", "Loại cấu hình", ""};
         if (nameSeaechInput != null) {
             lstCauHinh = cauhinhDAO.search(nameSeaechInput);
         } else {
             lstCauHinh = cauhinhDAO.getAll();
         }
-        
+
         dtmCauHinh = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (CauHinh adv : lstCauHinh) {
-            Object[] o = new Object[3];
+            Object[] o = new Object[4];
             o[0] = index;
             o[1] = adv.getMaCauHinh();
             o[2] = adv.getLoaiCauHinh();
@@ -53,6 +56,7 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
             index++;
         }
         tblCauHinh.setModel(dtmCauHinh);
+        funcBase.addCheckBox(3, tblCauHinh);
 
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstCauHinh.size() > 0) {
@@ -74,7 +78,7 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
             });
         }
     }
-    
+
     public void resetText() {
         lblID.setText("");
         txtTenCauHinh.setText("");
@@ -292,7 +296,7 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -306,51 +310,75 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
                 txtErrorTenCauHinh.setText("");
                 loadData(null);
+                resetText();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
             }
-            loadData(null);
         } else {
             txtErrorTenCauHinh.setText("Tên cấu hình không được để trống !");
         }
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        String tenCauHinh = txtTenCauHinh.getText().trim();
-        int id = Integer.parseInt(lblID.getText());
-        int row = cauhinhDAO.update(new CauHinh(id, tenCauHinh));
-        if (row > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
-            loadData(null);
+        int currentRow = tblCauHinh.getSelectedRow();
+
+        if (currentRow >= 0) {
+            String tenCauHinh = txtTenCauHinh.getText().trim();
+            int id = Integer.parseInt(lblID.getText());
+            int row = cauhinhDAO.update(new CauHinh(id, tenCauHinh));
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                loadData(null);
+                resetText();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại", null, JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Cập nhật bại", null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
-        loadData(null);
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        String succesDeltete = "";
+        String errDeltete = "";
+        Boolean check = false;
         int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
-            if (lblID.getText().length() > 0) {
-                int id = Integer.parseInt(lblID.getText());
-                int row = cauhinhDAO.delete(id);
-                if (row > 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Xóa thành công", null, JOptionPane.INFORMATION_MESSAGE);
-                    resetText();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Xóa thất bại, Vui lòng kiểm tra lại", null, JOptionPane.ERROR_MESSAGE);
+
+            for (int i = 0; i < tblCauHinh.getRowCount(); i++) {
+                System.out.println("getRowCount= " + tblCauHinh.getRowCount());
+                if (funcBase.IsSelected(i, 3, tblCauHinh)) {
+                    check = true;
+                    int rowSucces = cauhinhDAO.delete(Integer.parseInt(tblCauHinh.getValueAt(i, 1).toString()));
+                    tblCauHinh.clearSelection();
+                    if (rowSucces > 0) {
+                        succesDeltete += "\t" + tblCauHinh.getValueAt(i, 2).toString() + "\n";
+                    } else {
+                        errDeltete += "\t" + tblCauHinh.getValueAt(i, 2).toString() + "\n";
+                    }
                 }
-                loadData(null);
+            }
+            loadData(null);
+            resetText();
+            if (check == true) {
+                String mess = "";
+                if (succesDeltete.length() > 0) {
+                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
+                }
+                if (errDeltete.length() > 0) {
+                    mess += "Không thể xóa: \n" + errDeltete;
+                }
+                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        resetText();
         txtSearch.setText("");
         loadData(null);
+        resetText();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed

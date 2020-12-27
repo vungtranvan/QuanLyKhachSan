@@ -893,6 +893,14 @@ SELECT * FROM LoaiPhong
 END
 GO
 
+CREATE PROC getLoaiPhongByMa
+@MaLoaiPhong Varchar (3)
+AS
+BEGIN 
+SELECT * FROM LoaiPhong Where MaLoaiPhong = @MaLoaiPhong
+END
+GO
+
 CREATE PROC SearchLoaiPhong
 @MaLoaiPhong Varchar (3),
 @TenLoaiPhong nvarchar (50)
@@ -1112,18 +1120,23 @@ SELECT * FROM KhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai ORDER BY MaKhuyenMai DE
 END
 GO
 
+CREATE PROC getByMaPhieuKhuyenMai
+@MaPhieu varchar (50)
+AS
+BEGIN 
+SELECT * FROM KhuyenMai WHERE MaPhieu = @MaPhieu
+END
+GO
+
 CREATE PROC SearchKhuyenMai
 @MaPhieu varchar (50),
 @NoiDung nvarchar(100),
-@NgayBatDau datetime,
-@NgayKetThuc datetime,
 @TrangThai bit
 AS
 BEGIN 
 SELECT * FROM KhuyenMai 
 Where MaPhieu LIKE '%'+@MaPhieu+'%'
-AND NoiDung LIKE '%'+@NoiDung+'%' AND NgayBatDau = @NgayBatDau
-AND NgayKetThuc =@NgayKetThuc AND TrangThai =@TrangThai
+AND NoiDung LIKE '%'+@NoiDung+'%' AND TrangThai =@TrangThai
 ORDER BY MaKhuyenMai DESC
 END
 GO
