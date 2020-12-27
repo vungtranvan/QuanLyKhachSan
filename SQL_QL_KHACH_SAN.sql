@@ -516,6 +516,15 @@ Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTi
 END
 GO
 
+CREATE PROC checkLoginNguoiDung
+@TenDangNhap varchar (50),
+@MatKhau nvarchar (50)
+AS
+BEGIN 
+SELECT * FROM NguoiDung Where (TenDangNhap = @TenDangNhap OR Email = @TenDangNhap) AND MatKhau = @MatKhau
+END
+GO
+
 CREATE PROC updateNguoiDung
 @MaNguoiDung int,
 @TenNguoiDung nvarchar (50),
