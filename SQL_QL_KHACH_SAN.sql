@@ -606,7 +606,10 @@ GO
 CREATE PROC getAllThietBi
 AS
 BEGIN 
-SELECT * FROM ThietBi
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
 END
 GO
 
@@ -617,8 +620,11 @@ CREATE PROC SearchThietBi
 @Gia float
 AS
 BEGIN 
-SELECT * FROM ThietBi Where MaThietBi LIKE '%'+@MaThietBi+'%' OR MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' 
-OR TenThietBi LIKE '%'+@TenThietBi+'%' OR Gia = @Gia
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ Where MaThietBi LIKE '%'+@MaThietBi+'%' OR ThietBi.MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' OR TenThietBi LIKE '%'+@TenThietBi+'%' OR Gia = @Gia
 END
 GO
 
@@ -899,6 +905,8 @@ SELECT * FROM PhanQuyen
 END
 GO
 
+<<<<<<< HEAD
+=======
 CREATE PROC getMaQuyenByMaNhomQuyen
 @MaNhomQuyen int
 AS
@@ -906,6 +914,7 @@ BEGIN
 SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaNhomQuyen;
 END
 GO
+>>>>>>> d49bb7cd160c647b0361556a728a187ce1ac547a
 
 CREATE PROC insertPhanQuyen
 @MaQuyen int,
@@ -922,6 +931,14 @@ CREATE PROC getAllNhomQuyen
 AS
 BEGIN 
 SELECT * FROM NhomQuyen
+END
+GO
+
+CREATE PROC getMaQuyenByMaNhomQuyen
+@MaNhomQuyen int
+AS
+BEGIN 
+SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaNhomQuyen;
 END
 GO
 
