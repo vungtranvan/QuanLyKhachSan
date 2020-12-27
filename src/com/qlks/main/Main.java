@@ -4,9 +4,12 @@ import com.qlks.models.NguoiDung;
 import com.qlks.utils.MethodMain;
 import com.qlks.view.LogInJFrame;
 import com.qlks.view.MainJFrame;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -17,6 +20,20 @@ import javax.swing.JButton;
 public class Main {
 
     List<NguoiDung> listnd;
+
+    public void login(LogInJFrame logInJFrame, MainJFrame mainFrame) {
+        listnd = logInJFrame.getLogin();
+        if (listnd != null) {
+            if (listnd.size() > 0) {
+                logInJFrame.setVisible(false);
+                mainFrame.setVisible(true);
+                String loginSuccess = "Dang nhap thanh cong";
+                mainFrame.getMenuAvatar().setIcon(new ImageIcon("src/com/qlks/icon/"+listnd.get(0).getAnh()));
+                mainFrame.setTitle("Quản lý khách sạn [ "+listnd.get(0).getTenNguoiDung()+" ]");
+                MethodMain.globalMessagerSuccess(loginSuccess, mainFrame.getjMain());
+            }
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -34,17 +51,7 @@ public class Main {
         jbLogin.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                main.listnd = logInJFrame.getLogin();
-                if (main.listnd != null) {
-                    if (main.listnd.size() > 0) {
-                        logInJFrame.setVisible(false);
-                        mainFrame.setVisible(true);
-                        String loginSuccess = "Dang nhap thanh cong";
-                        MethodMain.globalMessagerSuccess(loginSuccess,mainFrame.getjMain());
-
-                    }
-                }
-
+                main.login(logInJFrame, mainFrame);
             }
 
             @Override
@@ -67,6 +74,42 @@ public class Main {
 
             }
         });
+        logInJFrame.getJtextName().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+
+            }
+            @Override
+            public void keyPressed(KeyEvent ke) {
+
+                if (ke.getKeyCode() == 10) {
+                    main.login(logInJFrame, mainFrame);
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent ke) {
+
+            }
+        });
+        logInJFrame.getJpassPass().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+
+            }
+            @Override
+            public void keyPressed(KeyEvent ke) {
+
+                if (ke.getKeyCode() == 10) {
+                    main.login(logInJFrame, mainFrame);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+
+            }
+        });
 
     }
+
 }

@@ -39,24 +39,4 @@ public class MethodMain {
         timer.setRepeats(false);
         timer.start();
     }
-
-//    public static void globalMessagerError(String msg) {
-//        MainJFrame.jlbMainMesange.setForeground(Color.RED);
-//        MainJFrame.jlbMainMesange.setIcon(new ImageIcon("src/com/qlks/icon/icon_error_red.png"));
-//        MainJFrame.jlbMainMesange.setText(msg);
-//        Timer timer = new Timer(10000, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                MainJFrame.jlbMainMesange.setIcon(null);
-//                MainJFrame.jlbMainMesange.setText("");
-//            }
-//        });
-//        timer.setRepeats(false);
-//        timer.start();
-//    }
-//
-//    public static void globalMessagerWarning(String msg) {
-//        MainJFrame.jlbMainMesange.setForeground(Color.YELLOW);
-//        MainJFrame.jlbMainMesange.setText(msg);
-//    }
 }

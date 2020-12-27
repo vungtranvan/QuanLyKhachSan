@@ -7,15 +7,15 @@ package com.qlks.view;
 
 import com.qlks.dao.impl.NguoiDungDAO;
 import com.qlks.models.NguoiDung;
-import com.qlks.utils.MethodMain;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -67,6 +67,23 @@ public class LogInJFrame extends javax.swing.JFrame {
     public void setBtnLogIn(JButton jb) {
         this.btnLogin = jb;
     }
+
+    public JPasswordField getJpassPass() {
+        return jpassPass;
+    }
+
+    public void setJpassPass(JPasswordField jpassPass) {
+        this.jpassPass = jpassPass;
+    }
+
+    public JTextField getJtextName() {
+        return jtextName;
+    }
+
+    public void setJtextName(JTextField jtextName) {
+        this.jtextName = jtextName;
+    }
+    
 
     public List<NguoiDung> getLogin() {
         boolean check = true;
