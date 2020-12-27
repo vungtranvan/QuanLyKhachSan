@@ -932,13 +932,6 @@ SELECT * FROM NhomQuyen
 END
 GO
 
-CREATE PROC getMaQuyenByMaNhomQuyen
-@MaNhomQuyen int
-AS
-BEGIN 
-SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaNhomQuyen;
-END
-GO
 
 CREATE PROC SearchNhomQuyen
 @MaNhomQuyen int,
