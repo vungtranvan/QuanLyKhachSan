@@ -78,4 +78,9 @@ public class LoaiPhong {
         this.tyLeTang = tyLeTang;
     }
 
+    @Override
+    public String toString() {
+        return tenLoaiPhong;
+    }
+
 }

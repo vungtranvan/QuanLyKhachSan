@@ -405,6 +405,17 @@ INSERT INTO KhuyenMai(MaPhieu,GiaTri,NoiDung,NgayBatDau,NgayKetThuc,KieuTinh,Tra
 ('OK123',40,N'Khuyến mại 2','2020-12-20','2020-01-20',1,1)
 GO
 
+INSERT into Quyen(Quyen) VALUES 
+('XemGiaoDich'),('QlDaoDich'),
+('XemNguoiDung'),('QlNguoiDung'),
+('XemPhong'),('QlPhong'),
+('XemThietBi'),('QlThietBi'),
+('XemDichVu'),('QlDichVu'),
+('XemChinhSachTraPhong'),('QlChinhSachTraPhong'),
+('XemKhachHang'),('QlKhachHang'),
+('XemKhuyenMai'),('QlKhuyenMai'),
+('XemQuyDinh'),('QlQuyDinh')
+go
 --  TẠO THỦ TỤC
 
 -- BẢNG QuyDinh
@@ -700,20 +711,92 @@ SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuon
 END
 GO
 
+CREATE PROC getThietBiByMaTB
+@MaThietBi varchar (8)
+AS
+BEGIN 
+SELECT * FROM ThietBi Where MaThietBi = @MaThietBi
+END
+GO
+
 CREATE PROC SearchThietBi
 @MaThietBi varchar (8),
 @MaLoaiPhong varchar (3),
-@TenThietBi nvarchar (50),
-@Gia float
+@TenThietBi nvarchar (50)
 AS
+
+IF @MaThietBi != '' AND @MaLoaiPhong != '' AND @TenThietBi != '' 
 BEGIN 
 SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
  FROM ThietBi
  INNER JOIN LoaiPhong
  ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
- Where MaThietBi LIKE '%'+@MaThietBi+'%' OR ThietBi.MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' OR TenThietBi LIKE '%'+@TenThietBi+'%' OR Gia = @Gia
+ Where MaThietBi = @MaThietBi OR ThietBi.MaLoaiPhong =@MaLoaiPhong OR TenThietBi LIKE '%'+@TenThietBi+'%'
 END
-GO
+
+ELSE IF @MaThietBi = '' AND @MaLoaiPhong = '' AND @TenThietBi  = ''
+BEGIN 
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ END
+
+ ELSE IF @MaThietBi  = '' AND @MaLoaiPhong != '' AND @TenThietBi != ''
+BEGIN 
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ Where ThietBi.MaLoaiPhong =@MaLoaiPhong OR TenThietBi LIKE '%'+@TenThietBi+'%'
+END
+
+ ELSE IF @MaThietBi  = '' AND @MaLoaiPhong = '' AND @TenThietBi != ''
+ BEGIN 
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ Where TenThietBi LIKE '%'+@TenThietBi+'%'
+END
+
+ ELSE IF @MaThietBi  = '' AND @MaLoaiPhong != '' AND @TenThietBi  = ''
+BEGIN 
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ Where ThietBi.MaLoaiPhong =@MaLoaiPhong
+END
+
+IF @MaThietBi != '' AND @MaLoaiPhong != '' AND @TenThietBi  = '' 
+BEGIN 
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ Where MaThietBi = @MaThietBi OR ThietBi.MaLoaiPhong =@MaLoaiPhong
+END
+
+IF @MaThietBi != '' AND @MaLoaiPhong  = '' AND @TenThietBi != '' 
+BEGIN 
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ Where MaThietBi = @MaThietBi OR TenThietBi LIKE '%'+@TenThietBi+'%'
+END
+
+IF @MaThietBi != '' AND @MaLoaiPhong  = '' AND @TenThietBi  = '' 
+BEGIN 
+SELECT ThietBi.MaThietBi, ThietBi.MaLoaiPhong, ThietBi.TenThietBi,ThietBi.SoLuong,ThietBi.Gia,LoaiPhong.TenLoaiPhong
+ FROM ThietBi
+ INNER JOIN LoaiPhong
+ ON ThietBi.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ Where MaThietBi = @MaThietBi
+END
+
+GO 
 
 CREATE PROC insertThietBi
 @MaThietBi varchar (8),
@@ -1037,6 +1120,13 @@ BEGIN
 SELECT * FROM NhomQuyen
 END
 GO
+
+CREATE PROC getMaxId
+AS
+BEGIN
+SELECT * FROM NhomQuyen Where MaNhomQuyen = (SELECT MAX(MaNhomQuyen) FROM NhomQuyen);
+END
+go
 
 CREATE PROC getMaQuyenByMaNhomQuyen
 @MaNhomQuyen int

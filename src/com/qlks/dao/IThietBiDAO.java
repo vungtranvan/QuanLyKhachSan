@@ -13,7 +13,10 @@ import java.util.List;
  * @author hello
  */
 public interface IThietBiDAO {
+
     List<ThietBi> getAll();
+
+    List<ThietBi> getByMaThietBi(String maThietBi);
 
     List<ThietBi> search(String maThietBi, String maLoaiPhong, String tenThietBi);
 

@@ -6,14 +6,12 @@
 package com.qlks.view.internalframe;
 
 import com.qlks.custom.FunctionBase;
-import com.qlks.dao.impl.KhuyenMaiDAO;
 import com.qlks.dao.impl.ThietBiDAO;
-import com.qlks.models.KhuyenMai;
-import com.qlks.view.internalframe.action.AddKhuyenMai;
-import com.qlks.view.internalframe.action.SearchKhuyenMai;
-import com.qlks.view.internalframe.action.UpdateKhuyenMai;
+import com.qlks.models.ThietBi;
+import com.qlks.view.internalframe.action.AddThietBi;
+import com.qlks.view.internalframe.action.SearchThietBi;
+import com.qlks.view.internalframe.action.UpdateThietBi;
 import java.awt.Dimension;
-import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -24,57 +22,47 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddKhuyenMai.CallBackAdd, UpdateKhuyenMai.CallBackUpdate, SearchKhuyenMai.CallBackSearch {
+public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThietBi.CallBackAdd, UpdateThietBi.CallBackUpdate, SearchThietBi.CallBackSearch {
 
-    private KhuyenMaiDAO khuyenMaiDAO;
-    private List<KhuyenMai> lstKhuyenMai;
-    private DefaultTableModel dtmKhuyenMai;
+    private ThietBiDAO thietBiDAO;
+    private List<ThietBi> lstThietBi;
+    private DefaultTableModel dtmThietBi;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
 
     public QuanLyThietBi() {
         initComponents();
-        dtmKhuyenMai = new DefaultTableModel();
-        khuyenMaiDAO = new KhuyenMaiDAO();
+        dtmThietBi = new DefaultTableModel();
+        thietBiDAO = new ThietBiDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null);
     }
 
-    public void loadData(String maPhieu, String noiDung, Boolean trangThai) {
+    public void loadData(String maThietBi, String maLoaiPhong, String tenThietBi) {
 
-        if (maPhieu != null || noiDung != null || trangThai != null) {
-            lstKhuyenMai = khuyenMaiDAO.search(maPhieu, noiDung, trangThai);
+        if (maThietBi != null || maLoaiPhong != null || tenThietBi != null) {
+            lstThietBi = thietBiDAO.search(maThietBi, maLoaiPhong, tenThietBi);
         } else {
-            lstKhuyenMai = khuyenMaiDAO.getAll();
+            lstThietBi = thietBiDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "ID", "Mã code", "Giá trị", "Nội dung", "Ngày bắt đầu", "Ngày kết thúc", "Kiểu tính", "Trạng thái", ""};
-        dtmKhuyenMai = new DefaultTableModel(new Object[0][0], columnNames);
+        Object[] columnNames = {"STT", "Mã Thiết bị", "Mã loại phòng", "Tên loại phòng", "Tên thiết bị", "Số lượng", "Giá", ""};
+        dtmThietBi = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
-        for (KhuyenMai adv : lstKhuyenMai) {
-            Object[] o = new Object[10];
+        for (ThietBi adv : lstThietBi) {
+            Object[] o = new Object[8];
             o[0] = index;
-            o[1] = adv.getMaKhuyenMai();
-            o[2] = adv.getMaPhieu();
-            o[3] = adv.getGiaTri();
-            o[4] = adv.getNoiDung();
-            o[5] = adv.getNgayBatDau();
-            o[6] = adv.getNgayKetThuc();
-            String kieuTinh = "Trực tiếp";
-            if (adv.isKieuTinh() == true) {
-                kieuTinh = "Phần trăm";
-            }
-            o[7] = kieuTinh;
-            String trangThaiB = "Chưa sử dụng";
-            if (adv.isTrangThai() == true) {
-                trangThaiB = "Đã sử dụng";
-            }
-            o[8] = trangThaiB;
-            dtmKhuyenMai.addRow(o);
+            o[1] = adv.getMaThietBi();
+            o[2] = adv.getMaLoaiPhong();
+            o[3] = adv.getTenLoaiPhong();
+            o[4] = adv.getTenThietBi();
+            o[5] = adv.getSoLuong();
+            o[6] = (int) adv.getGia();
+            dtmThietBi.addRow(o);
             index++;
         }
-        tblMaKhuyenMai.setModel(dtmKhuyenMai);
-        funcBase.addCheckBox(9, tblMaKhuyenMai);
+        tblMaKhuyenMai.setModel(dtmThietBi);
+        funcBase.addCheckBox(7, tblMaKhuyenMai);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -247,7 +235,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddKhuy
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddKhuyenMai(this));
+        showInternalFrame(new AddThietBi(this));
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -258,12 +246,11 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddKhuy
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblMaKhuyenMai.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblMaKhuyenMai.getRowCount());
-                if (funcBase.IsSelected(i, 9, tblMaKhuyenMai)) {
+                if (funcBase.IsSelected(i, 7, tblMaKhuyenMai)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 
-                    int rowSucces = khuyenMaiDAO.delete(Integer.parseInt(tblMaKhuyenMai.getValueAt(i, 1).toString()));
+                    int rowSucces = thietBiDAO.delete(tblMaKhuyenMai.getValueAt(i, 1).toString());
                     if (rowSucces > 0) {
                         succesDeltete += "\t" + tblMaKhuyenMai.getValueAt(i, 2).toString() + "\n";
                     } else {
@@ -299,29 +286,20 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddKhuy
         int currentRow = tblMaKhuyenMai.getSelectedRow();
 
         if (currentRow >= 0) {
-            int IdKM = Integer.parseInt(dtmKhuyenMai.getValueAt(currentRow, 1).toString());
-            String maKM = dtmKhuyenMai.getValueAt(currentRow, 2).toString();
-            Float giaTri = Float.parseFloat(dtmKhuyenMai.getValueAt(currentRow, 3).toString());
-            String noiDung = dtmKhuyenMai.getValueAt(currentRow, 4).toString();
-            LocalDate ngayBatDau = LocalDate.parse(dtmKhuyenMai.getValueAt(currentRow, 5).toString());
-            LocalDate ngayKetThuc = LocalDate.parse(dtmKhuyenMai.getValueAt(currentRow, 6).toString());
-            Boolean kieuTinh = true;
-            if (dtmKhuyenMai.getValueAt(currentRow, 7).toString().equals("Trực tiếp")) {
-                kieuTinh = false;
-            }
-            Boolean trangThai = true;
-            if (dtmKhuyenMai.getValueAt(currentRow, 8).toString().equals("Chưa sử dụng")) {
-                trangThai = false;
-            }
-            KhuyenMai dataKM = new KhuyenMai(IdKM, maKM, giaTri, noiDung, ngayBatDau, ngayKetThuc, kieuTinh, trangThai);
-            showInternalFrame(new UpdateKhuyenMai(dataKM, this));
+            String maTB = dtmThietBi.getValueAt(currentRow, 1).toString();
+            String maLP = dtmThietBi.getValueAt(currentRow, 2).toString();
+            String tenTB = dtmThietBi.getValueAt(currentRow, 4).toString();
+            int soLuong = Integer.parseInt(dtmThietBi.getValueAt(currentRow, 5).toString());
+            Float giaTien = Float.parseFloat(dtmThietBi.getValueAt(currentRow, 6).toString());
+            ThietBi dataKM = new ThietBi(maTB, maLP, tenTB, soLuong, giaTien);
+            showInternalFrame(new UpdateThietBi(dataKM, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-         showInternalFrame(new SearchKhuyenMai(this));
+        showInternalFrame(new SearchThietBi(this));
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
@@ -348,9 +326,8 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddKhuy
     }
 
     @Override
-    public void doSearch(String maSearchInput, String tenSearchInput, Boolean trangThai) {
-        loadData(maSearchInput, tenSearchInput, trangThai);
+    public void doSearch(String maThietBi, String maLoaiPhong, String tenThietBi) {
+        loadData(maThietBi, maLoaiPhong, tenThietBi);
     }
-
 
 }

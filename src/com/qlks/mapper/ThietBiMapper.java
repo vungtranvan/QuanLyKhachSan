@@ -19,7 +19,8 @@ public class ThietBiMapper implements RowMapper<ThietBi> {
     @Override
     public ThietBi mapRow(ResultSet rs) {
         try {
-            ThietBi data = new ThietBi(rs.getString("MaThietBi"), rs.getString("MaLoaiPhong"), rs.getString("TenThietBi"), rs.getInt("SoLuong"), rs.getFloat("Gia"));
+            ThietBi data = new ThietBi(rs.getString("MaThietBi"), rs.getString("MaLoaiPhong"), rs.getString("TenThietBi"), 
+                    rs.getInt("SoLuong"), rs.getFloat("Gia"), rs.getString("TenLoaiPhong"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);
