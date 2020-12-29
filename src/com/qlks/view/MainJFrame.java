@@ -60,7 +60,7 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
  *
  * @author hoangdung
  */
-public class MainJFrame extends javax.swing.JFrame {
+public class MainJFrame extends javax.swing.JFrame implements NgonNgu.Callaback {
 
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
@@ -159,8 +159,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         JPanel subMenuLanguage = new JPanel();
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuLanguage, "Ngon ngu"));
-        showInternalFrame(subMenuLanguage, new NgonNgu());
-        
+        showInternalFrame(subMenuLanguage, new NgonNgu(this));
+
         subMenuLanguage.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -677,5 +677,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel menuCustomer;
     private javax.swing.JLabel menuRoom;
     // End of variables declaration//GEN-END:variables
-}
 
+    @Override
+    public void doChangeNgonNgu(String Id) {
+        System.out.println("Tên ID: " + Id);
+    }
+}

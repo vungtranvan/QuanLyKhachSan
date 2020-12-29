@@ -10,6 +10,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Vector;
@@ -29,16 +31,20 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
  */
 public class NgonNgu extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form NgonNgu
-     */
-    public NgonNgu() {
-        initComponents();
+    Callaback cb;
 
+    public interface Callaback {
+
+        void doChangeNgonNgu(String Id);
+    }
+
+    public NgonNgu(Callaback _cb) {
+        initComponents();
+        this.cb = _cb;
         DefaultComboBoxModel model = new DefaultComboBoxModel<String>();
-        model.addElement(new Item("phap",new ImageIcon("src/com/qlks/icon/icon_flag_fr.png"), "Phap"));
-        model.addElement(new Item("anh",new ImageIcon("src/com/qlks/icon/icon_flag_uk.png"), "Anh"));
-        model.addElement(new Item("vietnam",new ImageIcon("src/com/qlks/icon/icon_flag_vn.png"), "Viet Nam"));
+        model.addElement(new Item("phap", new ImageIcon("src/com/qlks/icon/icon_flag_fr.png"), "Phap"));
+        model.addElement(new Item("anh", new ImageIcon("src/com/qlks/icon/icon_flag_uk.png"), "Anh"));
+        model.addElement(new Item("vietnam", new ImageIcon("src/com/qlks/icon/icon_flag_vn.png"), "Viet Nam"));
 
         jcbLang.setModel(model);
         jcbLang.setRenderer(new ItemRenderer());
@@ -48,7 +54,32 @@ public class NgonNgu extends javax.swing.JInternalFrame {
             Item it = (Item) jcbLang.getSelectedItem();
 
             jlbLangFlag.setIcon(it.getIcon());
+            
+            lblDongY.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent me) {
+                    cb.doChangeNgonNgu(it.getId());
+                }
 
+                @Override
+                public void mousePressed(MouseEvent me) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent me) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent me) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent me) {
+
+                }
+            });
         });
 
     }
@@ -63,15 +94,15 @@ public class NgonNgu extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jcbLang = new javax.swing.JComboBox<>();
+        jcbLang = new javax.swing.JComboBox<String>();
         jlbLangFlag = new javax.swing.JLabel();
         jpnLangOk = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblDongY = new javax.swing.JLabel();
 
         setClosable(true);
 
         jcbLang.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jcbLang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbLang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbLang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jlbLangFlag.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -80,21 +111,21 @@ public class NgonNgu extends javax.swing.JInternalFrame {
         jpnLangOk.setBackground(new java.awt.Color(160, 223, 104));
         jpnLangOk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel1.setBackground(new java.awt.Color(116, 244, 144));
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Dong y");
+        lblDongY.setBackground(new java.awt.Color(116, 244, 144));
+        lblDongY.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 18)); // NOI18N
+        lblDongY.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDongY.setText("Dong y");
 
         javax.swing.GroupLayout jpnLangOkLayout = new javax.swing.GroupLayout(jpnLangOk);
         jpnLangOk.setLayout(jpnLangOkLayout);
         jpnLangOkLayout.setHorizontalGroup(
             jpnLangOkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+            .addComponent(lblDongY, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
         );
         jpnLangOkLayout.setVerticalGroup(
             jpnLangOkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnLangOkLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addComponent(lblDongY, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -141,11 +172,11 @@ public class NgonNgu extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> jcbLang;
     private javax.swing.JLabel jlbLangFlag;
     private javax.swing.JPanel jpnLangOk;
+    private javax.swing.JLabel lblDongY;
     // End of variables declaration//GEN-END:variables
 }
 
