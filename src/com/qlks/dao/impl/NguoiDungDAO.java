@@ -6,10 +6,9 @@
 package com.qlks.dao.impl;
 
 import com.qlks.dao.INguoiDungDAO;
+import com.qlks.mapper.NguoiDungAddFieldTenNhomQuyenMapper;
 import com.qlks.mapper.NguoiDungMapper;
 import com.qlks.models.NguoiDung;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -21,19 +20,31 @@ public class NguoiDungDAO extends AbstractDAO<NguoiDung> implements INguoiDungDA
     @Override
     public List<NguoiDung> getAll() {
         String sql = "{Call getAllNguoiDung}";
-        return query(sql, new NguoiDungMapper());
+        return query(sql, new NguoiDungAddFieldTenNhomQuyenMapper());
     }
 
     @Override
     public List<NguoiDung> getByMa(int maNguoiDung) {
         String sql = "{Call getNguoiDungById(?)}";
-        return query(sql, new NguoiDungMapper(), maNguoiDung);
+        return query(sql, new NguoiDungAddFieldTenNhomQuyenMapper(), maNguoiDung);
     }
 
     @Override
     public List<NguoiDung> checkDangNhap(String tenDangNhap, String password) {
         String sql = "{Call checkLoginNguoiDung(?,?)}";
         return query(sql, new NguoiDungMapper(), tenDangNhap, password);
+    }
+
+    @Override
+    public List<NguoiDung> getByTenDangNhap(String tenDangNhap) {
+        String sql = "{Call checkTenDangNhapNguoiDung(?)}";
+        return query(sql, new NguoiDungMapper(), tenDangNhap);
+    }
+
+    @Override
+    public List<NguoiDung> getByEmail(String password) {
+        String sql = "{Call checkEmailNguoiDung(?)}";
+        return query(sql, new NguoiDungMapper(), password);
     }
 
     @Override
@@ -59,9 +70,15 @@ public class NguoiDungDAO extends AbstractDAO<NguoiDung> implements INguoiDungDA
     }
 
     @Override
-    public List<NguoiDung> search(String tenNguoiDung, String tenDangNhap, String email, LocalDate ngaySinh, Boolean gioiTinh, int maNhomQuyen) {
-        String sql = "{Call SearchNguoiDung(?,?,?,?,?,?,?)}";
-        return query(sql, new NguoiDungMapper(), tenNguoiDung, tenDangNhap, email, ngaySinh, gioiTinh, maNhomQuyen);
+    public List<NguoiDung> search(String tenNguoiDung, String email, int maNhomQuyen) {
+        String sql = "{Call SearchNguoiDung(?,?,?)}";
+        return query(sql, new NguoiDungAddFieldTenNhomQuyenMapper(), tenNguoiDung, email, maNhomQuyen);
+    }
+
+    @Override
+    public int updatePassword(int maNguoiDung, String password) {
+        String sql = "{Call updatePassword(?,?)}";
+        return this.update(sql, maNguoiDung, password);
     }
 
 }

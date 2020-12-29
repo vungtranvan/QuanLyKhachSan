@@ -5,7 +5,6 @@
  */
 package com.qlks.models;
 
-
 import java.time.LocalDate;
 
 /**
@@ -23,6 +22,7 @@ public class NguoiDung {
     private LocalDate ngaySinh;
     private boolean gioiTinh;
     private int maNhomQuyen;
+    private String tenNhomQuyen;
 
     public NguoiDung() {
     }
@@ -48,6 +48,19 @@ public class NguoiDung {
         this.ngaySinh = ngaySinh;
         this.gioiTinh = gioiTinh;
         this.maNhomQuyen = maNhomQuyen;
+    }
+
+    public NguoiDung(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String matKhau, String anh, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen, String tenNhomQuyen) {
+        this.maNguoiDung = maNguoiDung;
+        this.tenNguoiDung = tenNguoiDung;
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
+        this.anh = anh;
+        this.email = email;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+        this.maNhomQuyen = maNhomQuyen;
+        this.tenNhomQuyen = tenNhomQuyen;
     }
 
     public int getMaNguoiDung() {
@@ -120,6 +133,14 @@ public class NguoiDung {
 
     public void setMaNhomQuyen(int maNhomQuyen) {
         this.maNhomQuyen = maNhomQuyen;
+    }
+
+    public String getTenNhomQuyen() {
+        return tenNhomQuyen;
+    }
+
+    public void setTenNhomQuyen(String tenNhomQuyen) {
+        this.tenNhomQuyen = tenNhomQuyen;
     }
 
 }

@@ -42,4 +42,9 @@ public class NhomQuyen {
         this.tenNhomQuyen = tenNhomQuyen;
     }
 
+    @Override
+    public String toString() {
+        return tenNhomQuyen;
+    }
+
 }

@@ -61,8 +61,8 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
             dtmThietBi.addRow(o);
             index++;
         }
-        tblMaKhuyenMai.setModel(dtmThietBi);
-        funcBase.addCheckBox(7, tblMaKhuyenMai);
+        tblThietBi.setModel(dtmThietBi);
+        funcBase.addCheckBox(7, tblThietBi);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -101,7 +101,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
         btnCapNhat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblMaKhuyenMai = new javax.swing.JTable();
+        tblThietBi = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -182,7 +182,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        tblMaKhuyenMai.setModel(new javax.swing.table.DefaultTableModel(
+        tblThietBi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -193,7 +193,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblMaKhuyenMai);
+        jScrollPane1.setViewportView(tblThietBi);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -245,16 +245,16 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
         int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
 
-            for (int i = 0; i < tblMaKhuyenMai.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 7, tblMaKhuyenMai)) {
+            for (int i = 0; i < tblThietBi.getRowCount(); i++) {
+                if (funcBase.IsSelected(i, 7, tblThietBi)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 
-                    int rowSucces = thietBiDAO.delete(tblMaKhuyenMai.getValueAt(i, 1).toString());
+                    int rowSucces = thietBiDAO.delete(tblThietBi.getValueAt(i, 1).toString());
                     if (rowSucces > 0) {
-                        succesDeltete += "\t" + tblMaKhuyenMai.getValueAt(i, 2).toString() + "\n";
+                        succesDeltete += "\t" + tblThietBi.getValueAt(i, 2).toString() + "\n";
                     } else {
-                        errDeltete += "\t" + tblMaKhuyenMai.getValueAt(i, 2).toString() + "\n";
+                        errDeltete += "\t" + tblThietBi.getValueAt(i, 2).toString() + "\n";
                     }
                 }
             }
@@ -283,7 +283,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        int currentRow = tblMaKhuyenMai.getSelectedRow();
+        int currentRow = tblThietBi.getSelectedRow();
 
         if (currentRow >= 0) {
             String maTB = dtmThietBi.getValueAt(currentRow, 1).toString();
@@ -312,7 +312,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblMaKhuyenMai;
+    private javax.swing.JTable tblThietBi;
     // End of variables declaration//GEN-END:variables
 
     @Override

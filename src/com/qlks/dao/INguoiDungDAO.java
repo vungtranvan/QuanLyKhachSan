@@ -19,13 +19,19 @@ public interface INguoiDungDAO {
 
     List<NguoiDung> getByMa(int maNguoiDung);
 
+    List<NguoiDung> getByTenDangNhap(String tenDangNhap);
+
+    List<NguoiDung> getByEmail(String password);
+
     List<NguoiDung> checkDangNhap(String tenDangNhap, String password);
 
-    List<NguoiDung> search(String tenNguoiDung, String tenDangNhap, String email, LocalDate ngaySinh, Boolean gioiTinh, int maNhomQuyen);
+    List<NguoiDung> search(String tenNguoiDung, String email, int maNhomQuyen);
 
     int add(NguoiDung nguoiDung);
 
     int update(NguoiDung nguoiDung);
+    
+     int updatePassword(int maNguoiDung, String password);
 
     int delete(int maNguoiDung);
 }
