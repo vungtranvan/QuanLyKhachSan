@@ -6,6 +6,7 @@
 package com.qlks.dao.impl;
 
 import com.qlks.dao.IDichVuDAO;
+import com.qlks.mapper.DichVuGetByMaMapper;
 import com.qlks.mapper.DichVuMapper;
 import com.qlks.models.DichVu;
 import java.util.List;
@@ -23,8 +24,14 @@ public class DichVuDAO extends AbstractDAO<DichVu> implements IDichVuDAO {
     }
 
     @Override
+    public List<DichVu> getDichVuByMa(String maDichVu) {
+        String sql = "{Call getDichVuByMa(?)}";
+        return query(sql, new DichVuGetByMaMapper(), maDichVu);
+    }
+
+    @Override
     public List<DichVu> search(String maDichVu, String maLoaiDichVu, String maDonVi) {
-        String sql = "{Call SearchDichVu(?,?,?}";
+        String sql = "{Call SearchDichVu(?,?,?)}";
         return query(sql, new DichVuMapper(), maDichVu, maLoaiDichVu, maDonVi);
     }
 

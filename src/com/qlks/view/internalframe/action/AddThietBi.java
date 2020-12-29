@@ -339,11 +339,11 @@ public class AddThietBi extends javax.swing.JInternalFrame {
             try {
                 giaInput = Float.parseFloat(gia);
                 if (giaInput < 0) {
-                    txtErrorSoLuong.setText("Giá phải lớn hơn hoặc bằng 0");
+                    txtErrorGia.setText("Giá phải lớn hơn hoặc bằng 0");
                     check = false;
                 }
             } catch (Exception e) {
-                txtErrorSoLuong.setText("Giá phải lớn hơn hoặc bằng 0");
+                txtErrorGia.setText("Giá phải lớn hơn hoặc bằng 0");
                 check = false;
             }
         }

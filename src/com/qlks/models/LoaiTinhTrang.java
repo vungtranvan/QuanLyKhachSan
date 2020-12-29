@@ -42,4 +42,10 @@ public class LoaiTinhTrang {
         this.tenLoaiTinhTrang = tenLoaiTinhTrang;
     }
 
+    @Override
+    public String toString() {
+        return tenLoaiTinhTrang;
+    }
+
+    
 }

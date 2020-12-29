@@ -19,7 +19,8 @@ public class PhongMapper implements RowMapper<Phong> {
     @Override
     public Phong mapRow(ResultSet rs) {
         try {
-            Phong data = new Phong(rs.getString("MaPhong"), rs.getString("MaLoaiPhong"), rs.getInt("MaLoaiTinhTrangPhong"), rs.getString("GhiChu"));
+            Phong data = new Phong(rs.getString("MaPhong"), rs.getString("MaLoaiPhong"), rs.getInt("MaLoaiTinhTrangPhong"),
+                    rs.getString("TenLoaiPhong"), rs.getString("TenLoaiTinhTrang"),rs.getFloat("DonGia"), rs.getString("GhiChu"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);

@@ -19,7 +19,8 @@ public class DichVuMapper implements RowMapper<DichVu> {
     @Override
     public DichVu mapRow(ResultSet rs) {
         try {
-            DichVu data = new DichVu(rs.getString("MaDichVu"), rs.getString("MaLoaiDichVu"), rs.getString("MaDonVi"), rs.getFloat("DonGia"));
+            DichVu data = new DichVu(rs.getString("MaDichVu"), rs.getString("MaLoaiDichVu"),
+                    rs.getString("MaDonVi"),rs.getString("TenLoaiDichVu"), rs.getString("TenDonVi"), rs.getFloat("DonGia"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);

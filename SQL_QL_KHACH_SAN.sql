@@ -339,7 +339,9 @@ GO
 
 --         Thêm data vào bảng
 --Bảng NhomQuyen
-insert into NhomQuyen(TenNhomQuyen) Values('Admin')
+insert into NhomQuyen(TenNhomQuyen) Values
+('Admin'),
+(N'Nhân Viên')
 GO
 
 Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values('Admin Manager','admin','123','admin.jpg','admin@gmail.com','2020-12-12',1,1)
@@ -416,6 +418,70 @@ INSERT into Quyen(Quyen) VALUES
 ('XemKhuyenMai'),('QlKhuyenMai'),
 ('XemQuyDinh'),('QlQuyDinh')
 go
+
+Insert into Phong(MaPhong,MaLoaiPhong,MaLoaiTinhTrangPhong,GhiChu) Values
+('P01','B01',1,''),
+('P02','B01',1,''),
+('P03','B04',3,'ok'),
+('P04','B01',2,''),
+('P05','B02',1,''),
+('P06','B01',3,''),
+('P07','B02',1,''),
+('P08','B01',1,''),
+('P09','B03',3,''),
+('P10','B04',1,''),
+('P11','B04',1,''),
+('P12','B01',3,''),
+('P13','B02',1,''),
+('P14','B01',2,'hihi'),
+('P15','B01',1,''),
+('P16','B03',3,''),
+('P17','B04',3,''),
+('P18','B01',1,'ok'),
+('P19','B03',1,''),
+('P20','B01',4,''),
+('P21','B02',2,'ok')
+GO
+
+Insert into LoaiDichVu(MaLoaiDichVu,TenLoaiDichVu) Values
+('LDV01',N'Dịch vụ Spa'),
+('LDV02',N'Dịch vụ Casino'),
+('LDV03',N'Sân golf và sân tennis'),
+('LDV04',N'Dịch vụ giặt ủi quần áo'),
+('LDV05',N'Dịch vụ bể bơi 4 mùa'),
+('LDV06',N'Dịch vụ karaoke'),
+('LDV07',N'Dịch vụ nhà hàng'),
+('LDV08',N'Dịch vụ phòng 24/24'),
+('LDV09',N'Dịch vụ xe đưa đón sân bay'),
+('LDV10',N'Fitness centre')
+GO
+
+Insert into DonVi(MaDonVi,TenDonVi) Values
+('DV1',N'Ngày'),
+('DV2',N'Giờ'),
+('DV3',N'Tháng'),
+('DV4',N'Chiếc'),
+('DV5',N'Kg'),
+('DV6',N'Cái'),
+('DV7',N'Hộp'),
+('DV8',N'Phần'),
+('DV9',N'Vé')
+GO
+
+Insert into DichVu(MaDichVu,MaLoaiDichVu,MaDonVi,DonGia) Values
+('DV01','LDV05','DV3',1500000),
+('DV02','LDV01','DV3',3500000),
+('DV03','LDV06','DV2',200000),
+('DV04','LDV07','DV1',1200000),
+('DV05','LDV08','DV1',200000),
+('DV06','LDV02','DV9',0),
+('DV07','LDV10','DV8',300000),
+('DV08','LDV03','DV9',50000),
+('DV09','LDV03','DV3',1350000),
+('DV10','LDV09','DV9',0),
+('DV11','LDV04','DV1',50000)
+GO
+
 --  TẠO THỦ TỤC
 
 -- BẢNG QuyDinh
@@ -647,7 +713,21 @@ SELECT * FROM KhachHang Where MaKhachHang = @MaKhachHang
 END
 GO
 
-CREATE PROC SearchKhachHang
+CREATE PROC SearchKhachHang_NoGioiTinh
+@MaKhachHang varchar (3),
+@TenKhachHang nvarchar (50),
+@CMND nvarchar (15),
+@DiaChi nvarchar (50),
+@DienThoai varchar (15),
+@QuocTich nvarchar(50)
+AS
+BEGIN 
+SELECT * FROM KhachHang Where MaKhachHang LIKE '%'+@MaKhachHang+'%' AND TenKhachHang LIKE '%'+@TenKhachHang+'%' 
+AND CMND LIKE '%'+@CMND+'%' AND DiaChi LIKE '%'+@DiaChi+'%' AND DienThoai LIKE '%'+@DienThoai+'%' AND QuocTich LIKE '%'+@QuocTich+'%'
+END
+GO
+
+CREATE PROC SearchKhachHang_YesGioiTinh
 @MaKhachHang varchar (3),
 @TenKhachHang nvarchar (50),
 @CMND nvarchar (15),
@@ -939,7 +1019,19 @@ GO
 CREATE PROC getAllDichVu
 AS
 BEGIN 
-SELECT * FROM DichVu
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ ORDER BY DichVu.MaDichVu ASC
+END
+GO
+
+CREATE PROC getDichVuByMa
+@MaDichVu varchar (5)
+AS
+BEGIN 
+SELECT * FROM DichVu Where MaDichVu = @MaDichVu
 END
 GO
 
@@ -948,11 +1040,86 @@ CREATE PROC SearchDichVu
 @MaLoaiDichVu varchar (5),
 @MaDonVi varchar (3)
 AS
+IF @MaDichVu != '' AND @MaLoaiDichVu != '' AND @MaDonVi != '' 
 BEGIN 
-SELECT * FROM DichVu Where MaDichVu LIKE '%'+@MaDichVu+'%' AND MaLoaiDichVu LIKE '%'+@MaLoaiDichVu+'%' 
-AND MaDonVi LIKE '%'+@MaDonVi+'%'
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ Where MaDichVu =@MaDichVu AND DichVu.MaLoaiDichVu =@MaLoaiDichVu AND DichVu.MaDonVi = @MaDonVi
+ ORDER BY DichVu.MaDichVu ASC
 END
-GO
+
+ELSE IF @MaDichVu = '' AND @MaLoaiDichVu = '' AND @MaDonVi  = ''
+BEGIN 
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ ORDER BY DichVu.MaDichVu ASC
+END
+
+ ELSE IF @MaDichVu  = '' AND @MaLoaiDichVu != '' AND @MaDonVi != ''
+BEGIN 
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ Where DichVu.MaLoaiDichVu =@MaLoaiDichVu AND DichVu.MaDonVi = @MaDonVi
+ ORDER BY DichVu.MaDichVu ASC
+END
+
+ ELSE IF @MaDichVu  = '' AND @MaLoaiDichVu = '' AND @MaDonVi != ''
+BEGIN 
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ Where DichVu.MaDonVi = @MaDonVi
+ ORDER BY DichVu.MaDichVu ASC
+END
+
+ ELSE IF @MaDichVu  = '' AND @MaLoaiDichVu != '' AND @MaDonVi  = ''
+BEGIN 
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ Where DichVu.MaLoaiDichVu =@MaLoaiDichVu
+ ORDER BY DichVu.MaDichVu ASC
+END
+
+IF @MaDichVu != '' AND @MaLoaiDichVu != '' AND @MaDonVi  = '' 
+BEGIN 
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ Where MaDichVu =@MaDichVu AND DichVu.MaLoaiDichVu =@MaLoaiDichVu
+ ORDER BY DichVu.MaDichVu ASC
+END
+
+IF @MaDichVu != '' AND @MaLoaiDichVu  = '' AND @MaDonVi != '' 
+BEGIN 
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ Where MaDichVu =@MaDichVu AND DichVu.MaDonVi = @MaDonVi 
+ ORDER BY DichVu.MaDichVu ASC
+END
+
+IF @MaDichVu != '' AND @MaLoaiDichVu  = '' AND @MaDonVi  = '' 
+BEGIN 
+ SELECT DichVu.MaDichVu, DichVu.MaLoaiDichVu, DichVu.MaDonVi,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi, DichVu.DonGia
+ FROM DichVu 
+ INNER JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+ INNER JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ Where MaDichVu =@MaDichVu 
+ ORDER BY DichVu.MaDichVu ASC
+END
+
+GO 
 
 CREATE PROC insertDichVu
 @MaDichVu varchar (5),
@@ -1132,7 +1299,7 @@ CREATE PROC getMaQuyenByMaNhomQuyen
 @MaNhomQuyen int
 AS
 BEGIN 
-SELECT MaQuyen FROM PhanQuyen WHERE MaQuyen = @MaNhomQuyen;
+SELECT * FROM PhanQuyen WHERE MaQuyen = @MaNhomQuyen;
 END
 GO
 
@@ -1293,7 +1460,19 @@ SELECT * FROM KhuyenMai WHERE MaPhieu = @MaPhieu
 END
 GO
 
-CREATE PROC SearchKhuyenMai
+CREATE PROC SearchKhuyenMai_NoTrangThai
+@MaPhieu varchar (50),
+@NoiDung nvarchar(100)
+AS
+BEGIN 
+SELECT * FROM KhuyenMai 
+Where MaPhieu LIKE '%'+@MaPhieu+'%'
+AND NoiDung LIKE '%'+@NoiDung+'%'
+ORDER BY MaKhuyenMai DESC
+END
+GO
+
+CREATE PROC SearchKhuyenMai_YesTrangThai
 @MaPhieu varchar (50),
 @NoiDung nvarchar(100),
 @TrangThai bit
@@ -1471,7 +1650,11 @@ GO
 CREATE PROC getAllPhong
 AS
 BEGIN 
-SELECT * FROM Phong
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+ORDER BY Phong.MaPhong ASC
 END
 GO
 
@@ -1488,11 +1671,79 @@ CREATE PROC SearchPhong
 @MaLoaiPhong varchar (3),
 @MaLoaiTinhTrangPhong int
 AS
+IF @MaPhong != '' AND @MaLoaiPhong != '' AND @MaLoaiTinhTrangPhong != 0 
 BEGIN 
-SELECT * FROM Phong 
-Where MaPhong LIKE '%'+@MaPhong+'%' AND  MaLoaiPhong LIKE '%'+@MaLoaiPhong+'%' AND MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+Where MaPhong = @MaPhong AND  Phong.MaLoaiPhong = @MaLoaiPhong AND Phong.MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong ORDER BY Phong.MaPhong ASC
 END
-GO
+
+ELSE IF @MaPhong = '' AND @MaLoaiPhong = '' AND @MaLoaiTinhTrangPhong  = 0
+BEGIN 
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+ORDER BY Phong.MaPhong ASC
+END
+
+ ELSE IF @MaPhong  = '' AND @MaLoaiPhong != '' AND @MaLoaiTinhTrangPhong != 0
+BEGIN 
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+Where Phong.MaLoaiPhong = @MaLoaiPhong AND Phong.MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong ORDER BY Phong.MaPhong ASC
+END
+
+ ELSE IF @MaPhong  = '' AND @MaLoaiPhong = '' AND @MaLoaiTinhTrangPhong != 0
+BEGIN 
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+Where Phong.MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong ORDER BY Phong.MaPhong ASC
+END
+
+ ELSE IF @MaPhong  = '' AND @MaLoaiPhong != '' AND @MaLoaiTinhTrangPhong  = 0
+BEGIN 
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+Where Phong.MaLoaiPhong = @MaLoaiPhong ORDER BY Phong.MaPhong ASC
+END
+
+IF @MaPhong != '' AND @MaLoaiPhong != '' AND @MaLoaiTinhTrangPhong  = 0 
+BEGIN 
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+Where MaPhong = @MaPhong AND  Phong.MaLoaiPhong = @MaLoaiPhong ORDER BY Phong.MaPhong ASC
+END
+
+IF @MaPhong != '' AND @MaLoaiPhong  = '' AND @MaLoaiTinhTrangPhong != 0 
+BEGIN 
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+Where MaPhong = @MaPhong AND Phong.MaLoaiTinhTrangPhong = @MaLoaiTinhTrangPhong ORDER BY Phong.MaPhong ASC
+END
+
+IF @MaPhong != '' AND @MaLoaiPhong  = '' AND @MaLoaiTinhTrangPhong  = 0 
+BEGIN 
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+Where MaPhong = @MaPhong ORDER BY Phong.MaPhong ASC
+END
+
+GO 
 
 CREATE PROC insertPhong
 @MaPhong varchar (3),

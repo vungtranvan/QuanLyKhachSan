@@ -23,6 +23,8 @@ public interface IKhuyenMaiDAO {
 
     List<KhuyenMai> search(String maPhieu, String noiDung, Boolean trangThai);
 
+    List<KhuyenMai> search(String maPhieu, String noiDung);
+
     int add(KhuyenMai khuyenMai);
 
     int update(KhuyenMai khuyenMai);

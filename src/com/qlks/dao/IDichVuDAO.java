@@ -16,6 +16,8 @@ public interface IDichVuDAO {
 
     List<DichVu> getAll();
 
+    List<DichVu> getDichVuByMa(String maDichVu);
+
     List<DichVu> search(String maDichVu, String maLoaiDichVu, String maDonVi);
 
     int add(DichVu dichVu);

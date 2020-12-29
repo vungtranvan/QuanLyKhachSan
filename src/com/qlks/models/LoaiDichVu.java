@@ -38,4 +38,9 @@ public class LoaiDichVu {
         this.tenLoaiDichVu = tenLoaiDichVu;
     }
 
+    @Override
+    public String toString() {
+        return tenLoaiDichVu;
+    }
+
 }

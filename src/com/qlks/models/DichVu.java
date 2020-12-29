@@ -14,9 +14,20 @@ public class DichVu {
     private String maDichVu;
     private String maLoaiDichVu;
     private String maDonVi;
+    private String tenLoaiDichVu;
+    private String tenDonVi;
     private float donGia;
 
     public DichVu() {
+    }
+
+    public DichVu(String maDichVu, String maLoaiDichVu, String maDonVi, String tenLoaiDichVu, String tenDonVi, float donGia) {
+        this.maDichVu = maDichVu;
+        this.maLoaiDichVu = maLoaiDichVu;
+        this.maDonVi = maDonVi;
+        this.tenLoaiDichVu = tenLoaiDichVu;
+        this.tenDonVi = tenDonVi;
+        this.donGia = donGia;
     }
 
     public DichVu(String maDichVu, String maLoaiDichVu, String maDonVi, float donGia) {
@@ -56,6 +67,22 @@ public class DichVu {
 
     public void setDonGia(float donGia) {
         this.donGia = donGia;
+    }
+
+    public String getTenLoaiDichVu() {
+        return tenLoaiDichVu;
+    }
+
+    public void setTenLoaiDichVu(String tenLoaiDichVu) {
+        this.tenLoaiDichVu = tenLoaiDichVu;
+    }
+
+    public String getTenDonVi() {
+        return tenDonVi;
+    }
+
+    public void setTenDonVi(String tenDonVi) {
+        this.tenDonVi = tenDonVi;
     }
 
 }
