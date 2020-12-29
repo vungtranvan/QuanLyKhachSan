@@ -1295,13 +1295,15 @@ SELECT * FROM NhomQuyen Where MaNhomQuyen = (SELECT MAX(MaNhomQuyen) FROM NhomQu
 END
 go
 
-CREATE PROC getMaQuyenByMaNhomQuyen
+CREATE PROC getQuyenByMaNhomQuyen
 @MaNhomQuyen int
 AS
 BEGIN 
-SELECT * FROM PhanQuyen WHERE MaQuyen = @MaNhomQuyen;
+SELECT PhanQuyen.MaNhomQuyen ,PhanQuyen.MaQuyen, Quyen.Quyen FROM PhanQuyen JOIN Quyen
+on PhanQuyen.MaQuyen = Quyen.MaQuyen
+where PhanQuyen.MaNhomQuyen = @MaNhomQuyen
+
 END
-GO
 
 CREATE PROC SearchNhomQuyen
 @TenNhomQuyen nvarchar (50)
