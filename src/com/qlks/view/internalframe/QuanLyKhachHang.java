@@ -42,9 +42,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             String diaChiSearchInput, String dienThoaiSearchInput, Boolean gioiTinhSearchInput, String quocTichSearchInput) {
 
         if (maSearchInput != null || tenSearchInput != null || CMNDSearchInput != null
-                || diaChiSearchInput != null || dienThoaiSearchInput != null || gioiTinhSearchInput != null || quocTichSearchInput != null) {
-            lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput, dienThoaiSearchInput, gioiTinhSearchInput, quocTichSearchInput);
-
+                || diaChiSearchInput != null || dienThoaiSearchInput != null || quocTichSearchInput != null) {
+            if (gioiTinhSearchInput == null) {
+                lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput,
+                        dienThoaiSearchInput, quocTichSearchInput);
+            } else {
+                lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput, 
+                        dienThoaiSearchInput, gioiTinhSearchInput, quocTichSearchInput);
+            }
         } else {
             lstKhachHang = khachHangDAO.getAll();
         }

@@ -53,7 +53,7 @@ public class SearchKhachHang extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroupGioiTinh = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -115,11 +115,11 @@ public class SearchKhachHang extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Quốc tịch:");
 
-        buttonGroup1.add(jRadioNam);
+        buttonGroupGioiTinh.add(jRadioNam);
         jRadioNam.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jRadioNam.setText("Nam");
 
-        buttonGroup1.add(jRadioNu);
+        buttonGroupGioiTinh.add(jRadioNu);
         jRadioNu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jRadioNu.setText("Nữ");
 
@@ -288,6 +288,7 @@ public class SearchKhachHang extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        buttonGroupGioiTinh.clearSelection();
         resetText();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
@@ -303,9 +304,11 @@ public class SearchKhachHang extends javax.swing.JInternalFrame {
         String quocTich = txtQuocTich.getText();
         String CMND = txtCMND.getText();
         String dienThoai = txtDienThoai.getText();
-        Boolean gioiTinh = true;
+        Boolean gioiTinh = null;
         if (jRadioNu.isSelected()) {
             gioiTinh = false;
+        } else if (jRadioNam.isSelected()) {
+            gioiTinh = true;
         }
         cb.doSearch(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
     }//GEN-LAST:event_btnTimKiemActionPerformed
@@ -315,7 +318,7 @@ public class SearchKhachHang extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnHuyBo;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroupGioiTinh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -18,7 +18,7 @@ public interface IPhongDAO {
 
     List<Phong> getByMaPhong(String maPhong);
 
-    List<Phong> search(String maPhong, String maLoaiPhong, String maLoaiTinhTrangPhong);
+    List<Phong> search(String maPhong, String maLoaiPhong, int maLoaiTinhTrangPhong);
 
     int add(Phong phong);
 

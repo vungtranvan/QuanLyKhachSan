@@ -291,26 +291,6 @@ public class UpdateThietBi extends javax.swing.JInternalFrame {
         String tenTB = txtTenTB.getText();
         String soLuong = txtSoLuong.getText();
         String gia = txtGia.getText();
-
-//        if (maTB.length() <= 0) {
-//            txtErrorMaTB.setText("Mã không được để trống");
-//            check = false;
-//        } else if (maTB.length() > 8) {
-//            txtErrorMaTB.setText("Mã có tối đa là 8 ký tự");
-//            check = false;
-//        } else {
-//            txtErrorMaTB.setText("");
-//        }
-//        try {
-//            List<ThietBi> lstCheckID = thietBiDAO.getByMaThietBi(maTB);
-//            if (lstCheckID.size() > 0) {
-//                txtErrorMaTB.setText("Mã thiết bị đã tồn tại !");
-//                check = false;
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Mã thiết bị đã tồn tại !");
-//            txtErrorMaTB.setText("Mã thiết bị đã tồn tại !");
-//        }
         
         if (tenTB.length() <= 0) {
             txtErrorTenTB.setText("Tên không được để trống");
@@ -360,12 +340,12 @@ public class UpdateThietBi extends javax.swing.JInternalFrame {
         if (check == true) {
             int row = thietBiDAO.update(new ThietBi(maTB, maLoaiPhong, tenTB, soLuongInput, giaInput));
             if (row > 0) {
-                JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 resetText();
                 cb.doUpdate();
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed

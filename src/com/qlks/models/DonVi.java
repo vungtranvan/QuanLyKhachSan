@@ -38,4 +38,9 @@ public class DonVi {
         this.tenDonVi = tenDonVi;
     }
 
+    @Override
+    public String toString() {
+        return tenDonVi;
+    }
+
 }

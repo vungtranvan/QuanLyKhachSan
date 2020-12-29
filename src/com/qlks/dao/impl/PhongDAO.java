@@ -6,6 +6,7 @@
 package com.qlks.dao.impl;
 
 import com.qlks.dao.IPhongDAO;
+import com.qlks.mapper.PhongGetByMaMapper;
 import com.qlks.mapper.PhongMapper;
 import com.qlks.models.Phong;
 import java.util.List;
@@ -25,11 +26,11 @@ public class PhongDAO extends AbstractDAO<Phong> implements IPhongDAO {
     @Override
     public List<Phong> getByMaPhong(String maPhong) {
         String sql = "{Call getByMaPhong(?)}";
-        return query(sql, new PhongMapper(), maPhong);
+        return query(sql, new PhongGetByMaMapper(), maPhong);
     }
 
     @Override
-    public List<Phong> search(String maPhong, String maLoaiPhong, String maLoaiTinhTrangPhong) {
+    public List<Phong> search(String maPhong, String maLoaiPhong, int maLoaiTinhTrangPhong) {
         String sql = "{Call SearchPhong(?,?,?)}";
         return query(sql, new PhongMapper(), maPhong, maLoaiPhong, maLoaiTinhTrangPhong);
     }

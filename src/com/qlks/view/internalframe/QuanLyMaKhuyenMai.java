@@ -42,12 +42,16 @@ public class QuanLyMaKhuyenMai extends javax.swing.JInternalFrame implements Add
     public void loadData(String maPhieu, String noiDung, Boolean trangThai) {
 
         if (maPhieu != null || noiDung != null || trangThai != null) {
-            lstKhuyenMai = khuyenMaiDAO.search(maPhieu, noiDung, trangThai);
+            if (trangThai == null) {
+                lstKhuyenMai = khuyenMaiDAO.search(maPhieu, noiDung);
+            } else {
+                lstKhuyenMai = khuyenMaiDAO.search(maPhieu, noiDung, trangThai);
+            }
         } else {
             lstKhuyenMai = khuyenMaiDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "ID", "Mã code", "Giá trị", "Nội dung", "Ngày bắt đầu", "Ngày kết thúc", "Kiểu tính", "Trạng thái", ""};
+        Object[] columnNames = {"STT", "ID", "Mã code KM", "Giá trị", "Nội dung", "Ngày bắt đầu", "Ngày kết thúc", "Kiểu tính", "Trạng thái", ""};
         dtmKhuyenMai = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (KhuyenMai adv : lstKhuyenMai) {
@@ -320,7 +324,7 @@ public class QuanLyMaKhuyenMai extends javax.swing.JInternalFrame implements Add
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-         showInternalFrame(new SearchKhuyenMai(this));
+        showInternalFrame(new SearchKhuyenMai(this));
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
@@ -350,6 +354,5 @@ public class QuanLyMaKhuyenMai extends javax.swing.JInternalFrame implements Add
     public void doSearch(String maSearchInput, String tenSearchInput, Boolean trangThai) {
         loadData(maSearchInput, tenSearchInput, trangThai);
     }
-
 
 }

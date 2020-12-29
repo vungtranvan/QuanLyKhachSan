@@ -6,6 +6,7 @@
 package com.qlks.dao.impl;
 
 import com.qlks.dao.IThietBiDAO;
+import com.qlks.mapper.ThietBiGetByMaMapper;
 import com.qlks.mapper.ThietBiMapper;
 import com.qlks.models.ThietBi;
 import java.util.List;
@@ -25,7 +26,7 @@ public class ThietBiDAO extends AbstractDAO<ThietBi> implements IThietBiDAO {
     @Override
     public List<ThietBi> getByMaThietBi(String maThietBi) {
         String sql = "{Call getThietBiByMaTB(?)}";
-        return query(sql, new ThietBiMapper(),maThietBi);
+        return query(sql, new ThietBiGetByMaMapper(),maThietBi);
     }
 
     @Override

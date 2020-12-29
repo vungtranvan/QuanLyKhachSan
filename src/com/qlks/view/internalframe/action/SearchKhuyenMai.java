@@ -63,7 +63,7 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
         jLabel1.setText("TÌM KIẾM KHUYẾN MẠI");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Mã phiếu KM:");
+        jLabel2.setText("Mã code KM:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Nội dung:");
@@ -129,7 +129,7 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMaPhieu, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,7 +137,7 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
                                 .addComponent(jRadioChuaSD)
                                 .addGap(29, 29, 29)
                                 .addComponent(jRadioDaSD)))))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +180,7 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        //RadioGroupTrangThai.clearSelection();
+        RadioGroupTrangThai.clearSelection();
         resetText();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
@@ -193,11 +193,13 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
         String MaLP = txtMaPhieu.getText().trim();
         String tenLP = txtNoiDung.getText().trim();
         Boolean ckeckTrangThai = null;
+
         if (jRadioDaSD.isSelected()) {
             ckeckTrangThai = true;
         } else if (jRadioChuaSD.isSelected()) {
             ckeckTrangThai = false;
         }
+
         cb.doSearch(MaLP, tenLP, ckeckTrangThai);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 

@@ -15,17 +15,17 @@ import javax.swing.DefaultComboBoxModel;
  * @author hello
  */
 public class SearchThietBi extends javax.swing.JInternalFrame {
-
+    
     private LoaiPhongDAO loaiPhongDAO;
-
+    
     private List<LoaiPhong> lstLoaiPhong;
-
+    
     private DefaultComboBoxModel modelLoaiPhong;
-
+    
     CallBackSearch cb;
-
+    
     public interface CallBackSearch {
-
+        
         void doSearch(String maThietBi, String maLoaiPhong, String tenThietBi);
     }
 
@@ -41,7 +41,7 @@ public class SearchThietBi extends javax.swing.JInternalFrame {
         this.cb = _cb;
         initDataLoaiPhong();
     }
-
+    
     public void initDataLoaiPhong() {
         modelLoaiPhong.addElement("");
         for (LoaiPhong adv : lstLoaiPhong) {
@@ -49,7 +49,7 @@ public class SearchThietBi extends javax.swing.JInternalFrame {
         }
         jcbMaLoaiPhong.setModel(modelLoaiPhong);
     }
-
+    
     public void resetText() {
         txtMaTB.setText("");
         txtTenTB.setText("");
@@ -176,7 +176,7 @@ public class SearchThietBi extends javax.swing.JInternalFrame {
                     .addComponent(txtTenTB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,16 +199,12 @@ public class SearchThietBi extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        jcbMaLoaiPhong.setSelectedIndex(0);
         resetText();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         String maTB = txtMaTB.getText();
-        if (maTB == null) {
-            System.out.println("maTB đã null");
-        } else {
-            System.out.println("maTB ko null");
-        }
         LoaiPhong lp = null;
         String maLoaiPhong = "";
         try {
@@ -217,16 +213,7 @@ public class SearchThietBi extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             maLoaiPhong = "";
         }
-
-        if (maLoaiPhong == null) {
-            System.out.println("maLoaiPhong đã null");
-        } else {
-            System.out.printf(maLoaiPhong);
-        }
         String tenTB = txtTenTB.getText();
-        if (maLoaiPhong == null) {
-            System.out.println("maLoaiPhong đã null");
-        }
         cb.doSearch(maTB, maLoaiPhong, tenTB);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 

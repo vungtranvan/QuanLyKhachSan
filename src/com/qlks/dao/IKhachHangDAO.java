@@ -20,6 +20,8 @@ public interface IKhachHangDAO {
 
     List<KhachHang> search(String maKhachHang, String tenKhachHang, String CMND, String diaChi, String dienThoai, Boolean gioiTinh, String quocTich);
 
+    List<KhachHang> search(String maKhachHang, String tenKhachHang, String CMND, String diaChi, String dienThoai, String quocTich);
+
     int add(KhachHang khachHang);
 
     int update(KhachHang khachHang);
