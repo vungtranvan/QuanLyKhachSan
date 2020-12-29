@@ -465,6 +465,7 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         }
         
         if (check == true) {
+           // ---- ok
             int row = nguoiDungDAO.add(new NguoiDung(tenND, tenDangNhap, matKhau, email, email, dateBatDau, true, maNhomQuyen));
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);

@@ -90,8 +90,8 @@ public class LogInJFrame extends javax.swing.JFrame {
         String messagerNull = " không được bỏ trống\n";
         String messagerWorng = "Tên đăng nhập hoặc mật khẩu sai";
 
-        String userNameTxt = "Tên đăng nhập";
-        String passWordTxt = "Mật Khẩu";
+        String userNameTxt = jlbName.getText();
+        String passWordTxt = jlbPass.getText();
 
         String userName = jtextName.getText();
 
@@ -153,7 +153,7 @@ public class LogInJFrame extends javax.swing.JFrame {
         jlbName = new javax.swing.JLabel();
         jtextName = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        jlbName1 = new javax.swing.JLabel();
+        jlbPass = new javax.swing.JLabel();
         jplPass = new javax.swing.JPanel();
         jlbpass = new javax.swing.JLabel();
         jpassPass = new javax.swing.JPasswordField();
@@ -193,9 +193,9 @@ public class LogInJFrame extends javax.swing.JFrame {
             }
         });
 
-        jlbName1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jlbName1.setForeground(new java.awt.Color(255, 255, 255));
-        jlbName1.setText("Mật khẩu");
+        jlbPass.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        jlbPass.setForeground(new java.awt.Color(255, 255, 255));
+        jlbPass.setText("Mật khẩu");
 
         jplPass.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -257,7 +257,7 @@ public class LogInJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtextName, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jlbName1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jlbPass, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jpassPass, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -284,7 +284,7 @@ public class LogInJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jplPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpassPass)
-                    .addComponent(jlbName1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jlbPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jpnMessager, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -340,7 +340,7 @@ public class LogInJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlbLogInIcon;
     private javax.swing.JLabel jlbName;
-    private javax.swing.JLabel jlbName1;
+    private javax.swing.JLabel jlbPass;
     private javax.swing.JLabel jlbpass;
     private javax.swing.JPasswordField jpassPass;
     private javax.swing.JPanel jplPass;

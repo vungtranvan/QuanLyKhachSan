@@ -10,6 +10,7 @@ import com.qlks.models.NguoiDung;
 import com.qlks.models.PhanQuyen;
 import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.DoiMatKhauNguoiDung;
+import com.qlks.view.internalframe.NgonNgu;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
 import com.qlks.view.internalframe.QuanLyDichVu;
@@ -27,20 +28,33 @@ import com.qlks.view.internalframe.QuanLyQuyDinh;
 import com.qlks.view.internalframe.QuanLyQuyen;
 import com.qlks.view.internalframe.QuanLyThietBi;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 /**
  *
@@ -57,6 +71,7 @@ public class MainJFrame extends javax.swing.JFrame {
     JLabel closeSubMenu = new JLabel();
 
     public JLabel subMenuItemTitle = new JLabel();
+    ImageIcon flagIcon = new ImageIcon("src/com/qlks/icon/icon_flag_vn.png");
 
     /**
      * Creates new form MainJFrame
@@ -142,6 +157,65 @@ public class MainJFrame extends javax.swing.JFrame {
         listSubMenuItemCustomer.add(makeSubMenuItem(subMenuDiscount, "Quản lý khuyến mại"));
         showInternalFrame(subMenuDiscount, new QuanLyMaKhuyenMai());
 
+        JPanel subMenuLanguage = new JPanel();
+        listSubMenuItemConfig.add(makeSubMenuItem(subMenuLanguage, "Ngon ngu"));
+        showInternalFrame(subMenuLanguage, new NgonNgu());
+        
+        subMenuLanguage.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+//
+//                Vector model = new Vector();
+//                model.addElement(new Item(new ImageIcon("src/com/qlks/icon/icon_flag_fr.png"), "Phap"));
+//                model.addElement(new Item(new ImageIcon("src/com/qlks/icon/icon_flag_uk.png"), "Anh"));
+//                model.addElement(new Item(new ImageIcon("src/com/qlks/icon/icon_flag_vn.png"), "Viet Nam"));
+//
+//                
+//  
+//                jcbLang.addActionListener(new ActionListener() {
+//                    public void actionPerformed(ActionEvent e) {
+//                        try {
+//                            Item it = (Item) jcbLang.getSelectedItem();
+//                            Method mt = it.getClass().getDeclaredMethod("getIcon");
+//                            flagIcon = (ImageIcon) (Icon) mt.invoke(it);
+//                            jMain.revalidate();
+//                            jMain.repaint();
+//
+//                        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+//                            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
+//                });
+//
+////                ImageIcon flagIcon = new ImageIcon("src/com/qlks/icon/icon_flag_fr.png");
+//                jcbLang.setRenderer(new ItemRenderer());
+//                int input;
+//                input = JOptionPane.showConfirmDialog(jMain, jcbLang, "Chon ngon ngu",
+//                        JOptionPane.DEFAULT_OPTION,
+//                        JOptionPane.DEFAULT_OPTION,
+//                        flagIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+
+            }
+        });
+
         // Cau hinh
         JPanel subMenuConfig = new JPanel();
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuConfig, "Quản lý cấu hình"));
@@ -153,8 +227,9 @@ public class MainJFrame extends javax.swing.JFrame {
         visibleSubMenu(menuConfig, "Cấu hình", listSubMenuItemConfig);
 
         invisibleSubMenu(closeSubMenu);
+        invisibleSubMenu(jMain);
         setMenuBackGroundColor(36, 36, 36);
-        
+
         showInternalFrame(menuAvatar, new DoiMatKhauNguoiDung(listNd));
 
     }
@@ -248,34 +323,40 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     private void invisibleSubMenu(JLabel jl) {
-
-        jl.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                jpnSubmenu.setVisible(false);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent me) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent me) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-                jl.setForeground(Color.ORANGE);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-                jl.setForeground(Color.WHITE);
-            }
-        });
+        jl.addMouseListener(invisibleSubMenu);
+        hover(jl);
     }
+
+    private void invisibleSubMenu(JDesktopPane jd) {
+        jd.addMouseListener(invisibleSubMenu);
+    }
+
+    private MouseListener invisibleSubMenu = new MouseListener() {
+        @Override
+        public void mouseClicked(MouseEvent me) {
+            jpnSubmenu.setVisible(false);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent me) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent me) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent me) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent me) {
+
+        }
+    };
 
     private JPanel makeSubMenuItem(JPanel jp, String label) {
         JLabel jl = new JLabel();
@@ -388,6 +469,35 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void hover(JPanel jp, JLabel jl) {
         jp.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                jl.setForeground(Color.blue);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                jl.setForeground(new Color(255, 255, 255));
+            }
+        });
+    }
+
+    private void hover(JLabel jl) {
+        jl.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
 
@@ -568,3 +678,4 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel menuRoom;
     // End of variables declaration//GEN-END:variables
 }
+
