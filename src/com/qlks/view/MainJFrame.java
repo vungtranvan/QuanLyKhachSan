@@ -9,6 +9,7 @@ import com.qlks.fonts.FontCustom;
 import com.qlks.models.NguoiDung;
 import com.qlks.models.PhanQuyen;
 import com.qlks.utils.MethodMain;
+import com.qlks.view.internalframe.DoiMatKhauNguoiDung;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
 import com.qlks.view.internalframe.QuanLyDichVu;
@@ -153,6 +154,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         invisibleSubMenu(closeSubMenu);
         setMenuBackGroundColor(36, 36, 36);
+        
+        showInternalFrame(menuAvatar, new DoiMatKhauNguoiDung(listNd));
 
     }
 

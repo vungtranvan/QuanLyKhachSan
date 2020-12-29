@@ -11,6 +11,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDesktopPane;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 
 /**
@@ -50,5 +53,27 @@ public class MethodMain {
             }
         }
         return false;
+    }
+
+    public static boolean checkInputNull(JPasswordField jpass, JLabel jlbMsg, String stringMsg) {
+
+        if (jpass.getPassword().length == 0) {
+            jlbMsg.setText(stringMsg);
+            return false;
+        } else {
+            jlbMsg.setText(null);
+            return true;
+        }
+
+    }
+
+    public static boolean checkInputNull(JTextField jtext, JLabel jlbMsg, String stringMsg) {
+        if (jtext != null) {
+            jlbMsg.setText(stringMsg);
+            return false;
+        } else {
+            jlbMsg.setText(null);
+            return true;
+        }
     }
 }
