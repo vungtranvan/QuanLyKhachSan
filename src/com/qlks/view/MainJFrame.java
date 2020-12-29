@@ -11,6 +11,7 @@ import com.qlks.models.PhanQuyen;
 import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
+import com.qlks.view.internalframe.QuanLyDichVu;
 
 import com.qlks.view.internalframe.QuanLyDonVi;
 import com.qlks.view.internalframe.QuanLyKhachHang;
@@ -20,6 +21,7 @@ import com.qlks.view.internalframe.QuanLyLoaiTinhTrang;
 import com.qlks.view.internalframe.QuanLyMaKhuyenMai;
 import com.qlks.view.internalframe.QuanLyNguoiDung;
 import com.qlks.view.internalframe.QuanLyNhomQuyen;
+import com.qlks.view.internalframe.QuanLyPhong;
 import com.qlks.view.internalframe.QuanLyQuyDinh;
 import com.qlks.view.internalframe.QuanLyQuyen;
 import com.qlks.view.internalframe.QuanLyThietBi;
@@ -48,8 +50,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
 
-
-
     public Color MainColor = new Color(36, 36, 36);
     public Color subMenuColor = new Color(56, 56, 56);
 
@@ -61,12 +61,9 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     public MainJFrame(List<NguoiDung> listNd) {
-       
-  
-        
+
         initComponents();
-        
-        
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         jpnSubmenu.setVisible(false);
@@ -75,16 +72,12 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnSubmenu.setLayout(new BoxLayout(jpnSubmenu, BoxLayout.Y_AXIS));
 
         jpnMainSubMenu.add(jpnSubmenu);
-        
-//        showInternalFrame(menuChecking, new QuanLyDatPhong());
 
+//        showInternalFrame(menuChecking, new QuanLyDatPhong());
         List<JPanel> listSubMenuItemAdmin = new ArrayList<>();
         List<JPanel> listSubMenuItemRoom = new ArrayList<>();
         List<JPanel> listSubMenuItemCustomer = new ArrayList<>();
         List<JPanel> listSubMenuItemConfig = new ArrayList<>();
-        
-        
-        
 
         JPanel subMenuItemAdmin = new JPanel();
 
@@ -112,16 +105,24 @@ public class MainJFrame extends javax.swing.JFrame {
         showInternalFrame(subMenuItemRoom, new QuanLyLoaiPhong());
 
         JPanel subMenuStatus = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuItemRoom, "Quan ly tinh trang phong"));
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuStatus, "Quan ly tinh trang phong"));
         showInternalFrame(subMenuStatus, new QuanLyLoaiTinhTrang());
+
+        JPanel subMenuRoom = new JPanel();
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoom, "Quan ly phong"));
+        showInternalFrame(subMenuRoom, new QuanLyPhong());
 
         JPanel subMenuEquipment = new JPanel();
         listSubMenuItemRoom.add(makeSubMenuItem(subMenuEquipment, "Quan ly Thiet Bi"));
         showInternalFrame(subMenuEquipment, new QuanLyThietBi());
 
+        JPanel subMenuServiceType = new JPanel();
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuServiceType, "Quan ly Loai Dich Vu"));
+        showInternalFrame(subMenuServiceType, new QuanLyLoaiDichVu());
+
         JPanel subMenuService = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuService, "Quan ly Loai Dich Vu"));
-        showInternalFrame(subMenuService, new QuanLyLoaiDichVu());
+        listSubMenuItemRoom.add(makeSubMenuItem(subMenuService, "Quan ly Dich Vu"));
+        showInternalFrame(subMenuService, new QuanLyDichVu());
 
         JPanel subMenuUnit = new JPanel();
         listSubMenuItemRoom.add(makeSubMenuItem(subMenuUnit, "Quan ly Loai Don Vi"));
@@ -155,8 +156,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
     }
 
-
-
     public void centerJIF(JInternalFrame jif) {
         Dimension desktopSize = jMain.getSize();
         Dimension jInternalFrameSize = jif.getSize();
@@ -173,10 +172,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnMenu.setBackground(cl);
     }
 
-
-
-
-
     public JDesktopPane getjMain() {
         return jMain;
     }
@@ -192,10 +187,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public void setMenuAvatar(JLabel menuAvatar) {
         this.menuAvatar = menuAvatar;
     }
-    
-    
-       
-   
+
     private void visibleSubMenu(JLabel jl, String title, List<JPanel> items) {
 
         jl.setToolTipText(title);
@@ -207,8 +199,7 @@ public class MainJFrame extends javax.swing.JFrame {
 //                jpnSubmenu.setSize(dmnsn);
                 jpnSubmenu.setMaximumSize(new Dimension(1000, 1000));
 //                jpnSubmenu.setA
-              
-                
+
                 jpnSubmenu.setVisible(true);
                 jpnSubmenu.removeAll();
 
@@ -229,8 +220,6 @@ public class MainJFrame extends javax.swing.JFrame {
                 jpnSubmenu.revalidate();
                 jpnSubmenu.repaint();
 
-
-
             }
 
             @Override
@@ -245,7 +234,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
             @Override
             public void mouseEntered(MouseEvent me) {
-          
+
             }
 
             @Override
@@ -323,7 +312,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     private void showInternalFrame(JPanel jb, JInternalFrame jif) {
-       
+
         jb.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -357,8 +346,9 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
     }
+
     private void showInternalFrame(JLabel jlMenu, JInternalFrame jif) {
-       
+
         jlMenu.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -421,8 +411,6 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
