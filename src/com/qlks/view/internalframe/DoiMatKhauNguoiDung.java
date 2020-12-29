@@ -295,6 +295,7 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         boolean check = true;
         clearMsg();
         String isNull = " ís Null";
+        List<NguoiDung> listNguoiDung = nddao.getByMa(listNd.get(0).getMaNguoiDung());
 
         String oldPass = new String(jpassOldPass.getPassword());
         String newPass = new String(jpassNewPass.getPassword());
@@ -302,7 +303,7 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         if (jpassOldPass.getPassword().length == 0) {
             jlbMsgOldPass.setText(jlbOldPass.getText() + isNull);
             check = false;
-        } else if (!oldPass.equals(listNd.get(0).getMatKhau())) {
+        } else if (!oldPass.equals(listNguoiDung.get(0).getMatKhau())) {
             jlbMsgOldPass.setText(jlbOldPass.getText() + " Không chính xác");
             check = false;
         }
@@ -321,7 +322,7 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         }
 
         if (check) {
-            if (nddao.updatePassword(listNd.get(0).getMaNguoiDung(), newPass) > 0) {
+            if (nddao.updatePassword(listNguoiDung.get(0).getMaNguoiDung(), newPass) > 0) {
                 jlbChangePassMgs.setText("Đổi mật khẩu thành công");
             }
 
