@@ -5,6 +5,7 @@
  */
 package com.qlks.utils;
 
+import com.qlks.main.Main;
 import com.qlks.view.internalframe.ThongBao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -18,13 +19,13 @@ import javax.swing.Timer;
  */
 public class MethodMain {
 
-   private static ThongBao tb;
+    private static ThongBao tb;
 
     public static void globalMessagerSuccess(String msg, JDesktopPane jdp) {
         tb = new ThongBao();
         tb.getJlbThongBao().setText(msg);
         tb.getJlbThongBao().setForeground(Color.green);
-        
+
         tb.setVisible(true);
         jdp.add(tb);
         Timer timer = new Timer(10000, new ActionListener() {
@@ -36,5 +37,18 @@ public class MethodMain {
         });
         timer.setRepeats(false);
         timer.start();
+    }
+
+    public static boolean checkQuyen(String quyen) {
+        String[] qs = quyen.split(",");
+        for (String q : qs) {
+            System.out.println(q);
+        }
+        for (String q : qs) {
+            if (Main.quyens.stream().anyMatch(_item -> (_item.equals(q)))) {
+                return true;
+            }
+        }
+        return false;
     }
 }

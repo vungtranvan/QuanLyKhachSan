@@ -7,6 +7,8 @@ package com.qlks.view;
 
 import com.qlks.fonts.FontCustom;
 import com.qlks.models.NguoiDung;
+import com.qlks.models.PhanQuyen;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
 
@@ -27,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
@@ -58,10 +61,11 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     public MainJFrame(List<NguoiDung> listNd) {
+       
+  
         
         initComponents();
         
-        System.out.println(listNd.get(0).getTenNguoiDung());
         
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 

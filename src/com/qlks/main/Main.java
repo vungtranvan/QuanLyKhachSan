@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -26,6 +27,8 @@ public class Main {
 
     LogInJFrame logInJFrame = new LogInJFrame();
     List<NguoiDung> listnd;
+    List<PhanQuyen> listQuyen;
+    public static List<String> quyens = new ArrayList<>();
 
     public void login(LogInJFrame logInJFrame) {
 
@@ -34,12 +37,12 @@ public class Main {
             if (listnd.size() > 0) {
 
                 PhanQuyenDAO pqdao = new PhanQuyenDAO();
-                
-                List<PhanQuyen> listQuyen = pqdao.getMaQuyenByMaQuyen(listnd.get(0).getMaNhomQuyen());
- 
+
+                listQuyen = pqdao.getMaQuyenByMaQuyen(listnd.get(0).getMaNhomQuyen());
+                quyens = listQuyen.stream().map(e -> e.getQuyen()).collect(Collectors.toList());
+
                 MainJFrame mainFrame = new MainJFrame(listnd);
 
-//                mainFrame.setListNd(listnd);
                 mainFrame.setLocationRelativeTo(null);
                 logInJFrame.setVisible(false);
 

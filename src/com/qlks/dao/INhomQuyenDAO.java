@@ -16,6 +16,8 @@ public interface INhomQuyenDAO {
 
     List<NhomQuyen> getAll();
 
+    public List<NhomQuyen> getMaxId();
+
     List<NhomQuyen> search(String tenNhomQuyen);
 
     int add(NhomQuyen nhomQuyen);

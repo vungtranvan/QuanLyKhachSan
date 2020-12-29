@@ -24,7 +24,7 @@ public class PhanQuyenDAO extends AbstractDAO<PhanQuyen> implements IPhanQuyenDA
 
     @Override
     public List<PhanQuyen> getMaQuyenByMaQuyen(int maNhomQuyen) {
-        String sql = "{Call getMaQuyenByMaNhomQuyen(?)}";
+        String sql = "{Call getQuyenByMaNhomQuyen(?)}";
         return query(sql, new PhanQuyenMapper(), maNhomQuyen);
     }
 

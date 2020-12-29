@@ -19,7 +19,7 @@ public class PhanQuyenMapper implements RowMapper<PhanQuyen> {
     @Override
     public PhanQuyen mapRow(ResultSet rs) {
         try {
-            PhanQuyen data = new PhanQuyen(rs.getInt("MaQuyen"), rs.getInt("MaNhomQuyen"));
+            PhanQuyen data = new PhanQuyen(rs.getInt("MaQuyen"), rs.getInt("MaNhomQuyen"),rs.getNString("Quyen"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);

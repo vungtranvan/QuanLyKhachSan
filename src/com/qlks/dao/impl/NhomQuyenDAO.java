@@ -46,4 +46,10 @@ public class NhomQuyenDAO extends AbstractDAO<NhomQuyen> implements INhomQuyenDA
         return this.update(sql, maNhomQuyen);
     }
 
+    @Override
+    public List<NhomQuyen> getMaxId() {
+        String sql = "{Call getMaxId}";
+        return query(sql, new NhomQuyenMapper());
+    }
+
 }

@@ -13,6 +13,7 @@ public class PhanQuyen {
 
     private int maQuyen;
     private int maNhomQuyen;
+    private String Quyen;
 
     public PhanQuyen() {
     }
@@ -20,6 +21,12 @@ public class PhanQuyen {
     public PhanQuyen(int maQuyen, int maNhomQuyen) {
         this.maQuyen = maQuyen;
         this.maNhomQuyen = maNhomQuyen;
+    }
+
+    public PhanQuyen(int maQuyen, int maNhomQuyen, String Quyen) {
+        this.maQuyen = maQuyen;
+        this.maNhomQuyen = maNhomQuyen;
+        this.Quyen = Quyen;
     }
 
     public int getMaQuyen() {
@@ -36,6 +43,14 @@ public class PhanQuyen {
 
     public void setMaNhomQuyen(int maNhomQuyen) {
         this.maNhomQuyen = maNhomQuyen;
+    }
+
+    public String getQuyen() {
+        return Quyen;
+    }
+
+    public void setQuyen(String Quyen) {
+        this.Quyen = Quyen;
     }
 
 }
