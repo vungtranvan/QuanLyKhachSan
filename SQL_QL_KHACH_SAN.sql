@@ -633,12 +633,86 @@ CREATE PROC SearchNguoiDung
 @Email varchar (50),
 @MaNhomQuyen int
 AS
+IF @TenNguoiDung != '' AND @Email != '' AND @MaNhomQuyen != 0 
 BEGIN 
-SELECT * FROM NguoiDung Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
-AND Email = @Email AND MaNhomQuyen =@MaNhomQuyen
-ORDER BY MaNguoiDung DESC
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%' AND Email = @Email AND NguoiDung.MaNhomQuyen =@MaNhomQuyen
+ ORDER BY NguoiDung.MaNguoiDung ASC
 END
-GO
+
+ELSE IF @TenNguoiDung = '' AND @Email = '' AND @MaNhomQuyen  = 0
+BEGIN 
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ ORDER BY NguoiDung.MaNguoiDung ASC
+END
+
+ ELSE IF @TenNguoiDung  = '' AND @Email != '' AND @MaNhomQuyen != 0
+BEGIN 
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ Where Email = @Email AND NguoiDung.MaNhomQuyen =@MaNhomQuyen
+ ORDER BY NguoiDung.MaNguoiDung ASC
+END
+
+ ELSE IF @TenNguoiDung  = '' AND @Email = '' AND @MaNhomQuyen != 0
+BEGIN 
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ Where NguoiDung.MaNhomQuyen =@MaNhomQuyen
+ ORDER BY NguoiDung.MaNguoiDung ASC
+END
+
+ ELSE IF @TenNguoiDung  = '' AND @Email != '' AND @MaNhomQuyen  = 0
+BEGIN 
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ Where Email = @Email
+ ORDER BY NguoiDung.MaNguoiDung ASC
+END
+
+IF @TenNguoiDung != '' AND @Email != '' AND @MaNhomQuyen  = 0 
+BEGIN 
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%' AND Email = @Email
+ ORDER BY NguoiDung.MaNguoiDung ASC
+END
+
+IF @TenNguoiDung != '' AND @Email  = '' AND @MaNhomQuyen != 0 
+BEGIN 
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%' AND NguoiDung.MaNhomQuyen =@MaNhomQuyen
+ ORDER BY NguoiDung.MaNguoiDung ASC
+END
+
+IF @TenNguoiDung != '' AND @Email  = '' AND @MaNhomQuyen  = 0
+BEGIN 
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%'
+ ORDER BY NguoiDung.MaNguoiDung ASC
+END
+
+GO 
 
 CREATE PROC getNguoiDungById
 @MaNguoiDung int

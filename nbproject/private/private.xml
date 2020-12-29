@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/LogInJFrame.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/main/Main.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/dao/impl/NhomQuyenDAO.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/dao/impl/NguoiDungDAO.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyNhomQuyen.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/dao/impl/AbstractDAO.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/DoiMatKhauNguoiDung.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/utils/MethodMain.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/dao/impl/PhanQuyenDAO.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

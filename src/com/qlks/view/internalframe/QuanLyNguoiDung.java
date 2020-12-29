@@ -9,6 +9,8 @@ import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.NguoiDungDAO;
 import com.qlks.models.NguoiDung;
 import com.qlks.view.internalframe.action.AddNguoiDung;
+import com.qlks.view.internalframe.action.SearchNguoiDung;
+import com.qlks.view.internalframe.action.UpdateNguoiDung;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JDesktopPane;
@@ -20,8 +22,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNguoiDung.CallBackAdd {
-//, UpdateThietBi.CallBackUpdate, SearchThietBi.CallBackSearch
+public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNguoiDung.CallBackAdd, UpdateNguoiDung.CallBackUpdate, SearchNguoiDung.CallBackSearch {
+
     private NguoiDungDAO nguoiDungDAO;
     private List<NguoiDung> lstNguoiDung;
     private DefaultTableModel dtmThietBi;
@@ -306,14 +308,14 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
                 dataND.setGioiTinh(nd.isGioiTinh());
                 dataND.setMaNhomQuyen(nd.getMaNhomQuyen());
             }
-          //  showInternalFrame(new UpdateNguoiDung(dataND, this));
+            showInternalFrame(new UpdateNguoiDung(dataND, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-      //  showInternalFrame(new SearchNguoiDung(this));
+          showInternalFrame(new SearchNguoiDung(this));
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
@@ -334,14 +336,13 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
         loadData(null, null, 0);
     }
 
-//    @Override
-//    public void doUpdate() {
-//        loadData(null, null, 0);
-//    }
-//
-//    @Override
-//    public void doSearch(String tenNguoiDung, String email, int maNhomQuyen) {
-//        loadData(tenNguoiDung, email, 0);
-//    }
+    @Override
+    public void doUpdate() {
+        loadData(null, null, 0);
+    }
 
+    @Override
+    public void doSearch(String tenNguoiDung, String email, int maNhomQuyen) {
+        loadData(tenNguoiDung, email, maNhomQuyen);
+    }
 }
