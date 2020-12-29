@@ -620,22 +620,22 @@ GO
 CREATE PROC getAllNguoiDung
 AS
 BEGIN 
-SELECT * FROM NguoiDung ORDER BY MaNguoiDung DESC
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ ORDER BY NguoiDung.MaNguoiDung ASC
 END
 GO
 
 CREATE PROC SearchNguoiDung
 @TenNguoiDung nvarchar (50),
-@TenDangNhap varchar (50),
 @Email varchar (50),
-@NgaySinh datetime,
-@GioiTinh bit,
 @MaNhomQuyen int
 AS
 BEGIN 
 SELECT * FROM NguoiDung Where TenNguoiDung LIKE '%'+@TenNguoiDung+'%' 
-AND TenDangNhap LIKE '%'+@TenDangNhap+'%' AND Email LIKE '%'+@Email+'%' AND NgaySinh LIKE '%'+@NgaySinh+'%' 
-AND GioiTinh = @GioiTinh AND MaNhomQuyen =@MaNhomQuyen
+AND Email = @Email AND MaNhomQuyen =@MaNhomQuyen
 ORDER BY MaNguoiDung DESC
 END
 GO
@@ -644,7 +644,11 @@ CREATE PROC getNguoiDungById
 @MaNguoiDung int
 AS
 BEGIN 
-SELECT * FROM NguoiDung Where MaNguoiDung = @MaNguoiDung
+ SELECT NguoiDung.MaNguoiDung,NguoiDung.TenNguoiDung,NguoiDung.TenDangNhap,NguoiDung.MatKhau,
+ NguoiDung.Anh,NguoiDung.Email,NguoiDung.NgaySinh,NguoiDung.GioiTinh,NguoiDung.MaNhomQuyen,NhomQuyen.TenNhomQuyen
+ FROM NguoiDung 
+ INNER JOIN NhomQuyen ON NguoiDung.MaNhomQuyen = NhomQuyen.MaNhomQuyen
+ Where MaNguoiDung = @MaNguoiDung
 END
 GO
 
@@ -654,6 +658,22 @@ CREATE PROC checkLoginNguoiDung
 AS
 BEGIN 
 SELECT * FROM NguoiDung Where (TenDangNhap = @TenDangNhap OR Email = @TenDangNhap) AND MatKhau = @MatKhau
+END
+GO
+
+CREATE PROC checkEmailNguoiDung
+@Email nvarchar (50)
+AS
+BEGIN 
+SELECT * FROM NguoiDung Where Email = @Email
+END
+GO
+
+CREATE PROC checkTenDangNhapNguoiDung
+@TenDangNhap varchar (50)
+AS
+BEGIN 
+SELECT * FROM NguoiDung Where TenDangNhap = @TenDangNhap
 END
 GO
 
@@ -685,6 +705,15 @@ CREATE PROC updateNguoiDung
 AS
 BEGIN 
 Update NguoiDung set TenNguoiDung = @TenNguoiDung, TenDangNhap =@TenDangNhap,MatKhau=@MatKhau,Anh=@Anh,Email=@Email,NgaySinh=@NgaySinh,GioiTinh=@GioiTinh, MaNhomQuyen = @MaNhomQuyen Where MaNguoiDung = @MaNguoiDung
+END
+GO
+
+CREATE PROC updatePassword
+@MaNguoiDung int,
+@MatKhau nvarchar (50)
+AS
+BEGIN 
+Update NguoiDung set MatKhau=@MatKhau Where MaNguoiDung = @MaNguoiDung
 END
 GO
 
