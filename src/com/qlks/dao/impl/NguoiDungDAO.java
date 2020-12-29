@@ -58,9 +58,9 @@ public class NguoiDungDAO extends AbstractDAO<NguoiDung> implements INguoiDungDA
     @Override
     public int update(NguoiDung nguoiDung) {
         String sql = "{Call updateNguoiDung(?,?,?,?,?,?,?,?,?)}";
-        return this.update(sql, nguoiDung.getTenNguoiDung(), nguoiDung.getTenDangNhap(),
+        return this.update(sql, nguoiDung.getMaNguoiDung(), nguoiDung.getTenNguoiDung(), nguoiDung.getTenDangNhap(),
                 nguoiDung.getMatKhau(), nguoiDung.getAnh(), nguoiDung.getEmail(),
-                nguoiDung.getNgaySinh(), nguoiDung.isGioiTinh(), nguoiDung.getMaNhomQuyen(), nguoiDung.getMaNguoiDung());
+                nguoiDung.getNgaySinh(), nguoiDung.isGioiTinh(), nguoiDung.getMaNhomQuyen());
     }
 
     @Override

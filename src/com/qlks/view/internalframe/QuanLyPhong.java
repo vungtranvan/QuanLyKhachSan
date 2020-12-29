@@ -46,24 +46,22 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
             lstPhong = phongDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã Phòng", "Mã loại phòng", "Mã tình trạng", "Tên loại phòng", "Tình trạng", "Giá", "Ghi chú", ""};
+        Object[] columnNames = {"STT", "Mã Phòng", "Loại phòng", "Tình trạng", "Giá", "Ghi chú", ""};
         dtmPhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (Phong adv : lstPhong) {
-            Object[] o = new Object[9];
+            Object[] o = new Object[7];
             o[0] = index;
             o[1] = adv.getMaPhong();
-            o[2] = adv.getMaLoaiPhong();
-            o[3] = adv.getMaLoaiTinhTrangPhong();
-            o[4] = adv.getTenLoaiPhong();
-            o[5] = adv.getTenLoaiTinhTrangPhong();
-            o[6] = (int) adv.getDonGia();
-            o[7] = adv.getGhiChu();
+            o[2] = adv.getTenLoaiPhong();
+            o[3] = adv.getTenLoaiTinhTrangPhong();
+            o[4] = (int) adv.getDonGia();
+            o[5] = adv.getGhiChu();
             dtmPhong.addRow(o);
             index++;
         }
         tblPhong.setModel(dtmPhong);
-        funcBase.addCheckBox(8, tblPhong);
+        funcBase.addCheckBox(6, tblPhong);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -247,15 +245,15 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblPhong.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 8, tblPhong)) {
+                if (funcBase.IsSelected(i, 6, tblPhong)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 
                     int rowSucces = phongDAO.delete(tblPhong.getValueAt(i, 1).toString());
                     if (rowSucces > 0) {
-                        succesDeltete += "\t" + tblPhong.getValueAt(i, 2).toString() + "\n";
+                        succesDeltete += "\t" + tblPhong.getValueAt(i, 1).toString() + "\n";
                     } else {
-                        errDeltete += "\t" + tblPhong.getValueAt(i, 2).toString() + "\n";
+                        errDeltete += "\t" + tblPhong.getValueAt(i, 1).toString() + "\n";
                     }
                 }
             }
@@ -288,10 +286,11 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
 
         if (currentRow >= 0) {
             String maPhong = dtmPhong.getValueAt(currentRow, 1).toString();
-            String maLP = dtmPhong.getValueAt(currentRow, 2).toString();
-            int ma_tt = Integer.parseInt(dtmPhong.getValueAt(currentRow, 3).toString());
-            String ghiChu = dtmPhong.getValueAt(currentRow, 7).toString();
-            Phong dataKM = new Phong(maPhong, maLP, ma_tt, ghiChu);
+            List<Phong> lstPhongByMa = phongDAO.getByMaPhong(maPhong);
+            Phong dataKM = null;
+            for (Phong ph : lstPhongByMa) {
+                dataKM = new Phong(ph.getMaPhong(), ph.getMaLoaiPhong(), ph.getMaLoaiTinhTrangPhong(), ph.getGhiChu());
+            }
             showInternalFrame(new UpdatePhong(dataKM, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);

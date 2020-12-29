@@ -107,6 +107,7 @@ public class UpdateKhuyenMai extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("Cập nhật khuyến mại");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

@@ -46,23 +46,22 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
             lstThietBi = thietBiDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã Thiết bị", "Mã loại phòng", "Tên loại phòng", "Tên thiết bị", "Số lượng", "Giá", ""};
+        Object[] columnNames = {"STT", "Mã Thiết bị", "Tên loại phòng", "Tên thiết bị", "Số lượng", "Giá", ""};
         dtmThietBi = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (ThietBi adv : lstThietBi) {
-            Object[] o = new Object[8];
+            Object[] o = new Object[7];
             o[0] = index;
             o[1] = adv.getMaThietBi();
-            o[2] = adv.getMaLoaiPhong();
-            o[3] = adv.getTenLoaiPhong();
-            o[4] = adv.getTenThietBi();
-            o[5] = adv.getSoLuong();
-            o[6] = (int) adv.getGia();
+            o[2] = adv.getTenLoaiPhong();
+            o[3] = adv.getTenThietBi();
+            o[4] = adv.getSoLuong();
+            o[5] = (int) adv.getGia();
             dtmThietBi.addRow(o);
             index++;
         }
         tblThietBi.setModel(dtmThietBi);
-        funcBase.addCheckBox(7, tblThietBi);
+        funcBase.addCheckBox(6, tblThietBi);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -246,15 +245,15 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblThietBi.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 7, tblThietBi)) {
+                if (funcBase.IsSelected(i, 6, tblThietBi)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 
                     int rowSucces = thietBiDAO.delete(tblThietBi.getValueAt(i, 1).toString());
                     if (rowSucces > 0) {
-                        succesDeltete += "\t" + tblThietBi.getValueAt(i, 2).toString() + "\n";
+                        succesDeltete += "\t" + tblThietBi.getValueAt(i, 3).toString() + "\n";
                     } else {
-                        errDeltete += "\t" + tblThietBi.getValueAt(i, 2).toString() + "\n";
+                        errDeltete += "\t" + tblThietBi.getValueAt(i, 3).toString() + "\n";
                     }
                 }
             }
@@ -287,11 +286,11 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
 
         if (currentRow >= 0) {
             String maTB = dtmThietBi.getValueAt(currentRow, 1).toString();
-            String maLP = dtmThietBi.getValueAt(currentRow, 2).toString();
-            String tenTB = dtmThietBi.getValueAt(currentRow, 4).toString();
-            int soLuong = Integer.parseInt(dtmThietBi.getValueAt(currentRow, 5).toString());
-            Float giaTien = Float.parseFloat(dtmThietBi.getValueAt(currentRow, 6).toString());
-            ThietBi dataKM = new ThietBi(maTB, maLP, tenTB, soLuong, giaTien);
+            List<ThietBi> lstThietBiById = thietBiDAO.getByMaThietBi(maTB);
+            ThietBi dataKM = null;
+            for (ThietBi lstTB : lstThietBiById) {
+                dataKM = new ThietBi(lstTB.getMaThietBi(), lstTB.getMaLoaiPhong(), lstTB.getTenThietBi(), lstTB.getSoLuong(), lstTB.getGia());
+            }
             showInternalFrame(new UpdateThietBi(dataKM, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);

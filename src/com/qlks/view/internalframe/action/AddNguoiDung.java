@@ -9,7 +9,6 @@ import com.qlks.dao.impl.NguoiDungDAO;
 import com.qlks.dao.impl.NhomQuyenDAO;
 import com.qlks.models.NguoiDung;
 import com.qlks.models.NhomQuyen;
-import com.qlks.models.ThietBi;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Arrays;
@@ -109,8 +108,8 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         jDateNgaySinh = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioNam = new javax.swing.JRadioButton();
+        jRadioNu = new javax.swing.JRadioButton();
         txtErrorNgaySinh = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
 
@@ -202,12 +201,12 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setText("Ngày sinh:");
 
-        buttonGroupGioiTinh.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Nam");
+        buttonGroupGioiTinh.add(jRadioNam);
+        jRadioNam.setSelected(true);
+        jRadioNam.setText("Nam");
 
-        buttonGroupGioiTinh.add(jRadioButton2);
-        jRadioButton2.setText("Nữ");
+        buttonGroupGioiTinh.add(jRadioNu);
+        jRadioNu.setText("Nữ");
 
         txtErrorNgaySinh.setForeground(new java.awt.Color(255, 51, 51));
         txtErrorNgaySinh.setText("...");
@@ -231,7 +230,8 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
                     .addComponent(jLabel8)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel12))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -251,35 +251,34 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
                                         .addComponent(txtMatKhau, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtErrorEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jcbMaNhomQuyen, 0, 353, Short.MAX_VALUE))
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(22, 22, 22)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jRadioNam)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRadioNu)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel13))
-                                .addGap(10, 10, 10))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtErrorTenNguoiDung, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                                    .addComponent(txtTenNguoiDung))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNhapLaiMatKhau, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtErrorNgaySinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jDateNgaySinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                                    .addComponent(txtErrorTenDangNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtTenDangNhap, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtErrorNhapLaiMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(jLabel9))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel13)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addComponent(jLabel15))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtErrorTenNguoiDung, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                                .addComponent(txtTenNguoiDung)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNhapLaiMatKhau, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtErrorNgaySinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateNgaySinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                            .addComponent(txtErrorTenDangNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTenDangNhap, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtErrorNhapLaiMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
@@ -323,29 +322,26 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
                     .addComponent(txtErrorMatKhau))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel7))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jcbMaNhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel6))
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel7))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))))
-                .addGap(26, 26, 26)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+                            .addComponent(jcbMaNhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioNam)
+                    .addComponent(jRadioNu)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addGap(59, 59, 59))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -453,20 +449,25 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
             txtErrorNhapLaiMatKhau.setText("Mật khẩu nhập lại không trùng khớp");
             check = false;
         } else {
-            txtErrorMatKhau.setText("");
+            txtErrorNhapLaiMatKhau.setText("");
         }
 
         LocalDate dateBatDau = null;
         if (jDateNgaySinh.getDate() != null) {
             dateBatDau = jDateNgaySinh.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            txtErrorNgaySinh.setText("");
         } else {
             txtErrorNgaySinh.setText("Ngày sinh ko được để trống");
             check = false;
         }
-        
+
+        Boolean gioiTinh = true;
+        if (jRadioNu.isSelected()) {
+            gioiTinh = false;
+        }
         if (check == true) {
-           // ---- ok
-            int row = nguoiDungDAO.add(new NguoiDung(tenND, tenDangNhap, matKhau, email, email, dateBatDau, true, maNhomQuyen));
+
+            int row = nguoiDungDAO.add(new NguoiDung(tenND, tenDangNhap, matKhau, "", email, dateBatDau, gioiTinh, maNhomQuyen));
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 resetText();
@@ -497,8 +498,8 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioNam;
+    private javax.swing.JRadioButton jRadioNu;
     private javax.swing.JComboBox<NhomQuyen> jcbMaNhomQuyen;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JLabel txtErrorEmail;

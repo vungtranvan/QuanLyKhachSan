@@ -46,23 +46,21 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
             lstDichVu = dichVuDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã dịch vụ", "Mã loại dịch vụ", "Mã đơn vị", "Tên loại dịch vụ", "Tên đơn vị", "Giá", ""};
+        Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Giá", ""};
         dtmDichVu = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (DichVu adv : lstDichVu) {
-            Object[] o = new Object[8];
+            Object[] o = new Object[6];
             o[0] = index;
             o[1] = adv.getMaDichVu();
-            o[2] = adv.getMaLoaiDichVu();
-            o[3] = adv.getMaDonVi();
-            o[4] = adv.getTenLoaiDichVu();
-            o[5] = adv.getTenDonVi();
-            o[6] = (int) adv.getDonGia();
+            o[2] = adv.getTenLoaiDichVu();
+            o[3] = adv.getTenDonVi();
+            o[4] = (int) adv.getDonGia();
             dtmDichVu.addRow(o);
             index++;
         }
         tblDichVu.setModel(dtmDichVu);
-        funcBase.addCheckBox(7, tblDichVu);
+        funcBase.addCheckBox(5, tblDichVu);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -246,15 +244,15 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblDichVu.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 7, tblDichVu)) {
+                if (funcBase.IsSelected(i, 5, tblDichVu)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 
                     int rowSucces = dichVuDAO.delete(tblDichVu.getValueAt(i, 1).toString());
                     if (rowSucces > 0) {
-                        succesDeltete += "\t" + tblDichVu.getValueAt(i, 2).toString() + "\n";
+                        succesDeltete += "\t" + tblDichVu.getValueAt(i, 1).toString() + "\n";
                     } else {
-                        errDeltete += "\t" + tblDichVu.getValueAt(i, 2).toString() + "\n";
+                        errDeltete += "\t" + tblDichVu.getValueAt(i, 1).toString() + "\n";
                     }
                 }
             }
@@ -287,10 +285,11 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
 
         if (currentRow >= 0) {
             String ma_DVu = dtmDichVu.getValueAt(currentRow, 1).toString();
-            String ma_LDVu = dtmDichVu.getValueAt(currentRow, 2).toString();
-            String ma_DVi = dtmDichVu.getValueAt(currentRow, 3).toString();
-            Float donGia = Float.parseFloat(dtmDichVu.getValueAt(currentRow, 6).toString());
-            DichVu dataKM = new DichVu(ma_DVu, ma_LDVu, ma_DVi, donGia);
+            List<DichVu> lstDichVuByID = dichVuDAO.getDichVuByMa(ma_DVu);
+            DichVu dataKM = null;
+            for (DichVu lstDV : lstDichVuByID) {
+                dataKM = new DichVu(lstDV.getMaDichVu(), lstDV.getMaLoaiDichVu(), lstDV.getMaDonVi(), lstDV.getDonGia());
+            }
             showInternalFrame(new UpdateDichVu(dataKM, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
