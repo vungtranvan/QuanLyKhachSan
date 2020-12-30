@@ -395,6 +395,7 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         resetText();
         ImageIcon img = new ImageIcon(getClass().getResource("/com/qlks/image/avatar/avatar_default.jpg"));
         lblShowImage.setIcon(img);
+        jDateNgaySinh.setCalendar(null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed

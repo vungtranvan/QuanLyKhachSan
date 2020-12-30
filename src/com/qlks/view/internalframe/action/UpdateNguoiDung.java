@@ -435,6 +435,7 @@ public class UpdateNguoiDung extends javax.swing.JInternalFrame {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         resetText();
+        jDateNgaySinh.setCalendar(null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed

@@ -68,8 +68,7 @@ public class UpdateThietBi extends javax.swing.JInternalFrame {
         txtErrorGia.setText("");
         txtErrorMaTB.setText("");
         txtErrorTenTB.setText("");
-
-        txtMaTB.setText("");
+       
         txtTenTB.setText("");
         txtGia.setText("");
         txtSoLuong.setText("");

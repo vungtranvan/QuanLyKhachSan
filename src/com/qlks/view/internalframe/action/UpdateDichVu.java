@@ -83,7 +83,6 @@ public class UpdateDichVu extends javax.swing.JInternalFrame {
     }
 
     public void resetText() {
-        txtMaDVu.setText("");
         txtDonGia.setText("");
         txtErrorDonGia.setText("");
     }

@@ -58,7 +58,6 @@ public class UpdateKhachHang extends javax.swing.JInternalFrame {
         txtErrorTenKH.setText("");
 
         txtDiaChi.setText("");
-        txtMaKH.setText("");
         txtQuocTich.setText("");
         txtTenKH.setText("");
         txtDienThoai.setText("");

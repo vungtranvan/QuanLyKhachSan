@@ -49,7 +49,6 @@ public class UpdateLoaiPhong extends javax.swing.JInternalFrame {
         txtErrorTenLP.setText("");
 
         txtSoNguoiToiDa.setText("");
-        txtMaLP.setText("");
         txtTyLeTang.setText("");
         txtTenLP.setText("");
         txtDonGia.setText("");
