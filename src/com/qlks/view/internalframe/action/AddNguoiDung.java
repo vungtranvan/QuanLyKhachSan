@@ -5,15 +5,22 @@
  */
 package com.qlks.view.internalframe.action;
 
+import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.NguoiDungDAO;
 import com.qlks.dao.impl.NhomQuyenDAO;
+import com.qlks.helper.FileTypeFiler;
+import com.qlks.helper.ImageHelper;
 import com.qlks.models.NguoiDung;
 import com.qlks.models.NhomQuyen;
+import java.awt.Image;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +35,8 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
     private List<NhomQuyen> lstNhomQuyen;
 
     private DefaultComboBoxModel modelNhomQuyen;
-
+    private FunctionBase funcBase;
+    private byte[] nguoidungImage;
     CallBackAdd cb;
 
     public interface CallBackAdd {
@@ -45,6 +53,7 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         nguoiDungDAO = new NguoiDungDAO();
         nhomQuyenDAO = new NhomQuyenDAO();
         lstNhomQuyen = nhomQuyenDAO.getAll();
+        funcBase = new FunctionBase();
         resetText();
         this.cb = _cb;
         initDataNhomQuyen();
@@ -112,6 +121,8 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         jRadioNu = new javax.swing.JRadioButton();
         txtErrorNgaySinh = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        lblShowImage = new javax.swing.JLabel();
+        btnChonAnh = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -214,6 +225,17 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Ảnh :");
 
+        lblShowImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblShowImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/image/avatar/avatar_default.jpg"))); // NOI18N
+        lblShowImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
+
+        btnChonAnh.setText("Chọn ảnh");
+        btnChonAnh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonAnhActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -232,17 +254,9 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel7)
                     .addComponent(jLabel12))
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,14 +285,26 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtErrorTenNguoiDung, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                                 .addComponent(txtTenNguoiDung)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnChonAnh)
+                                .addGap(81, 81, 81))
+                            .addComponent(txtNhapLaiMatKhau)
+                            .addComponent(txtErrorNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                            .addComponent(txtErrorTenDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTenDangNhap)
+                            .addComponent(txtErrorNhapLaiMatKhau, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNhapLaiMatKhau, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtErrorNgaySinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateNgaySinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                            .addComponent(txtErrorTenDangNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTenDangNhap, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtErrorNhapLaiMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)
+                                .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblShowImage, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
@@ -322,21 +348,28 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
                     .addComponent(txtErrorMatKhau))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel7))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel7))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jcbMaNhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jcbMaNhomQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))))
-                .addGap(22, 22, 22)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioNam)
-                    .addComponent(jRadioNu)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                            .addComponent(jRadioNam)
+                            .addComponent(jRadioNu)
+                            .addComponent(jLabel12))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblShowImage, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,6 +393,9 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         resetText();
+        ImageIcon img = new ImageIcon(getClass().getResource("/com/qlks/image/avatar/avatar_default.jpg"));
+        lblShowImage.setIcon(img);
+        jDateNgaySinh.setCalendar(null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed
@@ -466,8 +502,19 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
             gioiTinh = false;
         }
         if (check == true) {
-
-            int row = nguoiDungDAO.add(new NguoiDung(tenND, tenDangNhap, matKhau, "", email, dateBatDau, gioiTinh, maNhomQuyen));
+            if (nguoidungImage == null) {
+                File fileDest = new File(("src\\com\\qlks\\image\\avatar\\avatar_default.jpg"));
+                try {
+                    ImageIcon icon = new ImageIcon(fileDest.getPath());
+                    Image img = ImageHelper.resize(icon.getImage(), 180, 180);
+                    ImageIcon resizedIcon = new ImageIcon(img);
+                    lblShowImage.setIcon(resizedIcon);
+                    nguoidungImage = ImageHelper.toByteArray(img, "jpg");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            int row = nguoiDungDAO.add(new NguoiDung(tenND, tenDangNhap, matKhau, nguoidungImage, email, dateBatDau, gioiTinh, maNhomQuyen));
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 resetText();
@@ -479,8 +526,34 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
+    private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setDialogTitle("Thêm ảnh");
+        jFileChooser.setMultiSelectionEnabled(false);
+        jFileChooser.setFileFilter(new FileTypeFiler(".jpg", "JPG"));
+        jFileChooser.setFileFilter(new FileTypeFiler(".gif", "GIF"));
+        jFileChooser.setFileFilter(new FileTypeFiler(".png", "png"));
+        int resutl = jFileChooser.showOpenDialog(null);
+
+        if (resutl == jFileChooser.APPROVE_OPTION) {
+            File fileSource = jFileChooser.getSelectedFile();
+            File fileDest = new File(("src\\com\\qlks\\image\\avatar\\" + fileSource.getName()));
+            try {
+                funcBase.copyFileUsingStream(fileSource, fileDest);
+                ImageIcon icon = new ImageIcon(fileDest.getPath());
+                Image img = ImageHelper.resize(icon.getImage(), 180, 180);
+                ImageIcon resizedIcon = new ImageIcon(img);
+                lblShowImage.setIcon(resizedIcon);
+                nguoidungImage = ImageHelper.toByteArray(img, "jpg");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnChonAnhActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChonAnh;
     private javax.swing.JButton btnHuyBo;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
@@ -501,6 +574,7 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioNam;
     private javax.swing.JRadioButton jRadioNu;
     private javax.swing.JComboBox<NhomQuyen> jcbMaNhomQuyen;
+    private javax.swing.JLabel lblShowImage;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JLabel txtErrorEmail;
     private javax.swing.JLabel txtErrorMatKhau;

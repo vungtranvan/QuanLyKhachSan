@@ -312,6 +312,8 @@ public class AddKhuyenMai extends javax.swing.JInternalFrame {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         resetText();
+        jDateBatDau.setCalendar(null);
+        jDateKetThuc.setCalendar(null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed

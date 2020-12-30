@@ -46,30 +46,29 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
             lstNguoiDung = nguoiDungDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã người dùng", "Tên người dùng", "Tên đăng nhập", "Tên nhóm quyền", "Ảnh", "Email", "Ngày sinh", "Giới tính", ""};
+        Object[] columnNames = {"STT", "Mã người dùng", "Tên người dùng", "Tên đăng nhập", "Tên nhóm quyền", "Email", "Ngày sinh", "Giới tính", ""};
         dtmThietBi = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (NguoiDung adv : lstNguoiDung) {
-            Object[] o = new Object[10];
+            Object[] o = new Object[9];
             o[0] = index;
             o[1] = adv.getMaNguoiDung();
             o[2] = adv.getTenNguoiDung();
             o[3] = adv.getTenDangNhap();
             o[4] = adv.getTenNhomQuyen();
-            o[5] = adv.getAnh();
-            o[6] = adv.getEmail();
-            o[7] = adv.getNgaySinh();
+            o[5] = adv.getEmail();
+            o[6] = adv.getNgaySinh();
             Boolean ngaySinh = adv.isGioiTinh();
             String sex = "Nam";
             if (ngaySinh == false) {
                 sex = "Nữ";
             }
-            o[8] = sex;
+            o[7] = sex;
             dtmThietBi.addRow(o);
             index++;
         }
         tblNguoiDung.setModel(dtmThietBi);
-        funcBase.addCheckBox(9, tblNguoiDung);
+        funcBase.addCheckBox(8, tblNguoiDung);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -253,7 +252,7 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblNguoiDung.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 9, tblNguoiDung)) {
+                if (funcBase.IsSelected(i, 8, tblNguoiDung)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 

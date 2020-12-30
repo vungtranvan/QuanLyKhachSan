@@ -83,7 +83,6 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
     }
 
     public void resetText() {
-        txtMaPhong.setText("");
         txtGhiChu.setText("");
     }
 

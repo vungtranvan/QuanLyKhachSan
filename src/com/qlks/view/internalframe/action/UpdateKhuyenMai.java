@@ -329,6 +329,8 @@ public class UpdateKhuyenMai extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        jDateBatDau.setCalendar(null);
+        jDateKetThuc.setCalendar(null);
         resetText();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
