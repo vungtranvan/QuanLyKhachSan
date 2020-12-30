@@ -11,8 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.qlks.mapper.RowMapper;
 import com.qlks.utils.DBConnect;
+import java.sql.Blob;
 import java.sql.Date;
 import java.time.LocalDate;
+import javax.sql.rowset.serial.SerialBlob;
 
 /**
  *
@@ -70,6 +72,15 @@ public class AbstractDAO<T> implements GenericDAO<T> {
                     cstm.setBoolean(index, (boolean) parameter);
                 } else if (parameter instanceof LocalDate) {
                     cstm.setDate(index, (Date.valueOf((LocalDate) parameter)));
+                } else if (parameter instanceof byte[]) {
+                    Blob hinh;
+                    if ((byte[]) parameter != null) {
+                        hinh = new SerialBlob((byte[]) parameter);
+                        cstm.setBlob(index, hinh);
+                    } else {
+                        hinh = null;
+                        cstm.setBlob(index, hinh);
+                    }
                 }
             }
         } catch (SQLException e) {

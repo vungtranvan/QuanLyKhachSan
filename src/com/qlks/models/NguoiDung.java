@@ -17,7 +17,7 @@ public class NguoiDung {
     private String tenNguoiDung;
     private String tenDangNhap;
     private String matKhau;
-    private String anh;
+    private byte[] anh;
     private String email;
     private LocalDate ngaySinh;
     private boolean gioiTinh;
@@ -27,7 +27,7 @@ public class NguoiDung {
     public NguoiDung() {
     }
 
-    public NguoiDung(String tenNguoiDung, String tenDangNhap, String matKhau, String anh, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen) {
+    public NguoiDung(String tenNguoiDung, String tenDangNhap, String matKhau, byte[] anh, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen) {
         this.tenNguoiDung = tenNguoiDung;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
@@ -38,7 +38,7 @@ public class NguoiDung {
         this.maNhomQuyen = maNhomQuyen;
     }
 
-    public NguoiDung(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String matKhau, String anh, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen) {
+    public NguoiDung(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String matKhau, byte[] anh, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen) {
         this.maNguoiDung = maNguoiDung;
         this.tenNguoiDung = tenNguoiDung;
         this.tenDangNhap = tenDangNhap;
@@ -50,12 +50,35 @@ public class NguoiDung {
         this.maNhomQuyen = maNhomQuyen;
     }
 
-    public NguoiDung(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String matKhau, String anh, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen, String tenNhomQuyen) {
+    public NguoiDung(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String matKhau, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen) {
+        this.maNguoiDung = maNguoiDung;
+        this.tenNguoiDung = tenNguoiDung;
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
+        this.email = email;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+        this.maNhomQuyen = maNhomQuyen;
+    }
+
+    public NguoiDung(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String matKhau, byte[] anh, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen, String tenNhomQuyen) {
         this.maNguoiDung = maNguoiDung;
         this.tenNguoiDung = tenNguoiDung;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
         this.anh = anh;
+        this.email = email;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+        this.maNhomQuyen = maNhomQuyen;
+        this.tenNhomQuyen = tenNhomQuyen;
+    }
+
+    public NguoiDung(int maNguoiDung, String tenNguoiDung, String tenDangNhap, String matKhau, String email, LocalDate ngaySinh, boolean gioiTinh, int maNhomQuyen, String tenNhomQuyen) {
+        this.maNguoiDung = maNguoiDung;
+        this.tenNguoiDung = tenNguoiDung;
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
         this.email = email;
         this.ngaySinh = ngaySinh;
         this.gioiTinh = gioiTinh;
@@ -95,11 +118,11 @@ public class NguoiDung {
         this.matKhau = matKhau;
     }
 
-    public String getAnh() {
+    public byte[] getAnh() {
         return anh;
     }
 
-    public void setAnh(String anh) {
+    public void setAnh(byte[] anh) {
         this.anh = anh;
     }
 
