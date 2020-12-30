@@ -32,9 +32,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -58,6 +57,8 @@ public class MainJFrame extends javax.swing.JFrame {
     CauHinhNguoiDungDAO cauHinhNguoiDungDAO = new CauHinhNguoiDungDAO();
     CauHinhNguoiDung cauHinhNguoiDung;
     String cauHinhNgonNgu;
+    int maNguoiDung;
+    List<CauHinhNguoiDung> cauHinhNguoiDungs = new ArrayList<>();
     Locale lc;
     public ResourceBundle rb;
 
@@ -74,13 +75,20 @@ public class MainJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form MainJFrame
+     *
+     * @param listNd
      */
     public MainJFrame(List<NguoiDung> listNd) {
-
-        cauHinhNgonNgu = cauHinhNguoiDungDAO.getValue(1, listNd.get(0).getMaNguoiDung()).get(0).getNoiDungCauHinh();
-
-        initComponents();
+        maNguoiDung = listNd.get(0).getMaNguoiDung();
+        cauHinhNguoiDungs = cauHinhNguoiDungDAO.getValue(1, maNguoiDung);
+        
+        cauHinhNguoiDungs.forEach(chnd -> {
+            cauHinhNgonNgu = chnd.getNoiDungCauHinh();
+        });
+ 
         setLocale(cauHinhNgonNgu);
+        initComponents();
+
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -161,9 +169,9 @@ public class MainJFrame extends javax.swing.JFrame {
         showInternalFrame(subMenuDiscount, new QuanLyMaKhuyenMai());
 
         JPanel subMenuLanguage = new JPanel();
-        NgonNgu ngonNgu = new NgonNgu(lc,cauHinhNgonNgu);
+        NgonNgu ngonNgu = new NgonNgu(lc, cauHinhNgonNgu);
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuLanguage, "Ngon ngu"));
-        controllang(ngonNgu, listNd);
+        controllang(ngonNgu, maNguoiDung);
         showInternalFrame(subMenuLanguage, ngonNgu);
 
         // Cau hinh
@@ -181,7 +189,6 @@ public class MainJFrame extends javax.swing.JFrame {
         setMenuBackGroundColor(36, 36, 36);
 
         showInternalFrame(menuAvatar, new DoiMatKhauNguoiDung(listNd));
-
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -475,22 +482,26 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-    private void controllang(NgonNgu ngonNgu, List<NguoiDung> listNd) {
-        ngonNgu.getJcbLang().addActionListener((ActionEvent e) -> {
-            NgonNguItem it = (NgonNguItem) ngonNgu.getJcbLang().getSelectedItem();
-            MainJFrame.this.cauHinhNgonNgu = it.getId();
-            ngonNgu.getJlbLangMsg().setText("");
+    private void controllang(NgonNgu ngonNgu, int maNd) {
+        ngonNgu.getJcbLang().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NgonNguItem it = (NgonNguItem) ngonNgu.getJcbLang().getSelectedItem();
+                MainJFrame.this.cauHinhNgonNgu = it.getId();
+                System.out.println(cauHinhNgonNgu);
+                ngonNgu.getJlbLangMsg().setText("");
+            }
         });
         ngonNgu.getJpnLangOk().addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
                 System.out.println(cauHinhNgonNgu);
-                cauHinhNguoiDung = new CauHinhNguoiDung(1, listNd.get(0).getMaNguoiDung(), cauHinhNgonNgu);
+                cauHinhNguoiDung = new CauHinhNguoiDung(1, maNd, cauHinhNgonNgu);
                 int row = cauHinhNguoiDungDAO.update(cauHinhNguoiDung);
                 if (row > 0) {
                     ngonNgu.getJlbLangMsg().setText("Thay doi thanh cong");
-                    Window[] windows = Frame.getOwnerlessWindows();
-                    
+                    ngonNgu.getContentPane().revalidate();
+                    ngonNgu.getContentPane().repaint();
                 }
             }
 
