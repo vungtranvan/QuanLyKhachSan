@@ -5,25 +5,14 @@
  */
 package com.qlks.view.internalframe;
 
-import com.qlks.view.internalframe.Item;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -31,56 +20,90 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
  */
 public class NgonNgu extends javax.swing.JInternalFrame {
 
-    Callaback cb;
+    String id;
+    NgonNguItem it;
+    Locale lc;
+    String cauHinhNgonNgu;
+    ResourceBundle rb;
 
-    public interface Callaback {
-
-        void doChangeNgonNgu(String Id);
-    }
-
-    public NgonNgu(Callaback _cb) {
+    public NgonNgu(Locale lc, String cauHinhNgonNgu) {
+        this.lc = lc;
+        this.cauHinhNgonNgu = cauHinhNgonNgu;
         initComponents();
-        this.cb = _cb;
-        DefaultComboBoxModel model = new DefaultComboBoxModel<String>();
-        model.addElement(new Item("phap", new ImageIcon("src/com/qlks/icon/icon_flag_fr.png"), "Phap"));
-        model.addElement(new Item("anh", new ImageIcon("src/com/qlks/icon/icon_flag_uk.png"), "Anh"));
-        model.addElement(new Item("vietnam", new ImageIcon("src/com/qlks/icon/icon_flag_vn.png"), "Viet Nam"));
 
+        DefaultComboBoxModel model = new DefaultComboBoxModel<String>();
+        setLocale(cauHinhNgonNgu, model);
         jcbLang.setModel(model);
-        jcbLang.setRenderer(new ItemRenderer());
+        jcbLang.setRenderer(new NgonNguItemRenderer());
 
         jcbLang.addActionListener((ActionEvent e) -> {
-
-            Item it = (Item) jcbLang.getSelectedItem();
-
+            it = (NgonNguItem) jcbLang.getSelectedItem();
+            this.id = it.getId();
             jlbLangFlag.setIcon(it.getIcon());
-            
-            lblDongY.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent me) {
-                    cb.doChangeNgonNgu(it.getId());
-                }
 
-                @Override
-                public void mousePressed(MouseEvent me) {
-
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent me) {
-
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent me) {
-                }
-
-                @Override
-                public void mouseExited(MouseEvent me) {
-
-                }
-            });
         });
+    }
+
+    public JComboBox<String> getJcbLang() {
+        return jcbLang;
+    }
+
+    public void setJcbLang(JComboBox<String> jcbLang) {
+        this.jcbLang = jcbLang;
+    }
+
+    public JLabel getJlbLangFlag() {
+        return jlbLangFlag;
+    }
+
+    public void setJlbLangFlag(JLabel jlbLangFlag) {
+        this.jlbLangFlag = jlbLangFlag;
+    }
+
+    public JPanel getJpnLangOk() {
+        return jpnLangOk;
+    }
+
+    public void setJpnLangOk(JPanel jpnLangOk) {
+        this.jpnLangOk = jpnLangOk;
+    }
+
+    public JLabel getJlbLangMsg() {
+        return jlbLangMsg;
+    }
+
+    public void setJlbLangMsg(JLabel jlbLangMsg) {
+        this.jlbLangMsg = jlbLangMsg;
+    }
+
+    private void setLocale(String cauHinhNgNg, DefaultComboBoxModel model) {
+        switch (cauHinhNgNg) {
+            case "anh":
+                lc = Locale.ENGLISH;
+                makeLocale(model, lc);
+                break;
+            case "phap":
+                lc = Locale.FRANCE;
+                makeLocale(model, lc);
+                break;
+            case "vietnam":
+                lc = new Locale("vi", "VN");
+                makeLocale(model, lc);
+                break;
+            default:
+                lc = new Locale("vi", "VN");
+                makeLocale(model, lc);
+                break;
+
+        }
+    }
+
+    private void makeLocale(DefaultComboBoxModel model, Locale lc) {
+
+        rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        model.addElement(new NgonNguItem("phap", new ImageIcon("src/com/qlks/icon/icon_flag_fr.png"), rb.getString("JIFNgonNguPhap")));
+        model.addElement(new NgonNguItem("anh", new ImageIcon("src/com/qlks/icon/icon_flag_uk.png"), rb.getString("JIFNgonNguVietNam")));
+        model.addElement(new NgonNguItem("vietnam", new ImageIcon("src/com/qlks/icon/icon_flag_vn.png"), rb.getString("JIFNgonNguAnh")));
 
     }
 
@@ -94,16 +117,26 @@ public class NgonNgu extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jcbLang = new javax.swing.JComboBox<String>();
+        jlbLangMsg = new javax.swing.JLabel();
+        jcbLang = new javax.swing.JComboBox<>();
         jlbLangFlag = new javax.swing.JLabel();
         jpnLangOk = new javax.swing.JPanel();
         lblDongY = new javax.swing.JLabel();
 
         setClosable(true);
 
+        jlbLangMsg.setFont(new java.awt.Font("DejaVu Serif Condensed", 0, 18)); // NOI18N
+        jlbLangMsg.setForeground(new java.awt.Color(48, 155, 2));
+        jlbLangMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         jcbLang.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jcbLang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbLang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbLang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jcbLang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbLangActionPerformed(evt);
+            }
+        });
 
         jlbLangFlag.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbLangFlag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_flag_vn.png"))); // NOI18N
@@ -143,17 +176,19 @@ public class NgonNgu extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jpnLangOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85))
+            .addComponent(jlbLangMsg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jlbLangMsg)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jlbLangFlag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jcbLang))
                 .addGap(18, 18, 18)
                 .addComponent(jpnLangOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 26, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,58 +205,17 @@ public class NgonNgu extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jcbLangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbLangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbLangActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> jcbLang;
     private javax.swing.JLabel jlbLangFlag;
+    private javax.swing.JLabel jlbLangMsg;
     private javax.swing.JPanel jpnLangOk;
     private javax.swing.JLabel lblDongY;
     // End of variables declaration//GEN-END:variables
-}
-
-class Item {
-
-    private String id;
-    private Icon icon;
-    private String text;
-
-    public Item(String id, Icon icon, String text) {
-        this.id = id;
-        this.icon = icon;
-        this.text = text;
-    }
-
-    public Icon getIcon() {
-        return icon;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-}
-
-class ItemRenderer extends BasicComboBoxRenderer {
-
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        super.getListCellRendererComponent(list, value, index, isSelected,
-                cellHasFocus);
-
-        Item item = (Item) value;
-
-        if (index == -1) {
-            setText(item.getText());
-            setIcon(null);
-        } else {
-            setText(item.getText());
-            setIcon(item.getIcon());
-        }
-        return this;
-    }
 }
