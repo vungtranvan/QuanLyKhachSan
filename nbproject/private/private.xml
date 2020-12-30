@@ -2,14 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/LogInJFrame.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/ThongBao.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_vi_VN.properties</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_en_US.properties</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/main/Main.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/dao/impl/ChiTietHoaDonDAO.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/dao/impl/AbstractDAO.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/NgonNgu.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_fr_FR%20.properties</file>
         </group>
-=======
-        <group/>
->>>>>>> 8fa76f93912a4b5fd35d04456eaafe2b79674138
     </open-files>
 </project-private>

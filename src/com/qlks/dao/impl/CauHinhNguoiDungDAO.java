@@ -17,14 +17,20 @@ import java.util.List;
 public class CauHinhNguoiDungDAO extends AbstractDAO<CauHinhNguoiDung> implements ICauHinhNguoiDungDAO {
 
     @Override
-    public List<CauHinhNguoiDung> getAll() {
-        String sql = "{Call getAllCauHinhNguoiDung}";
-        return query(sql, new CauHinhNguoiDungMapper());
+    public List<CauHinhNguoiDung> getValue(int maCauHinh, int maNguoiDung) {
+        String sql = "{Call getConfigVal(?,?)}";
+        return query(sql, new CauHinhNguoiDungMapper(), maCauHinh, maNguoiDung);
     }
 
     @Override
     public int add(CauHinhNguoiDung cauHinhNguoiDung) {
-        String sql = "{Call insertLoaiDichVu(?,?)}";
+        String sql = "{Call insertCauHinhNguoiDung(?,?,?)}";
+        return this.update(sql, cauHinhNguoiDung.getMaCauHinh(), cauHinhNguoiDung.getMaNguoiDung(), cauHinhNguoiDung.getNoiDungCauHinh());
+    }
+
+    @Override
+    public int update(CauHinhNguoiDung cauHinhNguoiDung) {
+        String sql = "{Call updateCauHinhNguoiDung(?,?,?)}";
         return this.update(sql, cauHinhNguoiDung.getMaCauHinh(), cauHinhNguoiDung.getMaNguoiDung(), cauHinhNguoiDung.getNoiDungCauHinh());
     }
 

@@ -14,7 +14,10 @@ import java.util.List;
  */
 public interface ICauHinhNguoiDungDAO {
 
-    List<CauHinhNguoiDung> getAll();
+    List<CauHinhNguoiDung> getValue(int maCauHinh, int maNguoiDung);
 
     int add(CauHinhNguoiDung cauHinhNguoiDung);
+
+    int update(CauHinhNguoiDung cauHinhNguoiDung);
+
 }

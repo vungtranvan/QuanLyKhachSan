@@ -5,12 +5,13 @@
  */
 package com.qlks.view;
 
+import com.qlks.dao.impl.CauHinhNguoiDungDAO;
 import com.qlks.fonts.FontCustom;
+import com.qlks.models.CauHinhNguoiDung;
 import com.qlks.models.NguoiDung;
-import com.qlks.models.PhanQuyen;
-import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.DoiMatKhauNguoiDung;
 import com.qlks.view.internalframe.NgonNgu;
+import com.qlks.view.internalframe.NgonNguItem;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
 import com.qlks.view.internalframe.QuanLyDichVu;
@@ -28,39 +29,37 @@ import com.qlks.view.internalframe.QuanLyQuyDinh;
 import com.qlks.view.internalframe.QuanLyQuyen;
 import com.qlks.view.internalframe.QuanLyThietBi;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 /**
  *
  * @author hoangdung
  */
-public class MainJFrame extends javax.swing.JFrame implements NgonNgu.Callaback {
+public class MainJFrame extends javax.swing.JFrame {
+
+    CauHinhNguoiDungDAO cauHinhNguoiDungDAO = new CauHinhNguoiDungDAO();
+    CauHinhNguoiDung cauHinhNguoiDung;
+    String cauHinhNgonNgu;
+    Locale lc;
+    public ResourceBundle rb;
 
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
@@ -78,7 +77,11 @@ public class MainJFrame extends javax.swing.JFrame implements NgonNgu.Callaback 
      */
     public MainJFrame(List<NguoiDung> listNd) {
 
+        cauHinhNgonNgu = cauHinhNguoiDungDAO.getValue(1, listNd.get(0).getMaNguoiDung()).get(0).getNoiDungCauHinh();
+
         initComponents();
+        setLocale(cauHinhNgonNgu);
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -158,63 +161,10 @@ public class MainJFrame extends javax.swing.JFrame implements NgonNgu.Callaback 
         showInternalFrame(subMenuDiscount, new QuanLyMaKhuyenMai());
 
         JPanel subMenuLanguage = new JPanel();
+        NgonNgu ngonNgu = new NgonNgu(lc,cauHinhNgonNgu);
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuLanguage, "Ngon ngu"));
-        showInternalFrame(subMenuLanguage, new NgonNgu(this));
-
-        subMenuLanguage.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-//
-//                Vector model = new Vector();
-//                model.addElement(new Item(new ImageIcon("src/com/qlks/icon/icon_flag_fr.png"), "Phap"));
-//                model.addElement(new Item(new ImageIcon("src/com/qlks/icon/icon_flag_uk.png"), "Anh"));
-//                model.addElement(new Item(new ImageIcon("src/com/qlks/icon/icon_flag_vn.png"), "Viet Nam"));
-//
-//                
-//  
-//                jcbLang.addActionListener(new ActionListener() {
-//                    public void actionPerformed(ActionEvent e) {
-//                        try {
-//                            Item it = (Item) jcbLang.getSelectedItem();
-//                            Method mt = it.getClass().getDeclaredMethod("getIcon");
-//                            flagIcon = (ImageIcon) (Icon) mt.invoke(it);
-//                            jMain.revalidate();
-//                            jMain.repaint();
-//
-//                        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-//                            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    }
-//                });
-//
-////                ImageIcon flagIcon = new ImageIcon("src/com/qlks/icon/icon_flag_fr.png");
-//                jcbLang.setRenderer(new ItemRenderer());
-//                int input;
-//                input = JOptionPane.showConfirmDialog(jMain, jcbLang, "Chon ngon ngu",
-//                        JOptionPane.DEFAULT_OPTION,
-//                        JOptionPane.DEFAULT_OPTION,
-//                        flagIcon);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent me) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent me) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-
-            }
-        });
+        controllang(ngonNgu, listNd);
+        showInternalFrame(subMenuLanguage, ngonNgu);
 
         // Cau hinh
         JPanel subMenuConfig = new JPanel();
@@ -525,6 +475,65 @@ public class MainJFrame extends javax.swing.JFrame implements NgonNgu.Callaback 
         });
     }
 
+    private void controllang(NgonNgu ngonNgu, List<NguoiDung> listNd) {
+        ngonNgu.getJcbLang().addActionListener((ActionEvent e) -> {
+            NgonNguItem it = (NgonNguItem) ngonNgu.getJcbLang().getSelectedItem();
+            MainJFrame.this.cauHinhNgonNgu = it.getId();
+            ngonNgu.getJlbLangMsg().setText("");
+        });
+        ngonNgu.getJpnLangOk().addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                System.out.println(cauHinhNgonNgu);
+                cauHinhNguoiDung = new CauHinhNguoiDung(1, listNd.get(0).getMaNguoiDung(), cauHinhNgonNgu);
+                int row = cauHinhNguoiDungDAO.update(cauHinhNguoiDung);
+                if (row > 0) {
+                    ngonNgu.getJlbLangMsg().setText("Thay doi thanh cong");
+                    Window[] windows = Frame.getOwnerlessWindows();
+                    
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+
+            }
+        });
+    }
+
+    private void setLocale(String cauHinhNgNg) {
+        switch (cauHinhNgNg) {
+            case "anh":
+                lc = Locale.ENGLISH;
+                break;
+            case "phap":
+                lc = Locale.FRANCE;
+                break;
+            case "vietnam":
+                lc = new Locale("vi", "VN");
+                break;
+            default:
+                lc = new Locale("vi", "VN");
+                break;
+
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -678,8 +687,4 @@ public class MainJFrame extends javax.swing.JFrame implements NgonNgu.Callaback 
     private javax.swing.JLabel menuRoom;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void doChangeNgonNgu(String Id) {
-        System.out.println("Tên ID: " + Id);
-    }
 }
