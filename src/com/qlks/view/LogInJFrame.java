@@ -115,7 +115,6 @@ public class LogInJFrame extends javax.swing.JFrame {
         if (check == true) {
             List<NguoiDung> listNguoiDung = nddao.checkDangNhap(userName, passWord);
             if (listNguoiDung.size() > 0) {
- 
                 return listNguoiDung;
             } else {
                 jpnMessager.removeAll();
