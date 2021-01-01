@@ -348,16 +348,16 @@ Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTi
 GO
 
 INSERT INTO QuyDinh(TenQuyDinh,MoTa) VALUES
-(N'Quy định 1',N'1. Quý khách vui lòng xuất trình hộ chiếu hoặc chứng minh nhân dân để làm thủ tục nhận phòng tại Lễ tân.'),
-(N'Quy định 2',N'2. Khách sạn chỉ chịu trách nhiệm với những tài sản hoặc tiền được gửi tại quầy Lễ tân.'),
-(N'Quy định 3',N'3. Không mang súng đạn, chất cháy nổ, chất độc hại, các chất gây nghiện, vật nuôi hoặc thực phẩm có mùi tanh hôi vào phòng nghỉ. Không nấu nướng, giặt là trong phòng nghỉ.'),
-(N'Quy định 4',N'4. Không thay đổi, di chuyển đồ đạc trong phòng hoặc từ phòng này sang phòng khác. Trường hợp tài sản, đồ dùng trong phòng bị mất, hỏng do chủ quan Quý khách sẽ phải bồi thường 100% giá trị.'),
-(N'Quy định 5',N'5. Xin vui lòng không thay đổi phòng hoặc đưa thêm người vào phòng khi chưa đăng ký trước với Lễ tân.'),
-(N'Quy định 6',N'6. Nếu có người thân đến thăm, xin quý khách vui lòng liên hệ với Lễ tân để bổ trí nơi tiếp đón.'),
-(N'Quy định 7',N'7. Khi ra khỏi phòng, Quý khách vui lòng rút thẻ chìa khoá ra khỏi ổ điện và gửi tại quầy lễ tân. Điện trong phòng sẽ tự động ngắt khi cửa đã được khép.'),
-(N'Quy định 8',N'8. Nếu Quý khách phát hiện có hiện tượng cháy trong Khách sạn, xin khẩn trương tìm cách thông báo cho người ở khu vực gần nhất và bình tĩnh làm theo chỉ dẫn phòng chống cháy nổ.'),
-(N'Quy định 9',N'9. Thời gian trả phòng là 12h30, nếu muộn hơn sẽ phải thanh toán thêm phụ phí tương ứng. Trong trường hợp cần thiết, xin vui lòng liên hệ với Lễ tân.'),
-(N'Quy định 10',N'10. Trước khi rời khỏi khách sạn, xin Quý khách vui lòng thanh toán toàn bộ các hoá đơn và trả lại chìa khoá phòng cho Lễ tân.')
+(N'Quy định 1',N'Quý khách vui lòng xuất trình hộ chiếu hoặc chứng minh nhân dân để làm thủ tục nhận phòng tại Lễ tân.'),
+(N'Quy định 2',N'Khách sạn chỉ chịu trách nhiệm với những tài sản hoặc tiền được gửi tại quầy Lễ tân.'),
+(N'Quy định 3',N'Không mang súng đạn, chất cháy nổ, chất độc hại, các chất gây nghiện, vật nuôi hoặc thực phẩm có mùi tanh hôi vào phòng nghỉ. Không nấu nướng, giặt là trong phòng nghỉ.'),
+(N'Quy định 4',N'Không thay đổi, di chuyển đồ đạc trong phòng hoặc từ phòng này sang phòng khác. Trường hợp tài sản, đồ dùng trong phòng bị mất, hỏng do chủ quan Quý khách sẽ phải bồi thường 100% giá trị.'),
+(N'Quy định 5',N'Xin vui lòng không thay đổi phòng hoặc đưa thêm người vào phòng khi chưa đăng ký trước với Lễ tân.'),
+(N'Quy định 6',N'Nếu có người thân đến thăm, xin quý khách vui lòng liên hệ với Lễ tân để bổ trí nơi tiếp đón.'),
+(N'Quy định 7',N'Khi ra khỏi phòng, Quý khách vui lòng rút thẻ chìa khoá ra khỏi ổ điện và gửi tại quầy lễ tân. Điện trong phòng sẽ tự động ngắt khi cửa đã được khép.'),
+(N'Quy định 8',N'Nếu Quý khách phát hiện có hiện tượng cháy trong Khách sạn, xin khẩn trương tìm cách thông báo cho người ở khu vực gần nhất và bình tĩnh làm theo chỉ dẫn phòng chống cháy nổ.'),
+(N'Quy định 9',N'Thời gian trả phòng là 12h30, nếu muộn hơn sẽ phải thanh toán thêm phụ phí tương ứng. Trong trường hợp cần thiết, xin vui lòng liên hệ với Lễ tân.'),
+(N'Quy định 10',N'Trước khi rời khỏi khách sạn, xin Quý khách vui lòng thanh toán toàn bộ các hoá đơn và trả lại chìa khoá phòng cho Lễ tân.')
 GO
 
 INSERT INTO KhachHang(MaKhachHang,TenKhachHang,CMND,DiaChi,DienThoai,GioiTinh,QuocTich) VALUES 
@@ -488,7 +488,7 @@ GO
 CREATE PROC getAllQuyDinh
 AS
 BEGIN 
-SELECT * FROM QuyDinh ORDER BY MaQuyDinh DESC
+SELECT * FROM QuyDinh
 END
 GO
 
@@ -497,7 +497,6 @@ CREATE PROC SearchQuyDinh
 AS
 BEGIN 
 SELECT * FROM QuyDinh Where TenQuyDinh LIKE '%'+@TenQuyDinh+'%'
-ORDER BY MaQuyDinh DESC
 END
 GO
 
@@ -1739,7 +1738,11 @@ GO
 CREATE PROC getAllPhieuThuePhong
 AS
 BEGIN 
-SELECT * FROM PhieuThuePhong
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ ORDER BY PhieuThuePhong.MaPhieuThue ASC
 END
 GO
 

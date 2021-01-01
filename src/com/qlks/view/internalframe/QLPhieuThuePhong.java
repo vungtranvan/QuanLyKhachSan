@@ -6,11 +6,11 @@
 package com.qlks.view.internalframe;
 
 import com.qlks.custom.FunctionBase;
-import com.qlks.dao.impl.QuyDinhDAO;
-import com.qlks.models.QuyDinh;
-import com.qlks.view.internalframe.action.AddQuyDinh;
-import com.qlks.view.internalframe.action.SearchQuyDinh;
-import com.qlks.view.internalframe.action.UpdateQuyDinh;
+import com.qlks.dao.impl.PhieuThuePhongDAO;
+import com.qlks.models.PhieuThuePhong;
+import com.qlks.view.internalframe.action.AddPhong;
+import com.qlks.view.internalframe.action.SearchPhong;
+import com.qlks.view.internalframe.action.UpdatePhong;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JDesktopPane;
@@ -22,44 +22,48 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyDinh.CallBackAdd, UpdateQuyDinh.CallBackUpdate, SearchQuyDinh.CallBackSearch {
+public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddPhong.CallBackAdd, UpdatePhong.CallBackUpdate, SearchPhong.CallBackSearch {
 
-    private QuyDinhDAO quyDinhDAO;
-    private List<QuyDinh> lstQuyDinh;
-    private DefaultTableModel dtmQuyDinh;
+    private PhieuThuePhongDAO phieuThuePhongDAO;
+    private List<PhieuThuePhong> lstPhieuThuePhong;
+    private DefaultTableModel dtmPhieuThuePhong;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
 
-    public QuanLyQuyDinh() {
+    public QLPhieuThuePhong() {
         initComponents();
-        dtmQuyDinh = new DefaultTableModel();
-        quyDinhDAO = new QuyDinhDAO();
+        dtmPhieuThuePhong = new DefaultTableModel();
+        phieuThuePhongDAO = new PhieuThuePhongDAO();
         funcBase = new FunctionBase();
-        loadData(null);
+        loadData(null, null, 0);
     }
 
-    public void loadData(String tenSearchInput) {
+    public void loadData(String maPhong, String maLoaiPhong, int maLoaiTinhTrangPhong) {
 
-        if (tenSearchInput != null) {
-            lstQuyDinh = quyDinhDAO.search(tenSearchInput);
+        if (maPhong != null || maLoaiPhong != null || maLoaiTinhTrangPhong != 0) {
+            //lstPhong = phongDAO.search(maPhong, maLoaiPhong, maLoaiTinhTrangPhong);
         } else {
-            lstQuyDinh = quyDinhDAO.getAll();
+            lstPhieuThuePhong = phieuThuePhongDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã quy định", "Tên quy định", "Nội dung mô tả", ""};
-        dtmQuyDinh = new DefaultTableModel(new Object[0][0], columnNames);
+        Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Trạng thái", ""};
+        dtmPhieuThuePhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
-        for (QuyDinh adv : lstQuyDinh) {
-            Object[] o = new Object[5];
+        for (PhieuThuePhong adv : lstPhieuThuePhong) {
+            Object[] o = new Object[9];
             o[0] = index;
-            o[1] = adv.getMaQuyDinh();
-            o[2] = adv.getTenQuyDinh();
-            o[3] = adv.getMoTa();
-            dtmQuyDinh.addRow(o);
+            o[1] = adv.getMaPhieuThue();
+            o[2] = adv.getMaKhachHang();
+            o[3] = adv.getTenKhachHang();
+            o[4] = adv.getMaPhong();
+            o[5] = adv.getNgayDangKy();
+            o[6] = adv.getNgayNhan();
+            o[7] = "Chưa xử lý";
+            dtmPhieuThuePhong.addRow(o);
             index++;
         }
-        tblQuyDinh.setModel(dtmQuyDinh);
-        funcBase.addCheckBox(4, tblQuyDinh);
+        tblPhong.setModel(dtmPhieuThuePhong);
+        funcBase.addCheckBox(8, tblPhong);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -96,14 +100,13 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
         btnXoa = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblQuyDinh = new javax.swing.JTable();
+        tblPhong = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Quản lý quy định");
+        setTitle("Quản lý phòng");
 
         btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_refresh.png"))); // NOI18N
         btnLamMoi.setText("Làm mới");
@@ -150,13 +153,6 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,9 +168,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,12 +179,11 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        tblQuyDinh.setModel(new javax.swing.table.DefaultTableModel(
+        tblPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -201,7 +194,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblQuyDinh);
+        jScrollPane1.setViewportView(tblPhong);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -215,7 +208,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -239,79 +232,78 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
                 .addContainerGap())
         );
 
+        getAccessibleContext().setAccessibleName("Quản lý phiếu thuê phòng");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddQuyDinh(this));
+        showInternalFrame(new AddPhong(this));
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        String succesDeltete = "";
-        String errDeltete = "";
-        Boolean check = false;
-        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (thongbao == JOptionPane.YES_OPTION) {
-
-            for (int i = 0; i < tblQuyDinh.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblQuyDinh.getRowCount());
-                if (funcBase.IsSelected(i, 4, tblQuyDinh)) {
-                    check = true;
-                    //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
-
-                    int rowSucces = quyDinhDAO.delete(Integer.parseInt(tblQuyDinh.getValueAt(i, 1).toString()));
-                    if (rowSucces > 0) {
-                        succesDeltete += "\t" + tblQuyDinh.getValueAt(i, 2).toString() + "\n";
-                    } else {
-                        errDeltete += "\t" + tblQuyDinh.getValueAt(i, 2).toString() + "\n";
-                    }
-                }
-            }
-            loadData(null);
-            if (check == true) {
-                String mess = "";
-                if (succesDeltete.length() > 0) {
-                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
-                }
-                if (errDeltete.length() > 0) {
-                    mess += "Không thể xóa: \n" + errDeltete;
-                }
-                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            }
-        }
+//        String succesDeltete = "";
+//        String errDeltete = "";
+//        Boolean check = false;
+//        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+//        if (thongbao == JOptionPane.YES_OPTION) {
+//
+//            for (int i = 0; i < tblPhong.getRowCount(); i++) {
+//                if (funcBase.IsSelected(i, 8, tblPhong)) {
+//                    check = true;
+//                    //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
+//
+//                    int rowSucces = phongDAO.delete(tblPhong.getValueAt(i, 1).toString());
+//                    if (rowSucces > 0) {
+//                        succesDeltete += "\t" + tblPhong.getValueAt(i, 1).toString() + "\n";
+//                    } else {
+//                        errDeltete += "\t" + tblPhong.getValueAt(i, 1).toString() + "\n";
+//                    }
+//                }
+//            }
+//            loadData(null, null, 0);
+//            if (check == true) {
+//                String mess = "";
+//                if (succesDeltete.length() > 0) {
+//                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
+//                }
+//                if (errDeltete.length() > 0) {
+//                    mess += "Không thể xóa: \n" + errDeltete;
+//                }
+//                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//            } else {
+//                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
+//            }
+//        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
-        loadData(null);
+        loadData(null, null, 0);
     }//GEN-LAST:event_btnLamMoiKeyPressed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        loadData(null);
+        loadData(null, null, 0);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        int currentRow = tblQuyDinh.getSelectedRow();
-        if (currentRow >= 0) {
-            int maQD = Integer.parseInt(dtmQuyDinh.getValueAt(currentRow, 1).toString());
-            String tenQD = dtmQuyDinh.getValueAt(currentRow, 2).toString();
-            String motaQD = dtmQuyDinh.getValueAt(currentRow, 3).toString();
-
-            QuyDinh dataQD = new QuyDinh(maQD, tenQD, motaQD);
-            showInternalFrame(new UpdateQuyDinh(dataQD, this));
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        }
+//        int currentRow = tblPhong.getSelectedRow();
+//
+//        if (currentRow >= 0) {
+//            String maPhong = dtmPhong.getValueAt(currentRow, 1).toString();
+//            List<Phong> lstPhongByMa = phongDAO.getByMaPhong(maPhong);
+//            Phong dataKM = null;
+//            for (Phong ph : lstPhongByMa) {
+//                dataKM = new Phong(ph.getMaPhong(), ph.getMaLoaiPhong(), ph.getMaLoaiTinhTrangPhong(), ph.getGhiChu());
+//            }
+//            showInternalFrame(new UpdatePhong(dataKM, this));
+//        } else {
+//            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
+//        }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        showInternalFrame(new SearchQuyDinh(this));
+        // showInternalFrame(new SearchPhong(this));
     }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        showInternalFrame(new QLPhieuThuePhong());
-    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -320,26 +312,24 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblQuyDinh;
+    private javax.swing.JTable tblPhong;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void doAdd() {
-        loadData(null);
+        loadData(null, null, 0);
     }
 
     @Override
     public void doUpdate() {
-        loadData(null);
+        loadData(null, null, 0);
     }
 
     @Override
-    public void doSearch(String tenSearchInput) {
-        loadData(tenSearchInput);
+    public void doSearch(String maPhong, String maLoaiPhong, int maLoaiTinhTrangPhong) {
+        loadData(maPhong, maLoaiPhong, maLoaiTinhTrangPhong);
     }
-
 }
