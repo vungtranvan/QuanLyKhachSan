@@ -12,6 +12,8 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -26,10 +28,14 @@ public class LogInJFrame extends javax.swing.JFrame {
     /**
      * Creates new form LogInJFrame
      */
+    ResourceBundle rb;
+
     public LogInJFrame() {
+//        rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        
         initComponents();
-        String loginTitle = "Đăng nhập";
-        setTitle(loginTitle);
+//        String loginTitle = rb.getString("JFloginTitle");
+//        setTitle(loginTitle);
         jplPass.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -83,7 +89,6 @@ public class LogInJFrame extends javax.swing.JFrame {
     public void setJtextName(JTextField jtextName) {
         this.jtextName = jtextName;
     }
-    
 
     public List<NguoiDung> getLogin() {
         boolean check = true;
@@ -132,10 +137,14 @@ public class LogInJFrame extends javax.swing.JFrame {
         lb.setPreferredSize(new Dimension(300, 30));
         lb.setSize(lb.getPreferredSize());
         lb.setMaximumSize(lb.getPreferredSize());
-
         lb.setText(ms);
         lb.setForeground(Color.WHITE);
         return lb;
+    }
+
+    public void translate(Locale lc) {
+        rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        
     }
 
     /**

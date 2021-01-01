@@ -26,6 +26,7 @@ import javax.swing.JButton;
 public class Main {
 
     LogInJFrame logInJFrame = new LogInJFrame();
+
     List<NguoiDung> listnd;
     List<PhanQuyen> listQuyen;
     public static List<String> quyens = new ArrayList<>();
@@ -53,10 +54,9 @@ public class Main {
                     mainFrame.setVisible(true);
                 }
 
-                String loginSuccess = "Dang nhap thanh cong";
+                String loginSuccess = mainFrame.rb.getString("MainJFrameLoginSuccessMgs");
                 mainFrame.getMenuAvatar().setIcon(new ImageIcon("src/com/qlks/icon/" + listnd.get(0).getAnh()));
-                mainFrame.setTitle("Quản lý khách sạn [ " + listnd.get(0).getTenNguoiDung() + " ]");
-                mainFrame.setTitle(mainFrame.rb.getString("JFloginTitle"));
+                mainFrame.setTitle(mainFrame.rb.getString("MainJFrameTitle") + "[ " + listnd.get(0).getTenNguoiDung() + " ]");
 
                 MethodMain.globalMessagerSuccess(loginSuccess, mainFrame.getjMain());
             }

@@ -25,14 +25,27 @@ public class NgonNgu extends javax.swing.JInternalFrame {
     Locale lc;
     String cauHinhNgonNgu;
     ResourceBundle rb;
+    NgonNguItem ngonNguPhap;
+    NgonNguItem ngonNguAnh;
+    NgonNguItem ngonNguVietNam;
+    
 
-    public NgonNgu(Locale lc, String cauHinhNgonNgu) {
+    public NgonNgu(Locale lc) {
         this.lc = lc;
-        this.cauHinhNgonNgu = cauHinhNgonNgu;
+
+        rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
         initComponents();
+        setTitle(rb.getString("JIFNgonNguTitle"));
+        lblDongY.setText(rb.getString("JIFNgonNguBtn"));
+        ngonNguPhap = new NgonNguItem("phap", new ImageIcon("src/com/qlks/icon/icon_flag_fr.png"), rb.getString("JIFNgonNguPhap"));
+        ngonNguAnh = new NgonNguItem("anh", new ImageIcon("src/com/qlks/icon/icon_flag_uk.png"), rb.getString("JIFNgonNguAnh"));
+        ngonNguVietNam = new NgonNguItem("vietnam", new ImageIcon("src/com/qlks/icon/icon_flag_vn.png"), rb.getString("JIFNgonNguVietNam"));
 
         DefaultComboBoxModel model = new DefaultComboBoxModel<String>();
-        setLocale(cauHinhNgonNgu, model);
+
+        model.addElement(ngonNguPhap);
+        model.addElement(ngonNguAnh);
+        model.addElement(ngonNguVietNam);
         jcbLang.setModel(model);
         jcbLang.setRenderer(new NgonNguItemRenderer());
 
@@ -76,35 +89,16 @@ public class NgonNgu extends javax.swing.JInternalFrame {
         this.jlbLangMsg = jlbLangMsg;
     }
 
-    private void setLocale(String cauHinhNgNg, DefaultComboBoxModel model) {
-        switch (cauHinhNgNg) {
-            case "anh":
-                lc = Locale.ENGLISH;
-                makeLocale(model, lc);
-                break;
-            case "phap":
-                lc = Locale.FRANCE;
-                makeLocale(model, lc);
-                break;
-            case "vietnam":
-                lc = new Locale("vi", "VN");
-                makeLocale(model, lc);
-                break;
-            default:
-                lc = new Locale("vi", "VN");
-                makeLocale(model, lc);
-                break;
-
-        }
-    }
-
-    private void makeLocale(DefaultComboBoxModel model, Locale lc) {
-
+    public void translate(Locale lc) {
         rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
-        model.addElement(new NgonNguItem("phap", new ImageIcon("src/com/qlks/icon/icon_flag_fr.png"), rb.getString("JIFNgonNguPhap")));
-        model.addElement(new NgonNguItem("anh", new ImageIcon("src/com/qlks/icon/icon_flag_uk.png"), rb.getString("JIFNgonNguVietNam")));
-        model.addElement(new NgonNguItem("vietnam", new ImageIcon("src/com/qlks/icon/icon_flag_vn.png"), rb.getString("JIFNgonNguAnh")));
-
+        ngonNguPhap.setText(rb.getString("JIFNgonNguPhap"));
+        ngonNguAnh.setText(rb.getString("JIFNgonNguAnh"));
+        ngonNguVietNam.setText(rb.getString("JIFNgonNguVietNam"));
+        setTitle(rb.getString("JIFNgonNguTitle"));
+        jlbLangMsg.setText(rb.getString("JIFNgonNguMsg"));
+        lblDongY.setText(rb.getString("JIFNgonNguBtn"));
+        revalidate();
+        repaint();
     }
 
     /**

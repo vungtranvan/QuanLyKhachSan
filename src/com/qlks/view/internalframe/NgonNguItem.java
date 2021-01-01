@@ -35,4 +35,8 @@ public class NgonNguItem {
         return id;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
 }
