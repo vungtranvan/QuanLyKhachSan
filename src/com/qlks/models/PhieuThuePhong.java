@@ -5,6 +5,8 @@
  */
 package com.qlks.models;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author hello
@@ -13,6 +15,10 @@ public class PhieuThuePhong {
 
     private String maPhieuThue;
     private String maKhachHang;
+    private String tenKhachHang;
+    private String maPhong;
+    private LocalDate ngayDangKy;
+    private LocalDate ngayNhan;
 
     public PhieuThuePhong() {
     }
@@ -20,6 +26,47 @@ public class PhieuThuePhong {
     public PhieuThuePhong(String maPhieuThue, String maKhachHang) {
         this.maPhieuThue = maPhieuThue;
         this.maKhachHang = maKhachHang;
+    }
+
+    public PhieuThuePhong(String maPhieuThue, String maKhachHang, String tenKhachHang, String maPhong, LocalDate ngayDangKy, LocalDate ngayNhan) {
+        this.maPhieuThue = maPhieuThue;
+        this.maKhachHang = maKhachHang;
+        this.tenKhachHang = tenKhachHang;
+        this.maPhong = maPhong;
+        this.ngayDangKy = ngayDangKy;
+        this.ngayNhan = ngayNhan;
+    }
+
+    public String getTenKhachHang() {
+        return tenKhachHang;
+    }
+
+    public void setTenKhachHang(String tenKhachHang) {
+        this.tenKhachHang = tenKhachHang;
+    }
+
+    public String getMaPhong() {
+        return maPhong;
+    }
+
+    public void setMaPhong(String maPhong) {
+        this.maPhong = maPhong;
+    }
+
+    public LocalDate getNgayDangKy() {
+        return ngayDangKy;
+    }
+
+    public void setNgayDangKy(LocalDate ngayDangKy) {
+        this.ngayDangKy = ngayDangKy;
+    }
+
+    public LocalDate getNgayNhan() {
+        return ngayNhan;
+    }
+
+    public void setNgayNhan(LocalDate ngayNhan) {
+        this.ngayNhan = ngayNhan;
     }
 
     public String getMaPhieuThue() {
