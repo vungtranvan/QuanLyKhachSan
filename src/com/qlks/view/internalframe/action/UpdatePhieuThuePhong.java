@@ -67,6 +67,9 @@ public class UpdatePhieuThuePhong extends javax.swing.JInternalFrame {
         txtErrorNgayNhan = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setIconifiable(true);
+
         txtNgayDangKy.setDateFormatString("dd/MM/yyyy");
         txtNgayDangKy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
