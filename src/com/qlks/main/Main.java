@@ -1,12 +1,9 @@
 package com.qlks.main;
 
-import com.qlks.dao.impl.NhomQuyenDAO;
 import com.qlks.dao.impl.PhanQuyenDAO;
-import com.qlks.dao.impl.QuyenDAO;
 import com.qlks.helper.ImageHelper;
 import com.qlks.models.NguoiDung;
 import com.qlks.models.PhanQuyen;
-import com.qlks.models.Quyen;
 import com.qlks.utils.MethodMain;
 import com.qlks.view.LogInJFrame;
 import com.qlks.view.MainJFrame;
@@ -38,6 +35,7 @@ public class Main {
     public static List<String> quyens = new ArrayList<>();
     NguoiDung nd;
     private byte[] nguoidungImage;
+    PhanQuyenDAO pqdao;
 
     public void login(LogInJFrame logInJFrame) {
 
@@ -46,7 +44,7 @@ public class Main {
         if (listnd != null) {
             if (listnd.size() > 0) {
                 nd = listnd.get(0);
-                PhanQuyenDAO pqdao = new PhanQuyenDAO();
+                pqdao = new PhanQuyenDAO();
 
                 listQuyen = pqdao.getMaQuyenByMaQuyen(nd.getMaNhomQuyen());
 
