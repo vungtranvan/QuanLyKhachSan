@@ -3,18 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/LogInJFrame.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_vi_VN.properties</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_en_US.properties</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/main/Main.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_fr_FR.properties</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/NgonNgu.java</file>
-=======
-            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyQuyDinh.java</file>
-            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuyDinhView.java</file>
->>>>>>> bb6c5d862076ad85463790ee0c9141eeb2f832f8
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/IChiTietPhieuThuePhongDAO.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/PhongDAO.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/IPhieuThuePhongDAO.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/PhieuThuePhongDAO.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/action/AddPhieuThuePhong.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QLPhieuThuePhong.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/action/UpdatePhieuThuePhong.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/ChiTietPhieuThuePhongDAO.java</file>
         </group>
     </open-files>
 </project-private>

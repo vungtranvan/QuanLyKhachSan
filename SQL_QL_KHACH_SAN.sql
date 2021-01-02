@@ -422,25 +422,25 @@ go
 Insert into Phong(MaPhong,MaLoaiPhong,MaLoaiTinhTrangPhong,GhiChu) Values
 ('P01','B01',1,''),
 ('P02','B01',1,''),
-('P03','B04',3,'ok'),
-('P04','B01',2,''),
+('P03','B04',1,'ok'),
+('P04','B01',1,''),
 ('P05','B02',1,''),
-('P06','B01',3,''),
+('P06','B01',1,''),
 ('P07','B02',1,''),
 ('P08','B01',1,''),
-('P09','B03',3,''),
+('P09','B03',1,''),
 ('P10','B04',1,''),
 ('P11','B04',1,''),
-('P12','B01',3,''),
+('P12','B01',4,''),
 ('P13','B02',1,''),
-('P14','B01',2,'hihi'),
+('P14','B01',1,'hihi'),
 ('P15','B01',1,''),
-('P16','B03',3,''),
-('P17','B04',3,''),
+('P16','B03',1,''),
+('P17','B04',1,''),
 ('P18','B01',1,'ok'),
 ('P19','B03',1,''),
-('P20','B01',4,''),
-('P21','B02',2,'ok')
+('P20','B01',1,''),
+('P21','B02',4,'ok')
 GO
 
 Insert into LoaiDichVu(MaLoaiDichVu,TenLoaiDichVu) Values
@@ -803,7 +803,7 @@ GO
 CREATE PROC getAllKhachHang
 AS
 BEGIN 
-SELECT * FROM KhachHang
+SELECT * FROM KhachHang ORDER BY MaKhachHang DESC
 END
 GO
 
@@ -1755,6 +1755,14 @@ Insert into PhieuThuePhong(MaPhieuThue,MaKhachHang) Values(@MaPhieuThue,@MaKhach
 END
 GO
 
+CREATE PROC deletePhieuThuePhong
+@MaPhieuThue varchar (10)
+AS
+BEGIN 
+DELETE PhieuThuePhong where MaPhieuThue = @MaPhieuThue
+END
+GO
+
 -- BẢNG Phong
 CREATE PROC getAllPhong
 AS
@@ -1763,7 +1771,19 @@ BEGIN
  FROM Phong 
  INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
  INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
-ORDER BY Phong.MaPhong ASC
+ORDER BY Phong.MaPhong DESC
+END
+GO
+
+CREATE PROC getPhongTrong
+AS
+BEGIN 
+ SELECT Phong.MaPhong, Phong.MaLoaiPhong, Phong.MaLoaiTinhTrangPhong, LoaiPhong.TenLoaiPhong, LoaiTinhTrang.TenLoaiTinhTrang, LoaiPhong.DonGia, Phong.GhiChu
+ FROM Phong 
+ INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+ INNER JOIN LoaiTinhTrang ON Phong.MaLoaiTinhTrangPhong = LoaiTinhTrang.MaLoaiTinhTrangPhong
+ WHERE Phong.MaLoaiTinhTrangPhong = 1
+ORDER BY Phong.MaPhong DESC
 END
 GO
 
@@ -1876,6 +1896,30 @@ Update Phong set MaLoaiPhong = @MaLoaiPhong, MaLoaiTinhTrangPhong=@MaLoaiTinhTra
 END
 GO
 
+CREATE PROC updatePhongDaThue
+@MaPhong varchar (3)
+AS
+BEGIN 
+Update Phong set MaLoaiTinhTrangPhong = 2 Where MaPhong = @MaPhong
+END
+GO
+
+CREATE PROC updatePhongDaNhan
+@MaPhong varchar (3)
+AS
+BEGIN 
+Update Phong set MaLoaiTinhTrangPhong = 3 Where MaPhong = @MaPhong
+END
+GO
+
+CREATE PROC updatePhongDaThanhToan
+@MaPhong varchar (3)
+AS
+BEGIN 
+Update Phong set MaLoaiTinhTrangPhong = 1 Where MaPhong = @MaPhong
+END
+GO
+
 CREATE PROC deletePhong
 @MaPhong varchar (3)
 AS
@@ -1949,6 +1993,22 @@ SELECT * FROM ChiTietPhieuThuePhong
 END
 GO
 
+CREATE PROC deleteChiTietPhieuThuePhong
+@MaPhieuThue varchar (10)
+AS
+BEGIN 
+DELETE ChiTietPhieuThuePhong where MaPhieuThue = @MaPhieuThue
+END
+GO
+
+CREATE PROC getByMaPhieuThue
+@MaPhieuThue varchar (10)
+AS
+BEGIN 
+SELECT * FROM ChiTietPhieuThuePhong where MaPhieuThue = @MaPhieuThue
+END
+GO
+
 CREATE PROC insertChiTietPhieuThuePhong
 @MaPhieuThue varchar (10),
 @MaPhong varchar (3),
@@ -1957,6 +2017,16 @@ CREATE PROC insertChiTietPhieuThuePhong
 AS
 BEGIN 
 Insert into ChiTietPhieuThuePhong(MaPhieuThue,MaPhong,NgayDangKy,NgayNhan) Values(@MaPhieuThue,@MaPhong,@NgayDangKy,@NgayNhan)
+END
+GO
+
+CREATE PROC updateChiTietPhieuThuePhong
+@MaPhieuThue varchar (10),
+@NgayDangKy datetime,
+@NgayNhan datetime
+AS
+BEGIN 
+UPDATE ChiTietPhieuThuePhong SET NgayDangKy =@NgayDangKy,NgayNhan=@NgayNhan where MaPhieuThue = @MaPhieuThue
 END
 GO
 

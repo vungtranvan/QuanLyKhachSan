@@ -17,4 +17,6 @@ public interface IPhieuThuePhongDAO {
     List<PhieuThuePhong> getAll();
 
     int add(PhieuThuePhong phieuThuePhong);
+
+    int delete(String maPhieuThue);
 }
