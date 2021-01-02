@@ -503,7 +503,7 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
         }
         if (check == true) {
             if (nguoidungImage == null) {
-                File fileDest = new File(("src\\com\\qlks\\image\\avatar\\avatar_default.jpg"));
+                File fileDest = new File(("src/com/qlks/image/avatar/avatar_default.jpg"));
                 try {
                     ImageIcon icon = new ImageIcon(fileDest.getPath());
                     Image img = ImageHelper.resize(icon.getImage(), 180, 180);
@@ -537,7 +537,7 @@ public class AddNguoiDung extends javax.swing.JInternalFrame {
 
         if (resutl == jFileChooser.APPROVE_OPTION) {
             File fileSource = jFileChooser.getSelectedFile();
-            File fileDest = new File(("src\\com\\qlks\\image\\avatar\\" + fileSource.getName()));
+            File fileDest = new File(("src/com/qlks/image/avatar/" + fileSource.getName()));
             try {
                 funcBase.copyFileUsingStream(fileSource, fileDest);
                 ImageIcon icon = new ImageIcon(fileDest.getPath());

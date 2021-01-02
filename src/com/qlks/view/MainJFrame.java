@@ -9,6 +9,7 @@ import com.qlks.dao.impl.CauHinhNguoiDungDAO;
 import com.qlks.fonts.FontCustom;
 import com.qlks.models.CauHinhNguoiDung;
 import com.qlks.models.NguoiDung;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.DoiMatKhauNguoiDung;
 import com.qlks.view.internalframe.NgonNgu;
 import com.qlks.view.internalframe.NgonNguItem;
@@ -136,23 +137,29 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jpnMainSubMenu.add(jpnSubmenu);
 
-//        showInternalFrame(menuChecking, new QuanLyDatPhong());
-        subMenuAdmin = new JPanel();
-        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuAdmin, rb.getString("subMenuAdmin")));
-        showInternalFrame(subMenuAdmin, new QuanLyNguoiDung());
+        // nguoi dung
+        menuAdmin.setVisible(false);
+        if (MethodMain.checkQuyen("XemNguoiDung")) {
+            menuAdmin.setVisible(true);
 
-        subMenuPermission = new JPanel();
-        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuPermission, rb.getString("subMenuPermission")));
-        showInternalFrame(subMenuPermission, new QuanLyQuyen());
+            subMenuAdmin = new JPanel();
+            listSubMenuItemAdmin.add(makeSubMenuItem(subMenuAdmin, rb.getString("subMenuAdmin")));
+            showInternalFrame(subMenuAdmin, new QuanLyNguoiDung());
 
-        subMenuroupPermission = new JPanel();
-        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuroupPermission, rb.getString("subMenuroupPermission")));
-        showInternalFrame(subMenuroupPermission, new QuanLyNhomQuyen());
+            subMenuPermission = new JPanel();
+            listSubMenuItemAdmin.add(makeSubMenuItem(subMenuPermission, rb.getString("subMenuPermission")));
+            showInternalFrame(subMenuPermission, new QuanLyQuyen());
 
-        subMenuRule = new JPanel();
-        listSubMenuItemAdmin.add(makeSubMenuItem(subMenuRule, rb.getString("subMenuRule")));
-        showInternalFrame(subMenuRule, new QuanLyQuyDinh());
+            subMenuroupPermission = new JPanel();
+            listSubMenuItemAdmin.add(makeSubMenuItem(subMenuroupPermission, rb.getString("subMenuroupPermission")));
+            showInternalFrame(subMenuroupPermission, new QuanLyNhomQuyen());
 
+            subMenuRule = new JPanel();
+            listSubMenuItemAdmin.add(makeSubMenuItem(subMenuRule, rb.getString("subMenuRule")));
+            showInternalFrame(subMenuRule, new QuanLyQuyDinh());
+
+            visibleSubMenu(menuAdmin, rb.getString("SubMenuTitleAdmin"), listSubMenuItemAdmin, 1);
+        }
         // Dat phong
         subMenuBook = new JPanel();
         listSubMenuItemChecking.add(makeSubMenuItem(subMenuBook, rb.getString("subMenuBook")));
@@ -217,7 +224,6 @@ public class MainJFrame extends javax.swing.JFrame {
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuConfig, rb.getString("subMenuConfig")));
         showInternalFrame(subMenuConfig, new QuanLyCauHinh());
 
-        visibleSubMenu(menuAdmin, rb.getString("SubMenuTitleAdmin"), listSubMenuItemAdmin, 1);
         visibleSubMenu(menuRoom, rb.getString("SubMenuTitleRoom"), listSubMenuItemRoom, 2);
         visibleSubMenu(menuCustomer, rb.getString("SubMenuTitleCustomer"), listSubMenuItemCustomer, 3);
         visibleSubMenu(menuConfig, rb.getString("SubMenuTitleConfig"), listSubMenuItemConfig, 4);
