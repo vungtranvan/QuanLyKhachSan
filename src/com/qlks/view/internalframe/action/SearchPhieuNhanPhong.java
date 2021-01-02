@@ -5,31 +5,28 @@
  */
 package com.qlks.view.internalframe.action;
 
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-
 /**
  *
  * @author hello
  */
-public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
+public class SearchPhieuNhanPhong extends javax.swing.JInternalFrame {
 
     CallBackSearch cb;
 
     public interface CallBackSearch {
 
-        void doSearch(String maPhieu, String tenKH, String maPhong);
+        void doSearch(String maPhong, String tenKH, String CMND);
     }
 
-    public SearchPhieuThuePhong(CallBackSearch _cb) {
+    public SearchPhieuNhanPhong(CallBackSearch _cb) {
         initComponents();
         cb = _cb;
         resetText();
     }
 
     public void resetText() {
-        txtMaPhieuThue.setText("");
         txtMaPhong.setText("");
+        txtCMND.setText("");
         txtTenKhachHang.setText("");
     }
 
@@ -47,11 +44,11 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
         btnHuyBo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnLamMoi = new javax.swing.JButton();
-        txtMaPhieuThue = new javax.swing.JTextField();
+        txtMaPhong = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtTenKhachHang = new javax.swing.JTextField();
-        txtMaPhong = new javax.swing.JTextField();
+        txtCMND = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -87,29 +84,25 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
             }
         });
 
-        txtMaPhieuThue.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtMaPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Mã phiếu thuê:");
+        jLabel3.setText("Mã phòng:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Tên khách hàng:");
 
         txtTenKhachHang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        txtMaPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCMND.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Mã phòng:");
+        jLabel6.setText("CMND:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(179, 179, 179)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -126,10 +119,14 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCMND, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMaPhieuThue, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 51, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(184, 184, 184))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,14 +139,14 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
                 .addComponent(jLabel6)
                 .addContainerGap(133, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(63, 63, 63)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtMaPhieuThue, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(txtMaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(txtTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addComponent(txtMaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCMND, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,11 +174,11 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        String maPhieu = txtMaPhieuThue.getText();
-        String tenKH = txtTenKhachHang.getText();
         String maPhong = txtMaPhong.getText();
+        String tenKH = txtTenKhachHang.getText();
+        String cmND = txtCMND.getText();
 
-        cb.doSearch(maPhieu, tenKH, maPhong);
+        cb.doSearch(maPhong, tenKH, cmND);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
@@ -198,7 +195,7 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtMaPhieuThue;
+    private javax.swing.JTextField txtCMND;
     private javax.swing.JTextField txtMaPhong;
     private javax.swing.JTextField txtTenKhachHang;
     // End of variables declaration//GEN-END:variables

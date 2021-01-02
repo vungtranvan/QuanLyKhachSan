@@ -49,7 +49,7 @@ CREATE TABLE NguoiDung
 	MatKhau nvarchar (50) NOT NULL,
 	Anh image,
 	Email varchar (50) NOT NULL,
-	NgaySinh date,
+	NgaySinh datetime,
 	GioiTinh bit,
 	MaNhomQuyen int
 )
@@ -109,7 +109,7 @@ CREATE TABLE HoaDon
 	MaKhuyenMai int,
 	NhanVienLap nvarchar (50),
 	TongTien float NOT NULL,
-	NgayLap date NOT NULL
+	NgayLap datetime NOT NULL
 )
 GO
 
@@ -119,8 +119,8 @@ CREATE TABLE KhuyenMai
 	MaPhieu varchar (50) NOT NULL UNIQUE,
 	GiaTri float NOT NULL,
 	NoiDung nvarchar(100),
-	NgayBatDau date,
-	NgayKetThuc date,
+	NgayBatDau datetime,
+	NgayKetThuc datetime,
     KieuTinh bit NOT NULL, -- 0 là tr trực tiếp, 1 là trừ theo %
     TrangThai bit Default(0) -- 0 là chưa sử dụng, 1 là đã sử dụng
 )
@@ -196,8 +196,8 @@ CREATE TABLE ChiTietPhieuThuePhong
 (
 	MaPhieuThue varchar (10) NOT NULL,
 	MaPhong varchar (3) NOT NULL,
-	NgayDangKy date,
-	NgayNhan date,
+	NgayDangKy datetime,
+	NgayNhan datetime,
 	PRIMARY KEY(MaPhieuThue, MaPhong)
 )
 GO
@@ -208,9 +208,9 @@ CREATE TABLE ChiTietPhieuNhanPhong
 	MaPhong varchar (3) NOT NULL,
 	HoTenKhachHang nvarchar (50),
 	CMND nvarchar (15),
-	NgayNhan date,
-	NgayTraDuKien date,
-	NgayTraThucTe date
+	NgayNhan datetime,
+	NgayTraDuKien datetime,
+	NgayTraThucTe datetime
 	PRIMARY KEY(MaNhanPhong, MaPhong)
 )
 GO
@@ -756,7 +756,7 @@ CREATE PROC insertNguoiDung
 @MatKhau nvarchar (50),
 @Anh image,
 @Email varchar (50),
-@NgaySinh date,
+@NgaySinh datetime,
 @GioiTinh bit,
 @MaNhomQuyen int
 AS
@@ -772,7 +772,7 @@ CREATE PROC updateNguoiDung
 @MatKhau nvarchar (50),
 @Anh image,
 @Email varchar (50),
-@NgaySinh date,
+@NgaySinh datetime,
 @GioiTinh bit,
 @MaNhomQuyen int
 AS
@@ -1436,11 +1436,25 @@ GO
 CREATE PROC deleteNhomQuyen
 @MaNhomQuyen int
 AS
-BEGIN 
-DELETE NhomQuyen Where MaNhomQuyen = @MaNhomQuyen
-END
+BEGIN TRY
+    BEGIN TRANSACTION
+        DELETE PhanQuyen Where MaNhomQuyen = @MaNhomQuyen
+        DELETE NhomQuyen Where MaNhomQuyen = @MaNhomQuyen
+        -- some other codes
+        COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION
+END CATCH
 GO
 
+CREATE PROC deletePhanQuyen
+@MaNhomQuyen int
+as
+BEGIN
+DELETE FROM PhanQuyen WHERE MaNhomQuyen = @MaNhomQuyen
+END
+GO
 
 -- BẢNG CauHinhNguoiDung
 CREATE PROC getAllCauHinhNguoiDung
@@ -1497,7 +1511,7 @@ CREATE PROC SearchNHoaDon
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
 @NhanVienLap nvarchar (50),
-@NgayLap date
+@NgayLap datetime
 AS
 BEGIN 
 SELECT * FROM HoaDon Where MaHoaDon LIKE '%'+@MaHoaDon+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%' 
@@ -1512,7 +1526,7 @@ CREATE PROC insertHoaDon
 @MaKhuyenMai int,
 @NhanVienLap nvarchar (50),
 @TongTien float,
-@NgayLap date
+@NgayLap datetime
 AS
 BEGIN 
 Insert into HoaDon(MaHoaDon,MaKhachHang,MaNhanPhong,MaKhuyenMai,NhanVienLap,TongTien,NgayLap) Values(@MaHoaDon,@MaKhachHang,@MaNhanPhong,@MaKhuyenMai,@NhanVienLap,@TongTien,@NgayLap)
@@ -1526,7 +1540,7 @@ CREATE PROC updateHoaDon
 @MaKhuyenMai int,
 @NhanVienLap nvarchar (50),
 @TongTien float,
-@NgayLap date
+@NgayLap datetime
 AS
 BEGIN 
 Update HoaDon set MaKhachHang = @MaKhachHang, MaNhanPhong = @MaNhanPhong,MaKhuyenMai=@MaKhuyenMai,NhanVienLap=@NhanVienLap,TongTien=@TongTien,NgayLap=@NgayLap Where MaHoaDon = @MaHoaDon
@@ -1594,8 +1608,8 @@ CREATE PROC insertKhuyenMai
 @MaPhieu varchar (50),
 @GiaTri float,
 @NoiDung nvarchar(100),
-@NgayBatDau date,
-@NgayKetThuc date,
+@NgayBatDau datetime,
+@NgayKetThuc datetime,
 @KieuTinh bit,
 @TrangThai bit
 AS
@@ -1609,8 +1623,8 @@ CREATE PROC updateKhuyenMai
 @MaPhieu varchar (50),
 @GiaTri float,
 @NoiDung nvarchar(100),
-@NgayBatDau date,
-@NgayKetThuc date,
+@NgayBatDau datetime,
+@NgayKetThuc datetime,
 @KieuTinh bit,
 @TrangThai bit
 AS
@@ -1683,7 +1697,10 @@ GO
 CREATE PROC getAllPhieuNhanPhong
 AS
 BEGIN 
-SELECT * FROM PhieuNhanPhong
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
 END
 GO
 
@@ -1691,20 +1708,101 @@ CREATE PROC getPhieuNhanPhongByMaNhanPhong
 @MaNhanPhong varchar (5)
 AS
 BEGIN 
-SELECT * FROM PhieuNhanPhong WHERE MaNhanPhong = @MaNhanPhong
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ WHERE PhieuNhanPhong.MaNhanPhong = @MaNhanPhong
+END
+GO
+
+CREATE PROC getPhieuNhanPhong_ByMaPhieuThue
+@MaPhieuThue varchar (10)
+AS
+BEGIN 
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong where MaPhieuThue = @MaPhieuThue
 END
 GO
 
 CREATE PROC SearchPhieuNhanPhong
-@MaNhanPhong varchar (5),
-@MaPhieuThue varchar (10),
-@MaKhachHang varchar (3)
+@MaPhong varchar (3),
+@TenKhachHang nvarchar (50),
+@CMND varchar (15)
 AS
+IF @MaPhong != '' AND @TenKhachHang != '' AND @CMND != '' 
 BEGIN 
-SELECT * FROM PhieuNhanPhong 
-Where MaNhanPhong LIKE '%'+@MaNhanPhong+'%' AND MaPhieuThue LIKE '%'+@MaPhieuThue+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%'
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuNhanPhong.CMND = @CMND
 END
-GO
+
+ELSE IF @MaPhong = '' AND @TenKhachHang = '' AND @CMND  = ''
+BEGIN 
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+END
+
+ ELSE IF @MaPhong  = '' AND @TenKhachHang != '' AND @CMND != ''
+BEGIN 
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ WHERE ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuNhanPhong.CMND = @CMND
+END
+
+ ELSE IF @MaPhong  = '' AND @TenKhachHang = '' AND @CMND != ''
+BEGIN 
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ WHERE ChiTietPhieuNhanPhong.CMND = @CMND
+END
+
+ ELSE IF @MaPhong  = '' AND @TenKhachHang != '' AND @CMND  = ''
+BEGIN 
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ WHERE ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%'
+END
+
+IF @MaPhong != '' AND @TenKhachHang != '' AND @CMND  = ''
+BEGIN 
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%'
+END
+
+IF @MaPhong != '' AND @TenKhachHang  = '' AND @CMND != '' 
+BEGIN 
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.CMND = @CMND
+END
+
+IF @MaPhong != '' AND @TenKhachHang  = '' AND @CMND  = '' 
+BEGIN 
+ SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ FROM PhieuNhanPhong
+ INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong
+ END
+GO 
 
 CREATE PROC insertPhieuNhanPhong
 @MaNhanPhong varchar (5),
@@ -1745,6 +1843,84 @@ BEGIN
  ORDER BY PhieuThuePhong.MaPhieuThue ASC
 END
 GO
+
+CREATE PROC SearchThuePhong
+@MaPhieuThue varchar (10),
+@TenKhachHang varchar (50),
+@MaPhong varchar (3)
+AS
+IF @MaPhieuThue != '' AND @TenKhachHang != '' AND @MaPhong != '' 
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE PhieuThuePhong.MaPhieuThue =@MaPhieuThue AND KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuThuePhong.MaPhong =@MaPhong
+END
+
+ELSE IF @MaPhieuThue = '' AND @TenKhachHang = '' AND @MaPhong  = ''
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+END
+
+ ELSE IF @MaPhieuThue  = '' AND @TenKhachHang != '' AND @MaPhong != ''
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuThuePhong.MaPhong =@MaPhong
+END
+
+ ELSE IF @MaPhieuThue  = '' AND @TenKhachHang = '' AND @MaPhong != ''
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE ChiTietPhieuThuePhong.MaPhong =@MaPhong
+END
+
+ ELSE IF @MaPhieuThue  = '' AND @TenKhachHang != '' AND @MaPhong  = ''
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%'
+END
+
+IF @MaPhieuThue != '' AND @TenKhachHang != '' AND @MaPhong  = ''
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE PhieuThuePhong.MaPhieuThue =@MaPhieuThue AND KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%'
+END
+
+IF @MaPhieuThue != '' AND @TenKhachHang  = '' AND @MaPhong != '' 
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE PhieuThuePhong.MaPhieuThue =@MaPhieuThue AND ChiTietPhieuThuePhong.MaPhong =@MaPhong
+END
+
+IF @MaPhieuThue != '' AND @TenKhachHang  = '' AND @MaPhong  = '' 
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE PhieuThuePhong.MaPhieuThue =@MaPhieuThue
+END
+
+GO 
 
 CREATE PROC insertPhieuThuePhong
 @MaPhieuThue varchar (10),
@@ -2012,8 +2188,8 @@ GO
 CREATE PROC insertChiTietPhieuThuePhong
 @MaPhieuThue varchar (10),
 @MaPhong varchar (3),
-@NgayDangKy date,
-@NgayNhan date
+@NgayDangKy datetime,
+@NgayNhan datetime
 AS
 BEGIN 
 Insert into ChiTietPhieuThuePhong(MaPhieuThue,MaPhong,NgayDangKy,NgayNhan) Values(@MaPhieuThue,@MaPhong,@NgayDangKy,@NgayNhan)
@@ -2022,8 +2198,8 @@ GO
 
 CREATE PROC updateChiTietPhieuThuePhong
 @MaPhieuThue varchar (10),
-@NgayDangKy date,
-@NgayNhan date
+@NgayDangKy datetime,
+@NgayNhan datetime
 AS
 BEGIN 
 UPDATE ChiTietPhieuThuePhong SET NgayDangKy =@NgayDangKy,NgayNhan=@NgayNhan where MaPhieuThue = @MaPhieuThue
@@ -2051,9 +2227,9 @@ CREATE PROC insertChiTietPhieuNhanPhong
 @MaPhong varchar (3),
 @HoTenKhachHang nvarchar (50),
 @CMND nvarchar (15),
-@NgayNhan date,
-@NgayTraDuKien date,
-@NgayTraThucTe date
+@NgayNhan datetime,
+@NgayTraDuKien datetime,
+@NgayTraThucTe datetime
 AS
 BEGIN 
 Insert into ChiTietPhieuNhanPhong(MaNhanPhong,MaPhong,HoTenKhachHang,CMND,NgayNhan,NgayTraDuKien,NgayTraThucTe) 
