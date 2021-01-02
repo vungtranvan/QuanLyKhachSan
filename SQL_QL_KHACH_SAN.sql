@@ -155,14 +155,16 @@ CREATE TABLE PhieuNhanPhong
 (
 	MaNhanPhong varchar (5) PRIMARY KEY NOT NULL,
 	MaPhieuThue varchar (10) NOT NULL,
-	MaKhachHang varchar (3) NOT NULL
+	MaKhachHang varchar (3) NOT NULL,
+	TrangThai bit Default(0)
 )
 GO
 
 CREATE TABLE PhieuThuePhong
 (
 	MaPhieuThue varchar (10) PRIMARY KEY NOT NULL,
-	MaKhachHang varchar (3) NOT NULL
+	MaKhachHang varchar (3) NOT NULL,
+	TrangThai bit Default(0)
 )
 GO
 
@@ -1698,7 +1700,7 @@ CREATE PROC getAllPhieuNhanPhong
 AS
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
 END
@@ -1709,7 +1711,7 @@ CREATE PROC getPhieuNhanPhongByMaNhanPhong
 AS
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE PhieuNhanPhong.MaNhanPhong = @MaNhanPhong
@@ -1721,7 +1723,7 @@ CREATE PROC getPhieuNhanPhong_ByMaPhieuThue
 AS
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong where MaPhieuThue = @MaPhieuThue
 END
@@ -1735,7 +1737,7 @@ AS
 IF @MaPhong != '' AND @TenKhachHang != '' AND @CMND != '' 
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuNhanPhong.CMND = @CMND
@@ -1744,7 +1746,7 @@ END
 ELSE IF @MaPhong = '' AND @TenKhachHang = '' AND @CMND  = ''
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
 END
@@ -1752,7 +1754,7 @@ END
  ELSE IF @MaPhong  = '' AND @TenKhachHang != '' AND @CMND != ''
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuNhanPhong.CMND = @CMND
@@ -1761,7 +1763,7 @@ END
  ELSE IF @MaPhong  = '' AND @TenKhachHang = '' AND @CMND != ''
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.CMND = @CMND
@@ -1770,7 +1772,7 @@ END
  ELSE IF @MaPhong  = '' AND @TenKhachHang != '' AND @CMND  = ''
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%'
@@ -1779,7 +1781,7 @@ END
 IF @MaPhong != '' AND @TenKhachHang != '' AND @CMND  = ''
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%'
@@ -1788,7 +1790,7 @@ END
 IF @MaPhong != '' AND @TenKhachHang  = '' AND @CMND != '' 
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.CMND = @CMND
@@ -1797,7 +1799,7 @@ END
 IF @MaPhong != '' AND @TenKhachHang  = '' AND @CMND  = '' 
 BEGIN 
  SELECT PhieuNhanPhong.MaNhanPhong,PhieuNhanPhong.MaPhieuThue,PhieuNhanPhong.MaKhachHang,ChiTietPhieuNhanPhong.MaPhong,
- ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe
+ ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong
@@ -1836,11 +1838,23 @@ GO
 CREATE PROC getAllPhieuThuePhong
 AS
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
- ORDER BY PhieuThuePhong.MaPhieuThue ASC
+ ORDER BY PhieuThuePhong.MaPhieuThue DESC
+END
+GO
+
+CREATE PROC getPhieuThuePhong_ChuaXL
+AS
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE PhieuThuePhong.TrangThai = 0
+ ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 GO
 
@@ -1851,7 +1865,7 @@ CREATE PROC SearchThuePhong
 AS
 IF @MaPhieuThue != '' AND @TenKhachHang != '' AND @MaPhong != '' 
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
@@ -1860,7 +1874,7 @@ END
 
 ELSE IF @MaPhieuThue = '' AND @TenKhachHang = '' AND @MaPhong  = ''
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
@@ -1868,7 +1882,7 @@ END
 
  ELSE IF @MaPhieuThue  = '' AND @TenKhachHang != '' AND @MaPhong != ''
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
@@ -1877,7 +1891,7 @@ END
 
  ELSE IF @MaPhieuThue  = '' AND @TenKhachHang = '' AND @MaPhong != ''
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
@@ -1886,7 +1900,7 @@ END
 
  ELSE IF @MaPhieuThue  = '' AND @TenKhachHang != '' AND @MaPhong  = ''
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
@@ -1895,7 +1909,7 @@ END
 
 IF @MaPhieuThue != '' AND @TenKhachHang != '' AND @MaPhong  = ''
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
@@ -1904,7 +1918,7 @@ END
 
 IF @MaPhieuThue != '' AND @TenKhachHang  = '' AND @MaPhong != '' 
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
@@ -1913,7 +1927,7 @@ END
 
 IF @MaPhieuThue != '' AND @TenKhachHang  = '' AND @MaPhong  = '' 
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.MaPhong,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
@@ -1938,6 +1952,15 @@ BEGIN
 DELETE PhieuThuePhong where MaPhieuThue = @MaPhieuThue
 END
 GO
+
+CREATE PROC updateTrangThaiPhieuThue
+@MaPhieuThue varchar (10)
+AS
+BEGIN 
+UPDATE PhieuThuePhong SET TrangThai = 1 where MaPhieuThue = @MaPhieuThue
+END
+GO
+
 
 -- BẢNG Phong
 CREATE PROC getAllPhong
@@ -2228,12 +2251,11 @@ CREATE PROC insertChiTietPhieuNhanPhong
 @HoTenKhachHang nvarchar (50),
 @CMND nvarchar (15),
 @NgayNhan datetime,
-@NgayTraDuKien datetime,
-@NgayTraThucTe datetime
+@NgayTraDuKien datetime
 AS
 BEGIN 
-Insert into ChiTietPhieuNhanPhong(MaNhanPhong,MaPhong,HoTenKhachHang,CMND,NgayNhan,NgayTraDuKien,NgayTraThucTe) 
-Values(@MaNhanPhong,@MaPhong,@HoTenKhachHang,@CMND,@NgayNhan,@NgayTraDuKien,@NgayTraThucTe)
+Insert into ChiTietPhieuNhanPhong(MaNhanPhong,MaPhong,HoTenKhachHang,CMND,NgayNhan,NgayTraDuKien) 
+Values(@MaNhanPhong,@MaPhong,@HoTenKhachHang,@CMND,@NgayNhan,@NgayTraDuKien)
 END
 GO
 

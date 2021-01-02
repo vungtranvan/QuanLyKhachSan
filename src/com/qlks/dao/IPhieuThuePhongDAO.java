@@ -16,6 +16,8 @@ public interface IPhieuThuePhongDAO {
 
     List<PhieuThuePhong> getAll();
 
+    List<PhieuThuePhong> getChuaXuLy();
+
     List<PhieuThuePhong> getByMaPhieuThue(String maPhieu);
 
     List<PhieuThuePhong> search(String maPhieu, String tenKH, String maPhong);
@@ -23,4 +25,6 @@ public interface IPhieuThuePhongDAO {
     int add(PhieuThuePhong phieuThuePhong);
 
     int delete(String maPhieuThue);
+
+    int updateTrangThai(String maPhieuThue);
 }

@@ -65,7 +65,12 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             o[7] = adv.getNgayNhan();
             o[8] = adv.getNgayTraDuKien();
             o[9] = adv.getNgayTraThucTe();
-            o[10] = "Chưa xử lý";
+            Boolean Status = adv.isTrangThai();
+            String trangThai = "Chưa thanh toán";
+            if (Status == true) {
+                trangThai = "Đã thanh toán";
+            }
+            o[10] = trangThai;
             dtmPhieuNhanPhong.addRow(o);
             index++;
         }

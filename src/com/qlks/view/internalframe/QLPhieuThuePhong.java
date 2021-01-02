@@ -65,9 +65,10 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             o[4] = adv.getMaPhong();
             o[5] = adv.getNgayDangKy();
             o[6] = adv.getNgayNhan();
-            List<PhieuThuePhong> lstCheckTrangThai = phieuThuePhongDAO.getByMaPhieuThue(adv.getMaPhieuThue());
+            
+            Boolean Status = adv.isTrangThai();
             String trangThai = "Chưa xử lý";
-            if (lstCheckTrangThai.size() > 0) {
+            if (Status == true) {
                 trangThai = "Đã xử lý";
             }
             o[7] = trangThai;

@@ -30,9 +30,9 @@ public class ChiTietPhieuNhanPhongDAO extends AbstractDAO<ChiTietPhieuNhanPhong>
 
     @Override
     public int add(ChiTietPhieuNhanPhong ct) {
-        String sql = "{Call insertChiTietPhieuNhanPhong(?,?,?,?,?,?,?)}";
+        String sql = "{Call insertChiTietPhieuNhanPhong(?,?,?,?,?,?)}";
         return this.update(sql, ct.getMaNhanPhong(), ct.getMaPhong(), ct.getHoTenKhachHang(),
-                ct.getChungMinhThuNhanDan(), ct.getNgayNhan(), ct.getNgayTraDuKien(), ct.getNgayTraThucTe());
+                ct.getChungMinhThuNhanDan(), ct.getNgayNhan(), ct.getNgayTraDuKien());
     }
 
 }

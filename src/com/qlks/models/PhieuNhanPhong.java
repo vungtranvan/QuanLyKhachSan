@@ -22,6 +22,7 @@ public class PhieuNhanPhong {
     private LocalDate ngayNhan;
     private LocalDate ngayTraDuKien;
     private LocalDate ngayTraThucTe;
+    private boolean trangThai;
 
     public PhieuNhanPhong() {
     }
@@ -32,7 +33,7 @@ public class PhieuNhanPhong {
         this.maKhachHang = maKhachHang;
     }
 
-    public PhieuNhanPhong(String maNhanPhong, String maPhieuThue, String maKhachHang, String maPhong, String hoTenKhachHang, String chungMinhThuNhanDan, LocalDate ngayNhan, LocalDate ngayTraDuKien, LocalDate ngayTraThucTe) {
+    public PhieuNhanPhong(String maNhanPhong, String maPhieuThue, String maKhachHang, String maPhong, String hoTenKhachHang, String chungMinhThuNhanDan, LocalDate ngayNhan, LocalDate ngayTraDuKien, LocalDate ngayTraThucTe, boolean trangThai) {
         this.maNhanPhong = maNhanPhong;
         this.maPhieuThue = maPhieuThue;
         this.maKhachHang = maKhachHang;
@@ -42,6 +43,27 @@ public class PhieuNhanPhong {
         this.ngayNhan = ngayNhan;
         this.ngayTraDuKien = ngayTraDuKien;
         this.ngayTraThucTe = ngayTraThucTe;
+        this.trangThai = trangThai;
+    }
+
+    public PhieuNhanPhong(String maNhanPhong, String maPhieuThue, String maKhachHang, String maPhong, String hoTenKhachHang, String chungMinhThuNhanDan, LocalDate ngayNhan, LocalDate ngayTraDuKien, boolean trangThai) {
+        this.maNhanPhong = maNhanPhong;
+        this.maPhieuThue = maPhieuThue;
+        this.maKhachHang = maKhachHang;
+        this.maPhong = maPhong;
+        this.hoTenKhachHang = hoTenKhachHang;
+        this.chungMinhThuNhanDan = chungMinhThuNhanDan;
+        this.ngayNhan = ngayNhan;
+        this.ngayTraDuKien = ngayTraDuKien;
+        this.trangThai = trangThai;
+    }
+
+    public boolean isTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
     }
 
     public String getMaPhong() {
