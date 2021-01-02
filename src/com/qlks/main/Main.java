@@ -3,18 +3,24 @@ package com.qlks.main;
 import com.qlks.dao.impl.NhomQuyenDAO;
 import com.qlks.dao.impl.PhanQuyenDAO;
 import com.qlks.dao.impl.QuyenDAO;
+import com.qlks.helper.ImageHelper;
 import com.qlks.models.NguoiDung;
 import com.qlks.models.PhanQuyen;
 import com.qlks.models.Quyen;
 import com.qlks.utils.MethodMain;
 import com.qlks.view.LogInJFrame;
 import com.qlks.view.MainJFrame;
+import com.qlks.view.internalframe.action.UpdateNguoiDung;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,6 +36,8 @@ public class Main {
     List<NguoiDung> listnd;
     List<PhanQuyen> listQuyen;
     public static List<String> quyens = new ArrayList<>();
+    NguoiDung nd;
+    private byte[] nguoidungImage;
 
     public void login(LogInJFrame logInJFrame) {
 
@@ -37,10 +45,10 @@ public class Main {
 
         if (listnd != null) {
             if (listnd.size() > 0) {
-
+                nd = listnd.get(0);
                 PhanQuyenDAO pqdao = new PhanQuyenDAO();
 
-                listQuyen = pqdao.getMaQuyenByMaQuyen(listnd.get(0).getMaNhomQuyen());
+                listQuyen = pqdao.getMaQuyenByMaQuyen(nd.getMaNhomQuyen());
 
                 quyens = listQuyen.stream().map(e -> e.getQuyen()).collect(Collectors.toList());
                 System.out.println(quyens);
@@ -55,8 +63,26 @@ public class Main {
                 }
 
                 String loginSuccess = mainFrame.rb.getString("MainJFrameLoginSuccessMgs");
-                mainFrame.getMenuAvatar().setIcon(new ImageIcon("src/com/qlks/image/avatar/" + listnd.get(0).getAnh()));
-                mainFrame.setTitle(mainFrame.rb.getString("MainJFrameTitle") + "[ " + listnd.get(0).getTenNguoiDung() + " ]");
+
+                if (nd.getAnh() != null) {
+                    try {
+                        nguoidungImage = nd.getAnh();
+                        Image img = ImageHelper.createImageFromByteArray(nguoidungImage, "jpg");
+                        ImageIcon oldImgIcon = new ImageIcon(img);
+                        Image oldImg = ImageHelper.resize(oldImgIcon.getImage(), 88, 88);
+                        ImageIcon resizedIcon = new ImageIcon(oldImg);
+                        mainFrame.getMenuAvatar().setIcon(resizedIcon);
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(UpdateNguoiDung.class.getName()).log(Level.SEVERE, null, ex);
+                        nguoidungImage = null;
+                    }
+                } else {
+                    ImageIcon icon = new ImageIcon(getClass().getResource("src/com/qlks/image/avatar/avatar_default.jpg"));
+                    mainFrame.getMenuAvatar().setIcon(icon);
+                    nguoidungImage = nd.getAnh();
+                }
+                mainFrame.setTitle(mainFrame.rb.getString("MainJFrameTitle") + "[ " + nd.getTenNguoiDung() + " ]");
 
                 MethodMain.globalMessagerSuccess(loginSuccess, mainFrame.getjMain());
             }

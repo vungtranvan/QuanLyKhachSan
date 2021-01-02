@@ -70,6 +70,8 @@ public class MainJFrame extends javax.swing.JFrame {
     List<JPanel> listSubMenuItemChecking = new ArrayList<>();
 
     List<JPanel> listSubMenuItemRoom = new ArrayList<>();
+    List<JPanel> listSubMenuSevice = new ArrayList<>();
+
     List<JPanel> listSubMenuItemCustomer = new ArrayList<>();
     List<JPanel> listSubMenuItemConfig = new ArrayList<>();
 
@@ -154,64 +156,91 @@ public class MainJFrame extends javax.swing.JFrame {
             listSubMenuItemAdmin.add(makeSubMenuItem(subMenuroupPermission, rb.getString("subMenuroupPermission")));
             showInternalFrame(subMenuroupPermission, new QuanLyNhomQuyen());
 
-            subMenuRule = new JPanel();
-            listSubMenuItemAdmin.add(makeSubMenuItem(subMenuRule, rb.getString("subMenuRule")));
-            showInternalFrame(subMenuRule, new QuanLyQuyDinh());
-
             visibleSubMenu(menuAdmin, rb.getString("SubMenuTitleAdmin"), listSubMenuItemAdmin, 1);
         }
         // Dat phong
-        subMenuBook = new JPanel();
-        listSubMenuItemChecking.add(makeSubMenuItem(subMenuBook, rb.getString("subMenuBook")));
-        showInternalFrame(subMenuBook, new QLPhieuThuePhong());
+        menuChecking.setVisible(false);
+        if (MethodMain.checkQuyen("XemGiaoDich")) {
+            menuChecking.setVisible(true);
 
-        subMenuCheckIn = new JPanel();
-        listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
-        showInternalFrame(subMenuCheckIn, new QLPhieuNhanPhong());
+            subMenuBook = new JPanel();
+            listSubMenuItemChecking.add(makeSubMenuItem(subMenuBook, rb.getString("subMenuBook")));
+            showInternalFrame(subMenuBook, new QLPhieuThuePhong());
 
-        subMenuTax = new JPanel();
+            subMenuCheckIn = new JPanel();
+            listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
+            showInternalFrame(subMenuCheckIn, new QLPhieuNhanPhong());
 
+            subMenuTax = new JPanel();
+            visibleSubMenu(menuChecking, rb.getString("SubMenuTitleChecking"), listSubMenuItemChecking, 5);
+        }
         //phong
-        subMenuRoomType = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoomType, rb.getString("subMenuRoomType")));
-        showInternalFrame(subMenuRoomType, new QuanLyLoaiPhong());
+        menuRoom.setVisible(false);
+        if (MethodMain.checkQuyen("XemPhong,XemThietBi")) {
+            menuRoom.setVisible(true);
+            if (MethodMain.checkQuyen("XemPhong")) {
+                subMenuRoomType = new JPanel();
+                listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoomType, rb.getString("subMenuRoomType")));
+                showInternalFrame(subMenuRoomType, new QuanLyLoaiPhong());
 
-        subMenuRoomStatus = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoomStatus, rb.getString("subMenuRoomStatus")));
-        showInternalFrame(subMenuRoomStatus, new QuanLyLoaiTinhTrang());
+                subMenuRoomStatus = new JPanel();
+                listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoomStatus, rb.getString("subMenuRoomStatus")));
+                showInternalFrame(subMenuRoomStatus, new QuanLyLoaiTinhTrang());
 
-        subMenuRoom = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoom, rb.getString("subMenuRoom")));
-        showInternalFrame(subMenuRoom, new QuanLyPhong());
+                subMenuRoom = new JPanel();
+                listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoom, rb.getString("subMenuRoom")));
+                showInternalFrame(subMenuRoom, new QuanLyPhong());
 
-        subMenuEquipment = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuEquipment, rb.getString("subMenuEquipment")));
-        showInternalFrame(subMenuEquipment, new QuanLyThietBi());
+                subMenuCheckout = new JPanel();
+                listSubMenuItemRoom.add(makeSubMenuItem(subMenuCheckout, rb.getString("subMenuCheckout")));
+                showInternalFrame(subMenuCheckout, new QuanLyChinhSachTraPhong());
+            }
+            if (MethodMain.checkQuyen("XemThietBi")) {
+                subMenuEquipment = new JPanel();
+                listSubMenuItemRoom.add(makeSubMenuItem(subMenuEquipment, rb.getString("subMenuEquipment")));
+                showInternalFrame(subMenuEquipment, new QuanLyThietBi());
+            }
+            visibleSubMenu(menuRoom, rb.getString("SubMenuTitleRoom"), listSubMenuItemRoom, 2);
+        }
+        // Dich vu
+        menuService.setVisible(false);
+        if (MethodMain.checkQuyen("XemDichVu")) {
+            menuService.setVisible(true);
+            subMenuServiceType = new JPanel();
+            listSubMenuSevice.add(makeSubMenuItem(subMenuServiceType, rb.getString("subMenuServiceType")));
+            showInternalFrame(subMenuServiceType, new QuanLyLoaiDichVu());
 
-        subMenuServiceType = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuServiceType, rb.getString("subMenuServiceType")));
-        showInternalFrame(subMenuServiceType, new QuanLyLoaiDichVu());
+            subMenuService = new JPanel();
+            listSubMenuSevice.add(makeSubMenuItem(subMenuService, rb.getString("subMenuService")));
+            showInternalFrame(subMenuService, new QuanLyDichVu());
 
-        subMenuService = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuService, rb.getString("subMenuService")));
-        showInternalFrame(subMenuService, new QuanLyDichVu());
+            subMenuUnit = new JPanel();
+            listSubMenuSevice.add(makeSubMenuItem(subMenuUnit, rb.getString("subMenuUnit")));
+            showInternalFrame(subMenuUnit, new QuanLyDonVi());
 
-        subMenuUnit = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuUnit, rb.getString("subMenuUnit")));
-        showInternalFrame(subMenuUnit, new QuanLyDonVi());
-
-        subMenuCheckout = new JPanel();
-        listSubMenuItemRoom.add(makeSubMenuItem(subMenuCheckout, rb.getString("subMenuCheckout")));
-        showInternalFrame(subMenuCheckout, new QuanLyChinhSachTraPhong());
-
+            visibleSubMenu(menuService, rb.getString("SubMenuTitleSevice"), listSubMenuSevice, 6);
+        }
         //khac hang
-        subMenuCustommer = new JPanel();
-        listSubMenuItemCustomer.add(makeSubMenuItem(subMenuCustommer, rb.getString("subMenuCustommer")));
-        showInternalFrame(subMenuCustommer, new QuanLyKhachHang());
-
-        subMenuDiscount = new JPanel();
-        listSubMenuItemCustomer.add(makeSubMenuItem(subMenuDiscount, rb.getString("subMenuDiscount")));
-        showInternalFrame(subMenuDiscount, new QuanLyMaKhuyenMai());
+        menuCustomer.setVisible(false);
+        if (MethodMain.checkQuyen("XemKhachHang,XemKhuyenMai,XemQuyDinh")) {
+            menuCustomer.setVisible(true);
+            if (MethodMain.checkQuyen("XemKhachHang")) {
+                subMenuCustommer = new JPanel();
+                listSubMenuItemCustomer.add(makeSubMenuItem(subMenuCustommer, rb.getString("subMenuCustommer")));
+                showInternalFrame(subMenuCustommer, new QuanLyKhachHang());
+            }
+            if (MethodMain.checkQuyen("XemKhuyenMai")) {
+                subMenuDiscount = new JPanel();
+                listSubMenuItemCustomer.add(makeSubMenuItem(subMenuDiscount, rb.getString("subMenuDiscount")));
+                showInternalFrame(subMenuDiscount, new QuanLyMaKhuyenMai());
+            }
+            if (MethodMain.checkQuyen("XemQuyDinh")) {
+                subMenuRule = new JPanel();
+                listSubMenuItemCustomer.add(makeSubMenuItem(subMenuRule, rb.getString("subMenuRule")));
+                showInternalFrame(subMenuRule, new QuanLyQuyDinh());
+            }
+            visibleSubMenu(menuCustomer, rb.getString("SubMenuTitleCustomer"), listSubMenuItemCustomer, 3);
+        }
 
         NgonNgu ngonNgu = new NgonNgu(lc);
         subMenuLanguage = new JPanel();
@@ -224,10 +253,7 @@ public class MainJFrame extends javax.swing.JFrame {
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuConfig, rb.getString("subMenuConfig")));
         showInternalFrame(subMenuConfig, new QuanLyCauHinh());
 
-        visibleSubMenu(menuRoom, rb.getString("SubMenuTitleRoom"), listSubMenuItemRoom, 2);
-        visibleSubMenu(menuCustomer, rb.getString("SubMenuTitleCustomer"), listSubMenuItemCustomer, 3);
         visibleSubMenu(menuConfig, rb.getString("SubMenuTitleConfig"), listSubMenuItemConfig, 4);
-        visibleSubMenu(menuChecking, rb.getString("SubMenuTitleChecking"), listSubMenuItemChecking, 5);
 
         invisibleSubMenu(closeSubMenu);
         invisibleSubMenu(jMain);
@@ -249,7 +275,6 @@ public class MainJFrame extends javax.swing.JFrame {
         Color cl = new Color(red, green, blue);
         jpnMainLeft.setBackground(cl);
         jpnLogo.setBackground(cl);
-        jpnMenu.setBackground(cl);
     }
 
     public JDesktopPane getjMain() {
@@ -642,6 +667,9 @@ public class MainJFrame extends javax.swing.JFrame {
             case 5:
                 subMenuItemTitle.setText(rb.getString("SubMenuTitleChecking").toUpperCase());
                 break;
+            case 6:
+                subMenuItemTitle.setText(rb.getString("SubMenuTitleSevice").toUpperCase());
+                break;
         }
         visibleSubMenu(menuAdmin, rb.getString("SubMenuTitleAdmin"), listSubMenuItemAdmin, 1);
         visibleSubMenu(menuRoom, rb.getString("SubMenuTitleRoom"), listSubMenuItemRoom, 2);
@@ -664,7 +692,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnMainLeft = new javax.swing.JPanel();
         jpnLogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jpnMenu = new javax.swing.JPanel();
         menuAdmin = new javax.swing.JLabel();
         menuRoom = new javax.swing.JLabel();
         jpnMainSubMenu = new javax.swing.JPanel();
@@ -689,14 +716,12 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnLogo.setLayout(jpnLogoLayout);
         jpnLogoLayout.setHorizontalGroup(
             jpnLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jpnLogoLayout.setVerticalGroup(
             jpnLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
         );
-
-        jpnMenu.setLayout(new javax.swing.BoxLayout(jpnMenu, javax.swing.BoxLayout.Y_AXIS));
 
         menuAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         menuAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_admin.png"))); // NOI18N
@@ -742,34 +767,28 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(menuAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(menuService, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jpnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 3, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jpnMainLeftLayout.setVerticalGroup(
             jpnMainLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnMainLeftLayout.createSequentialGroup()
                 .addComponent(jpnLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jpnMainLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnMainLeftLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(menuAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(menuChecking, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(menuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(menuService, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(menuCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(menuAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7))))
+                .addGap(6, 6, 6)
+                .addComponent(menuAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(menuChecking, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(menuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(menuService, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(menuCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(menuAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
             .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -780,7 +799,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpnMainLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1338, Short.MAX_VALUE))
+                .addComponent(jMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1326, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -804,7 +823,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jpnLogo;
     private javax.swing.JPanel jpnMainLeft;
     private javax.swing.JPanel jpnMainSubMenu;
-    private javax.swing.JPanel jpnMenu;
     private javax.swing.JLabel menuAdmin;
     private javax.swing.JLabel menuAvatar;
     private javax.swing.JLabel menuChecking;

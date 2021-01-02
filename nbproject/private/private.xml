@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/IChiTietPhieuThuePhongDAO.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/IPhieuThuePhongDAO.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/PhieuThuePhongDAO.java</file>
@@ -10,6 +11,10 @@
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/AbstractDAO.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QLPhieuThuePhong.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/ChiTietPhieuThuePhongDAO.java</file>
+=======
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/main/Main.java</file>
+>>>>>>> 32f6146e68b251312d59a769ce792f29da4b9744
         </group>
     </open-files>
 </project-private>
