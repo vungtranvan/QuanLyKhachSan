@@ -45,10 +45,10 @@ public class Main {
 
         if (listnd != null) {
             if (listnd.size() > 0) {
-
+                nd = listnd.get(0);
                 PhanQuyenDAO pqdao = new PhanQuyenDAO();
 
-                listQuyen = pqdao.getMaQuyenByMaQuyen(listnd.get(0).getMaNhomQuyen());
+                listQuyen = pqdao.getMaQuyenByMaQuyen(nd.getMaNhomQuyen());
 
                 quyens = listQuyen.stream().map(e -> e.getQuyen()).collect(Collectors.toList());
                 System.out.println(quyens);
@@ -63,7 +63,7 @@ public class Main {
                 }
 
                 String loginSuccess = mainFrame.rb.getString("MainJFrameLoginSuccessMgs");
-                nd = listnd.get(0);
+
                 if (nd.getAnh() != null) {
                     try {
                         nguoidungImage = nd.getAnh();
@@ -78,13 +78,11 @@ public class Main {
                         nguoidungImage = null;
                     }
                 } else {
-                    ImageIcon icon = new ImageIcon(getClass().getResource("/com/qlks/image/avatar/avatar_default.jpg"));
+                    ImageIcon icon = new ImageIcon(getClass().getResource("src/com/qlks/image/avatar/avatar_default.jpg"));
                     mainFrame.getMenuAvatar().setIcon(icon);
                     nguoidungImage = nd.getAnh();
                 }
-
-//                mainFrame.getMenuAvatar().setIcon(new ImageIcon("src/com/qlks/image/avatar/" + listnd.get(0).getAnh()));
-                mainFrame.setTitle(mainFrame.rb.getString("MainJFrameTitle") + "[ " + listnd.get(0).getTenNguoiDung() + " ]");
+                mainFrame.setTitle(mainFrame.rb.getString("MainJFrameTitle") + "[ " + nd.getTenNguoiDung() + " ]");
 
                 MethodMain.globalMessagerSuccess(loginSuccess, mainFrame.getjMain());
             }

@@ -275,7 +275,6 @@ public class MainJFrame extends javax.swing.JFrame {
         Color cl = new Color(red, green, blue);
         jpnMainLeft.setBackground(cl);
         jpnLogo.setBackground(cl);
-//        jpnMenu.setBackground(cl);
     }
 
     public JDesktopPane getjMain() {
