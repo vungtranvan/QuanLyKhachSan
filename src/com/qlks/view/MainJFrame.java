@@ -12,6 +12,8 @@ import com.qlks.models.NguoiDung;
 import com.qlks.view.internalframe.DoiMatKhauNguoiDung;
 import com.qlks.view.internalframe.NgonNgu;
 import com.qlks.view.internalframe.NgonNguItem;
+import com.qlks.view.internalframe.QLPhieuNhanPhong;
+import com.qlks.view.internalframe.QLPhieuThuePhong;
 import com.qlks.view.internalframe.QuanLyCauHinh;
 import com.qlks.view.internalframe.QuanLyChinhSachTraPhong;
 import com.qlks.view.internalframe.QuanLyDichVu;
@@ -64,6 +66,8 @@ public class MainJFrame extends javax.swing.JFrame {
     public ResourceBundle rb;
 
     List<JPanel> listSubMenuItemAdmin = new ArrayList<>();
+    List<JPanel> listSubMenuItemChecking = new ArrayList<>();
+
     List<JPanel> listSubMenuItemRoom = new ArrayList<>();
     List<JPanel> listSubMenuItemCustomer = new ArrayList<>();
     List<JPanel> listSubMenuItemConfig = new ArrayList<>();
@@ -72,6 +76,10 @@ public class MainJFrame extends javax.swing.JFrame {
     JPanel subMenuPermission;
     JPanel subMenuroupPermission;
     JPanel subMenuRule;
+
+    JPanel subMenuBook;
+    JPanel subMenuCheckIn;
+    JPanel subMenuTax;
 
     JPanel subMenuRoomType;
     JPanel subMenuRoom;
@@ -145,6 +153,17 @@ public class MainJFrame extends javax.swing.JFrame {
         listSubMenuItemAdmin.add(makeSubMenuItem(subMenuRule, rb.getString("subMenuRule")));
         showInternalFrame(subMenuRule, new QuanLyQuyDinh());
 
+        // Dat phong
+        subMenuBook = new JPanel();
+        listSubMenuItemChecking.add(makeSubMenuItem(subMenuBook, rb.getString("subMenuBook")));
+        showInternalFrame(subMenuBook, new QLPhieuThuePhong());
+
+        subMenuCheckIn = new JPanel();
+        listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
+        showInternalFrame(subMenuCheckIn, new QLPhieuNhanPhong());
+
+        subMenuTax = new JPanel();
+
         //phong
         subMenuRoomType = new JPanel();
         listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoomType, rb.getString("subMenuRoomType")));
@@ -194,7 +213,7 @@ public class MainJFrame extends javax.swing.JFrame {
         showInternalFrame(subMenuLanguage, ngonNgu);
 
         // Cau hinh
-         subMenuConfig = new JPanel();
+        subMenuConfig = new JPanel();
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuConfig, rb.getString("subMenuConfig")));
         showInternalFrame(subMenuConfig, new QuanLyCauHinh());
 
@@ -202,6 +221,7 @@ public class MainJFrame extends javax.swing.JFrame {
         visibleSubMenu(menuRoom, rb.getString("SubMenuTitleRoom"), listSubMenuItemRoom, 2);
         visibleSubMenu(menuCustomer, rb.getString("SubMenuTitleCustomer"), listSubMenuItemCustomer, 3);
         visibleSubMenu(menuConfig, rb.getString("SubMenuTitleConfig"), listSubMenuItemConfig, 4);
+        visibleSubMenu(menuChecking, rb.getString("SubMenuTitleChecking"), listSubMenuItemChecking, 5);
 
         invisibleSubMenu(closeSubMenu);
         invisibleSubMenu(jMain);
@@ -597,6 +617,8 @@ public class MainJFrame extends javax.swing.JFrame {
         setTextJlbFromJpn(subMenuConfig, rb.getString("subMenuConfig"));
         setTextJlbFromJpn(subMenuLanguage, rb.getString("subMenuLanguage"));
         setTextJlbFromJpn(subMenuLanguage, rb.getString("subMenuLanguage"));
+        setTextJlbFromJpn(subMenuBook, rb.getString("subMenuBook"));
+        setTextJlbFromJpn(subMenuCheckIn, rb.getString("subMenuCheckIn"));
 
         switch (languageKey) {
             case 1:
@@ -610,6 +632,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 break;
             case 4:
                 subMenuItemTitle.setText(rb.getString("SubMenuTitleConfig").toUpperCase());
+                break;
+            case 5:
+                subMenuItemTitle.setText(rb.getString("SubMenuTitleChecking").toUpperCase());
                 break;
         }
         visibleSubMenu(menuAdmin, rb.getString("SubMenuTitleAdmin"), listSubMenuItemAdmin, 1);
