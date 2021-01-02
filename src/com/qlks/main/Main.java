@@ -55,7 +55,7 @@ public class Main {
                 }
 
                 String loginSuccess = mainFrame.rb.getString("MainJFrameLoginSuccessMgs");
-                mainFrame.getMenuAvatar().setIcon(new ImageIcon("src/com/qlks/icon/" + listnd.get(0).getAnh()));
+                mainFrame.getMenuAvatar().setIcon(new ImageIcon("src/com/qlks/image/avatar/" + listnd.get(0).getAnh()));
                 mainFrame.setTitle(mainFrame.rb.getString("MainJFrameTitle") + "[ " + listnd.get(0).getTenNguoiDung() + " ]");
 
                 MethodMain.globalMessagerSuccess(loginSuccess, mainFrame.getjMain());
