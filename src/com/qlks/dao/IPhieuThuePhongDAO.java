@@ -6,6 +6,7 @@
 package com.qlks.dao;
 
 import com.qlks.models.PhieuThuePhong;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ import java.util.List;
 public interface IPhieuThuePhongDAO {
 
     List<PhieuThuePhong> getAll();
+
+    List<PhieuThuePhong> search(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong);
 
     int add(PhieuThuePhong phieuThuePhong);
 

@@ -49,7 +49,7 @@ CREATE TABLE NguoiDung
 	MatKhau nvarchar (50) NOT NULL,
 	Anh image,
 	Email varchar (50) NOT NULL,
-	NgaySinh datetime,
+	NgaySinh date,
 	GioiTinh bit,
 	MaNhomQuyen int
 )
@@ -109,7 +109,7 @@ CREATE TABLE HoaDon
 	MaKhuyenMai int,
 	NhanVienLap nvarchar (50),
 	TongTien float NOT NULL,
-	NgayLap datetime NOT NULL
+	NgayLap date NOT NULL
 )
 GO
 
@@ -119,8 +119,8 @@ CREATE TABLE KhuyenMai
 	MaPhieu varchar (50) NOT NULL UNIQUE,
 	GiaTri float NOT NULL,
 	NoiDung nvarchar(100),
-	NgayBatDau datetime,
-	NgayKetThuc datetime,
+	NgayBatDau date,
+	NgayKetThuc date,
     KieuTinh bit NOT NULL, -- 0 là tr trực tiếp, 1 là trừ theo %
     TrangThai bit Default(0) -- 0 là chưa sử dụng, 1 là đã sử dụng
 )
@@ -196,8 +196,8 @@ CREATE TABLE ChiTietPhieuThuePhong
 (
 	MaPhieuThue varchar (10) NOT NULL,
 	MaPhong varchar (3) NOT NULL,
-	NgayDangKy datetime,
-	NgayNhan datetime,
+	NgayDangKy date,
+	NgayNhan date,
 	PRIMARY KEY(MaPhieuThue, MaPhong)
 )
 GO
@@ -208,9 +208,9 @@ CREATE TABLE ChiTietPhieuNhanPhong
 	MaPhong varchar (3) NOT NULL,
 	HoTenKhachHang nvarchar (50),
 	CMND nvarchar (15),
-	NgayNhan datetime,
-	NgayTraDuKien datetime,
-	NgayTraThucTe datetime
+	NgayNhan date,
+	NgayTraDuKien date,
+	NgayTraThucTe date
 	PRIMARY KEY(MaNhanPhong, MaPhong)
 )
 GO
@@ -756,7 +756,7 @@ CREATE PROC insertNguoiDung
 @MatKhau nvarchar (50),
 @Anh image,
 @Email varchar (50),
-@NgaySinh datetime,
+@NgaySinh date,
 @GioiTinh bit,
 @MaNhomQuyen int
 AS
@@ -772,7 +772,7 @@ CREATE PROC updateNguoiDung
 @MatKhau nvarchar (50),
 @Anh image,
 @Email varchar (50),
-@NgaySinh datetime,
+@NgaySinh date,
 @GioiTinh bit,
 @MaNhomQuyen int
 AS
@@ -1497,7 +1497,7 @@ CREATE PROC SearchNHoaDon
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
 @NhanVienLap nvarchar (50),
-@NgayLap datetime
+@NgayLap date
 AS
 BEGIN 
 SELECT * FROM HoaDon Where MaHoaDon LIKE '%'+@MaHoaDon+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%' 
@@ -1512,7 +1512,7 @@ CREATE PROC insertHoaDon
 @MaKhuyenMai int,
 @NhanVienLap nvarchar (50),
 @TongTien float,
-@NgayLap datetime
+@NgayLap date
 AS
 BEGIN 
 Insert into HoaDon(MaHoaDon,MaKhachHang,MaNhanPhong,MaKhuyenMai,NhanVienLap,TongTien,NgayLap) Values(@MaHoaDon,@MaKhachHang,@MaNhanPhong,@MaKhuyenMai,@NhanVienLap,@TongTien,@NgayLap)
@@ -1526,7 +1526,7 @@ CREATE PROC updateHoaDon
 @MaKhuyenMai int,
 @NhanVienLap nvarchar (50),
 @TongTien float,
-@NgayLap datetime
+@NgayLap date
 AS
 BEGIN 
 Update HoaDon set MaKhachHang = @MaKhachHang, MaNhanPhong = @MaNhanPhong,MaKhuyenMai=@MaKhuyenMai,NhanVienLap=@NhanVienLap,TongTien=@TongTien,NgayLap=@NgayLap Where MaHoaDon = @MaHoaDon
@@ -1594,8 +1594,8 @@ CREATE PROC insertKhuyenMai
 @MaPhieu varchar (50),
 @GiaTri float,
 @NoiDung nvarchar(100),
-@NgayBatDau datetime,
-@NgayKetThuc datetime,
+@NgayBatDau date,
+@NgayKetThuc date,
 @KieuTinh bit,
 @TrangThai bit
 AS
@@ -1609,8 +1609,8 @@ CREATE PROC updateKhuyenMai
 @MaPhieu varchar (50),
 @GiaTri float,
 @NoiDung nvarchar(100),
-@NgayBatDau datetime,
-@NgayKetThuc datetime,
+@NgayBatDau date,
+@NgayKetThuc date,
 @KieuTinh bit,
 @TrangThai bit
 AS
@@ -2012,8 +2012,8 @@ GO
 CREATE PROC insertChiTietPhieuThuePhong
 @MaPhieuThue varchar (10),
 @MaPhong varchar (3),
-@NgayDangKy datetime,
-@NgayNhan datetime
+@NgayDangKy date,
+@NgayNhan date
 AS
 BEGIN 
 Insert into ChiTietPhieuThuePhong(MaPhieuThue,MaPhong,NgayDangKy,NgayNhan) Values(@MaPhieuThue,@MaPhong,@NgayDangKy,@NgayNhan)
@@ -2022,8 +2022,8 @@ GO
 
 CREATE PROC updateChiTietPhieuThuePhong
 @MaPhieuThue varchar (10),
-@NgayDangKy datetime,
-@NgayNhan datetime
+@NgayDangKy date,
+@NgayNhan date
 AS
 BEGIN 
 UPDATE ChiTietPhieuThuePhong SET NgayDangKy =@NgayDangKy,NgayNhan=@NgayNhan where MaPhieuThue = @MaPhieuThue
@@ -2051,9 +2051,9 @@ CREATE PROC insertChiTietPhieuNhanPhong
 @MaPhong varchar (3),
 @HoTenKhachHang nvarchar (50),
 @CMND nvarchar (15),
-@NgayNhan datetime,
-@NgayTraDuKien datetime,
-@NgayTraThucTe datetime
+@NgayNhan date,
+@NgayTraDuKien date,
+@NgayTraThucTe date
 AS
 BEGIN 
 Insert into ChiTietPhieuNhanPhong(MaNhanPhong,MaPhong,HoTenKhachHang,CMND,NgayNhan,NgayTraDuKien,NgayTraThucTe) 

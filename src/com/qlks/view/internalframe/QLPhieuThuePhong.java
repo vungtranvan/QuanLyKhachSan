@@ -49,7 +49,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
     public void loadData(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong) {
         
         if (maPhieu != null || tenKH != null || ngayDky != null || ngayNhan != null || maPhong != null) {
-            //lstPhong = phongDAO.search(maPhong, maLoaiPhong, maLoaiTinhTrangPhong);
+             lstPhieuThuePhong = phieuThuePhongDAO.search(maPhieu, tenKH, ngayDky, ngayNhan, maPhong);
         } else {
             lstPhieuThuePhong = phieuThuePhongDAO.getAll();
         }

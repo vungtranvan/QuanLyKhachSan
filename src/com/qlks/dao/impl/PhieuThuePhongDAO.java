@@ -8,6 +8,7 @@ package com.qlks.dao.impl;
 import com.qlks.dao.IPhieuThuePhongDAO;
 import com.qlks.mapper.PhieuThuePhongMapper;
 import com.qlks.models.PhieuThuePhong;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,6 +21,12 @@ public class PhieuThuePhongDAO extends AbstractDAO<PhieuThuePhong> implements IP
     public List<PhieuThuePhong> getAll() {
         String sql = "{Call getAllPhieuThuePhong}";
         return query(sql, new PhieuThuePhongMapper());
+    }
+
+    @Override
+    public List<PhieuThuePhong> search(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong) {
+        String sql = "{Call SearchThuePhong(?,?,?,?,?)}";
+        return query(sql, new PhieuThuePhongMapper(), maPhieu, tenKH, ngayDky, ngayNhan, maPhong);
     }
 
     @Override

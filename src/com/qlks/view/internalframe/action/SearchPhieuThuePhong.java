@@ -6,29 +6,28 @@
 package com.qlks.view.internalframe.action;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneId;
-import java.util.Date;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author hello
  */
 public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
-    
+
     CallBackSearch cb;
-    
+
     public interface CallBackSearch {
-        
+
         void doSearch(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong);
     }
-    
+
     public SearchPhieuThuePhong(CallBackSearch _cb) {
         initComponents();
         cb = _cb;
         resetText();
     }
-    
+
     public void resetText() {
         txtNgayDangKy.setCalendar(null);
         txtNgayNhan.setCalendar(null);
@@ -223,12 +222,17 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
         LocalDate dateDKy = null;
         if (txtNgayDangKy.getDate() != null) {
             dateDKy = txtNgayDangKy.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } else {
+            dateDKy = LocalDate.of(1000, Month.JANUARY, 1);
         }
-        
+
         LocalDate dateNhan = null;
         if (txtNgayDangKy.getDate() != null) {
             dateNhan = txtNgayNhan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } else {
+            dateNhan = LocalDate.of(1000, Month.JANUARY, 1);
         }
+        System.out.println("dateDKy = " + dateDKy);
         cb.doSearch(maPhieu, tenKH, dateDKy, dateNhan, maPhong);
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
