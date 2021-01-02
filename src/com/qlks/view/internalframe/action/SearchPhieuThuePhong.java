@@ -8,6 +8,7 @@ package com.qlks.view.internalframe.action;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -50,7 +51,7 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
         txtNgayNhan = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnCapNhat = new javax.swing.JButton();
+        btnTimKiem = new javax.swing.JButton();
         btnHuyBo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnLamMoi = new javax.swing.JButton();
@@ -60,6 +61,9 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
         txtTenKhachHang = new javax.swing.JTextField();
         txtMaPhong = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+
+        setClosable(true);
+        setIconifiable(true);
 
         txtNgayDangKy.setDateFormatString("dd/MM/yyyy");
         txtNgayDangKy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -73,12 +77,12 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Ngày nhận:");
 
-        btnCapNhat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_edit.png"))); // NOI18N
-        btnCapNhat.setText("Cập nhật");
-        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+        btnTimKiem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
+        btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCapNhatActionPerformed(evt);
+                btnTimKiemActionPerformed(evt);
             }
         });
 
@@ -130,7 +134,7 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -191,7 +195,7 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
@@ -215,7 +219,7 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
-    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         String maPhieu = txtMaPhieuThue.getText();
         String tenKH = txtTenKhachHang.getText();
         String maPhong = txtMaPhong.getText();
@@ -223,18 +227,20 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
         if (txtNgayDangKy.getDate() != null) {
             dateDKy = txtNgayDangKy.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
-            dateDKy = LocalDate.of(1000, Month.JANUARY, 1);
+            dateDKy = LocalDate.parse("1000-01-01",
+                    DateTimeFormatter.ISO_LOCAL_DATE);
         }
 
         LocalDate dateNhan = null;
         if (txtNgayDangKy.getDate() != null) {
             dateNhan = txtNgayNhan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
-            dateNhan = LocalDate.of(1000, Month.JANUARY, 1);
+            dateNhan = LocalDate.parse("1000-01-01",
+                    DateTimeFormatter.ISO_LOCAL_DATE);
         }
         System.out.println("dateDKy = " + dateDKy);
         cb.doSearch(maPhieu, tenKH, dateDKy, dateNhan, maPhong);
-    }//GEN-LAST:event_btnCapNhatActionPerformed
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         resetText();
@@ -242,9 +248,9 @@ public class SearchPhieuThuePhong extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuyBo;
     private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnTimKiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
