@@ -76,7 +76,7 @@ public class MainJFrame extends javax.swing.JFrame {
     List<JPanel> listSubMenuItemConfig = new ArrayList<>();
 
     JPanel subMenuAdmin;
-    JPanel subMenuPermission;
+
     JPanel subMenuroupPermission;
     JPanel subMenuRule;
 
@@ -148,9 +148,6 @@ public class MainJFrame extends javax.swing.JFrame {
             listSubMenuItemAdmin.add(makeSubMenuItem(subMenuAdmin, rb.getString("subMenuAdmin")));
             showInternalFrame(subMenuAdmin, new QuanLyNguoiDung());
 
-            subMenuPermission = new JPanel();
-            listSubMenuItemAdmin.add(makeSubMenuItem(subMenuPermission, rb.getString("subMenuPermission")));
-            showInternalFrame(subMenuPermission, new QuanLyQuyen());
 
             subMenuroupPermission = new JPanel();
             listSubMenuItemAdmin.add(makeSubMenuItem(subMenuroupPermission, rb.getString("subMenuroupPermission")));
@@ -632,7 +629,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public void translate(Locale lc) {
         rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
         setTextJlbFromJpn(subMenuAdmin, rb.getString("subMenuAdmin"));
-        setTextJlbFromJpn(subMenuPermission, rb.getString("subMenuPermission"));
+    
         setTextJlbFromJpn(subMenuroupPermission, rb.getString("subMenuroupPermission"));
         setTextJlbFromJpn(subMenuRule, rb.getString("subMenuRule"));
         setTextJlbFromJpn(subMenuRoom, rb.getString("subMenuRoom"));

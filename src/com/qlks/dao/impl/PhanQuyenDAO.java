@@ -34,4 +34,10 @@ public class PhanQuyenDAO extends AbstractDAO<PhanQuyen> implements IPhanQuyenDA
         return this.update(sql, phanQuyen.getMaQuyen(), phanQuyen.getMaNhomQuyen());
     }
 
+    @Override
+    public int delete(int maNhomQuyen) {
+        String sql = "{Call deletePhanQuyen(?)}";
+        return this.update(sql, maNhomQuyen);
+    }
+
 }

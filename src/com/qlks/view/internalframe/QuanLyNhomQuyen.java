@@ -10,7 +10,7 @@ import com.qlks.dao.impl.NhomQuyenDAO;
 import com.qlks.dao.impl.PhanQuyenDAO;
 import com.qlks.models.NhomQuyen;
 import com.qlks.models.PhanQuyen;
-import com.qlks.models.Quyen;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -31,6 +31,7 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
     private List<NhomQuyen> lstNhomQuyen;
     private DefaultTableModel dtmNhomQuyen;
     private FunctionBase funcBase;
+    List<PhanQuyen> listPhanQuyen;
     private List<Integer> listQuyen = new ArrayList<>();
 
     /**
@@ -44,7 +45,9 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         funcBase = new FunctionBase();
         loadData(null);
         txtErrorTenNhomQuyen.setText("");
+        ValidJcheck();
         resetText();
+
     }
 
     public void loadData(String nameSeaechInput) {
@@ -70,10 +73,11 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
 
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstNhomQuyen.size() > 0) {
-            System.out.println(lstNhomQuyen.isEmpty());
+
             tblNhomQuyen.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
+                    resetText();
                     int currentRow = tblNhomQuyen.getSelectedRow();
                     if (currentRow < 0) {
                         currentRow = 0;
@@ -82,17 +86,118 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
                     // Chèn dữ liệu lên form
                     if (currentRow >= 0) {
                         lblID.setText(tblNhomQuyen.getValueAt(currentRow, 1).toString());
+
                         txtTenNhomQuyen.setText(tblNhomQuyen.getValueAt(currentRow, 2).toString());
+
+                        listPhanQuyen = phanQuyenDAO.getMaQuyenByMaQuyen(Integer.parseInt(tblNhomQuyen.getValueAt(currentRow, 1).toString()));
+
+                        for (PhanQuyen pQ : listPhanQuyen) {
+                            updateSelect(pQ.getMaQuyen());
+                        }
                     }
                 }
             });
         }
     }
 
+    private void updateSelect(int MaQ) {
+        switch (MaQ) {
+            case 1:
+                chbXemDd.setSelected(true);
+                break;
+            case 2:
+                chbQlDd.setSelected(true);
+                break;
+            case 3:
+                chbXemNd.setSelected(true);
+                break;
+            case 4:
+                chbQlNd.setSelected(true);
+                break;
+            case 5:
+                chbXemPhong.setSelected(true);
+                break;
+            case 6:
+                chbQlPhong.setSelected(true);
+                break;
+            case 7:
+                chbXemThietBi.setSelected(true);
+                break;
+            case 8:
+                chbQlThietBi.setSelected(true);
+                break;
+            case 9:
+                chbXemDichVu.setSelected(true);
+                break;
+            case 10:
+                chbQlDichVu.setSelected(true);
+                break;
+            case 11:
+                chbXemCstp.setSelected(true);
+                break;
+            case 12:
+                chbQlCstp.setSelected(true);
+                break;
+            case 13:
+                chbXemKh.setSelected(true);
+                break;
+            case 14:
+                chbQlKh.setSelected(true);
+                break;
+            case 15:
+                chbXemKm.setSelected(true);
+                break;
+            case 16:
+                chbQlKm.setSelected(true);
+                break;
+            case 17:
+                chbXemQd.setSelected(true);
+                break;
+            case 18:
+                chbQlQd.setSelected(true);
+                break;
+        }
+
+    }
+
     public void resetText() {
         lblID.setText("");
         txtTenNhomQuyen.setText("");
         txtErrorTenNhomQuyen.setText("");
+        unselectQuyen();
+    }
+
+    private void unselectQuyen(JCheckBox jck) {
+        jck.setSelected(false);
+    }
+
+    private void unselectQuyen() {
+        unselectQuyen(chbXemDd);
+        unselectQuyen(chbQlDd);
+
+        unselectQuyen(chbXemNd);
+        unselectQuyen(chbQlNd);
+
+        unselectQuyen(chbXemPhong);
+        unselectQuyen(chbQlPhong);
+
+        unselectQuyen(chbXemThietBi);
+        unselectQuyen(chbQlThietBi);
+
+        unselectQuyen(chbXemDichVu);
+        unselectQuyen(chbQlDichVu);
+
+        unselectQuyen(chbXemCstp);
+        unselectQuyen(chbQlCstp);
+
+        unselectQuyen(chbXemKh);
+        unselectQuyen(chbQlKh);
+
+        unselectQuyen(chbXemKm);
+        unselectQuyen(chbQlKm);
+
+        unselectQuyen(chbXemQd);
+        unselectQuyen(chbQlQd);
     }
 
     private void listQuyen(JCheckBox jchek) {
@@ -102,11 +207,12 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
     }
 
     private void listQuyen() {
+        listQuyen.removeAll(listQuyen);
         listQuyen(chbXemDd);
         listQuyen(chbQlDd);
 
         listQuyen(chbXemNd);
-        listQuyen(chbXemNd);
+        listQuyen(chbQlNd);
 
         listQuyen(chbXemPhong);
         listQuyen(chbQlPhong);
@@ -128,6 +234,35 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
 
         listQuyen(chbXemQd);
         listQuyen(chbQlQd);
+    }
+
+    private void ValidJcheck(JCheckBox xem, JCheckBox ql) {
+        xem.addActionListener((ActionEvent ae) -> {
+            if (!xem.isSelected()) {
+                if (ql.isSelected()) {
+                    ql.setSelected(false);
+                }
+            }
+        });
+        ql.addActionListener((ActionEvent ae) -> {
+            if (ql.isSelected()) {
+                if (!xem.isSelected()) {
+                    xem.setSelected(true);
+                }
+            }
+        });
+    }
+
+    public void ValidJcheck() {
+        ValidJcheck(chbXemDd, chbQlDd);
+        ValidJcheck(chbXemNd, chbQlNd);
+        ValidJcheck(chbXemPhong, chbQlPhong);
+        ValidJcheck(chbXemThietBi, chbQlThietBi);
+        ValidJcheck(chbXemDichVu, chbQlDichVu);
+        ValidJcheck(chbXemCstp, chbQlCstp);
+        ValidJcheck(chbXemKh, chbQlKh);
+        ValidJcheck(chbXemKm, chbQlKm);
+        ValidJcheck(chbXemQd, chbQlQd);
     }
 
     /**
@@ -773,22 +908,17 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
 
         if (tenNhomQuyen.length() > 0) {
             int row = nhomQuyenDAO.add(new NhomQuyen(tenNhomQuyen));
-//            System.out.println(row);
-//            for (Integer quyen : listQuyen) {
-//                phanQuyen.setMaNhomQuyen(1);
-////            int row2 = phanQuyenDAO.add(phanQuyen);
-//            }
             if (row > 0) {
                 listQuyen();
                 List<NhomQuyen> listLastNhomQuyen = nhomQuyenDAO.getMaxId();
                 int maNhomQuyen = listLastNhomQuyen.get(0).getMaNhomQuyen();
                 int row2;
                 String SuccessMsg = "";
-                
+
                 for (Integer quyen : listQuyen) {
                     row2 = 0;
                     row2 = phanQuyenDAO.add(new PhanQuyen(quyen, maNhomQuyen));
-                    if (row2 > 0 ) {
+                    if (row2 > 0) {
                         SuccessMsg = "";
                     }
                 }
@@ -825,7 +955,24 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
             if (ckeck == true) {
                 int id = Integer.parseInt(maNhomQuyen);
                 int row = nhomQuyenDAO.update(new NhomQuyen(id, tenNhomQuyen));
+                int row2;
+
                 if (row > 0) {
+                    listQuyen();
+                    int pQDel = 0;
+                    if (phanQuyenDAO.getMaQuyenByMaQuyen(id).size() > 0) {
+                        pQDel = phanQuyenDAO.delete(id);
+                    } else {
+                        pQDel = 1;
+                    }
+
+                    if (pQDel > 0) {
+                        for (Integer quyen : listQuyen) {
+                            row2 = 0;
+                            row2 = phanQuyenDAO.add(new PhanQuyen(quyen, id));
+                        }
+                    }
+
                     JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", null, JOptionPane.INFORMATION_MESSAGE);
                     loadData(null);
                     resetText();
