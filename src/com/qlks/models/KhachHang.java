@@ -88,4 +88,9 @@ public class KhachHang {
         this.quocTich = quocTich;
     }
 
+    @Override
+    public String toString() {
+        return tenKhachHang;
+    }
+
 }

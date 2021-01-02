@@ -16,6 +16,8 @@ public interface IPhongDAO {
 
     List<Phong> getAll();
 
+    List<Phong> getPhongTrong();
+
     List<Phong> getByMaPhong(String maPhong);
 
     List<Phong> search(String maPhong, String maLoaiPhong, int maLoaiTinhTrangPhong);
@@ -23,6 +25,12 @@ public interface IPhongDAO {
     int add(Phong phong);
 
     int update(Phong phong);
+
+    int updatePhongDaThue(String maPhong);
+
+    int updatePhongDaNhan(String maPhong);
+
+    int updatePhongDaThanhToan(String maPhong);
 
     int delete(String maPhong);
 }

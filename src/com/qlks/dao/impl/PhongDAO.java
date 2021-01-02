@@ -24,6 +24,12 @@ public class PhongDAO extends AbstractDAO<Phong> implements IPhongDAO {
     }
 
     @Override
+    public List<Phong> getPhongTrong() {
+        String sql = "{Call getPhongTrong}";
+        return query(sql, new PhongMapper());
+    }
+
+    @Override
     public List<Phong> getByMaPhong(String maPhong) {
         String sql = "{Call getByMaPhong(?)}";
         return query(sql, new PhongGetByMaMapper(), maPhong);
@@ -50,6 +56,24 @@ public class PhongDAO extends AbstractDAO<Phong> implements IPhongDAO {
     @Override
     public int delete(String maPhong) {
         String sql = "{Call deletePhong(?)}";
+        return this.update(sql, maPhong);
+    }
+
+    @Override
+    public int updatePhongDaThue(String maPhong) {
+        String sql = "{Call updatePhongDaThue(?)}";
+        return this.update(sql, maPhong);
+    }
+
+    @Override
+    public int updatePhongDaNhan(String maPhong) {
+        String sql = "{Call updatePhongDaNhan(?)}";
+        return this.update(sql, maPhong);
+    }
+
+    @Override
+    public int updatePhongDaThanhToan(String maPhong) {
+        String sql = "{Call updatePhongDaThanhToan(?)}";
         return this.update(sql, maPhong);
     }
 

@@ -28,6 +28,12 @@ public class ChiTietPhieuThuePhong {
         this.ngayNhan = ngayNhan;
     }
 
+    public ChiTietPhieuThuePhong(String maPhieuThue, LocalDate ngayDangKy, LocalDate ngayNhan) {
+        this.maPhieuThue = maPhieuThue;
+        this.ngayDangKy = ngayDangKy;
+        this.ngayNhan = ngayNhan;
+    }
+
     public String getMaPhieuThue() {
         return maPhieuThue;
     }

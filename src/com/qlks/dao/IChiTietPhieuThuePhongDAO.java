@@ -6,6 +6,7 @@
 package com.qlks.dao;
 
 import com.qlks.models.ChiTietPhieuThuePhong;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,5 +17,11 @@ public interface IChiTietPhieuThuePhongDAO {
 
     List<ChiTietPhieuThuePhong> getAll();
 
+    List<ChiTietPhieuThuePhong> getByMaPhieuThue(String maPhieuThue);
+
     int add(ChiTietPhieuThuePhong ct);
+
+    int delete(String maPhieuThue);
+
+    int update(String maPhieuThue, LocalDate ngayDKy, LocalDate ngayNhan);
 }

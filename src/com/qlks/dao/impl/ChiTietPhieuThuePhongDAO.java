@@ -8,6 +8,7 @@ package com.qlks.dao.impl;
 import com.qlks.dao.IChiTietPhieuThuePhongDAO;
 import com.qlks.mapper.ChiTietPhieuThuePhongMapper;
 import com.qlks.models.ChiTietPhieuThuePhong;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -23,9 +24,27 @@ public class ChiTietPhieuThuePhongDAO extends AbstractDAO<ChiTietPhieuThuePhong>
     }
 
     @Override
+    public List<ChiTietPhieuThuePhong> getByMaPhieuThue(String maPhieuThue) {
+        String sql = "{Call getByMaPhieuThue(?)}";
+        return query(sql, new ChiTietPhieuThuePhongMapper(), maPhieuThue);
+    }
+
+    @Override
     public int add(ChiTietPhieuThuePhong ct) {
         String sql = "{Call insertChiTietPhieuThuePhong(?,?,?,?)}";
         return this.update(sql, ct.getMaPhieuThue(), ct.getMaPhong(), ct.getNgayDangKy(), ct.getNgayNhan());
+    }
+
+    @Override
+    public int delete(String maPhieuThue) {
+        String sql = "{Call deleteChiTietPhieuThuePhong(?)}";
+        return this.update(sql, maPhieuThue);
+    }
+
+    @Override
+    public int update(String maPhieuThue, LocalDate ngayDKy, LocalDate ngayNhan) {
+        String sql = "{Call updateChiTietPhieuThuePhong(?,?,?)}";
+        return this.update(sql, maPhieuThue, ngayDKy, ngayNhan);
     }
 
 }

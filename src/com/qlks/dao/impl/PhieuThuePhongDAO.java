@@ -28,4 +28,10 @@ public class PhieuThuePhongDAO extends AbstractDAO<PhieuThuePhong> implements IP
         return this.update(sql, phieuThuePhong.getMaPhieuThue(), phieuThuePhong.getMaKhachHang());
     }
 
+    @Override
+    public int delete(String maPhieuThue) {
+        String sql = "{Call deletePhieuThuePhong(?)}";
+        return this.update(sql, maPhieuThue);
+    }
+
 }

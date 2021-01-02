@@ -95,4 +95,9 @@ public class Phong {
         this.donGia = donGia;
     }
 
+    @Override
+    public String toString() {
+        return maPhong;
+    }
+
 }
