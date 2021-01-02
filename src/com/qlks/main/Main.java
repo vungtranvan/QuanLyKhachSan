@@ -59,7 +59,7 @@ public class Main {
                 logInJFrame.setVisible(false);
 
                 if (!mainFrame.isVisible()) {
-                    mainFrame.setVisible(true);
+                    mainFrame.setVisible(true); 
                 }
 
                 String loginSuccess = mainFrame.rb.getString("MainJFrameLoginSuccessMgs");
@@ -78,7 +78,7 @@ public class Main {
                         nguoidungImage = null;
                     }
                 } else {
-                    ImageIcon icon = new ImageIcon(getClass().getResource("src/com/qlks/image/avatar/avatar_default.jpg"));
+                    ImageIcon icon = new ImageIcon(getClass().getResource("com/qlks/image/avatar/avatar_default.jpg"));
                     mainFrame.getMenuAvatar().setIcon(icon);
                     nguoidungImage = nd.getAnh();
                 }
