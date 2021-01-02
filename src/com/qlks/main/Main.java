@@ -59,7 +59,7 @@ public class Main {
                 logInJFrame.setVisible(false);
 
                 if (!mainFrame.isVisible()) {
-                    mainFrame.setVisible(true); 
+                    mainFrame.setVisible(true);
                 }
 
                 String loginSuccess = mainFrame.rb.getString("MainJFrameLoginSuccessMgs");
@@ -78,9 +78,11 @@ public class Main {
                         nguoidungImage = null;
                     }
                 } else {
-                    ImageIcon icon = new ImageIcon(getClass().getResource("com/qlks/image/avatar/avatar_default.jpg"));
-                    mainFrame.getMenuAvatar().setIcon(icon);
-                    nguoidungImage = nd.getAnh();
+
+                    ImageIcon oldImgIcon = new ImageIcon("src/com/qlks/image/avatar/avatar_default.jpg");
+                    Image oldImg = ImageHelper.resize(oldImgIcon.getImage(), 88, 88);
+                    ImageIcon resizedIcon = new ImageIcon(oldImg);
+                    mainFrame.getMenuAvatar().setIcon(resizedIcon);
                 }
                 mainFrame.setTitle(mainFrame.rb.getString("MainJFrameTitle") + "[ " + nd.getTenNguoiDung() + " ]");
 
