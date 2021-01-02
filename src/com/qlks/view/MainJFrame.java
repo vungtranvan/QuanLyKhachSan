@@ -672,6 +672,7 @@ public class MainJFrame extends javax.swing.JFrame {
         menuChecking = new javax.swing.JLabel();
         menuAvatar = new javax.swing.JLabel();
         menuConfig = new javax.swing.JLabel();
+        menuService = new javax.swing.JLabel();
         jMain = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -722,6 +723,10 @@ public class MainJFrame extends javax.swing.JFrame {
         menuConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_config.png"))); // NOI18N
         menuConfig.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        menuService.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuService.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_service.png"))); // NOI18N
+        menuService.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout jpnMainLeftLayout = new javax.swing.GroupLayout(jpnMainLeft);
         jpnMainLeft.setLayout(jpnMainLeftLayout);
         jpnMainLeftLayout.setHorizontalGroup(
@@ -735,7 +740,8 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(menuCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(menuChecking, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(menuAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menuService, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jpnMainSubMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -756,8 +762,10 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(menuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
+                        .addComponent(menuService, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
                         .addComponent(menuCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(menuAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(menuConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -803,6 +811,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel menuConfig;
     private javax.swing.JLabel menuCustomer;
     private javax.swing.JLabel menuRoom;
+    private javax.swing.JLabel menuService;
     // End of variables declaration//GEN-END:variables
 
 }
