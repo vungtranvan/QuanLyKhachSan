@@ -8,8 +8,13 @@ package com.qlks.view.internalframe;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.LoaiDichVuDAO;
 import com.qlks.models.LoaiDichVu;
+import com.qlks.utils.MethodMain;
+
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -24,17 +29,25 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
     private List<LoaiDichVu> lstLDVu;
     private DefaultTableModel dtmLDVu;
     private FunctionBase funcBase;
+    ResourceBundle rb;
+    private Locale lc;
 
     /**
      * Creates new form QuanLyTaiSan
      */
-    public QuanLyLoaiDichVu() {
+    public QuanLyLoaiDichVu(Locale lc) {
         initComponents();
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         dtmLDVu = new DefaultTableModel();
         loaiDVDAO = new LoaiDichVuDAO();
         funcBase = new FunctionBase();
         loadData(null, null);
         resetText();
+        if (!MethodMain.checkQuyen("QlDichVu")) {
+            jpnLoaiDichVu.setVisible(false);
+        }
+
     }
 
     public void loadData(String maSeaechInput, String tenSearchInput) {
@@ -78,6 +91,7 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
                 }
             });
         }
+        translate(lc);
     }
 
     public void resetText() {
@@ -85,6 +99,35 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
         txtTenLoaiDichVu.setText("");
         txtErrorMaLoaiDichVu.setText("");
         txtErrorTenLoaiDichVu.setText("");
+    }
+
+    private void makeText(ResourceBundle rb) {
+        btnCapNhat.setText(rb.getString("BtnCapNhat"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnThemMoi.setText(rb.getString("BtnThemMoi"));
+        btnTimKiem.setText(rb.getString("BtnTimKiem"));
+        btnXoa.setText(rb.getString("BtnXoa"));
+        setTitle(rb.getString("JIFQLLoaiDichVu"));
+        ((TitledBorder) jpnLoaiDichVu.getBorder()).setTitle(rb.getString("JIFQLLoaiDichVuBorder"));
+        jlbMaLoaiDv.setText(rb.getString("JIFQLLoaiDichVuMa"));
+        jlbMaLoaiDv1.setText(rb.getString("JIFQLLoaiDichVuMa"));
+        jlbTenLoaiDv1.setText(rb.getString("JIFQLLoaiDichVuTen"));
+        jlbTenLoaiDv.setText(rb.getString("JIFQLLoaiDichVuTen"));
+    }
+
+    private void makeTableHeader(ResourceBundle rb) {
+        tblLoaiDichVu.getColumnModel().getColumn(0).setHeaderValue("STT");
+        tblLoaiDichVu.getColumnModel().getColumn(1).setHeaderValue(rb.getString("JIFQLLoaiDichVuMa"));
+        tblLoaiDichVu.getColumnModel().getColumn(2).setHeaderValue(rb.getString("JIFQLLoaiDichVuTen"));
+        tblLoaiDichVu.getColumnModel().getColumn(3).setHeaderValue("");
+    }
+
+    public void translate(Locale lc) {
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        makeText(this.rb);
+        makeTableHeader(this.rb);
+        revalidate();
+        repaint();
     }
 
     /**
@@ -96,9 +139,9 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jpnLoaiDichVu = new javax.swing.JPanel();
+        jlbMaLoaiDv1 = new javax.swing.JLabel();
+        jlbTenLoaiDv1 = new javax.swing.JLabel();
         txtTenLoaiDichVu = new javax.swing.JTextField();
         btnThemMoi = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
@@ -114,20 +157,20 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
         btnTimKiem = new javax.swing.JButton();
         txtSearchMaLoaiDV = new javax.swing.JTextField();
         txtSearchTenLoaiDV = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jlbMaLoaiDv = new javax.swing.JLabel();
+        jlbTenLoaiDv = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Quản lý loại dịch vụ");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Loại dịch vụ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+        jpnLoaiDichVu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Loại dịch vụ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Mã loại dịch vụ:");
+        jlbMaLoaiDv1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlbMaLoaiDv1.setText("Mã loại dịch vụ:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Tên loại dịch vụ:");
+        jlbTenLoaiDv1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlbTenLoaiDv1.setText("Tên loại dịch vụ:");
 
         txtTenLoaiDichVu.setColumns(5);
         txtTenLoaiDichVu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -172,17 +215,17 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
         txtErrorTenLoaiDichVu.setForeground(new java.awt.Color(255, 0, 0));
         txtErrorTenLoaiDichVu.setText("...");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpnLoaiDichVuLayout = new javax.swing.GroupLayout(jpnLoaiDichVu);
+        jpnLoaiDichVu.setLayout(jpnLoaiDichVuLayout);
+        jpnLoaiDichVuLayout.setHorizontalGroup(
+            jpnLoaiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnLoaiDichVuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jpnLoaiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnLoaiDichVuLayout.createSequentialGroup()
                         .addGap(161, 161, 161)
                         .addComponent(lblResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jpnLoaiDichVuLayout.createSequentialGroup()
                         .addComponent(btnLamMoi)
                         .addGap(2, 2, 2)
                         .addComponent(btnThemMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -191,37 +234,37 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnXoa)
                         .addGap(0, 8, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                    .addGroup(jpnLoaiDichVuLayout.createSequentialGroup()
+                        .addGroup(jpnLoaiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbMaLoaiDv1)
+                            .addComponent(jlbTenLoaiDv1))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpnLoaiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTenLoaiDichVu)
                             .addComponent(txtMaLoaiDichVu)
                             .addComponent(txtErrorMaLoaiDichVu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtErrorTenLoaiDichVu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jpnLoaiDichVuLayout.setVerticalGroup(
+            jpnLoaiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnLoaiDichVuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(jpnLoaiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbMaLoaiDv1)
                     .addComponent(txtMaLoaiDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorMaLoaiDichVu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpnLoaiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenLoaiDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jlbTenLoaiDv1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorTenLoaiDichVu)
                 .addGap(11, 11, 11)
                 .addComponent(lblResult)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpnLoaiDichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,11 +295,11 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Mã Loại dịch vụ:");
+        jlbMaLoaiDv.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlbMaLoaiDv.setText("Mã Loại dịch vụ:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Tên loại dịch vụ:");
+        jlbTenLoaiDv.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlbTenLoaiDv.setText("Tên loại dịch vụ:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -270,11 +313,11 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearchMaLoaiDV, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jlbMaLoaiDv))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jlbTenLoaiDv)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtSearchTenLoaiDV, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,8 +330,8 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(jlbMaLoaiDv)
+                    .addComponent(jlbTenLoaiDv))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,7 +350,7 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpnLoaiDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -316,7 +359,7 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpnLoaiDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -474,13 +517,13 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jlbMaLoaiDv;
+    private javax.swing.JLabel jlbMaLoaiDv1;
+    private javax.swing.JLabel jlbTenLoaiDv;
+    private javax.swing.JLabel jlbTenLoaiDv1;
+    private javax.swing.JPanel jpnLoaiDichVu;
     private javax.swing.JLabel lblResult;
     private javax.swing.JTable tblLoaiDichVu;
     private javax.swing.JLabel txtErrorMaLoaiDichVu;

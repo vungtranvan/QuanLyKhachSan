@@ -12,6 +12,7 @@ import com.qlks.models.DichVu;
 import com.qlks.models.DonVi;
 import com.qlks.models.LoaiDichVu;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -30,6 +31,8 @@ public class AddDichVu extends javax.swing.JInternalFrame {
     private DefaultComboBoxModel modelDonVi;
 
     CallBackAdd cb;
+    private ResourceBundle rb;
+    
 
     public interface CallBackAdd {
 
@@ -39,7 +42,7 @@ public class AddDichVu extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public AddDichVu(CallBackAdd _cb) {
+    public AddDichVu(CallBackAdd _cb, ResourceBundle rb) {
         initComponents();
         dichVuDAO = new DichVuDAO();
 
@@ -55,6 +58,8 @@ public class AddDichVu extends javax.swing.JInternalFrame {
         this.cb = _cb;
         initDataLoaiDichVu();
         initDataDonVi();
+        this.rb = rb;
+        translate(this.rb);
     }
 
     public void initDataLoaiDichVu() {
@@ -78,6 +83,23 @@ public class AddDichVu extends javax.swing.JInternalFrame {
         txtErrorDonGia.setText("");
     }
 
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        setTitle(this.rb.getString("AddDichVu"));
+        jlbTitle.setText(this.rb.getString("AddDichVu"));
+        jlbMaDv.setText(this.rb.getString("JIFQLDichVuMa"));
+        jlbTenLoaiDv.setText(this.rb.getString("JIFQLDichVu"));
+        jlbDonVi.setText(this.rb.getString("DonVi"));
+        jlbGiaTien.setText(this.rb.getString("JIFQuanLyPhongGia"));
+
+        btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
+        btnHuyBo.setText(this.rb.getString("BtnHuy"));
+        btnThemMoi.setText(this.rb.getString("BtnThemMoi"));
+
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,39 +111,39 @@ public class AddDichVu extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbMaDv = new javax.swing.JLabel();
         txtMaDVu = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        jlbTenLoaiDv = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jlbGiaTien = new javax.swing.JLabel();
         btnHuyBo = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
         txtErrorMaMaDVu = new javax.swing.JLabel();
-        jcbMaLoaiDVu = new javax.swing.JComboBox<LoaiDichVu>();
-        jComboBoxMaDVi = new javax.swing.JComboBox<DonVi>();
-        jLabel8 = new javax.swing.JLabel();
+        jcbMaLoaiDVu = new javax.swing.JComboBox<>();
+        jComboBoxMaDVi = new javax.swing.JComboBox<>();
+        jlbDonVi = new javax.swing.JLabel();
         txtDonGia = new javax.swing.JTextField();
         txtErrorDonGia = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("THÊM MỚI DỊCH VỤ");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("THÊM MỚI DỊCH VỤ");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Mã dịch vụ:");
+        jlbMaDv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbMaDv.setText("Mã dịch vụ:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Tên loại DV:");
+        jlbTenLoaiDv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbTenLoaiDv.setText("Tên loại DV:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Giá tiền:");
+        jlbGiaTien.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbGiaTien.setText("Giá tiền:");
 
         btnHuyBo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnHuyBo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_close.png"))); // NOI18N
@@ -153,8 +175,8 @@ public class AddDichVu extends javax.swing.JInternalFrame {
         txtErrorMaMaDVu.setForeground(new java.awt.Color(255, 51, 51));
         txtErrorMaMaDVu.setText("...");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Đơn vị:");
+        jlbDonVi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbDonVi.setText("Đơn vị:");
 
         txtDonGia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -167,16 +189,16 @@ public class AddDichVu extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(241, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(232, 232, 232))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaDv)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jlbTenLoaiDv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jlbGiaTien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -186,7 +208,7 @@ public class AddDichVu extends javax.swing.JInternalFrame {
                                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(jlbDonVi)
                                 .addGap(26, 26, 26)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -211,22 +233,22 @@ public class AddDichVu extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaDv)
                     .addComponent(txtMaDVu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addComponent(txtErrorMaMaDVu)
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(jlbTenLoaiDv)
                     .addComponent(jcbMaLoaiDVu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxMaDVi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(jlbDonVi))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(jlbGiaTien)
                     .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorDonGia)
@@ -331,14 +353,14 @@ public class AddDichVu extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnThemMoi;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<DonVi> jComboBoxMaDVi;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<LoaiDichVu> jcbMaLoaiDVu;
+    private javax.swing.JLabel jlbDonVi;
+    private javax.swing.JLabel jlbGiaTien;
+    private javax.swing.JLabel jlbMaDv;
+    private javax.swing.JLabel jlbTenLoaiDv;
+    private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JLabel txtErrorDonGia;
     private javax.swing.JLabel txtErrorMaMaDVu;

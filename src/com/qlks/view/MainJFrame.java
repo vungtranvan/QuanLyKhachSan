@@ -94,11 +94,15 @@ public class MainJFrame extends javax.swing.JFrame {
     private JPanel subMenuRoomType;
     QuanLyPhong quanLyPhong;
     private JPanel subMenuRoom;
+    QuanLyLoaiTinhTrang quanLyLoaiTinhTrang;
     private JPanel subMenuRoomStatus;
     QuanLyThietBi quanLyThietBi;
     private JPanel subMenuEquipment;
+    QuanLyLoaiDichVu quanLyLoaiDichVu;
     private JPanel subMenuServiceType;
+    QuanLyDichVu quanLyDichVu;
     private JPanel subMenuService;
+    QuanLyDonVi quanLyDonVi;
     private JPanel subMenuUnit;
     private JPanel subMenuCheckout;
 
@@ -195,8 +199,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 showInternalFrame(subMenuRoomType, quanLyLoaiPhong);
 
                 subMenuRoomStatus = new JPanel();
+                quanLyLoaiTinhTrang = new QuanLyLoaiTinhTrang(lc);
                 listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoomStatus, rb.getString("subMenuRoomStatus")));
-                showInternalFrame(subMenuRoomStatus, new QuanLyLoaiTinhTrang());
+                showInternalFrame(subMenuRoomStatus, quanLyLoaiTinhTrang);
 
                 subMenuRoom = new JPanel();
                 quanLyPhong = new QuanLyPhong(lc);
@@ -220,16 +225,19 @@ public class MainJFrame extends javax.swing.JFrame {
         if (MethodMain.checkQuyen("XemDichVu")) {
             menuService.setVisible(true);
             subMenuServiceType = new JPanel();
+             quanLyLoaiDichVu = new QuanLyLoaiDichVu(lc);
             listSubMenuSevice.add(makeSubMenuItem(subMenuServiceType, rb.getString("subMenuServiceType")));
-            showInternalFrame(subMenuServiceType, new QuanLyLoaiDichVu());
+            showInternalFrame(subMenuServiceType, quanLyLoaiDichVu);
 
             subMenuService = new JPanel();
+            quanLyDichVu = new QuanLyDichVu(lc);
             listSubMenuSevice.add(makeSubMenuItem(subMenuService, rb.getString("subMenuService")));
-            showInternalFrame(subMenuService, new QuanLyDichVu());
+            showInternalFrame(subMenuService, quanLyDichVu);
 
             subMenuUnit = new JPanel();
+             quanLyDonVi = new QuanLyDonVi(lc);
             listSubMenuSevice.add(makeSubMenuItem(subMenuUnit, rb.getString("subMenuUnit")));
-            showInternalFrame(subMenuUnit, new QuanLyDonVi());
+            showInternalFrame(subMenuUnit, quanLyDonVi);
 
             visibleSubMenu(menuService, rb.getString("SubMenuTitleSevice"), listSubMenuSevice, 6);
         }
@@ -614,9 +622,18 @@ public class MainJFrame extends javax.swing.JFrame {
                     if (quanLyThietBi != null) {
                         quanLyThietBi.translate(lc);
                     }
-//                    if (qLPhieuNhanPhong != null) {
-//                        qLPhieuNhanPhong.translate(lc);
-//                    }
+                    if (quanLyLoaiTinhTrang != null) {
+                        quanLyLoaiTinhTrang.translate(lc);
+                    }
+                    if (quanLyDichVu != null) {
+                        quanLyDichVu.translate(lc);
+                    }
+                    if (quanLyLoaiDichVu != null) {
+                        quanLyLoaiDichVu.translate(lc);
+                    }
+                    if (quanLyDonVi != null) {
+                        quanLyDonVi.translate(lc);
+                    }
 
                 }
 

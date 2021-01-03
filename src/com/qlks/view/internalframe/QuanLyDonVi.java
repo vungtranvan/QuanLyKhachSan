@@ -8,8 +8,12 @@ package com.qlks.view.internalframe;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.DonViDAO;
 import com.qlks.models.DonVi;
+import com.qlks.utils.MethodMain;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -24,17 +28,24 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
     private List<DonVi> lstDonVi;
     private DefaultTableModel dtmDonVi;
     private FunctionBase funcBase;
+    ResourceBundle rb;
+    private Locale lc;
 
     /**
      * Creates new form QuanLyTaiSan
      */
-    public QuanLyDonVi() {
+    public QuanLyDonVi(Locale lc) {
         initComponents();
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         dtmDonVi = new DefaultTableModel();
         donviDAO = new DonViDAO();
         funcBase = new FunctionBase();
         loadData(null, null);
         resetText();
+        if (!MethodMain.checkQuyen("QlDichVu")) {
+            jpnDonVi.setVisible(false);
+        }
     }
 
     public void loadData(String maSeaechInput, String noidungSearchInput) {
@@ -78,6 +89,7 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
                 }
             });
         }
+        translate(lc);
     }
 
     public void resetText() {
@@ -85,6 +97,35 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
         txtTenDonVi.setText("");
         txtErrorMaDV.setText("");
         txtErrorTenDV.setText("");
+    }
+
+    private void makeText(ResourceBundle rb) {
+        btnCapNhat.setText(rb.getString("BtnCapNhat"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnThemMoi.setText(rb.getString("BtnThemMoi"));
+        btnTimKiem.setText(rb.getString("BtnTimKiem"));
+        btnXoa.setText(rb.getString("BtnXoa"));
+        setTitle(rb.getString("JIFQLDonVi"));
+        ((TitledBorder) jpnDonVi.getBorder()).setTitle(rb.getString("JIFQLDonViBorder"));
+        jlbMaDonVi.setText(rb.getString("JIFQLDonViMa"));
+        jlbMaDonVi1.setText(rb.getString("JIFQLDonViMa"));
+        jlbTenDonVi.setText(rb.getString("JIFQLDonViTen"));
+        jlbTenDonVi1.setText(rb.getString("JIFQLDonViTen"));
+    }
+
+    private void makeTableHeader(ResourceBundle rb) {
+        tblDonVi.getColumnModel().getColumn(0).setHeaderValue("STT");
+        tblDonVi.getColumnModel().getColumn(1).setHeaderValue(rb.getString("JIFQLDonViMa"));
+        tblDonVi.getColumnModel().getColumn(2).setHeaderValue(rb.getString("JIFQLDonViTen"));
+        tblDonVi.getColumnModel().getColumn(3).setHeaderValue("");
+    }
+
+    public void translate(Locale lc) {
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        makeText(this.rb);
+        makeTableHeader(this.rb);
+        revalidate();
+        repaint();
     }
 
     /**
@@ -96,9 +137,9 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jpnDonVi = new javax.swing.JPanel();
+        jlbMaDonVi1 = new javax.swing.JLabel();
+        jlbTenDonVi1 = new javax.swing.JLabel();
         txtTenDonVi = new javax.swing.JTextField();
         btnThemMoi = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
@@ -114,20 +155,20 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
         btnTimKiem = new javax.swing.JButton();
         txtSearchMaDV = new javax.swing.JTextField();
         txtSearchTenDV = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jlbMaDonVi = new javax.swing.JLabel();
+        jlbTenDonVi = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Quản lý đơn vị");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Đơn vị"));
+        jpnDonVi.setBorder(javax.swing.BorderFactory.createTitledBorder("Đơn vị"));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Mã đơn vị:");
+        jlbMaDonVi1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlbMaDonVi1.setText("Mã đơn vị:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Tên đơn vị:");
+        jlbTenDonVi1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlbTenDonVi1.setText("Tên đơn vị:");
 
         txtTenDonVi.setColumns(5);
         txtTenDonVi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -174,17 +215,17 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
         txtErrorTenDV.setForeground(new java.awt.Color(255, 0, 0));
         txtErrorTenDV.setText("...");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpnDonViLayout = new javax.swing.GroupLayout(jpnDonVi);
+        jpnDonVi.setLayout(jpnDonViLayout);
+        jpnDonViLayout.setHorizontalGroup(
+            jpnDonViLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnDonViLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jpnDonViLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnDonViLayout.createSequentialGroup()
                         .addGap(161, 161, 161)
                         .addComponent(lblResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jpnDonViLayout.createSequentialGroup()
                         .addComponent(btnLamMoi)
                         .addGap(2, 2, 2)
                         .addComponent(btnThemMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -193,37 +234,37 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnXoa)
                         .addGap(0, 8, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                    .addGroup(jpnDonViLayout.createSequentialGroup()
+                        .addGroup(jpnDonViLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbMaDonVi1)
+                            .addComponent(jlbTenDonVi1))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpnDonViLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTenDonVi)
                             .addComponent(txtMaDonVi)
                             .addComponent(txtErrorMaDV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtErrorTenDV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jpnDonViLayout.setVerticalGroup(
+            jpnDonViLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnDonViLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(jpnDonViLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbMaDonVi1)
                     .addComponent(txtMaDonVi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorMaDV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpnDonViLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenDonVi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jlbTenDonVi1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorTenDV)
                 .addGap(11, 11, 11)
                 .addComponent(lblResult)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpnDonViLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,11 +299,11 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
 
         txtSearchTenDV.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Mã đơn vị:");
+        jlbMaDonVi.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlbMaDonVi.setText("Mã đơn vị:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Tên đơn vị:");
+        jlbTenDonVi.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlbTenDonVi.setText("Tên đơn vị:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -276,11 +317,11 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearchMaDV, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jlbMaDonVi))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jlbTenDonVi)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtSearchTenDV, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,8 +334,8 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(jlbMaDonVi)
+                    .addComponent(jlbTenDonVi))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,7 +354,7 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpnDonVi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -322,7 +363,7 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpnDonVi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -483,13 +524,13 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jlbMaDonVi;
+    private javax.swing.JLabel jlbMaDonVi1;
+    private javax.swing.JLabel jlbTenDonVi;
+    private javax.swing.JLabel jlbTenDonVi1;
+    private javax.swing.JPanel jpnDonVi;
     private javax.swing.JLabel lblResult;
     private javax.swing.JTable tblDonVi;
     private javax.swing.JLabel txtErrorMaDV;

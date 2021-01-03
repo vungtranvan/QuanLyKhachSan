@@ -10,6 +10,7 @@ import com.qlks.dao.impl.LoaiDichVuDAO;
 import com.qlks.models.DonVi;
 import com.qlks.models.LoaiDichVu;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -24,7 +25,7 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
     private DonViDAO donViDAO;
     private List<DonVi> lstDonVi;
     private DefaultComboBoxModel modelDonVi;
-
+    private ResourceBundle rb;
     CallBackSearch cb;
 
     public interface CallBackSearch {
@@ -35,7 +36,7 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public SearchDichVu(CallBackSearch _cb) {
+    public SearchDichVu(CallBackSearch _cb, ResourceBundle rb) {
         initComponents();
 
         modelLoaiDichVu = new DefaultComboBoxModel();
@@ -50,6 +51,8 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
         this.cb = _cb;
         initDataLoaiDichVu();
         initDataDonVi();
+        this.rb = rb;
+        translate(this.rb);
     }
 
     public void initDataLoaiDichVu() {
@@ -72,6 +75,23 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
         txtMaDVu.setText("");
     }
 
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        setTitle(this.rb.getString("SearchDichVu"));
+        jlbTitle.setText(this.rb.getString("SearchDichVu"));
+        jlbMaDv.setText(this.rb.getString("JIFQLDichVuMa"));
+        jlbTenLoaiDv.setText(this.rb.getString("JIFQLDichVu"));
+        jlbDonVi.setText(this.rb.getString("DonVi"));
+
+
+        btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
+        btnHuyBo.setText(this.rb.getString("BtnHuy"));
+        btnTimKiem.setText(this.rb.getString("BtnTimKiem"));
+
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,30 +103,30 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbMaDv = new javax.swing.JLabel();
         txtMaDVu = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        jlbTenLoaiDv = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnHuyBo = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
-        jcbMaLoaiDVu = new javax.swing.JComboBox<LoaiDichVu>();
-        jComboBoxMaDVi = new javax.swing.JComboBox<DonVi>();
-        jLabel8 = new javax.swing.JLabel();
+        jcbMaLoaiDVu = new javax.swing.JComboBox<>();
+        jComboBoxMaDVi = new javax.swing.JComboBox<>();
+        jlbDonVi = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TÌM KIẾM DỊCH VỤ");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("TÌM KIẾM DỊCH VỤ");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Mã dịch vụ:");
+        jlbMaDv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbMaDv.setText("Mã dịch vụ:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Tên loại DV:");
+        jlbTenLoaiDv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbTenLoaiDv.setText("Tên loại DV:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -137,8 +157,8 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Đơn vị:");
+        jlbDonVi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbDonVi.setText("Đơn vị:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,11 +177,11 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
                                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
+                                    .addComponent(jlbMaDv)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel8))
+                                        .addComponent(jlbTenLoaiDv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jlbDonVi))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jComboBoxMaDVi, javax.swing.GroupLayout.Alignment.LEADING, 0, 358, Short.MAX_VALUE)
@@ -169,26 +189,26 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
                                     .addComponent(txtMaDVu, javax.swing.GroupLayout.Alignment.LEADING)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaDv)
                     .addComponent(txtMaDVu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(jlbTenLoaiDv)
                     .addComponent(jcbMaLoaiDVu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxMaDVi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(jlbDonVi))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,13 +277,13 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnTimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<DonVi> jComboBoxMaDVi;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<LoaiDichVu> jcbMaLoaiDVu;
+    private javax.swing.JLabel jlbDonVi;
+    private javax.swing.JLabel jlbMaDv;
+    private javax.swing.JLabel jlbTenLoaiDv;
+    private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextField txtMaDVu;
     // End of variables declaration//GEN-END:variables
 }
