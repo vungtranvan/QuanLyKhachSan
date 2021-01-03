@@ -58,48 +58,49 @@ import javax.swing.JPanel;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
-    CauHinhNguoiDungDAO cauHinhNguoiDungDAO = new CauHinhNguoiDungDAO();
-    CauHinhNguoiDung cauHinhNguoiDung;
-    String cauHinhNgonNgu;
-    int maNguoiDung;
-    List<CauHinhNguoiDung> cauHinhNguoiDungs = new ArrayList<>();
-    Locale lc;
+    private CauHinhNguoiDungDAO cauHinhNguoiDungDAO = new CauHinhNguoiDungDAO();
+    private CauHinhNguoiDung cauHinhNguoiDung;
+    private String cauHinhNgonNgu;
+    private int maNguoiDung;
+    private List<CauHinhNguoiDung> cauHinhNguoiDungs = new ArrayList<>();
+    private Locale lc;
     public ResourceBundle rb;
 
-    List<JPanel> listSubMenuItemAdmin = new ArrayList<>();
-    List<JPanel> listSubMenuItemChecking = new ArrayList<>();
+    private List<JPanel> listSubMenuItemAdmin = new ArrayList<>();
+    private List<JPanel> listSubMenuItemChecking = new ArrayList<>();
 
-    List<JPanel> listSubMenuItemRoom = new ArrayList<>();
-    List<JPanel> listSubMenuSevice = new ArrayList<>();
+    private List<JPanel> listSubMenuItemRoom = new ArrayList<>();
+    private List<JPanel> listSubMenuSevice = new ArrayList<>();
 
-    List<JPanel> listSubMenuItemCustomer = new ArrayList<>();
-    List<JPanel> listSubMenuItemConfig = new ArrayList<>();
+    private List<JPanel> listSubMenuItemCustomer = new ArrayList<>();
+    private List<JPanel> listSubMenuItemConfig = new ArrayList<>();
 
-    JPanel subMenuAdmin;
+    private JPanel subMenuAdmin;
+    
+    QuanLyNhomQuyen quanLyNhomQuyen;
+    private JPanel subMenuroupPermission;
+    private JPanel subMenuRule;
 
-    JPanel subMenuroupPermission;
-    JPanel subMenuRule;
+    private JPanel subMenuBook;
+    private JPanel subMenuCheckIn;
+    private JPanel subMenuTax;
 
-    JPanel subMenuBook;
-    JPanel subMenuCheckIn;
-    JPanel subMenuTax;
+    private JPanel subMenuRoomType;
+    private JPanel subMenuRoom;
+    private JPanel subMenuRoomStatus;
+    private JPanel subMenuEquipment;
+    private JPanel subMenuServiceType;
+    private JPanel subMenuService;
+    private JPanel subMenuUnit;
+    private JPanel subMenuCheckout;
 
-    JPanel subMenuRoomType;
-    JPanel subMenuRoom;
-    JPanel subMenuRoomStatus;
-    JPanel subMenuEquipment;
-    JPanel subMenuServiceType;
-    JPanel subMenuService;
-    JPanel subMenuUnit;
-    JPanel subMenuCheckout;
+    private JPanel subMenuCustommer;
+    private JPanel subMenuDiscount;
 
-    JPanel subMenuCustommer;
-    JPanel subMenuDiscount;
+    private JPanel subMenuConfig;
+    private JPanel subMenuLanguage;
 
-    JPanel subMenuConfig;
-    JPanel subMenuLanguage;
-
-    int languageKey;
+    private int languageKey;
 
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
@@ -148,10 +149,10 @@ public class MainJFrame extends javax.swing.JFrame {
             listSubMenuItemAdmin.add(makeSubMenuItem(subMenuAdmin, rb.getString("subMenuAdmin")));
             showInternalFrame(subMenuAdmin, new QuanLyNguoiDung());
 
-
             subMenuroupPermission = new JPanel();
+            quanLyNhomQuyen = new QuanLyNhomQuyen(lc);
             listSubMenuItemAdmin.add(makeSubMenuItem(subMenuroupPermission, rb.getString("subMenuroupPermission")));
-            showInternalFrame(subMenuroupPermission, new QuanLyNhomQuyen());
+            showInternalFrame(subMenuroupPermission, quanLyNhomQuyen);
 
             visibleSubMenu(menuAdmin, rb.getString("SubMenuTitleAdmin"), listSubMenuItemAdmin, 1);
         }
@@ -238,7 +239,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
             visibleSubMenu(menuCustomer, rb.getString("SubMenuTitleCustomer"), listSubMenuItemCustomer, 3);
         }
-
+        // Ngon ngu
         NgonNgu ngonNgu = new NgonNgu(lc);
         subMenuLanguage = new JPanel();
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuLanguage, rb.getString("subMenuLanguage")));
@@ -246,9 +247,10 @@ public class MainJFrame extends javax.swing.JFrame {
         showInternalFrame(subMenuLanguage, ngonNgu);
 
         // Cau hinh
+        QuanLyCauHinh quanLyCauHinh = new QuanLyCauHinh();
         subMenuConfig = new JPanel();
         listSubMenuItemConfig.add(makeSubMenuItem(subMenuConfig, rb.getString("subMenuConfig")));
-        showInternalFrame(subMenuConfig, new QuanLyCauHinh());
+        showInternalFrame(subMenuConfig, quanLyCauHinh);
 
         visibleSubMenu(menuConfig, rb.getString("SubMenuTitleConfig"), listSubMenuItemConfig, 4);
 
@@ -570,6 +572,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 if (row > 0) {
                     translate(lc);
                     ngonNgu.translate(lc);
+                    quanLyNhomQuyen.translate(lc);
                 }
 
             }
@@ -629,7 +632,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public void translate(Locale lc) {
         rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
         setTextJlbFromJpn(subMenuAdmin, rb.getString("subMenuAdmin"));
-    
+
         setTextJlbFromJpn(subMenuroupPermission, rb.getString("subMenuroupPermission"));
         setTextJlbFromJpn(subMenuRule, rb.getString("subMenuRule"));
         setTextJlbFromJpn(subMenuRoom, rb.getString("subMenuRoom"));
