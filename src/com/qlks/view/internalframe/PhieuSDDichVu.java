@@ -5,17 +5,74 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
+import com.qlks.dao.impl.DichVuDAO;
+import com.qlks.models.DanhSachSuDungDichVu;
+import com.qlks.models.DichVu;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hello
  */
 public class PhieuSDDichVu extends javax.swing.JInternalFrame {
 
+    private DichVuDAO dichVuDAO;
+    private List<DichVu> lstDichVu;
+    private DefaultTableModel dtmDichVu;
+    private DefaultComboBoxModel modelDichVu;
+    private DanhSachSuDungDichVuDAO dsSDDichVuDAO;
+
     /**
      * Creates new form PhieuSDDichVu
      */
-    public PhieuSDDichVu() {
+    public PhieuSDDichVu(String maNhanPhong, String maPhong, String tenKH) {
         initComponents();
+        dtmDichVu = new DefaultTableModel();
+        dichVuDAO = new DichVuDAO();
+        modelDichVu = new DefaultComboBoxModel();
+        dsSDDichVuDAO = new DanhSachSuDungDichVuDAO();
+        lblMaNhanPhong.setText(maNhanPhong);
+        lblMaPhong.setText(maPhong);
+        lblTenKhachHang.setText(tenKH);
+        initdataDVu();
+        initDVDSD();
+        resetText();
+    }
+
+    public void resetText() {
+        txtErrorMaSDDichVu.setText("");
+        txtErrorSoLuong.setText("");
+        txtMaSDDicVu.setText("");
+        txtErrorSoLuong.setText("");
+        txtSoLuong.setValue(0);
+    }
+
+    public void initdataDVu() {
+        lstDichVu = dichVuDAO.getAll();
+
+        Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Giá"};
+        dtmDichVu = new DefaultTableModel(new Object[0][0], columnNames);
+        int index = 1;
+        for (DichVu adv : lstDichVu) {
+            modelDichVu.addElement(adv);
+            Object[] o = new Object[5];
+            o[0] = index;
+            o[1] = adv.getMaDichVu();
+            o[2] = adv.getTenLoaiDichVu();
+            o[3] = adv.getTenDonVi();
+            o[4] = (int) adv.getDonGia();
+            dtmDichVu.addRow(o);
+            index++;
+        }
+        tblDichVu.setModel(dtmDichVu);
+        jcbDichVu.setModel(modelDichVu);
+    }
+
+    public void initDVDSD() {
     }
 
     /**
@@ -32,15 +89,16 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         txtMaSDDicVu = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jcbDichVu = new javax.swing.JComboBox();
-        txtErrorMaSDDicVu = new javax.swing.JLabel();
+        jcbDichVu = new javax.swing.JComboBox<DichVu>();
+        txtErrorMaSDDichVu = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtSoLuong = new javax.swing.JSpinner();
         txtErrorSoLuong = new javax.swing.JLabel();
         btnThemMoi = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
         btnHuyBo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -69,8 +127,8 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Tên dịch vụ:");
 
-        txtErrorMaSDDicVu.setForeground(new java.awt.Color(255, 0, 51));
-        txtErrorMaSDDicVu.setText("...");
+        txtErrorMaSDDichVu.setForeground(new java.awt.Color(255, 0, 51));
+        txtErrorMaSDDichVu.setText("...");
 
         jLabel11.setText("Số llượng:");
 
@@ -104,7 +162,18 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        btnXoa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_delete.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+
+        btnLamMoi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_refresh.png"))); // NOI18N
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,20 +194,23 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtMaSDDicVu)
                             .addComponent(jcbDichVu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtErrorMaSDDicVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtErrorMaSDDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
                             .addComponent(txtErrorSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnThemMoi)))))
+                        .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnThemMoi)))
                 .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +222,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
                     .addComponent(txtMaSDDicVu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtErrorMaSDDicVu)
+                .addComponent(txtErrorMaSDDichVu)
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,8 +238,10 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(jButton1)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -195,6 +269,11 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDichVuMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDichVu);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -340,19 +419,76 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        // TODO add your handling code here:
+        boolean check = true;
+        String maSDDV = txtMaSDDicVu.getText();
+        if (maSDDV.length() <= 0) {
+            txtErrorMaSDDichVu.setText("Mã không được để trống");
+            check = false;
+        } else if (maSDDV.length() > 4) {
+            txtErrorMaSDDichVu.setText("Mã có tối đa là 4 ký tự");
+            check = false;
+        } else {
+            txtErrorMaSDDichVu.setText("");
+        }
+
+        List<DanhSachSuDungDichVu> lstCheckID = dsSDDichVuDAO.getByMaSuDungDichVu(maSDDV);
+        if (lstCheckID.size() > 0) {
+            txtErrorMaSDDichVu.setText("Mã đã tồn tại !");
+            check = false;
+        } else {
+            txtErrorMaSDDichVu.setText("");
+        }
+
+        int soLuong = (int) txtSoLuong.getValue();
+        if (soLuong < 0) {
+            txtErrorSoLuong.setText("Số lượng phải lớn hơn hoặc bằng 0");
+            check = false;
+        } else {
+            txtErrorSoLuong.setText("");
+        }
+        DichVu lp = (DichVu) modelDichVu.getSelectedItem();
+        String ma_DichVu = lp.getMaDichVu();
+        
+        if (check == true) {
+            int row = dsSDDichVuDAO.add(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), soLuong));
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                initDVDSD();
+                resetText();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
+    private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
+        int currentRow = tblDichVu.getSelectedRow();
+        if (currentRow >= 0) {
+            String maDV = dtmDichVu.getValueAt(currentRow, 1).toString();
+            DichVu dv = lstDichVu.stream().filter(x -> x.getMaDichVu().equals(maDV)).findAny().orElse(null);
+            modelDichVu.setSelectedItem(dv);
+        }
+    }//GEN-LAST:event_tblDichVuMouseClicked
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        tblDichVu.clearSelection();
+        tblDichVuDaSD.clearSelection();
+        initdataDVu();
+        initDVDSD();
+        resetText();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuyBo;
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
@@ -367,13 +503,13 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JComboBox jcbDichVu;
+    private javax.swing.JComboBox<DichVu> jcbDichVu;
     private javax.swing.JLabel lblMaNhanPhong;
     private javax.swing.JLabel lblMaPhong;
     private javax.swing.JLabel lblTenKhachHang;
     private javax.swing.JTable tblDichVu;
     private javax.swing.JTable tblDichVuDaSD;
-    private javax.swing.JLabel txtErrorMaSDDicVu;
+    private javax.swing.JLabel txtErrorMaSDDichVu;
     private javax.swing.JLabel txtErrorSoLuong;
     private javax.swing.JTextField txtMaSDDicVu;
     private javax.swing.JSpinner txtSoLuong;

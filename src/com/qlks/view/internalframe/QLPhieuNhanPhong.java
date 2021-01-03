@@ -334,7 +334,10 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         if (currentRow >= 0 && currentColumns == 11) {
             String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
             if (trangThai.equals("Chưa thanh toán")) {
-                showInternalFrame(new PhieuSDDichVu());
+                String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
+                String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
+                String tenKH = dtmPhieuNhanPhong.getValueAt(currentRow, 5).toString();
+                showInternalFrame(new PhieuSDDichVu(maNhanPhong, maPhong, tenKH));
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }

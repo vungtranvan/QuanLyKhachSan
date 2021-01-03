@@ -85,4 +85,9 @@ public class DichVu {
         this.tenDonVi = tenDonVi;
     }
 
+    @Override
+    public String toString() {
+        return tenLoaiDichVu;
+    }
+
 }

@@ -762,10 +762,18 @@ CREATE PROC insertNguoiDung
 @GioiTinh bit,
 @MaNhomQuyen int
 AS
-BEGIN 
+BEGIN TRY
+    BEGIN TRANSACTION
 Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values(@TenNguoiDung,@TenDangNhap,@MatKhau,@Anh,@Email,@NgaySinh,@GioiTinh,@MaNhomQuyen)
-END
+
+exec insertCauHinhNguoiDung 1,@@IDENTITY,'vietnam'
+		COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION
+END CATCH
 GO
+
 
 CREATE PROC updateNguoiDung
 @MaNguoiDung int,
@@ -2131,7 +2139,8 @@ GO
 CREATE PROC getAllDanhSachSuDungDichVu
 AS
 BEGIN 
-SELECT * FROM DanhSachSuDungDichVu
+SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.SoLuong
+FROM DanhSachSuDungDichVu JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
 END
 GO
 
