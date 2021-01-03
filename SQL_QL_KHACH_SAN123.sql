@@ -1,41 +1,23 @@
-GO 
-
-
-DECLARE @Number INT = 1 ;
-WHILE @Number < = 18
-BEGIN
-INSERT into PhanQuyen(MaNhomQuyen,MaQuyen) VALUES (1,@Number)
-SET @Number = @Number + 1 ;
-END
-
-GO
-
-
-INSERT into CauHinh (LoaiCauHinh) VALUES ('Language')
-insert into CauHinhNguoiDung(MaCauHinh,MaNguoiDung,NoiDungCauHinh) VALUES (1,1,'vietnam')
-
-GO
-
-SELECT * FROM Quyen
-
-GO
-CREATE proc getConfigVal
-@MaCauHinh int,
-@MaNguoiDung int
+CREATE PROC deleteNhomQuyen
+@MaNhomQuyen int
 AS
-BEGIN
-SELECT * from CauHinhNguoiDung WHERE MaCauHinh = @MaCauHinh and @MaNguoiDung = @MaNguoiDung
-END
-GO
-SELECT * FROM CauHinhNguoiDung
+BEGIN TRY
+    BEGIN TRANSACTION
+        DELETE PhanQuyen Where MaNhomQuyen = @MaNhomQuyen
+        DELETE NhomQuyen Where MaNhomQuyen = @MaNhomQuyen
+        -- some other codes
+        COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION
+END CATCH
 GO
 
-CREATE PROC updateCauHinhNguoiDung
-@MaCauHinh int,
-@MaNguoiDung int,
-@NoiDungCauHinh nvarchar (50)
-AS
-BEGIN 
-update CauHinhNguoiDung SET NoiDungCauHinh = @NoiDungCauHinh WHERE MaCauHinh = @MaCauHinh AND MaNguoiDung = @MaNguoiDung
+
+
+CREATE PROC deletePhanQuyen
+@MaNhomQuyen int
+as
+BEGIN
+DELETE FROM PhanQuyen WHERE MaNhomQuyen = @MaNhomQuyen
 END
-GO
