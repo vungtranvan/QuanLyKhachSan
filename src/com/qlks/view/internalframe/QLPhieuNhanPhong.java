@@ -5,17 +5,17 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.custom.CustomButtonClumnJTable;
 import com.qlks.custom.FunctionBase;
-import com.qlks.dao.impl.ChiTietPhieuThuePhongDAO;
-import com.qlks.dao.impl.PhieuThuePhongDAO;
+import com.qlks.dao.impl.ChiTietPhieuNhanPhongDAO;
+import com.qlks.dao.impl.PhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhongDAO;
-import com.qlks.models.ChiTietPhieuThuePhong;
-import com.qlks.models.PhieuThuePhong;
-import com.qlks.view.internalframe.action.AddPhieuThuePhong;
-import com.qlks.view.internalframe.action.SearchPhieuThuePhong;
-import com.qlks.view.internalframe.action.UpdatePhieuThuePhong;
+import com.qlks.models.ChiTietPhieuNhanPhong;
+import com.qlks.models.PhieuNhanPhong;
+import com.qlks.view.internalframe.action.AddPhieuNhanPhong;
+import com.qlks.view.internalframe.action.SearchPhieuNhanPhong;
+import com.qlks.view.internalframe.action.UpdatePhieuChiTietNhanPhong;
 import java.awt.Dimension;
-import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -26,54 +26,63 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuThuePhong.CallBackAdd, UpdatePhieuThuePhong.CallBackUpdate, SearchPhieuThuePhong.CallBackSearch {
-    
-    private PhieuThuePhongDAO phieuThuePhongDAO;
-    private ChiTietPhieuThuePhongDAO chiTietPhieuThuePhongDAO;
-    private PhongDAO phongDAO;
-    private List<PhieuThuePhong> lstPhieuThuePhong;
-    private DefaultTableModel dtmPhieuThuePhong;
+public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, UpdatePhieuChiTietNhanPhong.CallBackUpdate, SearchPhieuNhanPhong.CallBackSearch {
+
+    private PhieuNhanPhongDAO phieuNhanPhongDAO;
+    private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
+    private List<PhieuNhanPhong> lstPhieuNhanPhong;
+    private DefaultTableModel dtmPhieuNhanPhong;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
-    
+
     public QLPhieuNhanPhong() {
         initComponents();
-        dtmPhieuThuePhong = new DefaultTableModel();
-        phieuThuePhongDAO = new PhieuThuePhongDAO();
-        phongDAO = new PhongDAO();
-        chiTietPhieuThuePhongDAO = new ChiTietPhieuThuePhongDAO();
+        dtmPhieuNhanPhong = new DefaultTableModel();
+        phieuNhanPhongDAO = new PhieuNhanPhongDAO();
+        chiTietPhieuNhanPhongDAO = new ChiTietPhieuNhanPhongDAO();
         funcBase = new FunctionBase();
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }
-    
-    public void loadData(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong) {
-        
-        if (maPhieu != null || tenKH != null || ngayDky != null || ngayNhan != null || maPhong != null) {
-            //lstPhong = phongDAO.search(maPhong, maLoaiPhong, maLoaiTinhTrangPhong);
+
+    public void loadData(String maPhong, String tenKH, String CMND) {
+
+        if (maPhong != null || tenKH != null || CMND != null) {
+            lstPhieuNhanPhong = phieuNhanPhongDAO.search(maPhong, tenKH, CMND);
         } else {
-            lstPhieuThuePhong = phieuThuePhongDAO.getAll();
+            lstPhieuNhanPhong = phieuNhanPhongDAO.getAll();
         }
-        
-        Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Trạng thái", ""};
-        dtmPhieuThuePhong = new DefaultTableModel(new Object[0][0], columnNames);
+
+        Object[] columnNames = {"STT", "Mã nhận phòng", "Mã phiếu thuê", "Mã khách hàng", "Mã phòng", "Tên khách hàng", "CMND", "Ngày nhận", "Ngày trả dự kiến", "Ngày trả thực tế", "Trạng thái", "", "Xóa"};
+        dtmPhieuNhanPhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
-        for (PhieuThuePhong adv : lstPhieuThuePhong) {
-            Object[] o = new Object[9];
+        for (PhieuNhanPhong adv : lstPhieuNhanPhong) {
+            Object[] o = new Object[13];
             o[0] = index;
-            o[1] = adv.getMaPhieuThue();
-            o[2] = adv.getMaKhachHang();
-            o[3] = adv.getTenKhachHang();
+            o[1] = adv.getMaNhanPhong();
+            o[2] = adv.getMaPhieuThue();
+            o[3] = adv.getMaKhachHang();
             o[4] = adv.getMaPhong();
-            o[5] = adv.getNgayDangKy();
-            o[6] = adv.getNgayNhan();
-            o[7] = "Chưa xử lý";
-            dtmPhieuThuePhong.addRow(o);
+            o[5] = adv.getHoTenKhachHang();
+            o[6] = adv.getChungMinhThuNhanDan();
+            o[7] = adv.getNgayNhan();
+            o[8] = adv.getNgayTraDuKien();
+            o[9] = adv.getNgayTraThucTe();
+            Boolean Status = adv.isTrangThai();
+            String trangThai = "Chưa thanh toán";
+            if (Status == true) {
+                trangThai = "Đã thanh toán";
+            }
+            o[10] = trangThai;
+            o[11] = "Thêm DV";
+            dtmPhieuNhanPhong.addRow(o);
             index++;
         }
-        tblPhieuThuePhong.setModel(dtmPhieuThuePhong);
-        funcBase.addCheckBox(8, tblPhieuThuePhong);
+        tblPhieuNhanPhong.setModel(dtmPhieuNhanPhong);
+        new CustomButtonClumnJTable(tblPhieuNhanPhong, 11);
+
+        funcBase.addCheckBox(12, tblPhieuNhanPhong);
     }
-    
+
     public void centerJIF(JInternalFrame jif) {
         Dimension desktopSize = jdek.getSize();
         Dimension jInternalFrameSize = jif.getSize();
@@ -82,7 +91,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         jif.setLocation(width, height);
         jif.setVisible(true);
     }
-    
+
     public void showInternalFrame(JInternalFrame jif) {
         if (!jif.isVisible()) {
             jdek = getDesktopPane();
@@ -110,11 +119,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         btnCapNhat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPhieuThuePhong = new javax.swing.JTable();
+        tblPhieuNhanPhong = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Quản lý phiếu thuê phòng");
+        setTitle("Quản lý phiếu nhận phòng");
 
         btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_refresh.png"))); // NOI18N
         btnLamMoi.setText("Làm mới");
@@ -165,8 +174,8 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(114, 114, 114)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(265, Short.MAX_VALUE)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,22 +185,22 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGap(258, 258, 258))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        tblPhieuThuePhong.setModel(new javax.swing.table.DefaultTableModel(
+        tblPhieuNhanPhong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -202,7 +211,12 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblPhieuThuePhong);
+        tblPhieuNhanPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPhieuNhanPhongMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblPhieuNhanPhong);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -216,7 +230,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,7 +258,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddPhieuThuePhong(this));
+        showInternalFrame(new AddPhieuNhanPhong(this));
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -254,21 +268,21 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
             String ma_Phong;
-            for (int i = 0; i < tblPhieuThuePhong.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 8, tblPhieuThuePhong)) {
+            for (int i = 0; i < tblPhieuNhanPhong.getRowCount(); i++) {
+                if (funcBase.IsSelected(i, 12, tblPhieuNhanPhong)) {
                     check = true;
-                    
-                    int rowSucces1 = chiTietPhieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
-                    int rowSucces2 = phieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
+
+                    int rowSucces1 = chiTietPhieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+                    int rowSucces2 = phieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
                     if (rowSucces1 > 0 && rowSucces2 > 0) {
-                        phongDAO.updatePhongDaThanhToan(tblPhieuThuePhong.getValueAt(i, 4).toString());
-                        succesDeltete += "\t" + tblPhieuThuePhong.getValueAt(i, 1).toString() + "\n";
+                        //phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
+                        succesDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
                     } else {
-                        errDeltete += "\t" + tblPhieuThuePhong.getValueAt(i, 1).toString() + "\n";
+                        errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
                     }
                 }
             }
-            loadData(null, null, null, null, null);
+            loadData(null, null, null);
             if (check == true) {
                 String mess = "";
                 if (succesDeltete.length() > 0) {
@@ -285,32 +299,47 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }//GEN-LAST:event_btnLamMoiKeyPressed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        int currentRow = tblPhieuThuePhong.getSelectedRow();
-        
+        int currentRow = tblPhieuNhanPhong.getSelectedRow();
+
         if (currentRow >= 0) {
-            String maPhong = dtmPhieuThuePhong.getValueAt(currentRow, 1).toString();
-            List<ChiTietPhieuThuePhong> lstPhongByMa = chiTietPhieuThuePhongDAO.getByMaPhieuThue(maPhong);
-            ChiTietPhieuThuePhong data = null;
-            for (ChiTietPhieuThuePhong ph : lstPhongByMa) {
-                data = new ChiTietPhieuThuePhong(ph.getMaPhieuThue(), ph.getNgayDangKy(), ph.getNgayNhan());
+            String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
+            List<ChiTietPhieuNhanPhong> lstNhanPhong = chiTietPhieuNhanPhongDAO.getByMaNhanPhong(maNhanPhong);
+
+            ChiTietPhieuNhanPhong data = null;
+            for (ChiTietPhieuNhanPhong adx : lstNhanPhong) {
+                data = new ChiTietPhieuNhanPhong(adx.getMaNhanPhong(), adx.getNgayTraThucTe());
             }
-            showInternalFrame(new UpdatePhieuThuePhong(data, this));
+
+            showInternalFrame(new UpdatePhieuChiTietNhanPhong(data, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        showInternalFrame(new SearchPhieuThuePhong(this));
+        showInternalFrame(new SearchPhieuNhanPhong(this));
     }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void tblPhieuNhanPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhieuNhanPhongMouseClicked
+        int currentRow = tblPhieuNhanPhong.getSelectedRow();
+        int currentColumns = tblPhieuNhanPhong.getSelectedColumn();
+        if (currentRow >= 0 && currentColumns == 11) {
+            String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
+            if (trangThai.equals("Chưa thanh toán")) {
+                showInternalFrame(new PhieuSDDichVu());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_tblPhieuNhanPhongMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -322,22 +351,22 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblPhieuThuePhong;
+    private javax.swing.JTable tblPhieuNhanPhong;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void doAdd() {
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }
-    
+
     @Override
     public void doUpdate() {
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }
-    
+
     @Override
-    public void doSearch(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong) {
-        loadData(maPhieu, tenKH, ngayDky, ngayNhan, maPhong);
+    public void doSearch(String maPhong, String tenKH, String CMND) {
+        loadData(maPhong, tenKH, CMND);
     }
-    
+
 }

@@ -15,7 +15,6 @@ import com.qlks.view.internalframe.action.AddPhieuThuePhong;
 import com.qlks.view.internalframe.action.SearchPhieuThuePhong;
 import com.qlks.view.internalframe.action.UpdatePhieuThuePhong;
 import java.awt.Dimension;
-import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -27,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  * @author hello
  */
 public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddPhieuThuePhong.CallBackAdd, UpdatePhieuThuePhong.CallBackUpdate, SearchPhieuThuePhong.CallBackSearch {
-    
+
     private PhieuThuePhongDAO phieuThuePhongDAO;
     private ChiTietPhieuThuePhongDAO chiTietPhieuThuePhongDAO;
     private PhongDAO phongDAO;
@@ -35,7 +34,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
     private DefaultTableModel dtmPhieuThuePhong;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
-    
+
     public QLPhieuThuePhong() {
         initComponents();
         dtmPhieuThuePhong = new DefaultTableModel();
@@ -43,17 +42,17 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
         phongDAO = new PhongDAO();
         chiTietPhieuThuePhongDAO = new ChiTietPhieuThuePhongDAO();
         funcBase = new FunctionBase();
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }
-    
-    public void loadData(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong) {
-        
-        if (maPhieu != null || tenKH != null || ngayDky != null || ngayNhan != null || maPhong != null) {
-             lstPhieuThuePhong = phieuThuePhongDAO.search(maPhieu, tenKH, ngayDky, ngayNhan, maPhong);
+
+    public void loadData(String maPhieu, String tenKH, String maPhong) {
+
+        if (maPhieu != null || tenKH != null || maPhong != null) {
+            lstPhieuThuePhong = phieuThuePhongDAO.search(maPhieu, tenKH, maPhong);
         } else {
             lstPhieuThuePhong = phieuThuePhongDAO.getAll();
         }
-        
+
         Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Trạng thái", ""};
         dtmPhieuThuePhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
@@ -66,14 +65,20 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             o[4] = adv.getMaPhong();
             o[5] = adv.getNgayDangKy();
             o[6] = adv.getNgayNhan();
-            o[7] = "Chưa xử lý";
+            
+            Boolean Status = adv.isTrangThai();
+            String trangThai = "Chưa xử lý";
+            if (Status == true) {
+                trangThai = "Đã xử lý";
+            }
+            o[7] = trangThai;
             dtmPhieuThuePhong.addRow(o);
             index++;
         }
         tblPhieuThuePhong.setModel(dtmPhieuThuePhong);
         funcBase.addCheckBox(8, tblPhieuThuePhong);
     }
-    
+
     public void centerJIF(JInternalFrame jif) {
         Dimension desktopSize = jdek.getSize();
         Dimension jInternalFrameSize = jif.getSize();
@@ -82,7 +87,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
         jif.setLocation(width, height);
         jif.setVisible(true);
     }
-    
+
     public void showInternalFrame(JInternalFrame jif) {
         if (!jif.isVisible()) {
             jdek = getDesktopPane();
@@ -259,7 +264,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             for (int i = 0; i < tblPhieuThuePhong.getRowCount(); i++) {
                 if (funcBase.IsSelected(i, 8, tblPhieuThuePhong)) {
                     check = true;
-                    
+
                     int rowSucces1 = chiTietPhieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
                     int rowSucces2 = phieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
                     if (rowSucces1 > 0 && rowSucces2 > 0) {
@@ -270,7 +275,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
                     }
                 }
             }
-            loadData(null, null, null, null, null);
+            loadData(null, null, null);
             if (check == true) {
                 String mess = "";
                 if (succesDeltete.length() > 0) {
@@ -287,16 +292,16 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }//GEN-LAST:event_btnLamMoiKeyPressed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         int currentRow = tblPhieuThuePhong.getSelectedRow();
-        
+
         if (currentRow >= 0) {
             String maPhong = dtmPhieuThuePhong.getValueAt(currentRow, 1).toString();
             List<ChiTietPhieuThuePhong> lstPhongByMa = chiTietPhieuThuePhongDAO.getByMaPhieuThue(maPhong);
@@ -329,17 +334,17 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
 
     @Override
     public void doAdd() {
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }
-    
+
     @Override
     public void doUpdate() {
-        loadData(null, null, null, null, null);
+        loadData(null, null, null);
     }
-    
+
     @Override
-    public void doSearch(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong) {
-        loadData(maPhieu, tenKH, ngayDky, ngayNhan, maPhong);
+    public void doSearch(String maPhieu, String tenKH, String maPhong) {
+        loadData(maPhieu, tenKH, maPhong);
     }
-    
+
 }

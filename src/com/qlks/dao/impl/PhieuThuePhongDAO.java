@@ -8,7 +8,6 @@ package com.qlks.dao.impl;
 import com.qlks.dao.IPhieuThuePhongDAO;
 import com.qlks.mapper.PhieuThuePhongMapper;
 import com.qlks.models.PhieuThuePhong;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -24,9 +23,21 @@ public class PhieuThuePhongDAO extends AbstractDAO<PhieuThuePhong> implements IP
     }
 
     @Override
-    public List<PhieuThuePhong> search(String maPhieu, String tenKH, LocalDate ngayDky, LocalDate ngayNhan, String maPhong) {
-        String sql = "{Call SearchThuePhong(?,?,?,?,?)}";
-        return query(sql, new PhieuThuePhongMapper(), maPhieu, tenKH, ngayDky, ngayNhan, maPhong);
+    public List<PhieuThuePhong> getChuaXuLy() {
+        String sql = "{Call getPhieuThuePhong_ChuaXL}";
+        return query(sql, new PhieuThuePhongMapper());
+    }
+
+    @Override
+    public List<PhieuThuePhong> getByMaPhieuThue(String maPhieu) {
+        String sql = "{Call getPhieuNhanPhong_ByMaPhieuThue(?)}";
+        return query(sql, new PhieuThuePhongMapper(), maPhieu);
+    }
+
+    @Override
+    public List<PhieuThuePhong> search(String maPhieu, String tenKH, String maPhong) {
+        String sql = "{Call SearchThuePhong(?,?,?)}";
+        return query(sql, new PhieuThuePhongMapper(), maPhieu, tenKH, maPhong);
     }
 
     @Override
@@ -38,6 +49,12 @@ public class PhieuThuePhongDAO extends AbstractDAO<PhieuThuePhong> implements IP
     @Override
     public int delete(String maPhieuThue) {
         String sql = "{Call deletePhieuThuePhong(?)}";
+        return this.update(sql, maPhieuThue);
+    }
+
+    @Override
+    public int updateTrangThai(String maPhieuThue) {
+        String sql = "{Call updateTrangThaiPhieuThue(?)}";
         return this.update(sql, maPhieuThue);
     }
 

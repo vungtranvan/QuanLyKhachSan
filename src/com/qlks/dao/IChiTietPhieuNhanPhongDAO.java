@@ -19,4 +19,8 @@ public interface IChiTietPhieuNhanPhongDAO {
     List<ChiTietPhieuNhanPhong> getByMaNhanPhong(String maNhanPhong);
 
     int add(ChiTietPhieuNhanPhong ct);
+
+    int delete(String maNhanPhong);
+
+    int updateNgayTraDuKien(ChiTietPhieuNhanPhong ct);
 }

@@ -18,7 +18,7 @@ public interface IPhieuNhanPhongDAO {
 
     List<PhieuNhanPhong> getByMaNhanPhong(String maNhanPhong);
 
-    List<PhieuNhanPhong> search(String maNhanPhong, String maPhieuThue, String maKhachHang);
+    List<PhieuNhanPhong> search(String maPhong, String tenKH, String CMND);
 
     int add(PhieuNhanPhong phieuNhanPhong);
 

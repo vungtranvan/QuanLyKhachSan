@@ -19,6 +19,20 @@ public class ChiTietPhieuNhanPhong {
     public ChiTietPhieuNhanPhong() {
     }
 
+    public ChiTietPhieuNhanPhong(String maNhanPhong, LocalDate ngayTraThucTe) {
+        this.maNhanPhong = maNhanPhong;
+        this.ngayTraThucTe = ngayTraThucTe;
+    }
+
+    public ChiTietPhieuNhanPhong(String maNhanPhong, String maPhong, String hoTenKhachHang, String chungMinhThuNhanDan, LocalDate ngayNhan, LocalDate ngayTraDuKien) {
+        this.maNhanPhong = maNhanPhong;
+        this.maPhong = maPhong;
+        this.hoTenKhachHang = hoTenKhachHang;
+        this.chungMinhThuNhanDan = chungMinhThuNhanDan;
+        this.ngayNhan = ngayNhan;
+        this.ngayTraDuKien = ngayTraDuKien;
+    }
+
     public ChiTietPhieuNhanPhong(String maNhanPhong, String maPhong, String hoTenKhachHang, String chungMinhThuNhanDan, LocalDate ngayNhan, LocalDate ngayTraDuKien, LocalDate ngayTraThucTe) {
         this.maNhanPhong = maNhanPhong;
         this.maPhong = maPhong;

@@ -29,9 +29,9 @@ public class PhieuNhanPhongDAO extends AbstractDAO<PhieuNhanPhong> implements IP
     }
 
     @Override
-    public List<PhieuNhanPhong> search(String maNhanPhong, String maPhieuThue, String maKhachHang) {
+    public List<PhieuNhanPhong> search(String maPhong, String tenKH, String CMND) {
         String sql = "{Call SearchPhieuNhanPhong(?,?,?)}";
-        return query(sql, new PhieuNhanPhongMapper(), maNhanPhong, maPhieuThue, maKhachHang);
+        return query(sql, new PhieuNhanPhongMapper(), maPhong, tenKH, CMND);
     }
 
     @Override
