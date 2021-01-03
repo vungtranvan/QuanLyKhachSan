@@ -8,11 +8,14 @@ package com.qlks.view.internalframe;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.PhongDAO;
 import com.qlks.models.Phong;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddPhong;
 import com.qlks.view.internalframe.action.SearchPhong;
 import com.qlks.view.internalframe.action.UpdatePhong;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,13 +32,24 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
     private DefaultTableModel dtmPhong;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
+    ResourceBundle rb;
+    private Locale lc;
+    AddPhong addPhong;
+    UpdatePhong updatePhong;
+    SearchPhong searchPhong;
 
-    public QuanLyPhong() {
+    public QuanLyPhong(Locale lc) {
         initComponents();
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         dtmPhong = new DefaultTableModel();
         phongDAO = new PhongDAO();
         funcBase = new FunctionBase();
         loadData(null, null, 0);
+        makeTableHeader(rb);
+        if (!MethodMain.checkQuyen("QlPhong")) {
+            GroupBtn.setVisible(false);
+        }
     }
 
     public void loadData(String maPhong, String maLoaiPhong, int maLoaiTinhTrangPhong) {
@@ -83,6 +97,42 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
         }
     }
 
+    private void makeText(ResourceBundle rb) {
+        btnCapNhat.setText(rb.getString("BtnCapNhat"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnThemMoi.setText(rb.getString("BtnThemMoi"));
+        btnTimKiem.setText(rb.getString("BtnTimKiem"));
+        btnXoa.setText(rb.getString("BtnXoa"));
+        setTitle(rb.getString("JIFLoaiPhongTitle"));
+    }
+
+    private void makeTableHeader(ResourceBundle rb) {
+        tblPhong.getColumnModel().getColumn(0).setHeaderValue("STT");
+        tblPhong.getColumnModel().getColumn(1).setHeaderValue(rb.getString("JIFQuanLyPhongMaPhong"));
+        tblPhong.getColumnModel().getColumn(2).setHeaderValue(rb.getString("JIFQuanLyPhongLoaiPhong"));
+        tblPhong.getColumnModel().getColumn(3).setHeaderValue(rb.getString("JIFQuanLyPhongTinhTrang"));
+        tblPhong.getColumnModel().getColumn(4).setHeaderValue(rb.getString("JIFQuanLyPhongGia"));
+        tblPhong.getColumnModel().getColumn(5).setHeaderValue(rb.getString("JIFQuanLyPhongGhiChu"));
+        tblPhong.getColumnModel().getColumn(6).setHeaderValue("");
+    }
+
+    public void translate(Locale lc) {
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        makeText(this.rb);
+        makeTableHeader(this.rb);
+        if (addPhong != null) {
+            addPhong.translate(this.rb);
+        }
+        if (updatePhong != null) {
+            updatePhong.translate(this.rb);
+        }
+        if (searchPhong != null) {
+            searchPhong.translate(this.rb);
+        }
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,7 +142,7 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        GroupBtn = new javax.swing.JPanel();
         btnLamMoi = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -151,11 +201,11 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout GroupBtnLayout = new javax.swing.GroupLayout(GroupBtn);
+        GroupBtn.setLayout(GroupBtnLayout);
+        GroupBtnLayout.setHorizontalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -168,11 +218,11 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(235, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        GroupBtnLayout.setVerticalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,7 +266,7 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
@@ -224,7 +274,7 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GroupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -234,14 +284,15 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddPhong(this));
+        addPhong = new AddPhong(this, this.rb);
+        showInternalFrame(addPhong);
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         String succesDeltete = "";
         String errDeltete = "";
         Boolean check = false;
-        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int thongbao = JOptionPane.showConfirmDialog(this, rb.getString("ConfirmDialogMsg"), rb.getString("ConfirmDialogTitle"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblPhong.getRowCount(); i++) {
@@ -261,14 +312,14 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
             if (check == true) {
                 String mess = "";
                 if (succesDeltete.length() > 0) {
-                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
+                    mess += rb.getString("ConfirmDialogMsgXoaOK") + "\n" + succesDeltete;
                 }
                 if (errDeltete.length() > 0) {
-                    mess += "Không thể xóa: \n" + errDeltete;
+                    mess += rb.getString("ConfirmDialogMsgXoaErr") + "\n" + errDeltete;
                 }
-                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, mess, rb.getString("ConfirmDialogTitle"), JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, rb.getString("ConfirmDialogMsgChonXoa"), rb.getString("ConfirmDialogTitle"), JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -291,24 +342,26 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
             for (Phong ph : lstPhongByMa) {
                 dataKM = new Phong(ph.getMaPhong(), ph.getMaLoaiPhong(), ph.getMaLoaiTinhTrangPhong(), ph.getGhiChu());
             }
-            showInternalFrame(new UpdatePhong(dataKM, this));
+            updatePhong = new UpdatePhong(dataKM, this, rb);
+            showInternalFrame(updatePhong);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, rb.getString("ConfirmDialogMsgChonCapNhat"), rb.getString("ConfirmDialogTitle"), JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        showInternalFrame(new SearchPhong(this));
+        searchPhong = new SearchPhong(this, this.rb);
+        showInternalFrame(searchPhong);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GroupBtn;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPhong;

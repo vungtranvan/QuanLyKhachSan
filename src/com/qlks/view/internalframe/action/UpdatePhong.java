@@ -12,6 +12,7 @@ import com.qlks.models.LoaiPhong;
 import com.qlks.models.LoaiTinhTrang;
 import com.qlks.models.Phong;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -28,6 +29,7 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
     private LoaiTinhTrangDAO loaiTinhTrangDAO;
     private List<LoaiTinhTrang> lstLoaiTinhTrang;
     private DefaultComboBoxModel modelLoaiTinhTrang;
+    private ResourceBundle rb;
 
     CallBackUpdate cb;
 
@@ -39,7 +41,7 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public UpdatePhong(Phong phong, CallBackUpdate _cb) {
+    public UpdatePhong(Phong phong, CallBackUpdate _cb,ResourceBundle rb) {
         initComponents();
         phongDAO = new PhongDAO();
 
@@ -63,8 +65,10 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
         modelLoaiPhong.setSelectedItem(lp);
 
         int tt_id = phong.getMaLoaiTinhTrangPhong();
-        LoaiTinhTrang tt = lstLoaiTinhTrang.stream().filter(x -> x.getMaLoaiTinhTrangPhong()== tt_id).findAny().orElse(null);
+        LoaiTinhTrang tt = lstLoaiTinhTrang.stream().filter(x -> x.getMaLoaiTinhTrangPhong() == tt_id).findAny().orElse(null);
         modelLoaiTinhTrang.setSelectedItem(tt);
+        this.rb = rb;
+        translate(this.rb);
     }
 
     public void initDataLoaiPhong() {
@@ -86,6 +90,25 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
         txtGhiChu.setText("");
     }
 
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        setTitle(this.rb.getString("UpdatePhong"));
+        jlbTitle.setText(this.rb.getString("UpdatePhong"));
+        jlbMaPhong.setText(this.rb.getString("JIFQuanLyPhongMaPhong"));
+        JlbTenLoaiPhong.setText(this.rb.getString("AddLoaiPhongTen"));
+        jlbGhiChu.setText(this.rb.getString("JIFQuanLyPhongGhiChu"));
+        jlbTinhTrang.setText(this.rb.getString("JIFQuanLyPhongTinhTrang"));
+
+
+        btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
+        btnHuyBo.setText(this.rb.getString("BtnHuy"));
+        btnCapNhat.setText(this.rb.getString("BtnCapNhat"));
+
+        revalidate();
+        repaint();
+    }
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,41 +120,41 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbMaPhong = new javax.swing.JLabel();
         txtMaPhong = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        JlbTenLoaiPhong = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jlbGhiChu = new javax.swing.JLabel();
         btnHuyBo = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
-        jcbMaLoaiPhong = new javax.swing.JComboBox<LoaiPhong>();
-        jComboBoxMaTinhTrang = new javax.swing.JComboBox<LoaiTinhTrang>();
-        jLabel8 = new javax.swing.JLabel();
+        jcbMaLoaiPhong = new javax.swing.JComboBox<>();
+        jComboBoxMaTinhTrang = new javax.swing.JComboBox<>();
+        jlbTinhTrang = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtGhiChu = new javax.swing.JTextArea();
 
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("CẬP NHẬT PHÒNG");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("CẬP NHẬT PHÒNG");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Mã phòng:");
+        jlbMaPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbMaPhong.setText("Mã phòng:");
 
         txtMaPhong.setEditable(false);
         txtMaPhong.setEnabled(false);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Tên loại phòng:");
+        JlbTenLoaiPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        JlbTenLoaiPhong.setText("Tên loại phòng:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Ghi chú:");
+        jlbGhiChu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbGhiChu.setText("Ghi chú:");
 
         btnHuyBo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnHuyBo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_close.png"))); // NOI18N
@@ -160,8 +183,8 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Tình trạng:");
+        jlbTinhTrang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbTinhTrang.setText("Tình trạng:");
 
         txtGhiChu.setColumns(20);
         txtGhiChu.setRows(5);
@@ -174,11 +197,11 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaPhong)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(JlbTenLoaiPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jlbGhiChu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -194,7 +217,7 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
                                         .addGap(25, 25, 25)
                                         .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
+                                        .addComponent(jlbTinhTrang)
                                         .addGap(29, 29, 29)
                                         .addComponent(jComboBoxMaTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -206,28 +229,28 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(241, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(232, 232, 232))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaPhong)
                     .addComponent(txtMaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(JlbTenLoaiPhong)
                     .addComponent(jcbMaLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxMaTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(jlbTinhTrang))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addComponent(jLabel7))
+                        .addComponent(jlbGhiChu))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -290,20 +313,20 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JlbTenLoaiPhong;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuyBo;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<LoaiTinhTrang> jComboBoxMaTinhTrang;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<LoaiPhong> jcbMaLoaiPhong;
+    private javax.swing.JLabel jlbGhiChu;
+    private javax.swing.JLabel jlbMaPhong;
+    private javax.swing.JLabel jlbTinhTrang;
+    private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextArea txtGhiChu;
     private javax.swing.JTextField txtMaPhong;
     // End of variables declaration//GEN-END:variables

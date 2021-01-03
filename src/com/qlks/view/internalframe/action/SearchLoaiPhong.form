@@ -44,7 +44,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="405" max="-2" attributes="0"/>
+                  <Component id="jlbTitle" min="-2" pref="405" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
@@ -60,8 +60,8 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlbMaLoaiPhong" min="-2" max="-2" attributes="0"/>
+                              <Component id="JlbTenLoaiPhong" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="35" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -78,15 +78,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="jlbTitle" min="-2" pref="28" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlbMaLoaiPhong" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtMaLoaiPhong" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="JlbTenLoaiPhong" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTenLoaiPhong" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
@@ -101,7 +101,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="jlbTitle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="1"/>
@@ -110,7 +110,7 @@
             <Property name="text" type="java.lang.String" value="T&#xcc;M KI&#x1ebe;M LO&#x1ea0;I PH&#xd2;NG"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="jlbMaLoaiPhong">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -120,7 +120,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaLoaiPhong">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="JlbTenLoaiPhong">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>

@@ -5,6 +5,8 @@
  */
 package com.qlks.view.internalframe.action;
 
+import java.util.ResourceBundle;
+
 /**
  *
  * @author hello
@@ -12,6 +14,7 @@ package com.qlks.view.internalframe.action;
 public class SearchLoaiPhong extends javax.swing.JInternalFrame {
 
     CallBackSearch cb;
+    private ResourceBundle rb;
 
     public interface CallBackSearch {
 
@@ -21,15 +24,32 @@ public class SearchLoaiPhong extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public SearchLoaiPhong(CallBackSearch _cb) {
+    public SearchLoaiPhong(CallBackSearch _cb,ResourceBundle rb) {
         initComponents();
         resetText();
         this.cb = _cb;
+        this.rb = rb;
+        translate(this.rb);
     }
 
     public void resetText() {
         txtMaLoaiPhong.setText("");
         txtTenLoaiPhong.setText("");
+    }
+
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        setTitle(this.rb.getString("AddLoaiPhongTitle"));
+        jlbTitle.setText(this.rb.getString("AddLoaiPhongTitle"));
+        jlbMaLoaiPhong.setText(this.rb.getString("AddLoaiPhongMa"));
+        JlbTenLoaiPhong.setText(this.rb.getString("AddLoaiPhongTen"));
+
+        btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
+        btnHuyBo.setText(this.rb.getString("BtnHuy"));
+        btnTimKiem.setText(this.rb.getString("BtnTimKiem"));
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -43,10 +63,10 @@ public class SearchLoaiPhong extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbMaLoaiPhong = new javax.swing.JLabel();
         txtMaLoaiPhong = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        JlbTenLoaiPhong = new javax.swing.JLabel();
         txtTenLoaiPhong = new javax.swing.JTextField();
         btnHuyBo = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
@@ -55,15 +75,15 @@ public class SearchLoaiPhong extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TÌM KIẾM LOẠI PHÒNG");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("TÌM KIẾM LOẠI PHÒNG");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Mã loại phòng:");
+        jlbMaLoaiPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbMaLoaiPhong.setText("Mã loại phòng:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Tên loại phòng:");
+        JlbTenLoaiPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        JlbTenLoaiPhong.setText("Tên loại phòng:");
 
         txtTenLoaiPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -100,7 +120,7 @@ public class SearchLoaiPhong extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(89, 89, 89)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -114,8 +134,8 @@ public class SearchLoaiPhong extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jlbMaLoaiPhong)
+                            .addComponent(JlbTenLoaiPhong))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMaLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,14 +146,14 @@ public class SearchLoaiPhong extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaLoaiPhong)
                     .addComponent(txtMaLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(JlbTenLoaiPhong)
                     .addComponent(txtTenLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -174,14 +194,14 @@ public class SearchLoaiPhong extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JlbTenLoaiPhong;
     private javax.swing.JButton btnHuyBo;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jlbMaLoaiPhong;
+    private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextField txtMaLoaiPhong;
     private javax.swing.JTextField txtTenLoaiPhong;
     // End of variables declaration//GEN-END:variables

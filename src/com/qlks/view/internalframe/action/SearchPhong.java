@@ -12,6 +12,7 @@ import com.qlks.models.LoaiPhong;
 import com.qlks.models.LoaiTinhTrang;
 import com.qlks.models.Phong;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -29,6 +30,7 @@ public class SearchPhong extends javax.swing.JInternalFrame {
     private DefaultComboBoxModel modelLoaiTinhTrang;
 
     CallBackSearch cb;
+    private ResourceBundle rb;
 
     public interface CallBackSearch {
 
@@ -38,7 +40,7 @@ public class SearchPhong extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public SearchPhong(CallBackSearch _cb) {
+    public SearchPhong(CallBackSearch _cb, ResourceBundle rb) {
         initComponents();
 
         modelLoaiPhong = new DefaultComboBoxModel();
@@ -53,6 +55,8 @@ public class SearchPhong extends javax.swing.JInternalFrame {
         this.cb = _cb;
         initDataLoaiPhong();
         initDataLoaiTinhTrang();
+        this.rb = rb;
+        translate(this.rb);
     }
 
     public void initDataLoaiPhong() {
@@ -75,6 +79,22 @@ public class SearchPhong extends javax.swing.JInternalFrame {
         txtMaPhong.setText("");
     }
 
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        setTitle(this.rb.getString("SearchPhong"));
+        jlbTitle.setText(this.rb.getString("SearchPhong"));
+        jlbMaPhong.setText(this.rb.getString("JIFQuanLyPhongMaPhong"));
+        jlbTenLoaiPhong.setText(this.rb.getString("AddLoaiPhongTen"));
+        jlbTinhTrang.setText(this.rb.getString("JIFQuanLyPhongTinhTrang"));
+
+        btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
+        btnHuyBo.setText(this.rb.getString("BtnHuy"));
+        btnTimKiem.setText(this.rb.getString("BtnTimKiem"));
+
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,30 +106,30 @@ public class SearchPhong extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbMaPhong = new javax.swing.JLabel();
         txtMaPhong = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        jlbTenLoaiPhong = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnHuyBo = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
-        jcbMaLoaiPhong = new javax.swing.JComboBox<LoaiPhong>();
-        jComboBoxMaTinhTrang = new javax.swing.JComboBox<LoaiTinhTrang>();
-        jLabel8 = new javax.swing.JLabel();
+        jcbMaLoaiPhong = new javax.swing.JComboBox<>();
+        jComboBoxMaTinhTrang = new javax.swing.JComboBox<>();
+        jlbTinhTrang = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TÌM KIẾM PHÒNG");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("TÌM KIẾM PHÒNG");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Mã phòng:");
+        jlbMaPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbMaPhong.setText("Mã phòng:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Tên loại phòng:");
+        jlbTenLoaiPhong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbTenLoaiPhong.setText("Tên loại phòng:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -140,8 +160,8 @@ public class SearchPhong extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Tình trạng:");
+        jlbTinhTrang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbTinhTrang.setText("Tình trạng:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,11 +170,11 @@ public class SearchPhong extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaPhong)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel8))
+                        .addComponent(jlbTenLoaiPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jlbTinhTrang))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -169,25 +189,25 @@ public class SearchPhong extends javax.swing.JInternalFrame {
                 .addGap(0, 58, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(105, 105, 105))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaPhong)
                     .addComponent(txtMaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(jlbTenLoaiPhong)
                     .addComponent(jcbMaLoaiPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                    .addComponent(jlbTinhTrang)
                     .addComponent(jComboBoxMaTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -257,13 +277,13 @@ public class SearchPhong extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnTimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<LoaiTinhTrang> jComboBoxMaTinhTrang;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<LoaiPhong> jcbMaLoaiPhong;
+    private javax.swing.JLabel jlbMaPhong;
+    private javax.swing.JLabel jlbTenLoaiPhong;
+    private javax.swing.JLabel jlbTinhTrang;
+    private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextField txtMaPhong;
     // End of variables declaration//GEN-END:variables
 }

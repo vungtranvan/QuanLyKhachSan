@@ -275,11 +275,11 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         ValidJcheck(chbXemQd, chbQlQd);
     }
 
-    private void makeText(Locale lc) {
+     private void makeText(Locale lc) {
         ResourceBundle rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
         setTitle(rb.getString("JIFQuanLyNhomQuyenTitle"));
         jblSearch.setText(rb.getString("JIFQuanLyNhomQuyenJblSearch"));
-        btnSearch.setText(rb.getString("JIFQuanLyNhomQuyenBtnSearch"));
+        btnSearch.setText(rb.getString("BtnTimKiem"));
         ((TitledBorder) jpnNhomQuyen.getBorder()).setTitle(rb.getString("JIFQuanLyNhomQuyenJpnNhomQuyenTitle"));
         jlbTenNhomQuyen.setText(rb.getString("JIFQuanLyNhomQuyenJblTennhomQuyen"));
         jblGiaoDich.setText(rb.getString("JIFQuanLyNhomQuyenJblGiaoDich"));
@@ -291,10 +291,10 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         JblKhachHang.setText(rb.getString("JIFQuanLyNhomQuyenJblKhachHang"));
         JblKhuyenMai.setText(rb.getString("JIFQuanLyNhomQuyenJblKhuyenMai"));
         JblQuyDinh.setText(rb.getString("JIFQuanLyNhomQuyenJblQuyDinh"));
-        btnLamMoi.setText(rb.getString("JIFQuanLyNhomQuyenBtnLamMoi"));
-        btnThemMoi.setText(rb.getString("JIFQuanLyNhomQuyenBtnThemMoi"));
-        btnCapNhat.setText(rb.getString("JIFQuanLyNhomQuyenBtnCapNhat"));
-        btnXoa.setText(rb.getString("JIFQuanLyNhomQuyenBtnXoa"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnThemMoi.setText(rb.getString("BtnThemMoi"));
+        btnCapNhat.setText(rb.getString("BtnCapNhat"));
+        btnXoa.setText(rb.getString("BtnXoa"));
         JblQuyDinh.setText(rb.getString("JIFQuanLyNhomQuyenJblQuyDinh"));
         JblQuyDinh.setText(rb.getString("JIFQuanLyNhomQuyenJblQuyDinh"));
         tblNhomQuyen.getColumnModel().getColumn(2).setHeaderValue(rb.getString("JIFQuanLyNhomQuyenTableMaCauHinh"));

@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 
@@ -28,12 +30,13 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
     List<NguoiDung> listNd;
     private NguoiDungDAO nddao = new NguoiDungDAO();
 
-    public DoiMatKhauNguoiDung(List<NguoiDung> listNd) {
+    public DoiMatKhauNguoiDung(List<NguoiDung> listNd, Locale lc) {
         initComponents();
         this.listNd = listNd;
         showPass(jlbshowOldPass, jpassOldPass);
         showPass(jlbShowNewPass, jpassNewPass);
         showPass(jlbShowRePass, jpassRePass);
+        makeText(lc);
     }
 
     private void showPass(JLabel jlb, JPasswordField jpass) {
@@ -77,6 +80,22 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         jlbMsgRePass.setText(null);
     }
 
+    private void makeText(Locale lc) {
+        ResourceBundle rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        jlbOldPass.setText(rb.getString("JIFDmkJlbMkc"));
+        jlbNewPass.setText(rb.getString("JIFDmkJlbMkm"));
+        jlbRepass.setText(rb.getString("JIFDmkJlbDmk"));
+        btnOk.setText(rb.getString("JIFDmkBtnOk"));
+        btnNhapLai.setText(rb.getString("JIFDmkJlbCancer"));
+    }
+
+    public void translate(Locale lc) {
+        makeText(lc);
+        revalidate();
+        repaint();
+        
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,8 +115,8 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         jpassRePass = new javax.swing.JPasswordField();
         jlbRepass = new javax.swing.JLabel();
         jlbShowRePass = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
+        btnNhapLai = new javax.swing.JButton();
         jlbMsgOldPass = new javax.swing.JLabel();
         jlbMsgNewPass = new javax.swing.JLabel();
         jlbMsgRePass = new javax.swing.JLabel();
@@ -159,21 +178,21 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         jlbShowRePass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jlbShowRePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jButton1.setText("Đồng ý");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        btnOk.setText("Đồng ý");
+        btnOk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jButton2.setText("Nhập lại");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnNhapLai.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        btnNhapLai.setText("Nhập lại");
+        btnNhapLai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNhapLai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnNhapLaiActionPerformed(evt);
             }
         });
 
@@ -196,32 +215,31 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addGap(70, 70, 70)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlbOldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
-                                .addComponent(jpassOldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jlbshowOldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlbNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
-                                .addComponent(jpassNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jlbShowNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlbRepass, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
-                                .addComponent(jpassRePass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jlbShowRePass, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jlbOldPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(1, 1, 1)
+                            .addComponent(jpassOldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(jlbshowOldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jlbNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(1, 1, 1)
+                            .addComponent(jpassNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(jlbShowNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbRepass, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addGap(1, 1, 1)
+                            .addComponent(jpassRePass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(jlbShowRePass, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnNhapLai, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jlbMsgOldPass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jlbMsgNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbMsgRePass, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,8 +276,8 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
                 .addComponent(jlbMsgRePass)
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNhapLai, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(105, 105, 105))
         );
 
@@ -291,7 +309,7 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jpassRePassActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         boolean check = true;
         clearMsg();
         String isNull = " ís Null";
@@ -328,16 +346,16 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
 
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnOkActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnNhapLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapLaiActionPerformed
         clearInput();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnNhapLaiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnNhapLai;
+    private javax.swing.JButton btnOk;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlbChangePassMgs;
     private javax.swing.JLabel jlbMsgNewPass;
