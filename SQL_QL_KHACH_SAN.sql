@@ -2259,6 +2259,22 @@ Values(@MaNhanPhong,@MaPhong,@HoTenKhachHang,@CMND,@NgayNhan,@NgayTraDuKien)
 END
 GO
 
+CREATE PROC deleteChiTietPhieuNhanPhong
+@MaNhanPhong varchar (5)
+AS
+BEGIN 
+DELETE ChiTietPhieuNhanPhong Where MaNhanPhong = @MaNhanPhong
+END
+GO
+
+CREATE PROC updateNgayTraDuKien_ChiTietPhieuNhanPhong
+@MaNhanPhong varchar (5),
+@NgayTraDuKien datetime
+AS
+BEGIN 
+UPDATE ChiTietPhieuNhanPhong SET NgayTraThucTe=@NgayTraDuKien Where MaNhanPhong = @MaNhanPhong
+END
+GO
 
 -- BẢNG ChiTietHoaDon
 CREATE PROC getAllChiTietHoaDon

@@ -19,6 +19,11 @@ public class ChiTietPhieuNhanPhong {
     public ChiTietPhieuNhanPhong() {
     }
 
+    public ChiTietPhieuNhanPhong(String maNhanPhong, LocalDate ngayTraThucTe) {
+        this.maNhanPhong = maNhanPhong;
+        this.ngayTraThucTe = ngayTraThucTe;
+    }
+
     public ChiTietPhieuNhanPhong(String maNhanPhong, String maPhong, String hoTenKhachHang, String chungMinhThuNhanDan, LocalDate ngayNhan, LocalDate ngayTraDuKien) {
         this.maNhanPhong = maNhanPhong;
         this.maPhong = maPhong;

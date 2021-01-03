@@ -5,14 +5,16 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.custom.CustomButtonClumnJTable;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.ChiTietPhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhongDAO;
+import com.qlks.models.ChiTietPhieuNhanPhong;
 import com.qlks.models.PhieuNhanPhong;
 import com.qlks.view.internalframe.action.AddPhieuNhanPhong;
 import com.qlks.view.internalframe.action.SearchPhieuNhanPhong;
-import com.qlks.view.internalframe.action.UpdatePhieuThuePhong;
+import com.qlks.view.internalframe.action.UpdatePhieuChiTietNhanPhong;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JDesktopPane;
@@ -24,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, UpdatePhieuThuePhong.CallBackUpdate, SearchPhieuNhanPhong.CallBackSearch {
+public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, UpdatePhieuChiTietNhanPhong.CallBackUpdate, SearchPhieuNhanPhong.CallBackSearch {
 
     private PhieuNhanPhongDAO phieuNhanPhongDAO;
     private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
@@ -50,11 +52,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             lstPhieuNhanPhong = phieuNhanPhongDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã nhận phòng", "Mã phiếu thuê", "Mã khách hàng", "Mã phòng", "Tên khách hàng", "CMND", "Ngày nhận", "Ngày trả dự kiến", "Ngày trả thực tế", "Trạng thái", ""};
+        Object[] columnNames = {"STT", "Mã nhận phòng", "Mã phiếu thuê", "Mã khách hàng", "Mã phòng", "Tên khách hàng", "CMND", "Ngày nhận", "Ngày trả dự kiến", "Ngày trả thực tế", "Trạng thái", "", "Xóa"};
         dtmPhieuNhanPhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (PhieuNhanPhong adv : lstPhieuNhanPhong) {
-            Object[] o = new Object[12];
+            Object[] o = new Object[13];
             o[0] = index;
             o[1] = adv.getMaNhanPhong();
             o[2] = adv.getMaPhieuThue();
@@ -71,11 +73,14 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 trangThai = "Đã thanh toán";
             }
             o[10] = trangThai;
+            o[11] = "Thêm DV";
             dtmPhieuNhanPhong.addRow(o);
             index++;
         }
         tblPhieuNhanPhong.setModel(dtmPhieuNhanPhong);
-        funcBase.addCheckBox(11, tblPhieuNhanPhong);
+        new CustomButtonClumnJTable(tblPhieuNhanPhong, 11);
+
+        funcBase.addCheckBox(12, tblPhieuNhanPhong);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -206,6 +211,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPhieuNhanPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPhieuNhanPhongMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPhieuNhanPhong);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -252,40 +262,40 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-//        String succesDeltete = "";
-//        String errDeltete = "";
-//        Boolean check = false;
-//        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-//        if (thongbao == JOptionPane.YES_OPTION) {
-//            String ma_Phong;
-//            for (int i = 0; i < tblPhieuNhanPhong.getRowCount(); i++) {
-//                if (funcBase.IsSelected(i, 11, tblPhieuNhanPhong)) {
-//                    check = true;
-//
-//                    int rowSucces1 = chiTietPhieuThuePhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
-//                    int rowSucces2 = phieuThuePhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
-//                    if (rowSucces1 > 0 && rowSucces2 > 0) {
-//                        phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
-//                        succesDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
-//                    } else {
-//                        errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
-//                    }
-//                }
-//            }
-//            loadData(null, null, null);
-//            if (check == true) {
-//                String mess = "";
-//                if (succesDeltete.length() > 0) {
-//                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
-//                }
-//                if (errDeltete.length() > 0) {
-//                    mess += "Không thể xóa: \n" + errDeltete;
-//                }
-//                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//            } else {
-//                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
-//            }
-//        }
+        String succesDeltete = "";
+        String errDeltete = "";
+        Boolean check = false;
+        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (thongbao == JOptionPane.YES_OPTION) {
+            String ma_Phong;
+            for (int i = 0; i < tblPhieuNhanPhong.getRowCount(); i++) {
+                if (funcBase.IsSelected(i, 12, tblPhieuNhanPhong)) {
+                    check = true;
+
+                    int rowSucces1 = chiTietPhieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+                    int rowSucces2 = phieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+                    if (rowSucces1 > 0 && rowSucces2 > 0) {
+                        //phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
+                        succesDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
+                    } else {
+                        errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
+                    }
+                }
+            }
+            loadData(null, null, null);
+            if (check == true) {
+                String mess = "";
+                if (succesDeltete.length() > 0) {
+                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
+                }
+                if (errDeltete.length() > 0) {
+                    mess += "Không thể xóa: \n" + errDeltete;
+                }
+                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
@@ -297,24 +307,39 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-//        int currentRow = tblPhieuNhanPhong.getSelectedRow();
-//
-//        if (currentRow >= 0) {
-//            String maPhong = dtmPhieuThuePhong.getValueAt(currentRow, 1).toString();
-//            List<ChiTietPhieuThuePhong> lstPhongByMa = chiTietPhieuThuePhongDAO.getByMaPhieuThue(maPhong);
-//            ChiTietPhieuThuePhong data = null;
-//            for (ChiTietPhieuThuePhong ph : lstPhongByMa) {
-//                data = new ChiTietPhieuThuePhong(ph.getMaPhieuThue(), ph.getNgayDangKy(), ph.getNgayNhan());
-//            }
-//            showInternalFrame(new UpdatePhieuThuePhong(data, this));
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
-//        }
+        int currentRow = tblPhieuNhanPhong.getSelectedRow();
+
+        if (currentRow >= 0) {
+            String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
+            List<ChiTietPhieuNhanPhong> lstNhanPhong = chiTietPhieuNhanPhongDAO.getByMaNhanPhong(maNhanPhong);
+
+            ChiTietPhieuNhanPhong data = null;
+            for (ChiTietPhieuNhanPhong adx : lstNhanPhong) {
+                data = new ChiTietPhieuNhanPhong(adx.getMaNhanPhong(), adx.getNgayTraThucTe());
+            }
+
+            showInternalFrame(new UpdatePhieuChiTietNhanPhong(data, this));
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         showInternalFrame(new SearchPhieuNhanPhong(this));
     }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void tblPhieuNhanPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhieuNhanPhongMouseClicked
+        int currentRow = tblPhieuNhanPhong.getSelectedRow();
+        int currentColumns = tblPhieuNhanPhong.getSelectedColumn();
+        if (currentRow >= 0 && currentColumns == 11) {
+            String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
+            if (trangThai.equals("Chưa thanh toán")) {
+                showInternalFrame(new PhieuSDDichVu());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_tblPhieuNhanPhongMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

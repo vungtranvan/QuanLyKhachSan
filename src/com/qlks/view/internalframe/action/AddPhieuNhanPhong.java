@@ -406,12 +406,12 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
                 phieuThuePhongDAO.updateTrangThai(ma_PhieuThue);
                 phongDAO.updatePhongDaNhan(ma_Phong);
                 tblPhieuThuePhong.clearSelection();
-                JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Nhận phòng thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 resetText();
                 cb.doAdd();
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Nhận phòng thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
 
         }

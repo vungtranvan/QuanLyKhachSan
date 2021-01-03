@@ -19,9 +19,17 @@ public class ChiTietPhieuNhanPhongMapper implements RowMapper<ChiTietPhieuNhanPh
     @Override
     public ChiTietPhieuNhanPhong mapRow(ResultSet rs) {
         try {
-            ChiTietPhieuNhanPhong data = new ChiTietPhieuNhanPhong(rs.getString("MaNhanPhong"), rs.getString("MaPhong"), 
-                    rs.getString("HoTenKhachHang"), rs.getString("CMND"), rs.getDate("NgayNhan").toLocalDate(), 
-                    rs.getDate("NgayTraDuKien").toLocalDate(), rs.getDate("NgayTraThucTe").toLocalDate());
+            ChiTietPhieuNhanPhong data = null;
+            if (rs.getDate("NgayTraThucTe") != null) {
+                data = new ChiTietPhieuNhanPhong(rs.getString("MaNhanPhong"), rs.getString("MaPhong"),
+                        rs.getString("HoTenKhachHang"), rs.getString("CMND"), rs.getDate("NgayNhan").toLocalDate(),
+                        rs.getDate("NgayTraDuKien").toLocalDate(), rs.getDate("NgayTraThucTe").toLocalDate());
+            } else {
+                data = new ChiTietPhieuNhanPhong(rs.getString("MaNhanPhong"), rs.getString("MaPhong"),
+                        rs.getString("HoTenKhachHang"), rs.getString("CMND"), rs.getDate("NgayNhan").toLocalDate(),
+                        rs.getDate("NgayTraDuKien").toLocalDate());
+            }
+
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);
