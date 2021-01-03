@@ -19,7 +19,7 @@ public class ChiTietHoaDonMapper implements RowMapper<ChiTietHoaDon> {
     @Override
     public ChiTietHoaDon mapRow(ResultSet rs) {
         try {
-            ChiTietHoaDon data = new ChiTietHoaDon(rs.getString("MaHoaDon"), rs.getString("MaPhong"),
+            ChiTietHoaDon data = new ChiTietHoaDon(rs.getInt("MaHoaDon"), rs.getString("MaPhong"),
                     rs.getString("MaSuDungDichVu"), rs.getString("MaChinhSach"), rs.getFloat("PhuThu"),
                     rs.getFloat("TienPhong"), rs.getFloat("TienDichVu"), rs.getFloat("GiamGiaKH"), 
                     rs.getString("HinhThucThanhToan"), rs.getInt("SoNgay"), rs.getFloat("ThanhTien"));

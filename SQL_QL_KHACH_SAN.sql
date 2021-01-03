@@ -103,7 +103,7 @@ GO
 
 CREATE TABLE HoaDon
 (
-	MaHoaDon varchar (3) PRIMARY KEY NOT NULL,
+	MaHoaDon int PRIMARY KEY IDENTITY(1,1),
 	MaKhachHang varchar (3) NOT NULL,
 	MaNhanPhong varchar (5) NOT NULL,
 	MaKhuyenMai int,
@@ -219,7 +219,7 @@ GO
 
 CREATE TABLE ChiTietHoaDon
 (
-	MaHoaDon varchar (3) NOT NULL,
+	MaHoaDon int NOT NULL,
 	MaPhong  varchar (3) NOT NULL,
 	MaSuDungDichVu varchar (4) NOT NULL,
 	MaChinhSach varchar (5) NOT NULL,
@@ -1499,7 +1499,7 @@ END
 GO
 
 CREATE PROC getByMaHoaDon
-@MaHoaDon varchar (3)
+@MaHoaDon int
 AS
 BEGIN 
 SELECT * FROM HoaDon Where MaHoaDon = @MaHoaDon
@@ -1523,7 +1523,7 @@ END
 GO
 
 CREATE PROC SearchNHoaDon
-@MaHoaDon varchar (3),
+@MaHoaDon int,
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
 @NhanVienLap nvarchar (50),
@@ -1536,7 +1536,7 @@ END
 GO
 
 CREATE PROC insertHoaDon
-@MaHoaDon varchar (3),
+@MaHoaDon int,
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
 @MaKhuyenMai int,
@@ -1550,7 +1550,7 @@ END
 GO
 
 CREATE PROC updateHoaDon
-@MaHoaDon varchar (3),
+@MaHoaDon int,
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
 @MaKhuyenMai int,
@@ -1564,7 +1564,7 @@ END
 GO
 
 CREATE PROC deleteHoaDon
-@MaHoaDon varchar (3)
+@MaHoaDon int
 AS
 BEGIN 
 DELETE HoaDon Where MaHoaDon = @MaHoaDon
@@ -2297,7 +2297,7 @@ END
 GO
 
 CREATE PROC getChiTietHoaDon_By_MaHoaDon
-@MaHoaDon varchar (3)
+@MaHoaDon int
 AS
 BEGIN 
 SELECT * FROM ChiTietHoaDon Where MaHoaDon =@MaHoaDon 
@@ -2305,7 +2305,7 @@ END
 GO
 
 CREATE PROC insertChiTietHoaDon
-@MaHoaDon varchar (3),
+@MaHoaDon int,
 @MaPhong  varchar (3),
 @MaSuDungDichVu varchar (4),
 @MaChinhSach varchar (5),

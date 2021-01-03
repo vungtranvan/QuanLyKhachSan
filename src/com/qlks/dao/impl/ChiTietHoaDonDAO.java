@@ -23,7 +23,7 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
     }
 
     @Override
-    public List<ChiTietHoaDon> getByMaHoaDon(String maHoaDon) {
+    public List<ChiTietHoaDon> getByMaHoaDon(int maHoaDon) {
         String sql = "{Call getChiTietHoaDon_By_MaHoaDon(?)}";
         return query(sql, new ChiTietHoaDonMapper(), maHoaDon);
     }

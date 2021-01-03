@@ -17,17 +17,17 @@ public interface IHoaDonDAO {
 
     List<HoaDon> getAll();
 
-    List<HoaDon> getByMaHoaDon(String maHoaDon);
+    List<HoaDon> getByMaHoaDon(int maHoaDon);
 
     List<HoaDon> getByMaKhachHang(String maKhachHang);
 
     List<HoaDon> getByMaNhanPhong(String maNhanPhong);
 
-    List<HoaDon> search(String maHoaDon, String maKhachHang, String maNhanPhong, String nhanVienLap, LocalDateTime ngayLap);
+    List<HoaDon> search(int maHoaDon, String maKhachHang, String maNhanPhong, String nhanVienLap, LocalDateTime ngayLap);
 
     int add(HoaDon hoaDon);
 
     int update(HoaDon hoaDon);
 
-    int delete(String maHoaDon);
+    int delete(int maHoaDon);
 }

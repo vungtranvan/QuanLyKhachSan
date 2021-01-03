@@ -24,7 +24,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO {
     }
 
     @Override
-    public List<HoaDon> getByMaHoaDon(String maHoaDon) {
+    public List<HoaDon> getByMaHoaDon(int maHoaDon) {
         String sql = "{Call getByMaHoaDon(?)}";
         return query(sql, new HoaDonMapper(), maHoaDon);
     }
@@ -42,7 +42,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO {
     }
 
     @Override
-    public List<HoaDon> search(String maHoaDon, String maKhachHang, String maNhanPhong, String nhanVienLap, LocalDateTime ngayLap) {
+    public List<HoaDon> search(int maHoaDon, String maKhachHang, String maNhanPhong, String nhanVienLap, LocalDateTime ngayLap) {
         String sql = "{Call SearchNHoaDon(?,?,?,?,?)}";
         return query(sql, new HoaDonMapper(), maHoaDon, maKhachHang, maNhanPhong, nhanVienLap, ngayLap);
     }
@@ -62,7 +62,7 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO {
     }
 
     @Override
-    public int delete(String maHoaDon) {
+    public int delete(int maHoaDon) {
         String sql = "{Call deleteHoaDon(?)}";
         return this.update(sql, maHoaDon);
     }

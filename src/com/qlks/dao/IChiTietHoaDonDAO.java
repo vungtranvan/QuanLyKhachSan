@@ -16,7 +16,7 @@ public interface IChiTietHoaDonDAO {
 
     List<ChiTietHoaDon> getAll();
 
-    List<ChiTietHoaDon> getByMaHoaDon(String maHoaDon);
+    List<ChiTietHoaDon> getByMaHoaDon(int maHoaDon);
 
     int add(ChiTietHoaDon ct);
 

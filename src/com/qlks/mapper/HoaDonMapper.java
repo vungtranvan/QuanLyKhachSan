@@ -19,7 +19,7 @@ public class HoaDonMapper implements RowMapper<HoaDon> {
     @Override
     public HoaDon mapRow(ResultSet rs) {
         try {
-            HoaDon data = new HoaDon(rs.getString("MaHoaDon"), rs.getString("MaKhachHang"), rs.getString("MaNhanPhong"), 
+            HoaDon data = new HoaDon(rs.getInt("MaHoaDon"), rs.getString("MaKhachHang"), rs.getString("MaNhanPhong"), 
                     rs.getInt("MaKhuyenMai"), rs.getString("NhanVienLap"), rs.getFloat("TongTien"), rs.getDate("NgayLap").toLocalDate());
             return data;
         } catch (Exception ex) {

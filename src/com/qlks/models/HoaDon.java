@@ -14,7 +14,7 @@ import java.time.LocalDate;
  */
 public class HoaDon {
 
-    private String maHoaDon;
+    private int maHoaDon;
     private String maKhachHang;
     private String maNhanPhong;
     private int maKhuyenMai;
@@ -25,7 +25,7 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String maHoaDon, String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, float tongTien, LocalDate ngayLap) {
+    public HoaDon(int maHoaDon, String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, float tongTien, LocalDate ngayLap) {
         this.maHoaDon = maHoaDon;
         this.maKhachHang = maKhachHang;
         this.maNhanPhong = maNhanPhong;
@@ -35,11 +35,11 @@ public class HoaDon {
         this.ngayLap = ngayLap;
     }
 
-    public String getMaHoaDon() {
+    public int getMaHoaDon() {
         return maHoaDon;
     }
 
-    public void setMaHoaDon(String maHoaDon) {
+    public void setMaHoaDon(int maHoaDon) {
         this.maHoaDon = maHoaDon;
     }
 

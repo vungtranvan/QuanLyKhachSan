@@ -12,7 +12,7 @@ package com.qlks.models;
  */
 public class ChiTietHoaDon {
 
-    private String maHoaDon;
+    private int maHoaDon;
     private String maPhong;
     private String maSuDungDichVu;
     private String maChinhSach;
@@ -27,7 +27,7 @@ public class ChiTietHoaDon {
     public ChiTietHoaDon() {
     }
 
-    public ChiTietHoaDon(String maHoaDon, String maPhong, String maSuDungDichVu, String maChinhSach, float phuThu, float tienPhong, float tienDichVu, float giamGiaKH, String hinhThucThanhToan, int soNgay, float thanhTien) {
+    public ChiTietHoaDon(int maHoaDon, String maPhong, String maSuDungDichVu, String maChinhSach, float phuThu, float tienPhong, float tienDichVu, float giamGiaKH, String hinhThucThanhToan, int soNgay, float thanhTien) {
         this.maHoaDon = maHoaDon;
         this.maPhong = maPhong;
         this.maSuDungDichVu = maSuDungDichVu;
@@ -41,11 +41,11 @@ public class ChiTietHoaDon {
         this.thanhTien = thanhTien;
     }
 
-    public String getMaHoaDon() {
+    public int getMaHoaDon() {
         return maHoaDon;
     }
 
-    public void setMaHoaDon(String maHoaDon) {
+    public void setMaHoaDon(int maHoaDon) {
         this.maHoaDon = maHoaDon;
     }
 
