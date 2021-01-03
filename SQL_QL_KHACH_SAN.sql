@@ -803,9 +803,15 @@ GO
 CREATE PROC deleteNguoiDung
 @MaNguoiDung int
 AS
-BEGIN 
+BEGIN TRY
+    BEGIN TRANSACTION
+DELETE CauHinhNguoiDung WHERE MaNguoiDung = @MaNguoiDung
 DELETE NguoiDung Where MaNguoiDung = @MaNguoiDung
-END
+COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION
+END CATCH
 GO
 
 
@@ -2139,8 +2145,11 @@ GO
 CREATE PROC getAllDanhSachSuDungDichVu
 AS
 BEGIN 
-SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.SoLuong
-FROM DanhSachSuDungDichVu JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
+SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
+FROM DanhSachSuDungDichVu 
+JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
+JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
 END
 GO
 
@@ -2148,18 +2157,12 @@ CREATE PROC getByMaSuDungDichVu
 @MaSuDungDVu varchar (4)
 AS
 BEGIN 
-SELECT * FROM DanhSachSuDungDichVu WHERE MaSuDungDVu = @MaSuDungDVu
-END
-GO
-
-CREATE PROC SearchDanhSachSuDungDichVu
-@MaSuDungDVu varchar (4),
-@MaDichVu varchar (5),
-@MaNhanPhong varchar (5)
-AS
-BEGIN 
-SELECT * FROM DanhSachSuDungDichVu 
-Where MaSuDungDVu LIKE '%'+@MaSuDungDVu+'%' AND  MaDichVu LIKE '%'+@MaDichVu+'%' AND  MaNhanPhong LIKE '%'+@MaNhanPhong+'%'
+SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
+FROM DanhSachSuDungDichVu 
+JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
+JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+ WHERE MaSuDungDVu = @MaSuDungDVu
 END
 GO
 

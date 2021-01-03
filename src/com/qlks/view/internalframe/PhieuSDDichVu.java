@@ -5,6 +5,7 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
 import com.qlks.dao.impl.DichVuDAO;
 import com.qlks.models.DanhSachSuDungDichVu;
@@ -24,15 +25,22 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     private List<DichVu> lstDichVu;
     private DefaultTableModel dtmDichVu;
     private DefaultComboBoxModel modelDichVu;
+
     private DanhSachSuDungDichVuDAO dsSDDichVuDAO;
+    private List<DanhSachSuDungDichVu> lstDanhSachSuDungDichVu;
+    private DefaultTableModel dtmDanhSachSuDungDichVu;
+    private FunctionBase funcBase;
 
     /**
      * Creates new form PhieuSDDichVu
      */
     public PhieuSDDichVu(String maNhanPhong, String maPhong, String tenKH) {
         initComponents();
+        resetText();
         dtmDichVu = new DefaultTableModel();
+        dtmDanhSachSuDungDichVu = new DefaultTableModel();
         dichVuDAO = new DichVuDAO();
+        funcBase = new FunctionBase();
         modelDichVu = new DefaultComboBoxModel();
         dsSDDichVuDAO = new DanhSachSuDungDichVuDAO();
         lblMaNhanPhong.setText(maNhanPhong);
@@ -40,7 +48,6 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         lblTenKhachHang.setText(tenKH);
         initdataDVu();
         initDVDSD();
-        resetText();
     }
 
     public void resetText() {
@@ -54,7 +61,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     public void initdataDVu() {
         lstDichVu = dichVuDAO.getAll();
 
-        Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Giá"};
+        Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Đơn giá"};
         dtmDichVu = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (DichVu adv : lstDichVu) {
@@ -73,6 +80,26 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     }
 
     public void initDVDSD() {
+        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll();
+
+        Object[] columnNames = {"STT", "Mã SD dịch vụ", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", ""};
+        dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
+        int index = 1;
+        for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
+            modelDichVu.addElement(adv);
+            Object[] o = new Object[8];
+            o[0] = index;
+            o[1] = adv.getMaSuDungDVu();
+            o[2] = adv.getMaDichVu();
+            o[3] = adv.getTenLoaiDichVu();
+            o[4] = adv.getTenDonvi();
+            o[5] = adv.getSoLuong();
+            o[6] = (int) adv.getDonGia();
+            dtmDanhSachSuDungDichVu.addRow(o);
+            index++;
+        }
+        tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
+        funcBase.addCheckBox(7, tblDichVuDaSD);
     }
 
     /**
@@ -165,6 +192,11 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         btnXoa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnLamMoi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_refresh.png"))); // NOI18N
@@ -180,35 +212,36 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel11))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtErrorMaSDDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtMaSDDicVu, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jcbDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtErrorSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(73, 73, 73)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel11))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMaSDDicVu)
-                            .addComponent(jcbDichVu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtErrorMaSDDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
-                            .addComponent(txtErrorSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
+                        .addContainerGap()
                         .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addGap(29, 29, 29)
                         .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(27, 27, 27)
                         .addComponent(btnThemMoi)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110))
         );
@@ -280,7 +313,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -317,7 +350,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3))
@@ -328,8 +361,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
                 .addGap(185, 185, 185)
                 .addComponent(jLabel5)
                 .addGap(29, 29, 29)
-                .addComponent(lblTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,15 +392,20 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDichVuDaSD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDichVuDaSDMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblDichVuDaSD);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -388,13 +425,12 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,8 +471,6 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         if (lstCheckID.size() > 0) {
             txtErrorMaSDDichVu.setText("Mã đã tồn tại !");
             check = false;
-        } else {
-            txtErrorMaSDDichVu.setText("");
         }
 
         int soLuong = (int) txtSoLuong.getValue();
@@ -448,7 +482,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         }
         DichVu lp = (DichVu) modelDichVu.getSelectedItem();
         String ma_DichVu = lp.getMaDichVu();
-        
+
         if (check == true) {
             int row = dsSDDichVuDAO.add(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), soLuong));
             if (row > 0) {
@@ -462,7 +496,44 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        // TODO add your handling code here:
+        boolean check = true;
+        String maSDDV = txtMaSDDicVu.getText();
+        if (maSDDV.length() <= 0) {
+            txtErrorMaSDDichVu.setText("Mã không được để trống");
+            check = false;
+        } else if (maSDDV.length() > 4) {
+            txtErrorMaSDDichVu.setText("Mã có tối đa là 4 ký tự");
+            check = false;
+        } else {
+            txtErrorMaSDDichVu.setText("");
+        }
+
+        List<DanhSachSuDungDichVu> lstCheckID = dsSDDichVuDAO.getByMaSuDungDichVu(maSDDV);
+        if (lstCheckID.size() <= 0) {
+            txtErrorMaSDDichVu.setText("Mã không tồn tại !");
+            check = false;
+        }
+
+        int soLuong = (int) txtSoLuong.getValue();
+        if (soLuong < 0) {
+            txtErrorSoLuong.setText("Số lượng phải lớn hơn hoặc bằng 0");
+            check = false;
+        } else {
+            txtErrorSoLuong.setText("");
+        }
+        DichVu lp = (DichVu) modelDichVu.getSelectedItem();
+        String ma_DichVu = lp.getMaDichVu();
+
+        if (check == true) {
+            int row = dsSDDichVuDAO.update(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), soLuong));
+            if (row > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                initDVDSD();
+                resetText();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
@@ -481,6 +552,57 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         initDVDSD();
         resetText();
     }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        String succesDeltete = "";
+        String errDeltete = "";
+        Boolean check = false;
+        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (thongbao == JOptionPane.YES_OPTION) {
+
+            for (int i = 0; i < tblDichVuDaSD.getRowCount(); i++) {
+                if (funcBase.IsSelected(i, 7, tblDichVuDaSD)) {
+                    check = true;
+
+                    int rowSucces = dsSDDichVuDAO.delete(tblDichVuDaSD.getValueAt(i, 1).toString());
+                    if (rowSucces > 0) {
+                        succesDeltete += "\t" + tblDichVuDaSD.getValueAt(i, 1).toString() + "\n";
+                    } else {
+                        errDeltete += "\t" + tblDichVuDaSD.getValueAt(i, 1).toString() + "\n";
+                    }
+                }
+            }
+            tblDichVuDaSD.clearSelection();
+            initDVDSD();
+            if (check == true) {
+                String mess = "";
+                if (succesDeltete.length() > 0) {
+                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
+                }
+                if (errDeltete.length() > 0) {
+                    mess += "Không thể xóa: \n" + errDeltete;
+                }
+                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void tblDichVuDaSDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuDaSDMouseClicked
+        int currentRow = tblDichVuDaSD.getSelectedRow();
+        if (currentRow >= 0) {
+            String maSDDV = dtmDanhSachSuDungDichVu.getValueAt(currentRow, 1).toString();
+            txtMaSDDicVu.setText(maSDDV);
+
+            String maDV = dtmDanhSachSuDungDichVu.getValueAt(currentRow, 2).toString();
+            DichVu dv = lstDichVu.stream().filter(x -> x.getMaDichVu().equals(maDV)).findAny().orElse(null);
+
+            int soLuong = Integer.parseInt(dtmDanhSachSuDungDichVu.getValueAt(currentRow, 5).toString());
+            txtSoLuong.setValue(soLuong);
+            modelDichVu.setSelectedItem(dv);
+        }
+    }//GEN-LAST:event_tblDichVuDaSDMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

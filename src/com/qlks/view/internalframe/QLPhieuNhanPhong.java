@@ -34,11 +34,13 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private DefaultTableModel dtmPhieuNhanPhong;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
+    private PhongDAO phongDAO;
 
     public QLPhieuNhanPhong() {
         initComponents();
         dtmPhieuNhanPhong = new DefaultTableModel();
         phieuNhanPhongDAO = new PhieuNhanPhongDAO();
+        phongDAO = new PhongDAO();
         chiTietPhieuNhanPhongDAO = new ChiTietPhieuNhanPhongDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null);
@@ -275,7 +277,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                     int rowSucces1 = chiTietPhieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
                     int rowSucces2 = phieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
                     if (rowSucces1 > 0 && rowSucces2 > 0) {
-                        //phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
+                        phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
                         succesDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
                     } else {
                         errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";

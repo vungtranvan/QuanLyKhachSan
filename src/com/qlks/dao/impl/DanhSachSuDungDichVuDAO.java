@@ -29,12 +29,6 @@ public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> i
     }
 
     @Override
-    public List<DanhSachSuDungDichVu> search(String maSuDungDVu, String maDichVu, String maNhanPhong) {
-        String sql = "{Call SearchDanhSachSuDungDichVu(?,?,?)}";
-        return query(sql, new DanhSachSuDungDichVuMapper(), maSuDungDVu, maDichVu, maNhanPhong);
-    }
-
-    @Override
     public int add(DanhSachSuDungDichVu dv) {
         String sql = "{Call insertDanhSachSuDungDichVu(?,?,?,?)}";
         return this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getSoLuong());
