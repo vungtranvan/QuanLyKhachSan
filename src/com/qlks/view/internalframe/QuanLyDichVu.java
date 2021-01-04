@@ -8,11 +8,14 @@ package com.qlks.view.internalframe;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.DichVuDAO;
 import com.qlks.models.DichVu;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddDichVu;
 import com.qlks.view.internalframe.action.UpdateDichVu;
 import com.qlks.view.internalframe.action.SearchDichVu;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,13 +32,24 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
     private DefaultTableModel dtmDichVu;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
+    ResourceBundle rb;
+    private Locale lc;
+    AddDichVu addDichVu;
+    UpdateDichVu updateDichVu;
+    SearchDichVu searchDichVu;
 
-    public QuanLyDichVu() {
+    public QuanLyDichVu(Locale lc) {
         initComponents();
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         dtmDichVu = new DefaultTableModel();
         dichVuDAO = new DichVuDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null);
+
+        if (!MethodMain.checkQuyen("QlDichVu")) {
+            GroupBtn.setVisible(false);
+        }
     }
 
     public void loadData(String maDichVu, String maLoaiDichVu, String maDonVi) {
@@ -61,6 +75,7 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
         }
         tblDichVu.setModel(dtmDichVu);
         funcBase.addCheckBox(5, tblDichVu);
+        makeTableHeader(rb);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -82,6 +97,41 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
         }
     }
 
+    private void makeText(ResourceBundle rb) {
+        btnCapNhat.setText(rb.getString("BtnCapNhat"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnThemMoi.setText(rb.getString("BtnThemMoi"));
+        btnTimKiem.setText(rb.getString("BtnTimKiem"));
+        btnXoa.setText(rb.getString("BtnXoa"));
+        setTitle(rb.getString("JIFQLDichVu"));
+    }
+
+    private void makeTableHeader(ResourceBundle rb) {
+        tblDichVu.getColumnModel().getColumn(0).setHeaderValue("STT");
+        tblDichVu.getColumnModel().getColumn(1).setHeaderValue(rb.getString("JIFQLDichVuMa"));
+        tblDichVu.getColumnModel().getColumn(2).setHeaderValue(rb.getString("JIFQLDichVu"));
+        tblDichVu.getColumnModel().getColumn(3).setHeaderValue(rb.getString("DonVi"));
+        tblDichVu.getColumnModel().getColumn(4).setHeaderValue(rb.getString("JIFQuanLyPhongGia"));
+        tblDichVu.getColumnModel().getColumn(5).setHeaderValue("");
+    }
+
+    public void translate(Locale lc) {
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        makeText(this.rb);
+        makeTableHeader(this.rb);
+        if (addDichVu != null) {
+            addDichVu.translate(this.rb);
+        }
+        if (updateDichVu != null) {
+            updateDichVu.translate(this.rb);
+        }
+        if (searchDichVu != null) {
+            searchDichVu.translate(this.rb);
+        }
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,7 +141,7 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        GroupBtn = new javax.swing.JPanel();
         btnLamMoi = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -150,11 +200,11 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout GroupBtnLayout = new javax.swing.GroupLayout(GroupBtn);
+        GroupBtn.setLayout(GroupBtnLayout);
+        GroupBtnLayout.setHorizontalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -167,11 +217,11 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(235, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        GroupBtnLayout.setVerticalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,7 +265,7 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
@@ -223,7 +273,7 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GroupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -233,7 +283,8 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddDichVu(this));
+        addDichVu = new AddDichVu(this, this.rb);
+        showInternalFrame(addDichVu);
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -290,24 +341,26 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
             for (DichVu lstDV : lstDichVuByID) {
                 dataKM = new DichVu(lstDV.getMaDichVu(), lstDV.getMaLoaiDichVu(), lstDV.getMaDonVi(), lstDV.getDonGia());
             }
-            showInternalFrame(new UpdateDichVu(dataKM, this));
+            updateDichVu = new UpdateDichVu(dataKM, this, rb);
+            showInternalFrame(updateDichVu);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        showInternalFrame(new SearchDichVu(this));
+        searchDichVu = new SearchDichVu(this, rb);
+        showInternalFrame(searchDichVu);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GroupBtn;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDichVu;

@@ -9,6 +9,7 @@ import com.qlks.dao.impl.NhomQuyenDAO;
 import com.qlks.models.LoaiPhong;
 import com.qlks.models.NhomQuyen;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -22,6 +23,7 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
     private List<NhomQuyen> lstNhomQuyen;
 
     private DefaultComboBoxModel modelNhomQuyen;
+    private ResourceBundle rb;
 
     CallBackSearch cb;
 
@@ -33,7 +35,7 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public SearchNguoiDung(CallBackSearch _cb) {
+    public SearchNguoiDung(CallBackSearch _cb, ResourceBundle rb) {
         initComponents();
         modelNhomQuyen = new DefaultComboBoxModel();
         nhomQuyenDAO = new NhomQuyenDAO();
@@ -41,6 +43,7 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
         resetText();
         this.cb = _cb;
         initDataNhomQuyen();
+        translate(rb);
     }
 
     public void initDataNhomQuyen() {
@@ -56,6 +59,18 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
         txtEmail.setText("");
     }
 
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        jlbTitle.setText(rb.getString("SearchNdTitle"));
+        jlbName.setText(rb.getString("AddNdTenNguoiDung"));
+        jlbNhomQuyen.setText(rb.getString("JIFQuanLyNhomQuyenJpnNhomQuyenTitle"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnTimKiem.setText(rb.getString("BtnTimKiem"));
+        btnHuyBo.setText(rb.getString("SearchNdTitle"));
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,37 +82,37 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbName = new javax.swing.JLabel();
         txtTenNguoiDung = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jlbNhomQuyen = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jlbEmail = new javax.swing.JLabel();
         btnHuyBo = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
-        jcbMaQuyen = new javax.swing.JComboBox<LoaiPhong>();
+        jcbMaQuyen = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TÌM KIẾM NGƯỜI DÙNG");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("TÌM KIẾM NGƯỜI DÙNG");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tên người dùng:");
+        jlbName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbName.setText("Tên người dùng:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Nhóm quyền:");
+        jlbNhomQuyen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbNhomQuyen.setText("Nhóm quyền:");
 
         txtEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Email:");
+        jlbEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbEmail.setText("Email:");
 
         btnHuyBo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnHuyBo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_close.png"))); // NOI18N
@@ -135,11 +150,11 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jlbName)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel3))
+                                .addComponent(jlbEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jlbNhomQuyen))
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtEmail)
@@ -155,25 +170,25 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
                 .addGap(0, 68, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(111, 111, 111))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbName)
                     .addComponent(txtTenNguoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(jlbEmail)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jlbNhomQuyen)
                     .addComponent(jcbMaQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jLabel6)
@@ -229,13 +244,13 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<LoaiPhong> jcbMaQuyen;
+    private javax.swing.JLabel jlbEmail;
+    private javax.swing.JLabel jlbName;
+    private javax.swing.JLabel jlbNhomQuyen;
+    private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtTenNguoiDung;
     // End of variables declaration//GEN-END:variables

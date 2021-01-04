@@ -40,10 +40,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -75,22 +78,31 @@ public class MainJFrame extends javax.swing.JFrame {
     private List<JPanel> listSubMenuItemCustomer = new ArrayList<>();
     private List<JPanel> listSubMenuItemConfig = new ArrayList<>();
 
+    QuanLyNguoiDung quanLyNguoiDung;
     private JPanel subMenuAdmin;
-    
+
     QuanLyNhomQuyen quanLyNhomQuyen;
     private JPanel subMenuroupPermission;
     private JPanel subMenuRule;
 
     private JPanel subMenuBook;
+    QLPhieuNhanPhong qLPhieuNhanPhong;
     private JPanel subMenuCheckIn;
     private JPanel subMenuTax;
 
+    QuanLyLoaiPhong quanLyLoaiPhong;
     private JPanel subMenuRoomType;
+    QuanLyPhong quanLyPhong;
     private JPanel subMenuRoom;
+    QuanLyLoaiTinhTrang quanLyLoaiTinhTrang;
     private JPanel subMenuRoomStatus;
+    QuanLyThietBi quanLyThietBi;
     private JPanel subMenuEquipment;
+    QuanLyLoaiDichVu quanLyLoaiDichVu;
     private JPanel subMenuServiceType;
+    QuanLyDichVu quanLyDichVu;
     private JPanel subMenuService;
+    QuanLyDonVi quanLyDonVi;
     private JPanel subMenuUnit;
     private JPanel subMenuCheckout;
 
@@ -101,6 +113,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private JPanel subMenuLanguage;
 
     private int languageKey;
+
+    DoiMatKhauNguoiDung doiMatKhauNguoiDung;
 
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
@@ -146,8 +160,9 @@ public class MainJFrame extends javax.swing.JFrame {
             menuAdmin.setVisible(true);
 
             subMenuAdmin = new JPanel();
+            quanLyNguoiDung = new QuanLyNguoiDung(lc);
             listSubMenuItemAdmin.add(makeSubMenuItem(subMenuAdmin, rb.getString("subMenuAdmin")));
-            showInternalFrame(subMenuAdmin, new QuanLyNguoiDung());
+            showInternalFrame(subMenuAdmin, quanLyNguoiDung);
 
             subMenuroupPermission = new JPanel();
             quanLyNhomQuyen = new QuanLyNhomQuyen(lc);
@@ -166,8 +181,9 @@ public class MainJFrame extends javax.swing.JFrame {
             showInternalFrame(subMenuBook, new QLPhieuThuePhong());
 
             subMenuCheckIn = new JPanel();
+            qLPhieuNhanPhong = new QLPhieuNhanPhong();
             listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
-            showInternalFrame(subMenuCheckIn, new QLPhieuNhanPhong());
+            showInternalFrame(subMenuCheckIn, qLPhieuNhanPhong);
 
             subMenuTax = new JPanel();
             visibleSubMenu(menuChecking, rb.getString("SubMenuTitleChecking"), listSubMenuItemChecking, 5);
@@ -178,16 +194,19 @@ public class MainJFrame extends javax.swing.JFrame {
             menuRoom.setVisible(true);
             if (MethodMain.checkQuyen("XemPhong")) {
                 subMenuRoomType = new JPanel();
+                quanLyLoaiPhong = new QuanLyLoaiPhong(lc);
                 listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoomType, rb.getString("subMenuRoomType")));
-                showInternalFrame(subMenuRoomType, new QuanLyLoaiPhong());
+                showInternalFrame(subMenuRoomType, quanLyLoaiPhong);
 
                 subMenuRoomStatus = new JPanel();
+                quanLyLoaiTinhTrang = new QuanLyLoaiTinhTrang(lc);
                 listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoomStatus, rb.getString("subMenuRoomStatus")));
-                showInternalFrame(subMenuRoomStatus, new QuanLyLoaiTinhTrang());
+                showInternalFrame(subMenuRoomStatus, quanLyLoaiTinhTrang);
 
                 subMenuRoom = new JPanel();
+                quanLyPhong = new QuanLyPhong(lc);
                 listSubMenuItemRoom.add(makeSubMenuItem(subMenuRoom, rb.getString("subMenuRoom")));
-                showInternalFrame(subMenuRoom, new QuanLyPhong());
+                showInternalFrame(subMenuRoom, quanLyPhong);
 
                 subMenuCheckout = new JPanel();
                 listSubMenuItemRoom.add(makeSubMenuItem(subMenuCheckout, rb.getString("subMenuCheckout")));
@@ -195,8 +214,9 @@ public class MainJFrame extends javax.swing.JFrame {
             }
             if (MethodMain.checkQuyen("XemThietBi")) {
                 subMenuEquipment = new JPanel();
+                quanLyThietBi = new QuanLyThietBi(lc);
                 listSubMenuItemRoom.add(makeSubMenuItem(subMenuEquipment, rb.getString("subMenuEquipment")));
-                showInternalFrame(subMenuEquipment, new QuanLyThietBi());
+                showInternalFrame(subMenuEquipment, quanLyThietBi);
             }
             visibleSubMenu(menuRoom, rb.getString("SubMenuTitleRoom"), listSubMenuItemRoom, 2);
         }
@@ -205,16 +225,19 @@ public class MainJFrame extends javax.swing.JFrame {
         if (MethodMain.checkQuyen("XemDichVu")) {
             menuService.setVisible(true);
             subMenuServiceType = new JPanel();
+             quanLyLoaiDichVu = new QuanLyLoaiDichVu(lc);
             listSubMenuSevice.add(makeSubMenuItem(subMenuServiceType, rb.getString("subMenuServiceType")));
-            showInternalFrame(subMenuServiceType, new QuanLyLoaiDichVu());
+            showInternalFrame(subMenuServiceType, quanLyLoaiDichVu);
 
             subMenuService = new JPanel();
+            quanLyDichVu = new QuanLyDichVu(lc);
             listSubMenuSevice.add(makeSubMenuItem(subMenuService, rb.getString("subMenuService")));
-            showInternalFrame(subMenuService, new QuanLyDichVu());
+            showInternalFrame(subMenuService, quanLyDichVu);
 
             subMenuUnit = new JPanel();
+             quanLyDonVi = new QuanLyDonVi(lc);
             listSubMenuSevice.add(makeSubMenuItem(subMenuUnit, rb.getString("subMenuUnit")));
-            showInternalFrame(subMenuUnit, new QuanLyDonVi());
+            showInternalFrame(subMenuUnit, quanLyDonVi);
 
             visibleSubMenu(menuService, rb.getString("SubMenuTitleSevice"), listSubMenuSevice, 6);
         }
@@ -258,7 +281,8 @@ public class MainJFrame extends javax.swing.JFrame {
         invisibleSubMenu(jMain);
         setMenuBackGroundColor(36, 36, 36);
 
-        showInternalFrame(menuAvatar, new DoiMatKhauNguoiDung(listNd));
+        doiMatKhauNguoiDung = new DoiMatKhauNguoiDung(listNd, lc);
+        showInternalFrame(menuAvatar, doiMatKhauNguoiDung);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -468,6 +492,15 @@ public class MainJFrame extends javax.swing.JFrame {
                     jMain.add(jif);
                     centerJIF(jif);
                     jif.setVisible(true);
+                } else {
+                    jif.toFront();
+                    jif.moveToFront();
+                    try {
+                        jif.setSelected(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
 
             }
@@ -572,7 +605,36 @@ public class MainJFrame extends javax.swing.JFrame {
                 if (row > 0) {
                     translate(lc);
                     ngonNgu.translate(lc);
-                    quanLyNhomQuyen.translate(lc);
+
+                    doiMatKhauNguoiDung.translate(lc);
+                    if (quanLyNhomQuyen != null) {
+                        quanLyNhomQuyen.translate(lc);
+                    }
+                    if (quanLyNguoiDung != null) {
+                        quanLyNguoiDung.translate(lc);
+                    }
+                    if (quanLyLoaiPhong != null) {
+                        quanLyLoaiPhong.translate(lc);
+                    }
+                    if (quanLyPhong != null) {
+                        quanLyPhong.translate(lc);
+                    }
+                    if (quanLyThietBi != null) {
+                        quanLyThietBi.translate(lc);
+                    }
+                    if (quanLyLoaiTinhTrang != null) {
+                        quanLyLoaiTinhTrang.translate(lc);
+                    }
+                    if (quanLyDichVu != null) {
+                        quanLyDichVu.translate(lc);
+                    }
+                    if (quanLyLoaiDichVu != null) {
+                        quanLyLoaiDichVu.translate(lc);
+                    }
+                    if (quanLyDonVi != null) {
+                        quanLyDonVi.translate(lc);
+                    }
+
                 }
 
             }

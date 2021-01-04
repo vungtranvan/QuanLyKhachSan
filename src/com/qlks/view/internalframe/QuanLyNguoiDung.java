@@ -8,11 +8,14 @@ package com.qlks.view.internalframe;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.NguoiDungDAO;
 import com.qlks.models.NguoiDung;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddNguoiDung;
 import com.qlks.view.internalframe.action.SearchNguoiDung;
 import com.qlks.view.internalframe.action.UpdateNguoiDung;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,13 +32,26 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
     private DefaultTableModel dtmThietBi;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
+    private Locale lc;
+    AddNguoiDung addNguoiDung;
+    UpdateNguoiDung updateNguoiDung;
+    SearchNguoiDung searchNguoiDung;
+    ResourceBundle rb;
 
-    public QuanLyNguoiDung() {
+    public QuanLyNguoiDung(Locale lc) {
         initComponents();
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
+
         dtmThietBi = new DefaultTableModel();
         nguoiDungDAO = new NguoiDungDAO();
         funcBase = new FunctionBase();
         loadData(null, null, 0);
+
+        makeText(this.rb);
+        if (!MethodMain.checkQuyen("QlNguoiDung")) {
+            GroupBtn.setVisible(false);
+        }
     }
 
     public void loadData(String tenNguoiDung, String email, int maNhomQuyen) {
@@ -46,7 +62,16 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
             lstNguoiDung = nguoiDungDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã người dùng", "Tên người dùng", "Tên đăng nhập", "Tên nhóm quyền", "Email", "Ngày sinh", "Giới tính", ""};
+        Object[] columnNames = {
+            "STT",
+            this.rb.getString("JIFQlNguoiDungTableMaNd"),
+            this.rb.getString("JIFQlNguoiDungTableTenNd"),
+            this.rb.getString("JIFQlNguoiDungTableTenDangNhap"),
+            this.rb.getString("JIFQlNguoiDungTableTenNhomQuyen"),
+            "Email",
+            this.rb.getString("JIFQlNguoiDungTableNgay"),
+            this.rb.getString("JIFQlNguoiDungTableGioiTinh"),
+            ""};
         dtmThietBi = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (NguoiDung adv : lstNguoiDung) {
@@ -90,6 +115,46 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
         }
     }
 
+    private void makeText(ResourceBundle rb) {
+
+        btnCapNhat.setText(rb.getString("BtnCapNhat"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnThemMoi.setText(rb.getString("BtnThemMoi"));
+        btnTimKiem.setText(rb.getString("BtnTimKiem"));
+        btnXoa.setText(rb.getString("BtnXoa"));
+        setTitle(rb.getString("JIFQlNguoiDungTitle"));
+    }
+
+    private void makeTableHeader(ResourceBundle rb) {
+        tblNguoiDung.getColumnModel().getColumn(0).setHeaderValue("STT");
+        tblNguoiDung.getColumnModel().getColumn(1).setHeaderValue(rb.getString("JIFQlNguoiDungTableMaNd"));
+        tblNguoiDung.getColumnModel().getColumn(2).setHeaderValue(rb.getString("JIFQlNguoiDungTableTenNd"));
+        tblNguoiDung.getColumnModel().getColumn(3).setHeaderValue(rb.getString("JIFQlNguoiDungTableTenDangNhap"));
+        tblNguoiDung.getColumnModel().getColumn(4).setHeaderValue(rb.getString("JIFQlNguoiDungTableTenNhomQuyen"));
+        tblNguoiDung.getColumnModel().getColumn(5).setHeaderValue("Email");
+        tblNguoiDung.getColumnModel().getColumn(6).setHeaderValue(rb.getString("JIFQlNguoiDungTableNgay"));
+        tblNguoiDung.getColumnModel().getColumn(7).setHeaderValue(rb.getString("JIFQlNguoiDungTableGioiTinh"));
+        tblNguoiDung.getColumnModel().getColumn(8).setHeaderValue("");
+    }
+
+    public void translate(Locale lc) {
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        makeText(this.rb);
+        makeTableHeader(this.rb);
+        revalidate();
+        repaint();
+        if (addNguoiDung != null) {
+            addNguoiDung.translate(this.rb);
+        }
+
+        if (updateNguoiDung != null) {
+            updateNguoiDung.translate(this.rb);
+        }
+        if (searchNguoiDung != null) {
+            searchNguoiDung.translate(this.rb);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,7 +164,7 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        GroupBtn = new javax.swing.JPanel();
         btnLamMoi = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -158,11 +223,11 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout GroupBtnLayout = new javax.swing.GroupLayout(GroupBtn);
+        GroupBtn.setLayout(GroupBtnLayout);
+        GroupBtnLayout.setHorizontalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -175,11 +240,11 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(235, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        GroupBtnLayout.setVerticalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,7 +288,7 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
@@ -231,7 +296,7 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GroupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -241,14 +306,15 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddNguoiDung(this));
+        addNguoiDung = new AddNguoiDung(this, this.rb);
+        showInternalFrame(addNguoiDung);
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         String succesDeltete = "";
         String errDeltete = "";
         Boolean check = false;
-        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int thongbao = JOptionPane.showConfirmDialog(this, rb.getString("ConfirmDialogMsg"), rb.getString("ConfirmDialogTitle"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblNguoiDung.getRowCount(); i++) {
@@ -268,14 +334,14 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
             if (check == true) {
                 String mess = "";
                 if (succesDeltete.length() > 0) {
-                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
+                    mess += rb.getString("ConfirmDialogMsgXoaOK") + "\n" + succesDeltete;
                 }
                 if (errDeltete.length() > 0) {
-                    mess += "Không thể xóa: \n" + errDeltete;
+                    mess += rb.getString("ConfirmDialogMsgXoaErr") + "\n" + errDeltete;
                 }
-                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, mess, rb.getString("ConfirmDialogTitle"), JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, rb.getString("ConfirmDialogMsgChonXoa"), rb.getString("ConfirmDialogTitle"), JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -307,24 +373,26 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
                 dataND.setGioiTinh(nd.isGioiTinh());
                 dataND.setMaNhomQuyen(nd.getMaNhomQuyen());
             }
-            showInternalFrame(new UpdateNguoiDung(dataND, this));
+            updateNguoiDung = new UpdateNguoiDung(dataND, this, this.rb);
+            showInternalFrame(updateNguoiDung);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, rb.getString("ConfirmDialogMsgChonCapNhat"), rb.getString("ConfirmDialogTitle"), JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-          showInternalFrame(new SearchNguoiDung(this));
+        searchNguoiDung = new SearchNguoiDung(this, rb);
+        showInternalFrame(searchNguoiDung);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GroupBtn;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblNguoiDung;
