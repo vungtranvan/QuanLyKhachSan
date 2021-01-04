@@ -11,6 +11,7 @@ import com.qlks.dao.impl.ChiTietPhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhongDAO;
 import com.qlks.models.ChiTietPhieuNhanPhong;
+import com.qlks.models.NguoiDung;
 import com.qlks.models.PhieuNhanPhong;
 import com.qlks.view.internalframe.action.AddPhieuNhanPhong;
 import com.qlks.view.internalframe.action.SearchPhieuNhanPhong;
@@ -35,8 +36,9 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private JDesktopPane jdek;
     private FunctionBase funcBase;
     private PhongDAO phongDAO;
+    private String tenNhanVien;
 
-    public QLPhieuNhanPhong() {
+    public QLPhieuNhanPhong(List<NguoiDung> lstND) {
         initComponents();
         dtmPhieuNhanPhong = new DefaultTableModel();
         phieuNhanPhongDAO = new PhieuNhanPhongDAO();
@@ -44,6 +46,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         chiTietPhieuNhanPhongDAO = new ChiTietPhieuNhanPhongDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null);
+        tenNhanVien = lstND.get(0).getTenNguoiDung();
     }
 
     public void loadData(String maPhong, String tenKH, String CMND) {
@@ -352,7 +355,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
                 String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
                 String maKH = dtmPhieuNhanPhong.getValueAt(currentRow, 3).toString();
-                showInternalFrame(new ThanhToanHoaDon(maNhanPhong, maPhong, maKH));
+                showInternalFrame(new ThanhToanHoaDon(maNhanPhong, maPhong, maKH, tenNhanVien));
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }

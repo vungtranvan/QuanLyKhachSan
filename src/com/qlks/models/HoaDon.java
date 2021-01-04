@@ -25,6 +25,15 @@ public class HoaDon {
     public HoaDon() {
     }
 
+    public HoaDon(String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, float tongTien, LocalDate ngayLap) {
+        this.maKhachHang = maKhachHang;
+        this.maNhanPhong = maNhanPhong;
+        this.maKhuyenMai = maKhuyenMai;
+        this.nhanVienLap = nhanVienLap;
+        this.tongTien = tongTien;
+        this.ngayLap = ngayLap;
+    }
+
     public HoaDon(int maHoaDon, String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, float tongTien, LocalDate ngayLap) {
         this.maHoaDon = maHoaDon;
         this.maKhachHang = maKhachHang;

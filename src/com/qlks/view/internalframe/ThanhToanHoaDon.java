@@ -5,10 +5,14 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.dao.impl.ChiTietHoaDonDAO;
 import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
+import com.qlks.dao.impl.HoaDonDAO;
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.DanhSachSuDungDichVu;
+import com.qlks.models.HoaDon;
 import com.qlks.models.KhachHang;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +26,8 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     private DefaultComboBoxModel modelDichVu;
 
     private DanhSachSuDungDichVuDAO dsSDDichVuDAO;
+    private HoaDonDAO hoaDonDAO;
+    private ChiTietHoaDonDAO chiTietHoaDonDAO;
     private List<DanhSachSuDungDichVu> lstDanhSachSuDungDichVu;
     private DefaultTableModel dtmDanhSachSuDungDichVu;
     private KhachHangDAO khachHangDAO;
@@ -33,7 +39,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     /**
      * Creates new form PhieuSDDichVu
      */
-    public ThanhToanHoaDon(String _maNhanPhong, String _maPhong, String maKH) {
+    public ThanhToanHoaDon(String _maNhanPhong, String _maPhong, String maKH, String tenNhanVien) {
         initComponents();
         dtmDanhSachSuDungDichVu = new DefaultTableModel();
         modelDichVu = new DefaultComboBoxModel();
@@ -44,6 +50,9 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         maKhachHang = maKH;
         maNhanPhong = _maNhanPhong;
         maPhong = _maPhong;
+
+        hoaDonDAO = new HoaDonDAO();
+        chiTietHoaDonDAO = new ChiTietHoaDonDAO();
 
         lstKhachHangByID = khachHangDAO.getByMa(maKH);
         for (KhachHang kh : lstKhachHangByID) {
@@ -444,7 +453,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-
+        hoaDonDAO.add(new HoaDon(maKhachHang, maNhanPhong, 1, maNhanPhong, TOP_ALIGNMENT, LocalDate.MIN));
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed

@@ -1536,7 +1536,6 @@ END
 GO
 
 CREATE PROC insertHoaDon
-@MaHoaDon int,
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
 @MaKhuyenMai int,
@@ -1545,7 +1544,7 @@ CREATE PROC insertHoaDon
 @NgayLap datetime
 AS
 BEGIN 
-Insert into HoaDon(MaHoaDon,MaKhachHang,MaNhanPhong,MaKhuyenMai,NhanVienLap,TongTien,NgayLap) Values(@MaHoaDon,@MaKhachHang,@MaNhanPhong,@MaKhuyenMai,@NhanVienLap,@TongTien,@NgayLap)
+Insert into HoaDon(MaKhachHang,MaNhanPhong,MaKhuyenMai,NhanVienLap,TongTien,NgayLap) Values(@MaKhachHang,@MaNhanPhong,@MaKhuyenMai,@NhanVienLap,@TongTien,@NgayLap)
 END
 GO
 
