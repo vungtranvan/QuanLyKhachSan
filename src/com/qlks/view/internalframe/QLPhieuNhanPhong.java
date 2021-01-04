@@ -54,11 +54,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             lstPhieuNhanPhong = phieuNhanPhongDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã nhận phòng", "Mã phiếu thuê", "Mã khách hàng", "Mã phòng", "Tên khách hàng", "CMND", "Ngày nhận", "Ngày trả dự kiến", "Ngày trả thực tế", "Trạng thái", "", "Xóa"};
+        Object[] columnNames = {"STT", "Mã nhận phòng", "Mã phiếu thuê", "Mã khách hàng", "Mã phòng", "Tên khách hàng", "CMND", "Ngày nhận", "Ngày trả dự kiến", "Ngày trả thực tế", "Trạng thái", "", "", "Xóa"};
         dtmPhieuNhanPhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (PhieuNhanPhong adv : lstPhieuNhanPhong) {
-            Object[] o = new Object[13];
+            Object[] o = new Object[14];
             o[0] = index;
             o[1] = adv.getMaNhanPhong();
             o[2] = adv.getMaPhieuThue();
@@ -76,13 +76,15 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             }
             o[10] = trangThai;
             o[11] = "Thêm DV";
+            o[12] = "Thanh toán";
             dtmPhieuNhanPhong.addRow(o);
             index++;
         }
         tblPhieuNhanPhong.setModel(dtmPhieuNhanPhong);
+        new CustomButtonClumnJTable(tblPhieuNhanPhong, 12);
         new CustomButtonClumnJTable(tblPhieuNhanPhong, 11);
 
-        funcBase.addCheckBox(12, tblPhieuNhanPhong);
+        funcBase.addCheckBox(13, tblPhieuNhanPhong);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -177,7 +179,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(265, Short.MAX_VALUE)
+                .addContainerGap(407, Short.MAX_VALUE)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,7 +273,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         if (thongbao == JOptionPane.YES_OPTION) {
             String ma_Phong;
             for (int i = 0; i < tblPhieuNhanPhong.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 12, tblPhieuNhanPhong)) {
+                if (funcBase.IsSelected(i, 13, tblPhieuNhanPhong)) {
                     check = true;
 
                     int rowSucces1 = chiTietPhieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
@@ -340,6 +342,17 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
                 String tenKH = dtmPhieuNhanPhong.getValueAt(currentRow, 5).toString();
                 showInternalFrame(new PhieuSDDichVu(maNhanPhong, maPhong, tenKH));
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        if (currentRow >= 0 && currentColumns == 12) {
+            String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
+            if (trangThai.equals("Chưa thanh toán")) {
+                String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
+                String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
+                String tenKH = dtmPhieuNhanPhong.getValueAt(currentRow, 5).toString();
+                showInternalFrame(new ThanhToanHoaDon(maNhanPhong, maPhong, tenKH));
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
