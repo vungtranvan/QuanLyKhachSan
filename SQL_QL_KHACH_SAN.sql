@@ -484,6 +484,14 @@ Insert into DichVu(MaDichVu,MaLoaiDichVu,MaDonVi,DonGia) Values
 ('DV11','LDV04','DV1',50000)
 GO
 
+  Insert into ChinhSachTraPhong(MaChinhSach,NoiDung,PhuThu) values
+  ('CS1',N'Phụ thu trả phòng trước 12h đến 13h',0.0),
+  ('CS2',N'Phụ thu trả phòng từ 13h đến 15h',20.0),
+  ('CS3',N'Phụ thu trả phòng từ 15h đến 17h',40.0),
+  ('CS4',N'Phụ thu trả phòng từ 17h đến 19h',50.0),
+  ('CS5',N'Phụ thu trả phòng sau 19h',100.0)
+  GO
+
 --  TẠO THỦ TỤC
 
 -- BẢNG QuyDinh
@@ -1495,6 +1503,13 @@ CREATE PROC getAllHoaDon
 AS
 BEGIN 
 SELECT * FROM HoaDon
+END
+GO
+
+CREATE PROC getHoaDonIdMAX
+AS
+BEGIN 
+SELECT * FROM HoaDon Where MaHoaDon = (SELECT MAX(MaHoaDon) FROM HoaDon)
 END
 GO
 

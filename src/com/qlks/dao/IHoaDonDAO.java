@@ -19,6 +19,8 @@ public interface IHoaDonDAO {
 
     List<HoaDon> getByMaHoaDon(int maHoaDon);
 
+    List<HoaDon> getIdMAX();
+
     List<HoaDon> getByMaKhachHang(String maKhachHang);
 
     List<HoaDon> getByMaNhanPhong(String maNhanPhong);

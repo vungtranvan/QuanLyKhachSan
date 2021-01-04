@@ -11,6 +11,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
@@ -48,5 +52,22 @@ public class FunctionBase {
             is.close();
             os.close();
         }
+    }
+
+    public int calendaDay(String stringDayBD, String stringDayKT) {
+        SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String inputString1 = stringDayBD;
+        String inputString2 = stringDayKT;
+        int day = 0;
+        try {
+            Date date1 = myFormat.parse(inputString1);
+            Date date2 = myFormat.parse(inputString2);
+            long diff = date2.getTime() - date1.getTime();
+            day = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return day;
     }
 }

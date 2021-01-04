@@ -42,6 +42,12 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO {
     }
 
     @Override
+    public List<HoaDon> getIdMAX() {
+        String sql = "{Call getHoaDonIdMAX}";
+        return query(sql, new HoaDonMapper());
+    }
+
+    @Override
     public List<HoaDon> search(int maHoaDon, String maKhachHang, String maNhanPhong, String nhanVienLap, LocalDateTime ngayLap) {
         String sql = "{Call SearchNHoaDon(?,?,?,?,?)}";
         return query(sql, new HoaDonMapper(), maHoaDon, maKhachHang, maNhanPhong, nhanVienLap, ngayLap);
