@@ -271,7 +271,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         Boolean check = false;
         int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
-            String ma_Phong;
+
             for (int i = 0; i < tblPhieuNhanPhong.getRowCount(); i++) {
                 if (funcBase.IsSelected(i, 13, tblPhieuNhanPhong)) {
                     check = true;
@@ -351,8 +351,8 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             if (trangThai.equals("Chưa thanh toán")) {
                 String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
                 String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
-                String tenKH = dtmPhieuNhanPhong.getValueAt(currentRow, 5).toString();
-                showInternalFrame(new ThanhToanHoaDon(maNhanPhong, maPhong, tenKH));
+                String maKH = dtmPhieuNhanPhong.getValueAt(currentRow, 3).toString();
+                showInternalFrame(new ThanhToanHoaDon(maNhanPhong, maPhong, maKH));
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }

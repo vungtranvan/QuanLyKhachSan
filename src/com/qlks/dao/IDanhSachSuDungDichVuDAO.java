@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IDanhSachSuDungDichVuDAO {
 
-    List<DanhSachSuDungDichVu> getAll();
+    List<DanhSachSuDungDichVu> getAll(String maNhanPhong);
 
     List<DanhSachSuDungDichVu> getByMaSuDungDichVu(String maSuDungDVu);
 

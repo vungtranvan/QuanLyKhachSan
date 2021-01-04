@@ -17,9 +17,9 @@ import java.util.List;
 public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> implements IDanhSachSuDungDichVuDAO {
 
     @Override
-    public List<DanhSachSuDungDichVu> getAll() {
-        String sql = "{Call getAllDanhSachSuDungDichVu}";
-        return query(sql, new DanhSachSuDungDichVuMapper());
+    public List<DanhSachSuDungDichVu> getAll(String maNhanPhong) {
+        String sql = "{Call getDanhSachSuDungDichVu_ByMaNhanPhong(?)}";
+        return query(sql, new DanhSachSuDungDichVuMapper(), maNhanPhong);
     }
 
     @Override

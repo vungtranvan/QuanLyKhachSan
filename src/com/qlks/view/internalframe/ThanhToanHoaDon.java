@@ -61,7 +61,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     }
 
     public void initDVDSD() {
-        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll();
+        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(maNhanPhong);
 
         Object[] columnNames = {"STT", "Mã SD dịch vụ", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", "Thành tiền"};
         dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);

@@ -2142,7 +2142,7 @@ END
 GO
 
 -- BẢNG DanhSachSuDungDichVu
-CREATE PROC getAllDanhSachSuDungDichVu
+CREATE PROC getDanhSachSuDungDichVu_ByMaNhanPhong
 @MaNhanPhong varchar (5)
 AS
 BEGIN 
