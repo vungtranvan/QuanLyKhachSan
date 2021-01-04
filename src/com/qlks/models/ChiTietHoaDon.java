@@ -41,6 +41,19 @@ public class ChiTietHoaDon {
         this.thanhTien = thanhTien;
     }
 
+    public ChiTietHoaDon(int maHoaDon, String maPhong, String maChinhSach, float phuThu, float tienPhong, float tienDichVu, float giamGiaKH, String hinhThucThanhToan, int soNgay, float thanhTien) {
+        this.maHoaDon = maHoaDon;
+        this.maPhong = maPhong;
+        this.maChinhSach = maChinhSach;
+        this.phuThu = phuThu;
+        this.tienPhong = tienPhong;
+        this.tienDichVu = tienDichVu;
+        this.giamGiaKH = giamGiaKH;
+        this.hinhThucThanhToan = hinhThucThanhToan;
+        this.soNgay = soNgay;
+        this.thanhTien = thanhTien;
+    }
+
     public int getMaHoaDon() {
         return maHoaDon;
     }

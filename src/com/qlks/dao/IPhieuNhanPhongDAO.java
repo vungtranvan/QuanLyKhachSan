@@ -24,5 +24,7 @@ public interface IPhieuNhanPhongDAO {
 
     int update(PhieuNhanPhong phieuNhanPhong);
 
+    int updateTrangThai(String maNhanPhong);
+
     int delete(String maNhanPhong);
 }

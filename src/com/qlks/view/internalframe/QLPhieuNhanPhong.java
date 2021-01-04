@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, UpdatePhieuChiTietNhanPhong.CallBackUpdate, SearchPhieuNhanPhong.CallBackSearch {
+public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, UpdatePhieuChiTietNhanPhong.CallBackUpdate, SearchPhieuNhanPhong.CallBackSearch, ThanhToanHoaDon.CallBackCheckOut {
 
     private PhieuNhanPhongDAO phieuNhanPhongDAO;
     private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
@@ -351,13 +351,21 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         }
         if (currentRow >= 0 && currentColumns == 12) {
             String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
-            if (trangThai.equals("Chưa thanh toán")) {
+            String ngayTraThucTe = null;
+            try {
+                ngayTraThucTe = dtmPhieuNhanPhong.getValueAt(currentRow, 9).toString();
+            } catch (Exception e) {
+                ngayTraThucTe = null;
+            }
+            if (trangThai.equals("Chưa thanh toán") && ngayTraThucTe != null) {
                 String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
                 String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
                 String maKH = dtmPhieuNhanPhong.getValueAt(currentRow, 3).toString();
-                showInternalFrame(new ThanhToanHoaDon(maNhanPhong, maPhong, maKH, tenNhanVien));
+                showInternalFrame(new ThanhToanHoaDon(this, maNhanPhong, maPhong, maKH, tenNhanVien));
+            } else if (ngayTraThucTe == null) {
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng cập nhật ngày trả thực tế khách hàng này trước khi thanh toán !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_tblPhieuNhanPhongMouseClicked
@@ -388,6 +396,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     @Override
     public void doSearch(String maPhong, String tenKH, String CMND) {
         loadData(maPhong, tenKH, CMND);
+    }
+
+    @Override
+    public void doCheckOut() {
+        loadData(null, null, null);
     }
 
 }

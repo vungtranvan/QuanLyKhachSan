@@ -18,8 +18,7 @@ public interface IChiTietHoaDonDAO {
 
     List<ChiTietHoaDon> getByMaHoaDon(int maHoaDon);
 
-    int add(ChiTietHoaDon ct);
+    int addCoDV(ChiTietHoaDon ct);
 
-    //void update(ChiTietHoaDon ct);
-    //void delete(String maKhachHang);
+    int addNoDV(ChiTietHoaDon ct);
 }
