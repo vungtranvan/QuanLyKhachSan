@@ -1536,7 +1536,6 @@ END
 GO
 
 CREATE PROC insertHoaDon
-@MaHoaDon int,
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
 @MaKhuyenMai int,
@@ -1545,7 +1544,7 @@ CREATE PROC insertHoaDon
 @NgayLap datetime
 AS
 BEGIN 
-Insert into HoaDon(MaHoaDon,MaKhachHang,MaNhanPhong,MaKhuyenMai,NhanVienLap,TongTien,NgayLap) Values(@MaHoaDon,@MaKhachHang,@MaNhanPhong,@MaKhuyenMai,@NhanVienLap,@TongTien,@NgayLap)
+Insert into HoaDon(MaKhachHang,MaNhanPhong,MaKhuyenMai,NhanVienLap,TongTien,NgayLap) Values(@MaKhachHang,@MaNhanPhong,@MaKhuyenMai,@NhanVienLap,@TongTien,@NgayLap)
 END
 GO
 
@@ -2142,7 +2141,8 @@ END
 GO
 
 -- BẢNG DanhSachSuDungDichVu
-CREATE PROC getAllDanhSachSuDungDichVu
+CREATE PROC getDanhSachSuDungDichVu_ByMaNhanPhong
+@MaNhanPhong varchar (5)
 AS
 BEGIN 
 SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
@@ -2150,6 +2150,7 @@ FROM DanhSachSuDungDichVu
 JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
 JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
 JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+WHERE DanhSachSuDungDichVu.MaNhanPhong = @MaNhanPhong
 END
 GO
 

@@ -80,7 +80,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     }
 
     public void initDVDSD() {
-        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll();
+        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(lblMaNhanPhong.getText());
 
         Object[] columnNames = {"STT", "Mã SD dịch vụ", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", ""};
         dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
