@@ -8,11 +8,14 @@ package com.qlks.view.internalframe;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.KhachHang;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddKhachHang;
 import com.qlks.view.internalframe.action.SearchKhachHang;
 import com.qlks.view.internalframe.action.UpdateKhachHang;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,13 +32,21 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
     private DefaultTableModel dtmKhachHang;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
+    ResourceBundle rb;
+    private Locale lc;
 
-    public QuanLyKhachHang() {
+    public QuanLyKhachHang(Locale lc) {
         initComponents();
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         dtmKhachHang = new DefaultTableModel();
         khachHangDAO = new KhachHangDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null, null, null, null, null);
+        translate(lc);
+        if (!MethodMain.checkQuyen("QlKhachHang")) {
+            GroupBtn.setVisible(false);
+        }
     }
 
     public void loadData(String maSearchInput, String tenSearchInput, String CMNDSearchInput,
@@ -47,7 +58,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
                 lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput,
                         dienThoaiSearchInput, quocTichSearchInput);
             } else {
-                lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput, 
+                lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput,
                         dienThoaiSearchInput, gioiTinhSearchInput, quocTichSearchInput);
             }
         } else {
@@ -97,6 +108,44 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         }
     }
 
+    private void makeText(ResourceBundle rb) {
+        btnCapNhat.setText(rb.getString("BtnCapNhat"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnThemMoi.setText(rb.getString("BtnThemMoi"));
+        btnTimKiem.setText(rb.getString("BtnTimKiem"));
+        btnXoa.setText(rb.getString("BtnXoa"));
+        setTitle(rb.getString("JIFQLKhachHang"));
+    }
+
+    private void makeTableHeader(ResourceBundle rb) {
+        tblKhachHang.getColumnModel().getColumn(0).setHeaderValue("STT");
+        tblKhachHang.getColumnModel().getColumn(1).setHeaderValue(rb.getString("JIFQLKhachHangMa"));
+        tblKhachHang.getColumnModel().getColumn(2).setHeaderValue(rb.getString("JIFQLKhachHangTen"));
+        tblKhachHang.getColumnModel().getColumn(3).setHeaderValue(rb.getString("JIFQLKhachHangCMND"));
+        tblKhachHang.getColumnModel().getColumn(4).setHeaderValue(rb.getString("JIFQLKhachHangDiaChi"));
+        tblKhachHang.getColumnModel().getColumn(5).setHeaderValue(rb.getString("JIFQLKhachHangSDT"));
+        tblKhachHang.getColumnModel().getColumn(6).setHeaderValue(rb.getString("JIFQLKhachHangGioiTinh"));
+        tblKhachHang.getColumnModel().getColumn(7).setHeaderValue(rb.getString("JIFQLKhachHangQuocTich"));
+        tblKhachHang.getColumnModel().getColumn(8).setHeaderValue("");
+    }
+
+    public void translate(Locale lc) {
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        makeText(this.rb);
+        makeTableHeader(this.rb);
+//        if (addLoaiPhong != null) {
+//            addLoaiPhong.translate(this.rb);
+//        }
+//        if (updateLoaiPhong != null) {
+//            updateLoaiPhong.translate(this.rb);
+//        }
+//        if (searchLoaiPhong != null) {
+//            searchLoaiPhong.translate(this.rb);
+//        }
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,7 +155,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        GroupBtn = new javax.swing.JPanel();
         btnLamMoi = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -165,11 +214,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout GroupBtnLayout = new javax.swing.GroupLayout(GroupBtn);
+        GroupBtn.setLayout(GroupBtnLayout);
+        GroupBtnLayout.setHorizontalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -182,11 +231,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(148, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        GroupBtnLayout.setVerticalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,7 +279,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
@@ -238,7 +287,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GroupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -326,12 +375,12 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GroupBtn;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblKhachHang;

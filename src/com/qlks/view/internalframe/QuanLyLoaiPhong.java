@@ -46,7 +46,7 @@ public class QuanLyLoaiPhong extends javax.swing.JInternalFrame implements AddLo
         loaiPhongDAO = new LoaiPhongDAO();
         funcBase = new FunctionBase();
         loadData(null, null);
-        makeTableHeader(rb);
+        translate(lc);
         if (!MethodMain.checkQuyen("QlPhong")) {
             GroupBtn.setVisible(false);
         }
