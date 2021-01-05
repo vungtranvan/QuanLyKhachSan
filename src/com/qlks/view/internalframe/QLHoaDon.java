@@ -250,7 +250,6 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
         int currentRow = tblHoaDon.getSelectedRow();
 
         if (currentRow >= 0) {
-<<<<<<< HEAD
 //            String maKH = dtmHoaDon.getValueAt(currentRow, 1).toString();
 //            String tenKH = dtmHoaDon.getValueAt(currentRow, 2).toString();
 //            String CMND = dtmHoaDon.getValueAt(currentRow, 3).toString();
@@ -263,20 +262,7 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
 //            }
 //            String quocTich = dtmHoaDon.getValueAt(currentRow, 7).toString();
 //            KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
-=======
-            String maKH = dtmKhachHang.getValueAt(currentRow, 1).toString();
-            String tenKH = dtmKhachHang.getValueAt(currentRow, 2).toString();
-            String CMND = dtmKhachHang.getValueAt(currentRow, 3).toString();
-            String diaChi = dtmKhachHang.getValueAt(currentRow, 4).toString();
-            String dienThoai = dtmKhachHang.getValueAt(currentRow, 5).toString();
-            String gioiTinhInTable = dtmKhachHang.getValueAt(currentRow, 6).toString();
-            Boolean gioiTinh = true;
-            if (gioiTinhInTable.equals("Nữ")) {
-                gioiTinh = false;
-            }
-            String quocTich = dtmKhachHang.getValueAt(currentRow, 7).toString();
-            KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
->>>>>>> e6f8b40d721ae80feaaa7f7f89e51a0a674470c5
+
 //            showInternalFrame(new UpdateKhachHang(dataKH, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
