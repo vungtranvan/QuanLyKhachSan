@@ -350,6 +350,7 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
         loadData(null, null, 0);
+   
     }//GEN-LAST:event_btnLamMoiKeyPressed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed

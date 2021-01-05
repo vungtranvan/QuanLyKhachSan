@@ -96,7 +96,7 @@ public class MethodMain {
     }
 
     public static void exportExcel(JTable table) {
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser("src/com/qlks/saveFile/");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("XLS files", "xls");
         chooser.setFileFilter(filter);
         int i = chooser.showSaveDialog(chooser);
@@ -127,7 +127,7 @@ public class MethodMain {
     }
 
     public static void exportImage(JInternalFrame internalFrame) {
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser("src/com/qlks/saveFile/");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "jpeg");
         chooser.setFileFilter(filter);
 
