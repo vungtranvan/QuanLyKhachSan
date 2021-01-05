@@ -8,13 +8,29 @@ package com.qlks.utils;
 import com.qlks.main.Main;
 import com.qlks.view.internalframe.ThongBao;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,7 +41,7 @@ public class MethodMain {
     private static ThongBao tb;
 
     public static void globalMessagerSuccess(String msg, JDesktopPane jdp) {
-       
+
         tb = new ThongBao();
         tb.getJlbThongBao().setText(msg);
         tb.getJlbThongBao().setForeground(Color.green);
@@ -36,7 +52,8 @@ public class MethodMain {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (tb != null) {
-                    tb.setVisible(false);  tb.setVisible(false);
+                    tb.setVisible(false);
+                    tb.setVisible(false);
                     tb = null;
                 }
 
@@ -75,6 +92,58 @@ public class MethodMain {
         } else {
             jlbMsg.setText(null);
             return true;
+        }
+    }
+
+    public static void exportExcel(JTable table) {
+        JFileChooser chooser = new JFileChooser("src/com/qlks/saveFile/");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("XLS files", "xls");
+        chooser.setFileFilter(filter);
+        int i = chooser.showSaveDialog(chooser);
+        if (i == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                FileWriter out = new FileWriter(file + ".xls");
+                BufferedWriter bwrite = new BufferedWriter(out);
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                // ten Cot
+                for (int j = 0; j < table.getColumnCount(); j++) {
+                    bwrite.write(model.getColumnName(j) + "\t");
+                }
+                bwrite.write("\n");
+                // Lay du lieu dong
+                for (int j = 0; j < table.getRowCount(); j++) {
+                    for (int k = 0; k < table.getColumnCount(); k++) {
+                        bwrite.write(model.getValueAt(j, k) + "\t");
+                    }
+                    bwrite.write("\n");
+                }
+                bwrite.close();
+                JOptionPane.showMessageDialog(null, "Lưu file thành công!");
+            } catch (Exception e2) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");
+            }
+        }
+    }
+
+    public static void exportImage(JInternalFrame internalFrame) {
+        JFileChooser chooser = new JFileChooser("src/com/qlks/saveFile/");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "jpeg");
+        chooser.setFileFilter(filter);
+
+        int i = chooser.showSaveDialog(chooser);
+        if (i == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                Container inContainer = internalFrame.getContentPane();
+                BufferedImage image = new BufferedImage(inContainer.getWidth(), inContainer.getHeight(), BufferedImage.TYPE_INT_RGB);
+                Graphics2D graphics2D = image.createGraphics();
+                inContainer.paint(graphics2D);
+                ImageIO.write(image, "jpeg", new File(file + ".jpeg"));
+                JOptionPane.showMessageDialog(null, "Lưu file thành công!");
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");
+            }
         }
     }
 }
