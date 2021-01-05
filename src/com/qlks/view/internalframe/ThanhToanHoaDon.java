@@ -21,10 +21,14 @@ import com.qlks.models.LoaiPhong;
 import com.qlks.models.ChiTietHoaDon;
 import com.qlks.models.ChiTietPhieuNhanPhong;
 import com.qlks.models.Phong;
+import com.qlks.utils.MethodMain;
+import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,6 +41,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     private DefaultComboBoxModel modelDichVu;
 
     private DanhSachSuDungDichVuDAO dsSDDichVuDAO;
+    private JDesktopPane jdek;
     private PhieuNhanPhongDAO phieuNhanPhongDAO;
     private HoaDonDAO hoaDonDAO;
     private ChiTietHoaDonDAO chiTietHoaDonDAO;
@@ -178,6 +183,25 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         float tienKhuyenMai = Float.parseFloat(lblKhuyenMai.getText().toString());
         sum = tongTienDV + tongTienPhong + tienPhuThu - tienKhuyenMai;
         return sum;
+    }
+
+    public void centerJIF(JInternalFrame jif) {
+        Dimension desktopSize = jdek.getSize();
+        Dimension jInternalFrameSize = jif.getSize();
+        int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+        int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+        jif.setLocation(width, height);
+        jif.setVisible(true);
+    }
+
+    public void showInternalFrame(JInternalFrame jif) {
+        if (!jif.isVisible()) {
+            jdek = getDesktopPane();
+            jdek.add(jif);
+            centerJIF(jif);
+            jif.setVisible(true);
+            jdek.show();
+        }
     }
 
     /**
@@ -653,6 +677,9 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 phongDAO.updatePhongDaThanhToan(maPhong);
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công", null, JOptionPane.INFORMATION_MESSAGE);
                 cb.doCheckOut();
+                ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView();
+                 showInternalFrame(jframeChiTietHoaDon);
+                 MethodMain.exportImage(jframeChiTietHoaDon);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thất bại", null, JOptionPane.ERROR_MESSAGE);

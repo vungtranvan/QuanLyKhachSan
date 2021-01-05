@@ -5,16 +5,18 @@
  */
 package com.qlks.view.internalframe;
 
+import com.qlks.utils.MethodMain;
+
 /**
  *
  * @author hoangdung
  */
-public class ChiTietHoaDon extends javax.swing.JInternalFrame {
+public class ChiTietHoaDonView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ChiTietHoaDon
      */
-    public ChiTietHoaDon() {
+    public ChiTietHoaDonView() {
         initComponents();
     }
 
@@ -49,6 +51,9 @@ public class ChiTietHoaDon extends javax.swing.JInternalFrame {
         jlbCustommer7 = new javax.swing.JLabel();
         jlbCustommerN7 = new javax.swing.JLabel();
         jlbCustommer8 = new javax.swing.JLabel();
+
+        setClosable(true);
+        setIconifiable(true);
 
         jpnHoaDon.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
 
@@ -258,7 +263,7 @@ public class ChiTietHoaDon extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpnHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         pack();
