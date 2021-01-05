@@ -264,14 +264,14 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
             }
             String quocTich = dtmKhachHang.getValueAt(currentRow, 7).toString();
             KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
-            showInternalFrame(new UpdateKhachHang(dataKH, this));
+//            showInternalFrame(new UpdateKhachHang(dataKH, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        showInternalFrame(new SearchKhachHang(this));
+//        showInternalFrame(new SearchKhachHang(this));
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 

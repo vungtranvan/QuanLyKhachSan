@@ -5,6 +5,8 @@
  */
 package com.qlks.view.internalframe.action;
 
+import java.util.ResourceBundle;
+
 /**
  *
  * @author hello
@@ -12,6 +14,7 @@ package com.qlks.view.internalframe.action;
 public class SearchKhuyenMai extends javax.swing.JInternalFrame {
 
     CallBackSearch cb;
+    private ResourceBundle rb;
 
     public interface CallBackSearch {
 
@@ -21,15 +24,35 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public SearchKhuyenMai(CallBackSearch _cb) {
+    public SearchKhuyenMai(CallBackSearch _cb, ResourceBundle rb) {
         initComponents();
         resetText();
         this.cb = _cb;
+        this.rb = rb;
+        translate(this.rb);
     }
 
     public void resetText() {
         txtMaPhieu.setText("");
         txtNoiDung.setText("");
+    }
+
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        setTitle(this.rb.getString("AddKhuyenMai"));
+        jlbTitle.setText(this.rb.getString("UpdateKhuyenMai"));
+        jlbMaPhieu.setText(this.rb.getString("UpdateKhuyenMai"));
+        jlbNoiDung.setText(this.rb.getString("JIFQLKhuyenMaiNoiDung"));
+        jRadioChuaSD.setText(this.rb.getString("JIFQLKhuyenMaiChuaSD"));
+        jRadioDaSD.setText(this.rb.getString("JIFQLKhuyenMaiDaSuDung"));
+        jlbTrangThai.setText(this.rb.getString("JIFQLKhuyenMaiTrangThai"));
+
+        btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
+        btnHuyBo.setText(this.rb.getString("BtnHuy"));
+        btnTimKiem.setText(this.rb.getString("BtnTimKiem"));
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -43,30 +66,30 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
 
         RadioGroupTrangThai = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbMaPhieu = new javax.swing.JLabel();
         txtMaPhieu = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jlbNoiDung = new javax.swing.JLabel();
         txtNoiDung = new javax.swing.JTextField();
         btnHuyBo = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jlbTrangThai = new javax.swing.JLabel();
         jRadioChuaSD = new javax.swing.JRadioButton();
         jRadioDaSD = new javax.swing.JRadioButton();
 
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TÌM KIẾM KHUYẾN MẠI");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("TÌM KIẾM KHUYẾN MẠI");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Mã code KM:");
+        jlbMaPhieu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbMaPhieu.setText("Mã code KM:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Nội dung:");
+        jlbNoiDung.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbNoiDung.setText("Nội dung:");
 
         txtNoiDung.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -97,7 +120,7 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setText("Trạng thái:");
+        jlbTrangThai.setText("Trạng thái:");
 
         RadioGroupTrangThai.add(jRadioChuaSD);
         jRadioChuaSD.setText("Chưa sử dụng");
@@ -111,7 +134,7 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(89, 89, 89)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -125,10 +148,10 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jlbMaPhieu)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jlbTrangThai, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlbNoiDung, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMaPhieu, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,18 +166,18 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbMaPhieu)
                     .addComponent(txtMaPhieu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jlbNoiDung)
                     .addComponent(txtNoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(jlbTrangThai)
                     .addComponent(jRadioChuaSD)
                     .addComponent(jRadioDaSD))
                 .addGap(18, 18, 18)
@@ -209,13 +232,13 @@ public class SearchKhuyenMai extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnHuyBo;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioChuaSD;
     private javax.swing.JRadioButton jRadioDaSD;
+    private javax.swing.JLabel jlbMaPhieu;
+    private javax.swing.JLabel jlbNoiDung;
+    private javax.swing.JLabel jlbTitle;
+    private javax.swing.JLabel jlbTrangThai;
     private javax.swing.JTextField txtMaPhieu;
     private javax.swing.JTextField txtNoiDung;
     // End of variables declaration//GEN-END:variables

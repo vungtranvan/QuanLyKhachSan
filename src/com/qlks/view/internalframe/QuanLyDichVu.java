@@ -75,7 +75,7 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
         }
         tblDichVu.setModel(dtmDichVu);
         funcBase.addCheckBox(5, tblDichVu);
-        makeTableHeader(rb);
+        translate(lc);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -117,6 +117,7 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
 
     public void translate(Locale lc) {
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        this.lc = lc;
         makeText(this.rb);
         makeTableHeader(this.rb);
         if (addDichVu != null) {

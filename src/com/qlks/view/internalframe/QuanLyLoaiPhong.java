@@ -46,7 +46,7 @@ public class QuanLyLoaiPhong extends javax.swing.JInternalFrame implements AddLo
         loaiPhongDAO = new LoaiPhongDAO();
         funcBase = new FunctionBase();
         loadData(null, null);
-        translate(lc);
+        
         if (!MethodMain.checkQuyen("QlPhong")) {
             GroupBtn.setVisible(false);
         }
@@ -77,6 +77,7 @@ public class QuanLyLoaiPhong extends javax.swing.JInternalFrame implements AddLo
         }
         tblLoaiPhong.setModel(dtmLoaiPhong);
         funcBase.addCheckBox(7, tblLoaiPhong);
+        translate(lc);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -120,6 +121,7 @@ public class QuanLyLoaiPhong extends javax.swing.JInternalFrame implements AddLo
 
     public void translate(Locale lc) {
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        this.lc = lc;
         makeText(this.rb);
         makeTableHeader(this.rb);
         if (addLoaiPhong != null) {

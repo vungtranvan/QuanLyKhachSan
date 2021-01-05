@@ -122,6 +122,7 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
 
     public void translate(Locale lc) {
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        this.lc = lc;
         makeText(this.rb);
         makeTableHeader(this.rb);
         revalidate();

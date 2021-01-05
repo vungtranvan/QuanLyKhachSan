@@ -46,7 +46,7 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
         phongDAO = new PhongDAO();
         funcBase = new FunctionBase();
         loadData(null, null, 0);
-        makeTableHeader(rb);
+        
         if (!MethodMain.checkQuyen("QlPhong")) {
             GroupBtn.setVisible(false);
         }
@@ -76,6 +76,7 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
         }
         tblPhong.setModel(dtmPhong);
         funcBase.addCheckBox(6, tblPhong);
+        translate(lc);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -118,6 +119,7 @@ public class QuanLyPhong extends javax.swing.JInternalFrame implements AddPhong.
 
     public void translate(Locale lc) {
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        this.lc = lc;
         makeText(this.rb);
         makeTableHeader(this.rb);
         if (addPhong != null) {

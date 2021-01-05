@@ -38,12 +38,14 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
     private FunctionBase funcBase;
     List<PhanQuyen> listPhanQuyen;
     private List<Integer> listQuyen = new ArrayList<>();
+    Locale lc;
 
     /**
      * Creates new form QuanLyTaiSan
      */
     public QuanLyNhomQuyen(Locale lc) {
         initComponents();
+        this.lc = lc;
         dtmNhomQuyen = new DefaultTableModel();
         nhomQuyenDAO = new NhomQuyenDAO();
         phanQuyenDAO = new PhanQuyenDAO();
@@ -53,7 +55,7 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         makeText(lc);
         ValidJcheck();
         resetText();
-        if (!   MethodMain.checkQuyen("QlNguoiDung")) {
+        if (!MethodMain.checkQuyen("QlNguoiDung")) {
             jpnNhomQuyen.setVisible(false);
             setSize(620, 700);
         }
@@ -108,6 +110,8 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
                 }
             });
         }
+        makeText(lc);
+        ValidJcheck();
     }
 
     private void updateSelect(int MaQ) {
@@ -275,7 +279,7 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         ValidJcheck(chbXemQd, chbQlQd);
     }
 
-     private void makeText(Locale lc) {
+    private void makeText(Locale lc) {
         ResourceBundle rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
         setTitle(rb.getString("JIFQuanLyNhomQuyenTitle"));
         jblSearch.setText(rb.getString("JIFQuanLyNhomQuyenJblSearch"));
