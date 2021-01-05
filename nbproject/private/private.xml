@@ -5,12 +5,13 @@
         <group>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QLHoaDon.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/PhieuSDDichVu.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/ThanhToanHoaDon.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/utils/MethodMain.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/HoaDonDAO.java</file>
-            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/action/SearchHoaDon.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QLPhieuNhanPhong.java</file>
-            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyKhachHang.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/DanhSachSuDungDichVuDAO.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/IHoaDonDAO.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/ChiTietHoaDonView.java</file>
         </group>
     </open-files>
 </project-private>

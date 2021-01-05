@@ -679,7 +679,6 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 cb.doCheckOut();
                 ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView();
                  showInternalFrame(jframeChiTietHoaDon);
-                 MethodMain.exportImage(jframeChiTietHoaDon);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thất bại", null, JOptionPane.ERROR_MESSAGE);
