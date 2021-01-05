@@ -34,6 +34,9 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
     private FunctionBase funcBase;
     ResourceBundle rb;
     private Locale lc;
+    AddKhachHang addKhachHang;
+    UpdateKhachHang updateKhachHang;
+    SearchKhachHang searchKhachHang;
 
     public QuanLyKhachHang(Locale lc) {
         initComponents();
@@ -43,7 +46,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         khachHangDAO = new KhachHangDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null, null, null, null, null);
-        translate(lc);
+
         if (!MethodMain.checkQuyen("QlKhachHang")) {
             GroupBtn.setVisible(false);
         }
@@ -87,6 +90,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         }
         tblKhachHang.setModel(dtmKhachHang);
         funcBase.addCheckBox(8, tblKhachHang);
+        translate(lc);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -131,17 +135,18 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 
     public void translate(Locale lc) {
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        this.lc = lc;
         makeText(this.rb);
         makeTableHeader(this.rb);
-//        if (addLoaiPhong != null) {
-//            addLoaiPhong.translate(this.rb);
-//        }
-//        if (updateLoaiPhong != null) {
-//            updateLoaiPhong.translate(this.rb);
-//        }
-//        if (searchLoaiPhong != null) {
-//            searchLoaiPhong.translate(this.rb);
-//        }
+        if (addKhachHang != null) {
+            addKhachHang.translate(this.rb);
+        }
+        if (updateKhachHang != null) {
+            updateKhachHang.translate(this.rb);
+        }
+        if (searchKhachHang != null) {
+            searchKhachHang.translate(this.rb);
+        }
         revalidate();
         repaint();
     }
@@ -298,7 +303,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
         //QuanLyCauHinh jInterFrame = new QuanLyCauHinh();
-        showInternalFrame(new AddKhachHang(this));
+        addKhachHang = new AddKhachHang(this, rb);
+        showInternalFrame(addKhachHang);
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -363,14 +369,16 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
             }
             String quocTich = dtmKhachHang.getValueAt(currentRow, 7).toString();
             KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
-            showInternalFrame(new UpdateKhachHang(dataKH, this));
+            updateKhachHang = new UpdateKhachHang(dataKH, this, rb);
+            showInternalFrame(updateKhachHang);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        showInternalFrame(new SearchKhachHang(this));
+        searchKhachHang = new SearchKhachHang(this, rb);
+        showInternalFrame(searchKhachHang);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 

@@ -49,7 +49,7 @@ public class Main {
                 listQuyen = pqdao.getMaQuyenByMaQuyen(nd.getMaNhomQuyen());
 
                 quyens = listQuyen.stream().map(e -> e.getQuyen()).collect(Collectors.toList());
-                System.out.println(quyens);
+       
 
                 MainJFrame mainFrame = new MainJFrame(listnd);
 

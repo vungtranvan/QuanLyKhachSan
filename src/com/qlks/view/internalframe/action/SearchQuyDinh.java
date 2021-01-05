@@ -5,6 +5,8 @@
  */
 package com.qlks.view.internalframe.action;
 
+import java.util.ResourceBundle;
+
 /**
  *
  * @author hello
@@ -12,6 +14,7 @@ package com.qlks.view.internalframe.action;
 public class SearchQuyDinh extends javax.swing.JInternalFrame {
 
     CallBackSearch cb;
+    private ResourceBundle rb;
 
     public interface CallBackSearch {
 
@@ -21,14 +24,31 @@ public class SearchQuyDinh extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public SearchQuyDinh(CallBackSearch _cb) {
+    public SearchQuyDinh(CallBackSearch _cb, ResourceBundle rb) {
         initComponents();
         resetText();
         this.cb = _cb;
+        this.rb = rb;
+        translate(this.rb);
     }
 
     public void resetText() {
         txtTenQD.setText("");
+    }
+
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        setTitle(this.rb.getString("SearchQuyDinh"));
+        jlbTitle.setText(this.rb.getString("SearchQuyDinh"));
+        jlbTenQuyDinh.setText(this.rb.getString("JIFQLQuyDinhMa"));
+     
+
+        btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
+        btnHuyBo.setText(this.rb.getString("BtnHuy"));
+        btnTimKiem.setText(this.rb.getString("BtnTimKiem"));
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -42,8 +62,8 @@ public class SearchQuyDinh extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbTenQuyDinh = new javax.swing.JLabel();
         txtTenQD = new javax.swing.JTextField();
         btnHuyBo = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
@@ -52,12 +72,12 @@ public class SearchQuyDinh extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TÌM KIẾM QUY ĐỊNH");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("TÌM KIẾM QUY ĐỊNH");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tên quy định:");
+        jlbTenQuyDinh.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbTenQuyDinh.setText("Tên quy định:");
 
         btnHuyBo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnHuyBo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_close.png"))); // NOI18N
@@ -92,13 +112,13 @@ public class SearchQuyDinh extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(50, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
+                        .addComponent(jlbTenQuyDinh)
                         .addGap(29, 29, 29)
                         .addComponent(txtTenQD, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -114,10 +134,10 @@ public class SearchQuyDinh extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbTenQuyDinh)
                     .addComponent(txtTenQD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -161,9 +181,9 @@ public class SearchQuyDinh extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jlbTenQuyDinh;
+    private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextField txtTenQD;
     // End of variables declaration//GEN-END:variables
 }

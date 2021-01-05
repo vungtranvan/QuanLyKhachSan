@@ -48,7 +48,7 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
         funcBase = new FunctionBase();
         loadData(null, null, 0);
 
-        makeText(this.rb);
+    
         if (!MethodMain.checkQuyen("QlNguoiDung")) {
             GroupBtn.setVisible(false);
         }
@@ -94,6 +94,7 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
         }
         tblNguoiDung.setModel(dtmThietBi);
         funcBase.addCheckBox(8, tblNguoiDung);
+        translate(lc);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -139,6 +140,7 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
 
     public void translate(Locale lc) {
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        this.lc = lc;
         makeText(this.rb);
         makeTableHeader(this.rb);
         revalidate();

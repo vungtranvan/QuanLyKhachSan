@@ -43,7 +43,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
         thietBiDAO = new ThietBiDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null);
-        makeTableHeader(rb);
+        
         if (!MethodMain.checkQuyen("QlThietBi")) {
             GroupBtn.setVisible(false);
         }
@@ -73,6 +73,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
         }
         tblThietBi.setModel(dtmThietBi);
         funcBase.addCheckBox(6, tblThietBi);
+        translate(lc);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -116,6 +117,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
 
     public void translate(Locale lc) {
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        this.lc = lc;
         makeText(this.rb);
         makeTableHeader(this.rb);
 //        if (addPhong != null) {

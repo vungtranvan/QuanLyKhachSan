@@ -7,6 +7,7 @@ package com.qlks.view.internalframe.action;
 
 import com.qlks.dao.impl.QuyDinhDAO;
 import com.qlks.models.QuyDinh;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +20,7 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
     private int maQD;
 
     CallBackUpdate cb;
+    private ResourceBundle rb;
 
     public interface CallBackUpdate {
 
@@ -28,7 +30,7 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
     /**
      * Creates new form AddKhachHang
      */
-    public UpdateQuyDinh(QuyDinh quyDinh, CallBackUpdate _cb) {
+    public UpdateQuyDinh(QuyDinh quyDinh, CallBackUpdate _cb, ResourceBundle rb) {
         initComponents();
         resetText();
         quyDinhDAO = new QuyDinhDAO();
@@ -36,6 +38,8 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
         maQD = quyDinh.getMaQuyDinh();
         txtTenQD.setText(quyDinh.getTenQuyDinh());
         txtMoTa.setText(quyDinh.getMoTa());
+        this.rb = rb;
+        translate(this.rb);
     }
 
     public void resetText() {
@@ -44,6 +48,21 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
 
         txtTenQD.setText("");
         txtMoTa.setText("");
+    }
+
+    public void translate(ResourceBundle rb) {
+        this.rb = rb;
+        setTitle(this.rb.getString("UpdateQuyDinh"));
+        jlbTitle.setText(this.rb.getString("UpdateQuyDinh"));
+        jlbTenQuyDinh.setText(this.rb.getString("JIFQLQuyDinhMa"));
+        jlbMoTa.setText(this.rb.getString("JIFQLQuyDinhTen"));
+
+        btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
+        btnHuyBo.setText(this.rb.getString("BtnHuy"));
+        btnCapNhat.setText(this.rb.getString("BtnCapNhat"));
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -57,12 +76,12 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlbTitle = new javax.swing.JLabel();
+        jlbTenQuyDinh = new javax.swing.JLabel();
         txtTenQD = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jlbMoTa = new javax.swing.JLabel();
         btnHuyBo = new javax.swing.JButton();
-        btnThemMoi = new javax.swing.JButton();
+        btnCapNhat = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
         txtErrorTenQD = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -72,15 +91,15 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("CẬP NHẬT QUY ĐỊNH");
+        jlbTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTitle.setText("CẬP NHẬT QUY ĐỊNH");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Tên quy định:");
+        jlbTenQuyDinh.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbTenQuyDinh.setText("Tên quy định:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Mô tả");
+        jlbMoTa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbMoTa.setText("Mô tả");
 
         btnHuyBo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnHuyBo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_close.png"))); // NOI18N
@@ -91,12 +110,12 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
             }
         });
 
-        btnThemMoi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnThemMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_edit.png"))); // NOI18N
-        btnThemMoi.setText("Cập nhật");
-        btnThemMoi.addActionListener(new java.awt.event.ActionListener() {
+        btnCapNhat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_edit.png"))); // NOI18N
+        btnCapNhat.setText("Cập nhật");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemMoiActionPerformed(evt);
+                btnCapNhatActionPerformed(evt);
             }
         });
 
@@ -131,15 +150,15 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
-                        .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(82, 82, 82)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jlbTenQuyDinh)
+                            .addComponent(jlbMoTa))
                         .addGap(67, 67, 67)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtTenQD)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
@@ -152,24 +171,24 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jlbTenQuyDinh)
                     .addComponent(txtTenQD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorTenQD)
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jlbMoTa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorMoTa)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56))
         );
 
@@ -196,7 +215,7 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
-    private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         Boolean check = true;
         String tenQD = txtTenQD.getText();
         String moTa = txtMoTa.getText();
@@ -227,19 +246,19 @@ public class UpdateQuyDinh extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Cập nhật thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnThemMoiActionPerformed
+    }//GEN-LAST:event_btnCapNhatActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnHuyBo;
     private javax.swing.JButton btnLamMoi;
-    private javax.swing.JButton btnThemMoi;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jlbMoTa;
+    private javax.swing.JLabel jlbTenQuyDinh;
+    private javax.swing.JLabel jlbTitle;
     private javax.swing.JLabel txtErrorMoTa;
     private javax.swing.JLabel txtErrorTenQD;
     private javax.swing.JTextArea txtMoTa;

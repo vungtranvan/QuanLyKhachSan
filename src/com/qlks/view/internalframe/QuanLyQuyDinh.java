@@ -8,11 +8,14 @@ package com.qlks.view.internalframe;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.QuyDinhDAO;
 import com.qlks.models.QuyDinh;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddQuyDinh;
 import com.qlks.view.internalframe.action.SearchQuyDinh;
 import com.qlks.view.internalframe.action.UpdateQuyDinh;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,13 +32,23 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
     private DefaultTableModel dtmQuyDinh;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
+    ResourceBundle rb;
+    private Locale lc;
+    AddQuyDinh addQuyDinh;
+    UpdateQuyDinh updateQuyDinh;
+    SearchQuyDinh searchQuyDinh;
 
-    public QuanLyQuyDinh() {
+    public QuanLyQuyDinh(Locale lc) {
         initComponents();
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         dtmQuyDinh = new DefaultTableModel();
         quyDinhDAO = new QuyDinhDAO();
         funcBase = new FunctionBase();
         loadData(null);
+        if (!MethodMain.checkQuyen("QlKhuyenMai")) {
+            GroupBtn.setVisible(false);
+        }
     }
 
     public void loadData(String tenSearchInput) {
@@ -60,6 +73,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
         }
         tblQuyDinh.setModel(dtmQuyDinh);
         funcBase.addCheckBox(4, tblQuyDinh);
+        translate(lc);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -81,6 +95,41 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
         }
     }
 
+    private void makeText(ResourceBundle rb) {
+        btnCapNhat.setText(rb.getString("BtnCapNhat"));
+        btnLamMoi.setText(rb.getString("BtnLamMoi"));
+        btnThemMoi.setText(rb.getString("BtnThemMoi"));
+        btnTimKiem.setText(rb.getString("BtnTimKiem"));
+        btnXoa.setText(rb.getString("BtnXoa"));
+        setTitle(rb.getString("JIFQLKhuyenMai"));
+    }
+
+    private void makeTableHeader(ResourceBundle rb) {
+        tblQuyDinh.getColumnModel().getColumn(0).setHeaderValue("STT");
+        tblQuyDinh.getColumnModel().getColumn(1).setHeaderValue(rb.getString("JIFQLQuyDinhMa"));
+        tblQuyDinh.getColumnModel().getColumn(2).setHeaderValue(rb.getString("JIFQLQuyDinhTen"));
+        tblQuyDinh.getColumnModel().getColumn(3).setHeaderValue(rb.getString("JIFQLQuyDinhNoiDungMoTa"));
+        tblQuyDinh.getColumnModel().getColumn(4).setHeaderValue("");
+    }
+
+    public void translate(Locale lc) {
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", lc);
+        this.lc = lc;
+        makeText(this.rb);
+        makeTableHeader(this.rb);
+        if (addQuyDinh != null) {
+            addQuyDinh.translate(this.rb);
+        }
+        if (updateQuyDinh != null) {
+            updateQuyDinh.translate(this.rb);
+        }
+        if (searchQuyDinh != null) {
+            searchQuyDinh.translate(this.rb);
+        }
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,7 +139,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        GroupBtn = new javax.swing.JPanel();
         btnLamMoi = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -149,11 +198,11 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout GroupBtnLayout = new javax.swing.GroupLayout(GroupBtn);
+        GroupBtn.setLayout(GroupBtnLayout);
+        GroupBtnLayout.setHorizontalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -166,11 +215,11 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(155, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        GroupBtnLayout.setVerticalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +263,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
@@ -222,7 +271,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GroupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -232,7 +281,8 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddQuyDinh(this));
+        addQuyDinh = new AddQuyDinh(this, rb);
+        showInternalFrame(addQuyDinh);
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -288,24 +338,26 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
             String motaQD = dtmQuyDinh.getValueAt(currentRow, 3).toString();
 
             QuyDinh dataQD = new QuyDinh(maQD, tenQD, motaQD);
-            showInternalFrame(new UpdateQuyDinh(dataQD, this));
+            updateQuyDinh = new UpdateQuyDinh(dataQD, this, rb);
+            showInternalFrame(updateQuyDinh);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        showInternalFrame(new SearchQuyDinh(this));
+        searchQuyDinh = new SearchQuyDinh(this, rb);
+        showInternalFrame(searchQuyDinh);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GroupBtn;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblQuyDinh;
