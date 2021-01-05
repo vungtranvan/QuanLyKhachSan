@@ -11,12 +11,14 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
@@ -48,15 +50,11 @@ public class MethodMain {
 
         tb.setVisible(true);
         jdp.add(tb);
-        Timer timer = new Timer(10000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (tb != null) {
-                    tb.setVisible(false);
-                    tb.setVisible(false);
-                    tb = null;
-                }
-
+        Timer timer = new Timer(10000, (ActionEvent ae) -> {
+            if (tb != null) {
+                tb.setVisible(false);
+                tb.setVisible(false);
+                tb = null;
             }
         });
         timer.setRepeats(false);
@@ -104,23 +102,23 @@ public class MethodMain {
             File file = chooser.getSelectedFile();
             try {
                 FileWriter out = new FileWriter(file + ".xls");
-                BufferedWriter bwrite = new BufferedWriter(out);
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                // ten Cot
-                for (int j = 0; j < table.getColumnCount(); j++) {
-                    bwrite.write(model.getColumnName(j) + "\t");
-                }
-                bwrite.write("\n");
-                // Lay du lieu dong
-                for (int j = 0; j < table.getRowCount(); j++) {
-                    for (int k = 0; k < table.getColumnCount(); k++) {
-                        bwrite.write(model.getValueAt(j, k) + "\t");
+                try (BufferedWriter bwrite = new BufferedWriter(out)) {
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    // ten Cot
+                    for (int j = 0; j < table.getColumnCount(); j++) {
+                        bwrite.write(model.getColumnName(j) + "\t");
                     }
                     bwrite.write("\n");
+                    // Lay du lieu dong
+                    for (int j = 0; j < table.getRowCount(); j++) {
+                        for (int k = 0; k < table.getColumnCount(); k++) {
+                            bwrite.write(model.getValueAt(j, k) + "\t");
+                        }
+                        bwrite.write("\n");
+                    }
                 }
-                bwrite.close();
                 JOptionPane.showMessageDialog(null, "Lưu file thành công!");
-            } catch (Exception e2) {
+            } catch (HeadlessException | IOException e2) {
                 JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");
             }
         }
@@ -141,7 +139,28 @@ public class MethodMain {
                 inContainer.paint(graphics2D);
                 ImageIO.write(image, "jpeg", new File(file + ".jpeg"));
                 JOptionPane.showMessageDialog(null, "Lưu file thành công!");
-            } catch (Exception exception) {
+            } catch (HeadlessException | IOException exception) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");
+            }
+        }
+    }
+
+    public static void exportImage(JPanel jPanel) {
+        JFileChooser chooser = new JFileChooser("src/com/qlks/saveFile/");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "jpeg");
+        chooser.setFileFilter(filter);
+
+        int i = chooser.showSaveDialog(chooser);
+        if (i == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+
+                BufferedImage image = new BufferedImage(jPanel.getWidth(), jPanel.getHeight(), BufferedImage.TYPE_INT_RGB);
+                Graphics2D graphics2D = image.createGraphics();
+                jPanel.paint(graphics2D);
+                ImageIO.write(image, "jpeg", new File(file + ".jpeg"));
+                JOptionPane.showMessageDialog(null, "Lưu file thành công!");
+            } catch (HeadlessException | IOException exception) {
                 JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");
             }
         }
