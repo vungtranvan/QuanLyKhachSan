@@ -5,7 +5,6 @@
  */
 package com.qlks.models;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -21,8 +20,20 @@ public class HoaDon {
     private String nhanVienLap;
     private float tongTien;
     private LocalDate ngayLap;
+    private String tenKhachHang;
 
     public HoaDon() {
+    }
+
+    public HoaDon(int maHoaDon, String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, float tongTien, LocalDate ngayLap, String tenKhachHang) {
+        this.maHoaDon = maHoaDon;
+        this.maKhachHang = maKhachHang;
+        this.maNhanPhong = maNhanPhong;
+        this.maKhuyenMai = maKhuyenMai;
+        this.nhanVienLap = nhanVienLap;
+        this.tongTien = tongTien;
+        this.ngayLap = ngayLap;
+        this.tenKhachHang = tenKhachHang;
     }
 
     public HoaDon(String maKhachHang, String maNhanPhong, int maKhuyenMai, String nhanVienLap, float tongTien, LocalDate ngayLap) {
@@ -42,6 +53,14 @@ public class HoaDon {
         this.nhanVienLap = nhanVienLap;
         this.tongTien = tongTien;
         this.ngayLap = ngayLap;
+    }
+
+    public String getTenKhachHang() {
+        return tenKhachHang;
+    }
+
+    public void setTenKhachHang(String tenKhachHang) {
+        this.tenKhachHang = tenKhachHang;
     }
 
     public int getMaHoaDon() {

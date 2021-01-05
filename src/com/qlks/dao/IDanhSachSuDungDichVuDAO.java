@@ -20,6 +20,8 @@ public interface IDanhSachSuDungDichVuDAO {
 
     int add(DanhSachSuDungDichVu dv);
 
+    int addDefault(String maSuDungDVu, String maNhanPhong);
+
     int update(DanhSachSuDungDichVu dv);
 
     int delete(String maSuDungDVu);

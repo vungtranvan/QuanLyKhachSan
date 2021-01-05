@@ -6,7 +6,6 @@
 package com.qlks.dao;
 
 import com.qlks.models.HoaDon;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public interface IHoaDonDAO {
 
     List<HoaDon> getByMaNhanPhong(String maNhanPhong);
 
-    List<HoaDon> search(int maHoaDon, String maKhachHang, String maNhanPhong, String nhanVienLap, LocalDateTime ngayLap);
+    List<HoaDon> search(String tenKhachHang);
 
     int add(HoaDon hoaDon);
 

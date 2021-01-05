@@ -60,7 +60,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
 
     public void initdataDVu() {
         lstDichVu = dichVuDAO.getAll();
-
+        lstDichVu.remove(0);
         Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Đơn giá"};
         dtmDichVu = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
@@ -86,17 +86,19 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
-            modelDichVu.addElement(adv);
-            Object[] o = new Object[8];
-            o[0] = index;
-            o[1] = adv.getMaSuDungDVu();
-            o[2] = adv.getMaDichVu();
-            o[3] = adv.getTenLoaiDichVu();
-            o[4] = adv.getTenDonvi();
-            o[5] = adv.getSoLuong();
-            o[6] = (int) adv.getDonGia();
-            dtmDanhSachSuDungDichVu.addRow(o);
-            index++;
+            if (lstDanhSachSuDungDichVu.get(lstDanhSachSuDungDichVu.size() - 1) != adv) {
+                modelDichVu.addElement(adv);
+                Object[] o = new Object[8];
+                o[0] = index;
+                o[1] = adv.getMaSuDungDVu();
+                o[2] = adv.getMaDichVu();
+                o[3] = adv.getTenLoaiDichVu();
+                o[4] = adv.getTenDonvi();
+                o[5] = adv.getSoLuong();
+                o[6] = (int) adv.getDonGia();
+                dtmDanhSachSuDungDichVu.addRow(o);
+                index++;
+            }
         }
         tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
         funcBase.addCheckBox(7, tblDichVuDaSD);

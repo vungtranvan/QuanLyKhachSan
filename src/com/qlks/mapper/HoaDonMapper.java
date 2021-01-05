@@ -20,7 +20,7 @@ public class HoaDonMapper implements RowMapper<HoaDon> {
     public HoaDon mapRow(ResultSet rs) {
         try {
             HoaDon data = new HoaDon(rs.getInt("MaHoaDon"), rs.getString("MaKhachHang"), rs.getString("MaNhanPhong"), 
-                    rs.getInt("MaKhuyenMai"), rs.getString("NhanVienLap"), rs.getFloat("TongTien"), rs.getDate("NgayLap").toLocalDate());
+                    rs.getInt("MaKhuyenMai"), rs.getString("NhanVienLap"), rs.getFloat("TongTien"), rs.getDate("NgayLap").toLocalDate(), rs.getString("TenKhachHang"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);

@@ -10,11 +10,11 @@ import com.qlks.dao.impl.HoaDonDAO;
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.HoaDon;
 import com.qlks.models.KhachHang;
-import com.qlks.view.internalframe.action.AddKhachHang;
-import com.qlks.view.internalframe.action.SearchKhachHang;
-import com.qlks.view.internalframe.action.UpdateKhachHang;
+import com.qlks.view.internalframe.action.SearchHoaDon;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang.CallBackAdd, UpdateKhachHang.CallBackUpdate, SearchKhachHang.CallBackSearch {
+public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon.CallBackSearch {
 
     private HoaDonDAO hoaDonDAO;
     private List<HoaDon> lstHoaDon;
@@ -32,29 +32,29 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
     private JDesktopPane jdek;
     private FunctionBase funcBase;
     private KhachHangDAO khachHangDAO;
+    ResourceBundle rb;
+    private Locale lc;
 
-    public QLHoaDon() {
+    public QLHoaDon(Locale lc) {
         initComponents();
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         khachHangDAO = new KhachHangDAO();
         dtmHoaDon = new DefaultTableModel();
         hoaDonDAO = new HoaDonDAO();
         funcBase = new FunctionBase();
-        loadData(null, null, null, null, null, null, null);
+        loadData(null);
     }
 
-    public void loadData(String maSearchInput, String tenSearchInput, String CMNDSearchInput,
-            String diaChiSearchInput, String dienThoaiSearchInput, Boolean gioiTinhSearchInput, String quocTichSearchInput) {
+    public void loadData(String tenSearchInput) {
 
-        if (maSearchInput != null || tenSearchInput != null || CMNDSearchInput != null
-                || diaChiSearchInput != null || dienThoaiSearchInput != null || quocTichSearchInput != null) {
-
-            // lstHoaDon = hoaDonDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput,
-            // dienThoaiSearchInput, quocTichSearchInput);
+        if (tenSearchInput != null) {
+            lstHoaDon = hoaDonDAO.search(tenSearchInput);
         } else {
             lstHoaDon = hoaDonDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã hóa đơn", "Mã khách hàng", "Tên khách hàng", "Mã nhận phòng", "Nhân viên lập", "Tổng tiền", "Ngày lập", ""};
+        Object[] columnNames = {"STT", "Mã hóa đơn", "Mã khách hàng", "Mã nhận phòng", "Tên khách hàng", "Nhân viên lập", "Tổng tiền", "Ngày lập"};
         dtmHoaDon = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (HoaDon adv : lstHoaDon) {
@@ -62,11 +62,8 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
             o[0] = index;
             o[1] = adv.getMaHoaDon();
             o[2] = adv.getMaKhachHang();
-            List<KhachHang> lstKHbyID = khachHangDAO.getByMa(adv.getMaKhachHang());
-            for (KhachHang lst : lstKHbyID) {
-                o[3] = lst.getTenKhachHang();
-            }
-            o[4] = adv.getMaNhanPhong();
+            o[3] = adv.getMaNhanPhong();
+            o[4] = adv.getTenKhachHang();
             o[5] = adv.getNhanVienLap();
             o[6] = adv.getTongTien();
             o[7] = adv.getNgayLap();
@@ -239,11 +236,11 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
     }//GEN-LAST:event_btnInHoaDonActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
-        loadData(null, null, null, null, null, null, null);
+        loadData(null);
     }//GEN-LAST:event_btnLamMoiKeyPressed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        loadData(null, null, null, null, null, null, null);
+        loadData(null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
@@ -270,7 +267,7 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-//        showInternalFrame(new SearchKhachHang(this));
+        showInternalFrame(new SearchHoaDon(this, rb));
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
@@ -286,17 +283,7 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void doAdd() {
-        loadData(null, null, null, null, null, null, null);
-    }
-
-    @Override
-    public void doUpdate() {
-        loadData(null, null, null, null, null, null, null);
-    }
-
-    @Override
-    public void doSearch(String maSearchInput, String tenSearchInput, String CMNDSearchInput, String diaChiSearchInput, String dienThoaiSearchInput, Boolean gioiTinhSearchInput, String quocTichSearchInput) {
-        loadData(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput, dienThoaiSearchInput, gioiTinhSearchInput, quocTichSearchInput);
+    public void doSearch(String tenSearchInput) {
+        loadData(tenSearchInput);
     }
 }

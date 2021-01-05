@@ -8,9 +8,11 @@ package com.qlks.view.internalframe;
 import com.qlks.custom.CustomButtonClumnJTable;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.ChiTietPhieuNhanPhongDAO;
+import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
 import com.qlks.dao.impl.PhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhongDAO;
 import com.qlks.models.ChiTietPhieuNhanPhong;
+import com.qlks.models.DanhSachSuDungDichVu;
 import com.qlks.models.NguoiDung;
 import com.qlks.models.PhieuNhanPhong;
 import com.qlks.view.internalframe.action.AddPhieuNhanPhong;
@@ -37,9 +39,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private FunctionBase funcBase;
     private PhongDAO phongDAO;
     private String tenNhanVien;
+    private DanhSachSuDungDichVuDAO danhSachSuDungDichVuDAO;
 
     public QLPhieuNhanPhong(List<NguoiDung> lstND) {
         initComponents();
+        danhSachSuDungDichVuDAO = new DanhSachSuDungDichVuDAO();
         dtmPhieuNhanPhong = new DefaultTableModel();
         phieuNhanPhongDAO = new PhieuNhanPhongDAO();
         phongDAO = new PhongDAO();
@@ -277,15 +281,23 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
 
             for (int i = 0; i < tblPhieuNhanPhong.getRowCount(); i++) {
                 if (funcBase.IsSelected(i, 13, tblPhieuNhanPhong)) {
-                    check = true;
-
-                    int rowSucces1 = chiTietPhieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
-                    int rowSucces2 = phieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
-                    if (rowSucces1 > 0 && rowSucces2 > 0) {
-                        phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
-                        succesDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
+                    if (tblPhieuNhanPhong.getValueAt(i, 10).toString().equals("Chưa thanh toán")) {
+                        check = true;
+                        List<DanhSachSuDungDichVu> lstDSSĐV = danhSachSuDungDichVuDAO.getAll(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+                        for (DanhSachSuDungDichVu lstDSSĐV1 : lstDSSĐV) {
+                            danhSachSuDungDichVuDAO.delete(lstDSSĐV1.getMaSuDungDVu());
+                        }
+                        int rowSucces1 = chiTietPhieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+                        int rowSucces2 = phieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+                        if (rowSucces1 > 0 && rowSucces2 > 0) {
+                            phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
+                            succesDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
+                        } else {
+                            errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
+                        }
+                        
                     } else {
-                        errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
+                        JOptionPane.showMessageDialog(rootPane, "Không thể xóa", "Thông báo", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }

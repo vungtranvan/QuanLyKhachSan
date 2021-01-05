@@ -5,8 +5,10 @@
  */
 package com.qlks.view.internalframe.action;
 
+import com.qlks.custom.RanDomMaSDDV;
 import com.qlks.dao.impl.ChiTietPhieuNhanPhongDAO;
 import com.qlks.dao.impl.ChiTietPhieuThuePhongDAO;
+import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.dao.impl.PhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhieuThuePhongDAO;
@@ -39,7 +41,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
     private PhongDAO phongDAO;
     private List<PhieuThuePhong> lstPhieuThuePhong;
     private DefaultTableModel dtmPhieuThuePhong;
-
+    private DanhSachSuDungDichVuDAO danhSachSuDungDichVuDAO;
     private KhachHangDAO khachHangDAO;
 
     public interface CallBackAdd {
@@ -50,6 +52,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
     public AddPhieuNhanPhong(CallBackAdd _cb) {
         initComponents();
         cb = _cb;
+        danhSachSuDungDichVuDAO = new DanhSachSuDungDichVuDAO();
         phieuNhanPhongDAO = new PhieuNhanPhongDAO();
         phieuThuePhongDAO = new PhieuThuePhongDAO();
         dtmPhieuThuePhong = new DefaultTableModel();
@@ -405,6 +408,8 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
             if (count1 > 0 && count2 > 0) {
                 phieuThuePhongDAO.updateTrangThai(ma_PhieuThue);
                 phongDAO.updatePhongDaNhan(ma_Phong);
+                RanDomMaSDDV rd = new RanDomMaSDDV();
+                danhSachSuDungDichVuDAO.addDefault(rd.rDomMaSDVV(), ma_NhanPhong);
                 tblPhieuThuePhong.clearSelection();
                 JOptionPane.showMessageDialog(rootPane, "Nhận phòng thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 resetText();

@@ -127,23 +127,26 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
 
     public void initDVDSD() {
         lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(maNhanPhong);
+        //lstDanhSachSuDungDichVu.remove(0);
         Object[] columnNames = {"STT", "Mã SD dịch vụ", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", "Thành tiền"};
         dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
         if (lstDanhSachSuDungDichVu.size() > 0) {
             int index = 1;
             for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
-                modelDichVu.addElement(adv);
-                Object[] o = new Object[8];
-                o[0] = index;
-                o[1] = adv.getMaSuDungDVu();
-                o[2] = adv.getMaDichVu();
-                o[3] = adv.getTenLoaiDichVu();
-                o[4] = adv.getTenDonvi();
-                o[5] = adv.getSoLuong();
-                o[6] = (int) adv.getDonGia();
-                o[7] = adv.getSoLuong() * (int) adv.getDonGia();
-                dtmDanhSachSuDungDichVu.addRow(o);
-                index++;
+                if (lstDanhSachSuDungDichVu.get(lstDanhSachSuDungDichVu.size() - 1) != adv) {
+                    modelDichVu.addElement(adv);
+                    Object[] o = new Object[8];
+                    o[0] = index;
+                    o[1] = adv.getMaSuDungDVu();
+                    o[2] = adv.getMaDichVu();
+                    o[3] = adv.getTenLoaiDichVu();
+                    o[4] = adv.getTenDonvi();
+                    o[5] = adv.getSoLuong();
+                    o[6] = (int) adv.getDonGia();
+                    o[7] = adv.getSoLuong() * (int) adv.getDonGia();
+                    dtmDanhSachSuDungDichVu.addRow(o);
+                    index++;
+                }
             }
             tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
             lblTienDichVu.setText(Integer.toString(SumTienDV()));
@@ -638,15 +641,12 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 hinhThucTT = "Tiền thẻ";
             }
             for (HoaDon idHoaDon : getIdHoaDon) {
-                if (lstDanhSachSuDungDichVu.size() > 0) {
-                    for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
-                        row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), maPhong, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
-                                Float.parseFloat(lblGiaPhong.getText()), adv.getDonGia(), 0, hinhThucTT, soNgay, sumTongTien()));
-                    }
-                } else {
-                    row2 = chiTietHoaDonDAO.addNoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), maPhong, funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
-                            Float.parseFloat(lblGiaPhong.getText()), 0, 0, hinhThucTT, soNgay, sumTongTien()));
+
+                for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
+                    row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), maPhong, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
+                            Float.parseFloat(lblGiaPhong.getText()), adv.getDonGia(), 0, hinhThucTT, soNgay, sumTongTien()));
                 }
+
             }
             if (row2 > 0) {
                 phieuNhanPhongDAO.updateTrangThai(maNhanPhong);

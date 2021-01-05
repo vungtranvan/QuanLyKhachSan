@@ -1503,14 +1503,16 @@ GO
 CREATE PROC getAllHoaDon
 AS
 BEGIN 
-SELECT * FROM HoaDon
+SELECT HoaDon.MaHoaDon,HoaDon.MaKhachHang,HoaDon.MaNhanPhong,HoaDon.MaKhuyenMai,HoaDon.NhanVienLap,HoaDon.TongTien,HoaDon.NgayLap,KhachHang.TenKhachHang
+ FROM HoaDon JOIN KhachHang ON HoaDon.MaKhachHang = KhachHang.MaKhachHang ORDER BY NgayLap
 END
 GO
 
 CREATE PROC getHoaDonIdMAX
 AS
 BEGIN 
-SELECT * FROM HoaDon Where MaHoaDon = (SELECT MAX(MaHoaDon) FROM HoaDon)
+SELECT HoaDon.MaHoaDon,HoaDon.MaKhachHang,HoaDon.MaNhanPhong,HoaDon.MaKhuyenMai,HoaDon.NhanVienLap,HoaDon.TongTien,HoaDon.NgayLap,KhachHang.TenKhachHang
+ FROM HoaDon JOIN KhachHang ON HoaDon.MaKhachHang = KhachHang.MaKhachHang Where MaHoaDon = (SELECT MAX(MaHoaDon) FROM HoaDon)
 END
 GO
 
@@ -1518,7 +1520,8 @@ CREATE PROC getByMaHoaDon
 @MaHoaDon int
 AS
 BEGIN 
-SELECT * FROM HoaDon Where MaHoaDon = @MaHoaDon
+SELECT HoaDon.MaHoaDon,HoaDon.MaKhachHang,HoaDon.MaNhanPhong,HoaDon.MaKhuyenMai,HoaDon.NhanVienLap,HoaDon.TongTien,HoaDon.NgayLap,KhachHang.TenKhachHang
+ FROM HoaDon JOIN KhachHang ON HoaDon.MaKhachHang = KhachHang.MaKhachHang Where MaHoaDon = @MaHoaDon
 END
 GO
 
@@ -1526,7 +1529,8 @@ CREATE PROC getByMaKhachHang
 @MaKhachHang varchar (3)
 AS
 BEGIN 
-SELECT * FROM HoaDon Where MaKhachHang = @MaKhachHang
+SELECT HoaDon.MaHoaDon,HoaDon.MaKhachHang,HoaDon.MaNhanPhong,HoaDon.MaKhuyenMai,HoaDon.NhanVienLap,HoaDon.TongTien,HoaDon.NgayLap,KhachHang.TenKhachHang
+ FROM HoaDon JOIN KhachHang ON HoaDon.MaKhachHang = KhachHang.MaKhachHang Where HoaDon.MaKhachHang = @MaKhachHang
 END
 GO
 
@@ -1534,20 +1538,18 @@ CREATE PROC getByMaNhanPhong
 @MaNhanPhong varchar (5)
 AS
 BEGIN 
-SELECT * FROM HoaDon Where MaNhanPhong = @MaNhanPhong
+SELECT HoaDon.MaHoaDon,HoaDon.MaKhachHang,HoaDon.MaNhanPhong,HoaDon.MaKhuyenMai,HoaDon.NhanVienLap,HoaDon.TongTien,HoaDon.NgayLap,KhachHang.TenKhachHang
+ FROM HoaDon JOIN KhachHang ON HoaDon.MaKhachHang = KhachHang.MaKhachHang Where MaNhanPhong = @MaNhanPhong
 END
 GO
 
-CREATE PROC SearchNHoaDon
-@MaHoaDon int,
-@MaKhachHang varchar (3),
-@MaNhanPhong varchar (5),
-@NhanVienLap nvarchar (50),
-@NgayLap datetime
+CREATE PROC SearchHoaDon
+@TenKhachHang varchar (5)
 AS
 BEGIN 
-SELECT * FROM HoaDon Where MaHoaDon LIKE '%'+@MaHoaDon+'%' AND MaKhachHang LIKE '%'+@MaKhachHang+'%' 
-AND MaNhanPhong LIKE '%'+@MaNhanPhong+'%' AND NhanVienLap LIKE '%'+@NhanVienLap+'%' AND NgayLap = @NgayLap
+SELECT HoaDon.MaHoaDon,HoaDon.MaKhachHang,HoaDon.MaNhanPhong,HoaDon.MaKhuyenMai,HoaDon.NhanVienLap,HoaDon.TongTien,HoaDon.NgayLap,KhachHang.TenKhachHang
+ FROM HoaDon JOIN KhachHang ON HoaDon.MaKhachHang = KhachHang.MaKhachHang
+Where KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%'
 END
 GO
 
@@ -1732,6 +1734,7 @@ BEGIN
  ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ ORDER BY PhieuNhanPhong.TrangThai ASC
 END
 GO
 
@@ -1770,6 +1773,7 @@ BEGIN
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuNhanPhong.CMND = @CMND
+ ORDER BY PhieuNhanPhong.TrangThai ASC
 END
 
 ELSE IF @MaPhong = '' AND @TenKhachHang = '' AND @CMND  = ''
@@ -1778,6 +1782,7 @@ BEGIN
  ChiTietPhieuNhanPhong.HoTenKhachHang,ChiTietPhieuNhanPhong.CMND,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraDuKien,ChiTietPhieuNhanPhong.NgayTraThucTe,PhieuNhanPhong.TrangThai
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+ ORDER BY PhieuNhanPhong.TrangThai ASC
 END
 
  ELSE IF @MaPhong  = '' AND @TenKhachHang != '' AND @CMND != ''
@@ -1787,6 +1792,7 @@ BEGIN
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuNhanPhong.CMND = @CMND
+ ORDER BY PhieuNhanPhong.TrangThai ASC
 END
 
  ELSE IF @MaPhong  = '' AND @TenKhachHang = '' AND @CMND != ''
@@ -1796,6 +1802,7 @@ BEGIN
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.CMND = @CMND
+ ORDER BY PhieuNhanPhong.TrangThai ASC
 END
 
  ELSE IF @MaPhong  = '' AND @TenKhachHang != '' AND @CMND  = ''
@@ -1805,6 +1812,7 @@ BEGIN
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%'
+ ORDER BY PhieuNhanPhong.TrangThai ASC
 END
 
 IF @MaPhong != '' AND @TenKhachHang != '' AND @CMND  = ''
@@ -1814,6 +1822,7 @@ BEGIN
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.HoTenKhachHang LIKE '%'+@TenKhachHang+'%'
+ ORDER BY PhieuNhanPhong.TrangThai ASC
 END
 
 IF @MaPhong != '' AND @TenKhachHang  = '' AND @CMND != '' 
@@ -1823,6 +1832,7 @@ BEGIN
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong AND ChiTietPhieuNhanPhong.CMND = @CMND
+ ORDER BY PhieuNhanPhong.TrangThai ASC
 END
 
 IF @MaPhong != '' AND @TenKhachHang  = '' AND @CMND  = '' 
@@ -1832,6 +1842,7 @@ BEGIN
  FROM PhieuNhanPhong
  INNER JOIN ChiTietPhieuNhanPhong ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
  WHERE ChiTietPhieuNhanPhong.MaPhong = @MaPhong
+ ORDER BY PhieuNhanPhong.TrangThai ASC
  END
 GO 
 
@@ -1879,7 +1890,7 @@ BEGIN
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
- ORDER BY PhieuThuePhong.MaPhieuThue DESC
+ ORDER BY PhieuThuePhong.TrangThai ASC
 END
 GO
 
@@ -1907,6 +1918,7 @@ BEGIN
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
  WHERE PhieuThuePhong.MaPhieuThue =@MaPhieuThue AND KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuThuePhong.MaPhong =@MaPhong
+ ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 
 ELSE IF @MaPhieuThue = '' AND @TenKhachHang = '' AND @MaPhong  = ''
@@ -1915,6 +1927,7 @@ BEGIN
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+  ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 
  ELSE IF @MaPhieuThue  = '' AND @TenKhachHang != '' AND @MaPhong != ''
@@ -1924,6 +1937,7 @@ BEGIN
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
  WHERE KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%' AND ChiTietPhieuThuePhong.MaPhong =@MaPhong
+  ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 
  ELSE IF @MaPhieuThue  = '' AND @TenKhachHang = '' AND @MaPhong != ''
@@ -1933,6 +1947,7 @@ BEGIN
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
  WHERE ChiTietPhieuThuePhong.MaPhong =@MaPhong
+  ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 
  ELSE IF @MaPhieuThue  = '' AND @TenKhachHang != '' AND @MaPhong  = ''
@@ -1942,6 +1957,7 @@ BEGIN
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
  WHERE KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%'
+  ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 
 IF @MaPhieuThue != '' AND @TenKhachHang != '' AND @MaPhong  = ''
@@ -1951,6 +1967,7 @@ BEGIN
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
  WHERE PhieuThuePhong.MaPhieuThue =@MaPhieuThue AND KhachHang.TenKhachHang LIKE '%'+@TenKhachHang+'%'
+  ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 
 IF @MaPhieuThue != '' AND @TenKhachHang  = '' AND @MaPhong != '' 
@@ -1960,6 +1977,7 @@ BEGIN
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
  WHERE PhieuThuePhong.MaPhieuThue =@MaPhieuThue AND ChiTietPhieuThuePhong.MaPhong =@MaPhong
+  ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 
 IF @MaPhieuThue != '' AND @TenKhachHang  = '' AND @MaPhong  = '' 
@@ -1969,6 +1987,7 @@ BEGIN
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
  WHERE PhieuThuePhong.MaPhieuThue =@MaPhieuThue
+  ORDER BY PhieuThuePhong.MaPhieuThue DESC
 END
 
 GO 
@@ -2199,6 +2218,15 @@ CREATE PROC insertDanhSachSuDungDichVu
 AS
 BEGIN 
 Insert into DanhSachSuDungDichVu(MaSuDungDVu,MaDichVu,MaNhanPhong,SoLuong) Values(@MaSuDungDVu,@MaDichVu,@MaNhanPhong,@SoLuong)
+END
+GO
+
+CREATE PROC insertDanhSachSuDungDichVuDefault
+@MaSuDungDVu varchar (4),
+@MaNhanPhong varchar (5)
+AS
+BEGIN 
+Insert into DanhSachSuDungDichVu(MaSuDungDVu,MaDichVu,MaNhanPhong,SoLuong) Values(@MaSuDungDVu,'DV00',@MaNhanPhong,1)
 END
 GO
 
