@@ -3,25 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/ThongBao.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/QLHoaDon.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/main/Main.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/ThanhToanHoaDon.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/utils/MethodMain.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyNguoiDung.java</file>
-=======
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QLHoaDon.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/PhieuSDDichVu.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/HoaDonDAO.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/action/SearchHoaDon.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QLPhieuNhanPhong.java</file>
-            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/utils/DBConnect.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QuanLyKhachHang.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/DanhSachSuDungDichVuDAO.java</file>
             <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/IHoaDonDAO.java</file>
->>>>>>> 2f92f16885d7ec9c555962171b53bcd6bd96e71e
         </group>
     </open-files>
 </project-private>
