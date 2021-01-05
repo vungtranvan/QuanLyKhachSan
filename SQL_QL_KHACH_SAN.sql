@@ -221,7 +221,7 @@ CREATE TABLE ChiTietHoaDon
 (
 	MaHoaDon int NOT NULL,
 	MaPhong  varchar (3) NOT NULL,
-	MaSuDungDichVu varchar (4),
+	MaSuDungDichVu varchar (4) NOT NULL,
 	MaChinhSach varchar (5) NOT NULL,
 	PhuThu float Default(0),
 	TienPhong float Default(0),
@@ -230,7 +230,7 @@ CREATE TABLE ChiTietHoaDon
 	HinhThucThanhToan nvarchar(50),
 	SoNgay int,
 	ThanhTien float,
-	PRIMARY KEY(MaHoaDon, MaPhong, MaChinhSach)
+	PRIMARY KEY(MaHoaDon, MaPhong,MaSuDungDichVu, MaChinhSach)
 )
 GO
 
@@ -471,6 +471,7 @@ Insert into DonVi(MaDonVi,TenDonVi) Values
 GO
 
 Insert into DichVu(MaDichVu,MaLoaiDichVu,MaDonVi,DonGia) Values
+('DV00','LDV08','DV3',0),
 ('DV01','LDV05','DV3',1500000),
 ('DV02','LDV01','DV3',3500000),
 ('DV03','LDV06','DV2',200000),
