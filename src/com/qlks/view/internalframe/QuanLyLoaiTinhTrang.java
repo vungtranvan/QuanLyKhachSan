@@ -104,8 +104,8 @@ public class QuanLyLoaiTinhTrang extends javax.swing.JInternalFrame {
         btnThemMoi.setText(rb.getString("BtnThemMoi"));
         btnTimKiem.setText(rb.getString("BtnTimKiem"));
         btnXoa.setText(rb.getString("BtnXoa"));
-        setTitle(rb.getString("JIFLoaiPhongTitle"));
-        ((TitledBorder) jpnLoaiTinhTrang.getBorder()).setTitle(rb.getString("JIFLoaiPhongTitle"));
+        setTitle(rb.getString("JIFTinhTrang"));
+        ((TitledBorder) jpnLoaiTinhTrang.getBorder()).setTitle(rb.getString("JIFTinhTrang"));
         jlbName.setText(rb.getString("JIFTinhTrangTen"));
     }
 

@@ -101,7 +101,7 @@ public class QuanLyThietBi extends javax.swing.JInternalFrame implements AddThie
         btnThemMoi.setText(rb.getString("BtnThemMoi"));
         btnTimKiem.setText(rb.getString("BtnTimKiem"));
         btnXoa.setText(rb.getString("BtnXoa"));
-        setTitle(rb.getString("JIFLoaiPhongTitle"));
+        setTitle(rb.getString("JIFThietBiTitle"));
     }
 
     private void makeTableHeader(ResourceBundle rb) {

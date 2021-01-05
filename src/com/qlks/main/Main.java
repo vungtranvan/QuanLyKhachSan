@@ -8,7 +8,15 @@ import com.qlks.utils.MethodMain;
 import com.qlks.view.LogInJFrame;
 import com.qlks.view.MainJFrame;
 import com.qlks.view.internalframe.action.UpdateNguoiDung;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -19,8 +27,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -49,18 +60,19 @@ public class Main {
                 listQuyen = pqdao.getMaQuyenByMaQuyen(nd.getMaNhomQuyen());
 
                 quyens = listQuyen.stream().map(e -> e.getQuyen()).collect(Collectors.toList());
-       
 
                 MainJFrame mainFrame = new MainJFrame(listnd);
 
                 mainFrame.setLocationRelativeTo(null);
+
                 logInJFrame.setVisible(false);
 
                 if (!mainFrame.isVisible()) {
                     mainFrame.setVisible(true);
+                    showLogOutBtn(mainFrame);
                 }
 
-                String loginSuccess = mainFrame.rb.getString("MainJFrameLoginSuccessMgs");
+               
 
                 if (nd.getAnh() != null) {
                     try {
@@ -83,7 +95,7 @@ public class Main {
                     mainFrame.getMenuAvatar().setIcon(resizedIcon);
                 }
                 mainFrame.setTitle(mainFrame.rb.getString("MainJFrameTitle") + "[ " + nd.getTenNguoiDung() + " ]");
-
+                String loginSuccess = mainFrame.rb.getString("MainJFrameLoginSuccessMgs");
                 MethodMain.globalMessagerSuccess(loginSuccess, mainFrame.getjMain());
             }
         }
@@ -108,6 +120,60 @@ public class Main {
         }
 
     };
+
+    private void showLogOutBtn(MainJFrame mainJFrame) {
+        mainJFrame.getMenuAvatar().addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent me) {
+
+                if (me.getButton() == MouseEvent.BUTTON3) {
+
+                    JMenuItem logout;
+                    JPopupMenu jPopupMenu = new JPopupMenu();
+                    logout = new JMenuItem();
+                    logout.setIcon(new ImageIcon("src/com/qlks/icon/icon_log_out.png"));
+                    logout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    logout.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent ae) {
+                            listnd.removeAll(listnd);
+                            nd = null;
+                            listQuyen.removeAll(listQuyen);
+                            quyens.removeAll(quyens);
+                            pqdao = null;
+                            mainJFrame.dispose();
+                            logInJFrame.setVisible(true);
+                        }
+                    });
+
+                    jPopupMenu.add(logout);
+                    jPopupMenu.show(me.getComponent(), 88, me.getY() - 30);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+
+            }
+        });
+
+    }
 
     public static void main(String[] args) {
 

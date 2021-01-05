@@ -6,7 +6,9 @@
 package com.qlks.view.internalframe;
 
 import com.qlks.custom.FunctionBase;
+import com.qlks.dao.impl.HoaDonDAO;
 import com.qlks.dao.impl.KhachHangDAO;
+import com.qlks.models.HoaDon;
 import com.qlks.models.KhachHang;
 import com.qlks.view.internalframe.action.AddKhachHang;
 import com.qlks.view.internalframe.action.SearchKhachHang;
@@ -24,16 +26,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang.CallBackAdd, UpdateKhachHang.CallBackUpdate, SearchKhachHang.CallBackSearch {
 
-    private KhachHangDAO khachHangDAO;
-    private List<KhachHang> lstKhachHang;
-    private DefaultTableModel dtmKhachHang;
+    private HoaDonDAO hoaDonDAO;
+    private List<HoaDon> lstHoaDon;
+    private DefaultTableModel dtmHoaDon;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
+    private KhachHangDAO khachHangDAO;
 
     public QLHoaDon() {
         initComponents();
-        dtmKhachHang = new DefaultTableModel();
         khachHangDAO = new KhachHangDAO();
+        dtmHoaDon = new DefaultTableModel();
+        hoaDonDAO = new HoaDonDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null, null, null, null, null);
     }
@@ -43,39 +47,33 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
 
         if (maSearchInput != null || tenSearchInput != null || CMNDSearchInput != null
                 || diaChiSearchInput != null || dienThoaiSearchInput != null || quocTichSearchInput != null) {
-            if (gioiTinhSearchInput == null) {
-                lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput,
-                        dienThoaiSearchInput, quocTichSearchInput);
-            } else {
-                lstKhachHang = khachHangDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput, 
-                        dienThoaiSearchInput, gioiTinhSearchInput, quocTichSearchInput);
-            }
+
+            // lstHoaDon = hoaDonDAO.search(maSearchInput, tenSearchInput, CMNDSearchInput, diaChiSearchInput,
+            // dienThoaiSearchInput, quocTichSearchInput);
         } else {
-            lstKhachHang = khachHangDAO.getAll();
+            lstHoaDon = hoaDonDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã khách hàng", "Tên khách hàng", "CMND", "Địa chỉ", "Điện thoại", "Giới tính", "Quốc tịch", ""};
-        dtmKhachHang = new DefaultTableModel(new Object[0][0], columnNames);
+        Object[] columnNames = {"STT", "Mã hóa đơn", "Mã khách hàng", "Tên khách hàng", "Mã nhận phòng", "Nhân viên lập", "Tổng tiền", "Ngày lập", ""};
+        dtmHoaDon = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
-        for (KhachHang adv : lstKhachHang) {
-            Object[] o = new Object[9];
+        for (HoaDon adv : lstHoaDon) {
+            Object[] o = new Object[8];
             o[0] = index;
-            o[1] = adv.getMaKhachHang();
-            o[2] = adv.getTenKhachHang();
-            o[3] = adv.getChungMinhThuNhanDan();
-            o[4] = adv.getDiaChi();
-            o[5] = adv.getDienThoai();
-            String gioiTinh = "Nữ";
-            if (adv.isGioiTinh() == true) {
-                gioiTinh = "Nam";
+            o[1] = adv.getMaHoaDon();
+            o[2] = adv.getMaKhachHang();
+            List<KhachHang> lstKHbyID = khachHangDAO.getByMa(adv.getMaKhachHang());
+            for (KhachHang lst : lstKHbyID) {
+                o[3] = lst.getTenKhachHang();
             }
-            o[6] = gioiTinh;
-            o[7] = adv.getQuocTich();
-            dtmKhachHang.addRow(o);
+            o[4] = adv.getMaNhanPhong();
+            o[5] = adv.getNhanVienLap();
+            o[6] = adv.getTongTien();
+            o[7] = adv.getNgayLap();
+            dtmHoaDon.addRow(o);
             index++;
         }
-        tblHoaDon.setModel(dtmKhachHang);
-        funcBase.addCheckBox(8, tblHoaDon);
+        tblHoaDon.setModel(dtmHoaDon);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -117,7 +115,7 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Quản lý khách hàng");
+        setTitle("Quản lý hóa đơn");
 
         btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_refresh.png"))); // NOI18N
         btnLamMoi.setText("Làm mới");
@@ -237,7 +235,7 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
 
     private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
         //QuanLyCauHinh jInterFrame = new QuanLyCauHinh();
-       // showInternalFrame(new AddKhachHang(this));
+        // showInternalFrame(new AddKhachHang(this));
     }//GEN-LAST:event_btnInHoaDonActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
@@ -252,18 +250,19 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements AddKhachHang
         int currentRow = tblHoaDon.getSelectedRow();
 
         if (currentRow >= 0) {
-            String maKH = dtmKhachHang.getValueAt(currentRow, 1).toString();
-            String tenKH = dtmKhachHang.getValueAt(currentRow, 2).toString();
-            String CMND = dtmKhachHang.getValueAt(currentRow, 3).toString();
-            String diaChi = dtmKhachHang.getValueAt(currentRow, 4).toString();
-            String dienThoai = dtmKhachHang.getValueAt(currentRow, 5).toString();
-            String gioiTinhInTable = dtmKhachHang.getValueAt(currentRow, 6).toString();
-            Boolean gioiTinh = true;
-            if (gioiTinhInTable.equals("Nữ")) {
-                gioiTinh = false;
-            }
-            String quocTich = dtmKhachHang.getValueAt(currentRow, 7).toString();
-            KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
+//            String maKH = dtmHoaDon.getValueAt(currentRow, 1).toString();
+//            String tenKH = dtmHoaDon.getValueAt(currentRow, 2).toString();
+//            String CMND = dtmHoaDon.getValueAt(currentRow, 3).toString();
+//            String diaChi = dtmHoaDon.getValueAt(currentRow, 4).toString();
+//            String dienThoai = dtmHoaDon.getValueAt(currentRow, 5).toString();
+//            String gioiTinhInTable = dtmHoaDon.getValueAt(currentRow, 6).toString();
+//            Boolean gioiTinh = true;
+//            if (gioiTinhInTable.equals("Nữ")) {
+//                gioiTinh = false;
+//            }
+//            String quocTich = dtmHoaDon.getValueAt(currentRow, 7).toString();
+//            KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
+
 //            showInternalFrame(new UpdateKhachHang(dataKH, this));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);

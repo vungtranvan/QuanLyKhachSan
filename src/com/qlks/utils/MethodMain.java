@@ -25,6 +25,7 @@ public class MethodMain {
     private static ThongBao tb;
 
     public static void globalMessagerSuccess(String msg, JDesktopPane jdp) {
+       
         tb = new ThongBao();
         tb.getJlbThongBao().setText(msg);
         tb.getJlbThongBao().setForeground(Color.green);
@@ -34,8 +35,11 @@ public class MethodMain {
         Timer timer = new Timer(10000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                tb.setVisible(false);
-                tb = null;
+                if (tb != null) {
+                    tb.setVisible(false);  tb.setVisible(false);
+                    tb = null;
+                }
+
             }
         });
         timer.setRepeats(false);
@@ -44,9 +48,6 @@ public class MethodMain {
 
     public static boolean checkQuyen(String quyen) {
         String[] qs = quyen.split(",");
-        for (String q : qs) {
-            System.out.println(q);
-        }
         for (String q : qs) {
             if (Main.quyens.stream().anyMatch(_item -> (_item.equals(q)))) {
                 return true;
