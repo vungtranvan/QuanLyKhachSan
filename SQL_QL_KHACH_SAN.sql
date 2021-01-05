@@ -221,7 +221,7 @@ CREATE TABLE ChiTietHoaDon
 (
 	MaHoaDon int NOT NULL,
 	MaPhong  varchar (3) NOT NULL,
-	MaSuDungDichVu varchar (4) NOT NULL,
+	MaSuDungDichVu varchar (4),
 	MaChinhSach varchar (5) NOT NULL,
 	PhuThu float Default(0),
 	TienPhong float Default(0),
@@ -230,7 +230,7 @@ CREATE TABLE ChiTietHoaDon
 	HinhThucThanhToan nvarchar(50),
 	SoNgay int,
 	ThanhTien float,
-	PRIMARY KEY(MaHoaDon, MaPhong, MaSuDungDichVu, MaChinhSach)
+	PRIMARY KEY(MaHoaDon, MaPhong, MaChinhSach)
 )
 GO
 
@@ -483,6 +483,14 @@ Insert into DichVu(MaDichVu,MaLoaiDichVu,MaDonVi,DonGia) Values
 ('DV10','LDV09','DV9',0),
 ('DV11','LDV04','DV1',50000)
 GO
+
+  Insert into ChinhSachTraPhong(MaChinhSach,NoiDung,PhuThu) values
+  ('CS1',N'Phụ thu trả phòng trước 12h đến 13h',0.0),
+  ('CS2',N'Phụ thu trả phòng từ 13h đến 15h',20.0),
+  ('CS3',N'Phụ thu trả phòng từ 15h đến 17h',40.0),
+  ('CS4',N'Phụ thu trả phòng từ 17h đến 19h',50.0),
+  ('CS5',N'Phụ thu trả phòng sau 19h',100.0)
+  GO
 
 --  TẠO THỦ TỤC
 
@@ -1498,6 +1506,13 @@ SELECT * FROM HoaDon
 END
 GO
 
+CREATE PROC getHoaDonIdMAX
+AS
+BEGIN 
+SELECT * FROM HoaDon Where MaHoaDon = (SELECT MAX(MaHoaDon) FROM HoaDon)
+END
+GO
+
 CREATE PROC getByMaHoaDon
 @MaHoaDon int
 AS
@@ -1836,6 +1851,14 @@ CREATE PROC updatePhieuNhanPhong
 AS
 BEGIN 
 Update PhieuNhanPhong set MaPhieuThue = @MaPhieuThue, MaKhachHang=@MaKhachHang Where  MaNhanPhong = @MaNhanPhong
+END
+GO
+
+CREATE PROC updateTrangThaiPhieuNhanPhong
+@MaNhanPhong varchar (5)
+AS
+BEGIN 
+Update PhieuNhanPhong set TrangThai = 1 Where  MaNhanPhong = @MaNhanPhong
 END
 GO
 
@@ -2321,6 +2344,24 @@ AS
 BEGIN 
 Insert into ChiTietHoaDon(MaHoaDon,MaPhong,MaSuDungDichVu,MaChinhSach,PhuThu,TienPhong,TienDichVu,GiamGiaKH,HinhThucThanhToan,SoNgay,ThanhTien) 
 Values(@MaHoaDon,@MaPhong,@MaSuDungDichVu,@MaChinhSach,@PhuThu,@TienPhong,@TienDichVu,@GiamGiaKH,@HinhThucThanhToan,@SoNgay,@ThanhTien)
+END
+GO 
+
+CREATE PROC insertChiTietHoaDonNoDV
+@MaHoaDon int,
+@MaPhong  varchar (3),
+@MaChinhSach varchar (5),
+@PhuThu float,
+@TienPhong float,
+@TienDichVu float,
+@GiamGiaKH float,
+@HinhThucThanhToan nvarchar(50),
+@SoNgay int,
+@ThanhTien float
+AS
+BEGIN 
+Insert into ChiTietHoaDon(MaHoaDon,MaPhong,MaChinhSach,PhuThu,TienPhong,TienDichVu,GiamGiaKH,HinhThucThanhToan,SoNgay,ThanhTien) 
+Values(@MaHoaDon,@MaPhong,@MaChinhSach,@PhuThu,@TienPhong,@TienDichVu,@GiamGiaKH,@HinhThucThanhToan,@SoNgay,@ThanhTien)
 END
 GO 
 

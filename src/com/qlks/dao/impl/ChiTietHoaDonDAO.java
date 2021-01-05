@@ -29,11 +29,18 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
     }
 
     @Override
-    public int add(ChiTietHoaDon ct) {
+    public int addCoDV(ChiTietHoaDon ct) {
         String sql = "{Call insertChiTietHoaDon(?,?,?,?,?,?,?,?,?,?,?)}";
         return this.update(sql, ct.getMaHoaDon(), ct.getMaPhong(), ct.getMaSuDungDichVu(),
                 ct.getMaChinhSach(), ct.getPhuThu(), ct.getTienPhong(), ct.getTienDichVu(),
                 ct.getGiamGiaKH(), ct.getHinhThucThanhToan(), ct.getSoNgay(), ct.getThanhTien());
     }
 
+    @Override
+    public int addNoDV(ChiTietHoaDon ct) {
+        String sql = "{Call insertChiTietHoaDonNoDV(?,?,?,?,?,?,?,?,?,?)}";
+        return this.update(sql, ct.getMaHoaDon(), ct.getMaPhong(),
+                ct.getMaChinhSach(), ct.getPhuThu(), ct.getTienPhong(), ct.getTienDichVu(),
+                ct.getGiamGiaKH(), ct.getHinhThucThanhToan(), ct.getSoNgay(), ct.getThanhTien());
+    }
 }

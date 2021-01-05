@@ -52,4 +52,10 @@ public class PhieuNhanPhongDAO extends AbstractDAO<PhieuNhanPhong> implements IP
         return this.update(sql, maNhanPhong);
     }
 
+    @Override
+    public int updateTrangThai(String maNhanPhong) {
+        String sql = "{Call updateTrangThaiPhieuNhanPhong(?)}";
+        return this.update(sql, maNhanPhong);
+    }
+
 }
