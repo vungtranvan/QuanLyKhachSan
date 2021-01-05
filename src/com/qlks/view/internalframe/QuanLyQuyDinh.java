@@ -101,7 +101,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
         btnThemMoi.setText(rb.getString("BtnThemMoi"));
         btnTimKiem.setText(rb.getString("BtnTimKiem"));
         btnXoa.setText(rb.getString("BtnXoa"));
-        setTitle(rb.getString("JIFQLKhuyenMai"));
+        setTitle(rb.getString("JIFQLQuyDinh"));
     }
 
     private void makeTableHeader(ResourceBundle rb) {

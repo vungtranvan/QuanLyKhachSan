@@ -191,7 +191,7 @@ public class MainJFrame extends javax.swing.JFrame {
             showInternalFrame(subMenuCheckIn, qLPhieuNhanPhong);
 
             subMenuHoaDon = new JPanel();
-            qLHoaDon = new QLHoaDon();
+            qLHoaDon = new QLHoaDon(lc);
             listSubMenuItemChecking.add(makeSubMenuItem(subMenuHoaDon, rb.getString("subMenuHoaDon")));
             showInternalFrame(subMenuHoaDon, qLHoaDon);
 
@@ -335,33 +335,35 @@ public class MainJFrame extends javax.swing.JFrame {
         jl.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                Dimension dmnsn = new Dimension(300, 1000);
-                jpnSubmenu.setPreferredSize(dmnsn);
-//                jpnSubmenu.setSize(dmnsn);
-                jpnSubmenu.setMaximumSize(new Dimension(1000, 1000));
-//                jpnSubmenu.setA
+                if (me.getButton() == MouseEvent.BUTTON1) {
 
-                jpnSubmenu.removeAll();
+                    Dimension dmnsn = new Dimension(300, 1000);
+                    jpnSubmenu.setPreferredSize(dmnsn);
 
-                jpnSubmenu.add(closeSubMenu);
-                jpnSubmenu.add(makeSubMenuTitle(closeSubMenu, "X"));
-                closeSubMenu.setPreferredSize(new Dimension(250 - 20, 40));
+                    jpnSubmenu.setMaximumSize(new Dimension(1000, 1000));
 
-                closeSubMenu.setHorizontalAlignment(JLabel.RIGHT);
-                closeSubMenu.setVerticalAlignment(JLabel.CENTER);
+                    jpnSubmenu.removeAll();
 
-                closeSubMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    jpnSubmenu.add(closeSubMenu);
+                    jpnSubmenu.add(makeSubMenuTitle(closeSubMenu, "X"));
+                    closeSubMenu.setPreferredSize(new Dimension(250 - 20, 40));
 
-                jpnSubmenu.add(makeSubMenuTitle(subMenuItemTitle, title.toUpperCase()));
+                    closeSubMenu.setHorizontalAlignment(JLabel.RIGHT);
+                    closeSubMenu.setVerticalAlignment(JLabel.CENTER);
 
-                items.forEach(item -> {
-                    jpnSubmenu.add(item);
-                });
+                    closeSubMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-                languageKey = langKey;
-                jpnSubmenu.revalidate();
-                jpnSubmenu.repaint();
-                jpnSubmenu.setVisible(true);
+                    jpnSubmenu.add(makeSubMenuTitle(subMenuItemTitle, title.toUpperCase()));
+
+                    items.forEach(item -> {
+                        jpnSubmenu.add(item);
+                    });
+
+                    languageKey = langKey;
+                    jpnSubmenu.revalidate();
+                    jpnSubmenu.repaint();
+                    jpnSubmenu.setVisible(true);
+                }
 
             }
 
@@ -465,11 +467,15 @@ public class MainJFrame extends javax.swing.JFrame {
         jb.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
+                if (me.getButton() == MouseEvent.BUTTON1) {
+                    if (!jif.isVisible()) {
+                        jMain.add(jif);
+                        centerJIF(jif);
+                        jif.setVisible(true);
+                    } else {
+                        jif.moveToFront();
+                    }
 
-                if (!jif.isVisible()) {
-                    jMain.add(jif);
-                    centerJIF(jif);
-                    jif.setVisible(true);
                 }
 
             }
@@ -501,22 +507,15 @@ public class MainJFrame extends javax.swing.JFrame {
         jlMenu.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
-
-                if (!jif.isVisible()) {
-                    jMain.add(jif);
-                    centerJIF(jif);
-                    jif.setVisible(true);
-                } else {
-                    jif.toFront();
-                    jif.moveToFront();
-                    try {
-                        jif.setSelected(true);
-                    } catch (PropertyVetoException ex) {
-                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                if (me.getButton() == MouseEvent.BUTTON1) {
+                    if (!jif.isVisible()) {
+                        jMain.add(jif);
+                        centerJIF(jif);
+                        jif.setVisible(true);
+                    } else {
+                        jif.moveToFront();
                     }
-
                 }
-
             }
 
             @Override
