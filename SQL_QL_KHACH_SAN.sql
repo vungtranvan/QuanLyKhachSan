@@ -2511,10 +2511,6 @@ ON DistinctGiaDichVu.MaPhong = dv.MaPhong
 GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu
 GO
 
-exec  ThongKePhong '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
-go
-
-
 CREATE PROC ThongKeKhachHang
 @tuNgay DATETIME,
 @denNgay DATETIME
@@ -2532,11 +2528,6 @@ ON ChiTietPhieuNhanPhong.MaPhong = Phong.MaPhong
 WHERE (NgayTraThucTe BETWEEN @tuNgay and @denNgay)
 go
 
-exec ThongKeKhachHang '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
-go 
-
-
---- 
 CREATE VIEW SumPhong
 AS
 select dt.MaPhong,Count(MaPhong) as soLan
@@ -2589,5 +2580,12 @@ ON dt.MaPhong  = Phong.MaPhong
 GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu,HsPhong.HiieuSuatPhong,Phong.MaPhong
 GO
 
-exec  ThongKeHieuSuatPhong '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
-go
+CREATE PROC GetChiTietPhieuNhanPhongByMaPhong
+@MaPhong VARCHAR(10)
+as
+BEGIN
+SELECT ChiTietPhieuNhanPhong.* from ChiTietPhieuNhanPhong
+JOIN Phong on ChiTietPhieuNhanPhong.MaPhong = Phong.MaPhong
+Where ChiTietPhieuNhanPhong.MaPhong = @MaPhong
+END
+GO

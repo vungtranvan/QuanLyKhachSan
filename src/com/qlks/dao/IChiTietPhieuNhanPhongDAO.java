@@ -18,6 +18,8 @@ public interface IChiTietPhieuNhanPhongDAO {
 
     List<ChiTietPhieuNhanPhong> getByMaNhanPhong(String maNhanPhong);
 
+    List<ChiTietPhieuNhanPhong> getChiTietPhieuNhanPhongByMaPhong(String maPhong);
+
     int add(ChiTietPhieuNhanPhong ct);
 
     int delete(String maNhanPhong);

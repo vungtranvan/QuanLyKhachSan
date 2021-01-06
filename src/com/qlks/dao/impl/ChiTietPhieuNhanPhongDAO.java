@@ -47,4 +47,10 @@ public class ChiTietPhieuNhanPhongDAO extends AbstractDAO<ChiTietPhieuNhanPhong>
         return this.update(sql, ct.getMaNhanPhong(), ct.getNgayTraThucTe());
     }
 
+    @Override
+    public List<ChiTietPhieuNhanPhong> getChiTietPhieuNhanPhongByMaPhong(String maPhong) {
+        String sql = "{Call GetChiTietPhieuNhanPhongByMaPhong(?)}";
+        return query(sql, new ChiTietPhieuNhanPhongMapper(), maPhong);
+    }
+
 }
