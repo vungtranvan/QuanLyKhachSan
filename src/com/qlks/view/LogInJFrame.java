@@ -335,12 +335,8 @@ public class LogInJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-<<<<<<< HEAD
         jtextName.setText("");
         jpassPass.setText("");
-=======
-        
->>>>>>> d84f747ce5ecabc561ce8ef21b33442e78689654
     }//GEN-LAST:event_btnResetActionPerformed
 
     /**
