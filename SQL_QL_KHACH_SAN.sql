@@ -1392,6 +1392,14 @@ SELECT * FROM NhomQuyen
 END
 GO
 
+CREATE PROC getNhomQuyenByName
+@TenNhomQuyen nvarchar (50)
+AS
+BEGIN 
+SELECT * FROM NhomQuyen Where TenNhomQuyen = @TenNhomQuyen
+END
+GO
+
 CREATE PROC getMaxId
 AS
 BEGIN
@@ -2504,4 +2512,25 @@ GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu
 GO
 
 exec  ThongKePhong '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
+go
+
+
+CREATE PROC ThongKeKhachHang
+@tuNgay DATETIME,
+@denNgay DATETIME
+as
+SELECT Phong.MaPhong,KhachHang.TenKhachHang,KhachHang.CMND,KhachHang.GioiTinh,
+KhachHang.DienThoai,KhachHang.DiaChi,KhachHang.QuocTich,
+ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraThucTe
+FROM KhachHang
+JOIN PhieuNhanPhong
+ON KhachHang.MaKhachHang = PhieuNhanPhong.MaKhachHang
+JOIN ChiTietPhieuNhanPhong
+ON PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+JOIN Phong
+ON ChiTietPhieuNhanPhong.MaPhong = Phong.MaPhong
+WHERE (NgayTraThucTe BETWEEN @tuNgay and @denNgay)
+go
+
+exec ThongKeKhachHang '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
 go

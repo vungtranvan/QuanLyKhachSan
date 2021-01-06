@@ -30,7 +30,6 @@ import com.qlks.view.internalframe.QuanLyNguoiDung;
 import com.qlks.view.internalframe.QuanLyNhomQuyen;
 import com.qlks.view.internalframe.QuanLyPhong;
 import com.qlks.view.internalframe.QuanLyQuyDinh;
-import com.qlks.view.internalframe.QuanLyQuyen;
 import com.qlks.view.internalframe.QuanLyThietBi;
 import com.qlks.view.internalframe.ThongKeDoanhThuPhong;
 import java.awt.Color;
@@ -42,14 +41,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
@@ -58,7 +54,6 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.colorchooser.ColorChooserComponentFactory;
 
 /**
  *

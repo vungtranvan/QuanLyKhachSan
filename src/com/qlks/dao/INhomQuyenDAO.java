@@ -18,6 +18,8 @@ public interface INhomQuyenDAO {
 
     public List<NhomQuyen> getMaxId();
 
+    List<NhomQuyen> getNhomQuyenByName(String tenNhomQuyen);
+
     List<NhomQuyen> search(String tenNhomQuyen);
 
     int add(NhomQuyen nhomQuyen);

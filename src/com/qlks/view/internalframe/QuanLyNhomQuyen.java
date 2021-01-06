@@ -1073,30 +1073,36 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         String tenNhomQuyen = txtTenNhomQuyen.getText().trim();
 
         if (tenNhomQuyen.length() > 0) {
-            int row = nhomQuyenDAO.add(new NhomQuyen(tenNhomQuyen));
-            if (row > 0) {
-                listQuyen();
-                List<NhomQuyen> listLastNhomQuyen = nhomQuyenDAO.getMaxId();
-                int maNhomQuyen = listLastNhomQuyen.get(0).getMaNhomQuyen();
-                int row2;
-                String SuccessMsg = "";
-
-                for (Integer quyen : listQuyen) {
-                    row2 = 0;
-                    row2 = phanQuyenDAO.add(new PhanQuyen(quyen, maNhomQuyen));
-                    if (row2 > 0) {
-                        SuccessMsg = "";
-                    }
-                }
-
-                JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
-                loadData(null);
-                resetText();
+            List<NhomQuyen> lstCheckName = nhomQuyenDAO.getNhomQuyenByName(tenNhomQuyen);
+            if (lstCheckName.size() > 0) {
+                txtErrorTenNhomQuyen.setText("Tên nhóm quyền đã tồn tại !");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+                int row = nhomQuyenDAO.add(new NhomQuyen(tenNhomQuyen));
+                if (row > 0) {
+                    listQuyen();
+                    List<NhomQuyen> listLastNhomQuyen = nhomQuyenDAO.getMaxId();
+                    int maNhomQuyen = listLastNhomQuyen.get(0).getMaNhomQuyen();
+                    int row2;
+                    String SuccessMsg = "";
+
+                    for (Integer quyen : listQuyen) {
+                        row2 = 0;
+                        row2 = phanQuyenDAO.add(new PhanQuyen(quyen, maNhomQuyen));
+                        if (row2 > 0) {
+                            SuccessMsg = "";
+                        }
+                    }
+
+                    JOptionPane.showMessageDialog(rootPane, "Thêm thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                    loadData(null);
+                    resetText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", null, JOptionPane.ERROR_MESSAGE);
+                }
             }
+
         } else {
-            txtErrorTenNhomQuyen.setText("Tên cấu hình không được để trống !");
+            txtErrorTenNhomQuyen.setText("Tên nhóm quyền không được để trống !");
         }
     }//GEN-LAST:event_btnThemMoiActionPerformed
 

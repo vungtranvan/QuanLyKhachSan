@@ -456,9 +456,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Giao d&#x1ecb;ch"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbXemDd">
@@ -525,9 +522,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Ph&#xf2;ng"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbQlPhong">
@@ -594,9 +588,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Thi&#x1ebf;t b&#x1ecb;"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbQlThietBi">
@@ -660,9 +651,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="D&#x1ecb;ch v&#x1ee5;"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbQlDichVu">
@@ -726,9 +714,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Ch&#xed;nh S&#xe1;ch tr&#x1ea3; ph&#xf2;ng"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbQlCstp">
@@ -792,9 +777,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbQlKh">
@@ -858,9 +840,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Khuy&#x1ebf;n m&#x1ea1;i"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbQlKm">
@@ -924,9 +903,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Quy &#x111;inh"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbQlQd">
@@ -991,9 +967,6 @@
                           <Font name="DejaVu Sans" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Ng&#x1b0;&#x1edd;i d&#xf9;ng"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="chbXemNd">

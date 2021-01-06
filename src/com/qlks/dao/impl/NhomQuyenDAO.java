@@ -52,4 +52,10 @@ public class NhomQuyenDAO extends AbstractDAO<NhomQuyen> implements INhomQuyenDA
         return query(sql, new NhomQuyenMapper());
     }
 
+    @Override
+    public List<NhomQuyen> getNhomQuyenByName(String tenNhomQuyen) {
+        String sql = "{Call getNhomQuyenByName(?)}";
+        return query(sql, new NhomQuyenMapper(), tenNhomQuyen);
+    }
+
 }
