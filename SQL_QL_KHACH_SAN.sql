@@ -2590,4 +2590,4 @@ SELECT ChiTietPhieuNhanPhong.* from ChiTietPhieuNhanPhong
 JOIN Phong on ChiTietPhieuNhanPhong.MaPhong = Phong.MaPhong
 Where ChiTietPhieuNhanPhong.MaPhong = @MaPhong
 END
-GO 
+GO  
