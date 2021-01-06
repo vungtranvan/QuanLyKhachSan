@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author hello
  */
-public class ThongKeKhachHang {
+public class ThongKeKhachHangmd {
 
     private String maPhong;
     private String tenKhachHang;
@@ -23,10 +23,10 @@ public class ThongKeKhachHang {
     private LocalDate ngayNhan;
     private LocalDate ngayTraThucTe;
 
-    public ThongKeKhachHang() {
+    public ThongKeKhachHangmd() {
     }
 
-    public ThongKeKhachHang(String maPhong, String tenKhachHang, String chungMinhThuNhanDan, boolean gioiTinh, String dienThoai, String diaChi, String quocTich, LocalDate ngayNhan, LocalDate ngayTraThucTe) {
+    public ThongKeKhachHangmd(String maPhong, String tenKhachHang, String chungMinhThuNhanDan, boolean gioiTinh, String dienThoai, String diaChi, String quocTich, LocalDate ngayNhan, LocalDate ngayTraThucTe) {
         this.maPhong = maPhong;
         this.tenKhachHang = tenKhachHang;
         this.chungMinhThuNhanDan = chungMinhThuNhanDan;

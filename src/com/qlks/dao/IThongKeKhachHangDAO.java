@@ -5,7 +5,7 @@
  */
 package com.qlks.dao;
 
-import com.qlks.models.ThongKeKhachHang;
+import com.qlks.models.ThongKeKhachHangmd;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface IThongKeKhachHangDAO {
 
-    List<ThongKeKhachHang> getAll(LocalDate ngayInput1, LocalDate ngayInput2);
+    List<ThongKeKhachHangmd> getAll(LocalDate ngayInput1, LocalDate ngayInput2);
 
 }

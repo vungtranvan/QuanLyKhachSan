@@ -5,9 +5,8 @@
  */
 package com.qlks.view.internalframe;
 
-import com.qlks.custom.FunctionBase;
-import com.qlks.dao.impl.ThongKePhongDAO;
-import com.qlks.models.ThongKePhong;
+import com.qlks.dao.impl.ThongKeKhachHangDAO;
+import com.qlks.models.ThongKeKhachHangmd;
 import com.qlks.utils.MethodMain;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -22,10 +21,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ThongKeKhachHang extends javax.swing.JInternalFrame {
 
-    private ThongKePhongDAO thongKePhongDAO;
-    private List<ThongKePhong> lstThongKePhong;
+    private ThongKeKhachHangDAO thongKeKhachHangDAO;
+    private List<ThongKeKhachHangmd> lstThongKeKhachHang;
     private DefaultTableModel dtmThongKePhong;
-    private FunctionBase funcBase;
     ResourceBundle rb;
     private Locale lc;
 
@@ -34,8 +32,7 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
         this.lc = lc;
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         dtmThongKePhong = new DefaultTableModel();
-        thongKePhongDAO = new ThongKePhongDAO();
-        funcBase = new FunctionBase();
+        thongKeKhachHangDAO = new ThongKeKhachHangDAO();
         loadData(null, null);
     }
 
@@ -43,32 +40,38 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
         LocalDate date1 = LocalDate.parse("2000-01-15");
         LocalDate date2 = LocalDate.parse("2100-01-15");
         if (ngayInput1 != null && ngayInput2 != null) {
-            lstThongKePhong = thongKePhongDAO.getAll(ngayInput1, ngayInput2);
+            lstThongKeKhachHang = thongKeKhachHangDAO.getAll(ngayInput1, ngayInput2);
         } else if (ngayInput1 == null && ngayInput2 != null) {
-            lstThongKePhong = thongKePhongDAO.getAll(date1, ngayInput2);
+            lstThongKeKhachHang = thongKeKhachHangDAO.getAll(date1, ngayInput2);
         } else if (ngayInput1 != null && ngayInput2 == null) {
-            lstThongKePhong = thongKePhongDAO.getAll(ngayInput1, date2);
+            lstThongKeKhachHang = thongKeKhachHangDAO.getAll(ngayInput1, date2);
         } else {
-            lstThongKePhong = thongKePhongDAO.getAll(date1, date2);
+            lstThongKeKhachHang = thongKeKhachHangDAO.getAll(date1, date2);
         }
 
-        Object[] columnNames = {"STT", "Mã phòng", "Số ngày thuê", "Số lần thuê", "Tiền phòng", "Tiền dịch vụ", "Tiền giảm giá", "Tổng tiền"};
+        Object[] columnNames = {"STT", "Mã phòng", "Tên khách hàng", "CMND", "Giới tính", "Điện thoại", "Địa chỉ", "Quốc tịch", "Ngày đến", "Ngày đi"};
         dtmThongKePhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
-        for (ThongKePhong adv : lstThongKePhong) {
-            Object[] o = new Object[8];
+        for (ThongKeKhachHangmd adv : lstThongKeKhachHang) {
+            Object[] o = new Object[10];
             o[0] = index;
             o[1] = adv.getMaPhong();
-            o[2] = adv.getSoNgay();
-            o[3] = adv.getSoLanThue();
-            o[4] = (int) adv.getTienPhong();
-            o[5] = (int) adv.getTienDichVu();
-            o[6] = (int) adv.getGiamGia();
-            o[7] = (int) adv.getTongTien();
+            o[2] = adv.getTenKhachHang();
+            o[3] = adv.getChungMinhThuNhanDan();
+            String gioiTinh = "Nam";
+            if (adv.isGioiTinh() == false) {
+                gioiTinh = "Nữ";
+            }
+            o[4] = gioiTinh;
+            o[5] = adv.getDienThoai();
+            o[6] = adv.getDiaChi();
+            o[7] = adv.getQuocTich();
+            o[8] = adv.getNgayNhan();
+            o[9] = adv.getNgayTraThucTe();
             dtmThongKePhong.addRow(o);
             index++;
         }
-        tblThongKePhong.setModel(dtmThongKePhong);
+        tblThongKeKhachHang.setModel(dtmThongKePhong);
     }
 
     /**
@@ -89,11 +92,11 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblThongKePhong = new javax.swing.JTable();
+        tblThongKeKhachHang = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Thống kê doanh thu phòng");
+        setTitle("Thống kê khách hàng");
 
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
@@ -160,7 +163,7 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27))
         );
 
-        tblThongKePhong.setModel(new javax.swing.table.DefaultTableModel(
+        tblThongKeKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -171,7 +174,7 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblThongKePhong);
+        jScrollPane1.setViewportView(tblThongKeKhachHang);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -213,7 +216,7 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGhiFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiFileActionPerformed
-        MethodMain.exportExcel(tblThongKePhong);
+        MethodMain.exportExcel(tblThongKeKhachHang);
     }//GEN-LAST:event_btnGhiFileActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -239,7 +242,7 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblThongKePhong;
+    private javax.swing.JTable tblThongKeKhachHang;
     // End of variables declaration//GEN-END:variables
 
 }
