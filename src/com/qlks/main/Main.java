@@ -22,6 +22,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -176,7 +177,19 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
+        LocalDate a = LocalDate.parse("2020-10-10");
+        LocalDate a1 = LocalDate.parse("2020-10-17");
+        
+        LocalDate b = LocalDate.parse("2020-10-18");
+        LocalDate b1 = LocalDate.parse("2020-10-20");
+        
+        boolean bl =  MethodMain.isOverlapping(a, a1, b, b1);
+      
+        System.out.println(bl);
+        
+        
+        
+        
         Main main = new Main();
 
         main.logInJFrame.setLocationRelativeTo(null);

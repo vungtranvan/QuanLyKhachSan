@@ -111,6 +111,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private JPanel subMenuService;
     QuanLyDonVi quanLyDonVi;
     private JPanel subMenuUnit;
+    
     private JPanel subMenuCheckout;
 
     QuanLyKhachHang quanLyKhachHang;
@@ -203,7 +204,7 @@ public class MainJFrame extends javax.swing.JFrame {
             showInternalFrame(subMenuBook, new QLPhieuThuePhong());
 
             subMenuCheckIn = new JPanel();
-            qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd);
+            qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd,lc);
             listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
             showInternalFrame(subMenuCheckIn, qLPhieuNhanPhong);
 
@@ -739,6 +740,9 @@ public class MainJFrame extends javax.swing.JFrame {
                     }
                     if (quanLyQuyDinh != null) {
                         quanLyQuyDinh.translate(lc);
+                    }
+                    if (qLPhieuNhanPhong != null) {
+                        qLPhieuNhanPhong.translate(lc);
                     }
 
                 }
