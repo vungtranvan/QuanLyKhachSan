@@ -145,11 +145,10 @@ public class MainJFrame extends javax.swing.JFrame {
         cauHinhNguoiDungs = cauHinhNguoiDungDAO.getValue(1, maNguoiDung);
         String color = cauHinhNguoiDungDAO.getValue(2, maNguoiDung).get(0).getNoiDungCauHinh();
         String newColor = color.replace("[", "").replace("]", "").replace(" ", "");
-        System.out.println(newColor);
           
         String[] ColorString = newColor.split(",");
         this.MainColor = new Color(Integer.parseInt(ColorString[0]), Integer.parseInt(ColorString[1]), Integer.parseInt(ColorString[2]));
-        this.subMenuColor = brighten(MainColor, 0.1);
+        this.subMenuColor = brighten(MainColor, 0.75);
         cauHinhNguoiDungs.forEach(chnd -> {
             cauHinhNgonNgu = chnd.getNoiDungCauHinh();
         });
