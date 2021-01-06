@@ -315,10 +315,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblKhachHang.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblKhachHang.getRowCount());
+        
                 if (funcBase.IsSelected(i, 8, tblKhachHang)) {
                     check = true;
-                    //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
+
 
                     int rowSucces = khachHangDAO.delete(tblKhachHang.getValueAt(i, 1).toString());
                     if (rowSucces > 0) {

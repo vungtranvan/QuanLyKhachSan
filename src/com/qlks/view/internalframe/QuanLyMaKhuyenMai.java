@@ -317,7 +317,7 @@ public class QuanLyMaKhuyenMai extends javax.swing.JInternalFrame implements Add
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblMaKhuyenMai.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblMaKhuyenMai.getRowCount());
+    
                 if (funcBase.IsSelected(i, 9, tblMaKhuyenMai)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));

@@ -50,7 +50,6 @@ public class UpdateThietBi extends javax.swing.JInternalFrame {
         txtTenTB.setText(tb.getTenThietBi());
         txtGia.setText(String.format("%.0f", tb.getGia()));
         txtSoLuong.setText(Integer.toString(tb.getSoLuong()));
-        System.out.println("getMaLoaiPhong :" + tb.getMaLoaiPhong());
         String maLP = tb.getMaLoaiPhong();
         LoaiPhong lp = lstLoaiPhong.stream().filter(x -> x.getMaLoaiPhong().equals(maLP)).findAny().orElse(null);
         modelLoaiPhong.setSelectedItem(lp);

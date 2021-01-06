@@ -74,7 +74,7 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
 
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstLDVu.size() > 0) {
-            System.out.println(lstLDVu.isEmpty());
+       
             tblLoaiDichVu.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
@@ -462,7 +462,6 @@ public class QuanLyLoaiDichVu extends javax.swing.JInternalFrame {
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblLoaiDichVu.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblLoaiDichVu.getRowCount());
                 if (funcBase.IsSelected(i, 3, tblLoaiDichVu)) {
                     check = true;
                     int rowSucces = loaiDVDAO.delete(tblLoaiDichVu.getValueAt(i, 1).toString());

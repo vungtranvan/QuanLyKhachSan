@@ -41,11 +41,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private PhongDAO phongDAO;
     private String tenNhanVien;
     private DanhSachSuDungDichVuDAO danhSachSuDungDichVuDAO;
-        ResourceBundle rb;
+    ResourceBundle rb;
     private Locale lc;
-    
+    ThanhToanHoaDon thanhToanHoaDon;
 
-    public QLPhieuNhanPhong(List<NguoiDung> lstND) {
+    public QLPhieuNhanPhong(List<NguoiDung> lstND, Locale lc) {
         initComponents();
         danhSachSuDungDichVuDAO = new DanhSachSuDungDichVuDAO();
         dtmPhieuNhanPhong = new DefaultTableModel();
@@ -55,10 +55,12 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         funcBase = new FunctionBase();
         loadData(null, null, null);
         tenNhanVien = lstND.get(0).getTenNguoiDung();
-                this.lc = lc;
- 
-                if (!MethodMain.checkQuyen("QlDaoDich")) {
-                    GroupBtn.setVisible(false);
+
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
+
+        if (!MethodMain.checkQuyen("QlDaoDich")) {
+            GroupBtn.setVisible(false);
         }
     }
 
@@ -292,7 +294,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                         } else {
                             errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
                         }
-                        
+
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Không thể xóa", "Thông báo", JOptionPane.ERROR_MESSAGE);
                     }
@@ -342,12 +344,14 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         }
         if (currentRow >= 0 && currentColumns == 12) {
             String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
-  
+         
             if (trangThai.equals("Chưa thanh toán")) {
                 String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
                 String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
                 String maKH = dtmPhieuNhanPhong.getValueAt(currentRow, 3).toString();
-                showInternalFrame(new ThanhToanHoaDon(this, maNhanPhong, maPhong, maKH, tenNhanVien));
+                thanhToanHoaDon = new ThanhToanHoaDon(this, maNhanPhong, maPhong, maKH, tenNhanVien, rb);
+                this.thanhToanHoaDon.translate(this.rb);
+                showInternalFrame(thanhToanHoaDon);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }

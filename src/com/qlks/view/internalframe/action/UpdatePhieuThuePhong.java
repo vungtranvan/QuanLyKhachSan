@@ -199,8 +199,7 @@ public class UpdatePhieuThuePhong extends javax.swing.JInternalFrame {
             txtErrorNgayDangKy.setText("Ngày đăng ký ko được để trống");
             check = false;
         }
-        System.out.println("dateDKy =" +dateDKy);
-
+  
         LocalDate dateNhan = null;
         if (txtNgayDangKy.getDate() != null) {
             dateNhan = txtNgayNhan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

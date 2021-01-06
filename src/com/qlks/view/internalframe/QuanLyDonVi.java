@@ -72,7 +72,6 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
 
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstDonVi.size() > 0) {
-            System.out.println(lstDonVi.isEmpty());
             tblDonVi.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
@@ -469,7 +468,6 @@ public class QuanLyDonVi extends javax.swing.JInternalFrame {
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblDonVi.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblDonVi.getRowCount());
                 if (funcBase.IsSelected(i, 3, tblDonVi)) {
                     check = true;
                     int rowSucces = donviDAO.delete(tblDonVi.getValueAt(i, 1).toString());

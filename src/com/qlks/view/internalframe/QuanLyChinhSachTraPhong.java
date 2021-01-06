@@ -59,7 +59,7 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
         tblChinhSachTraPhong.setModel(dtmCSTraPhong);
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstCSTraPhong.size() > 0) {
-            System.out.println(lstCSTraPhong.isEmpty());
+    
             tblChinhSachTraPhong.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {

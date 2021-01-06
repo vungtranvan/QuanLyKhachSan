@@ -60,7 +60,7 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
 
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstCauHinh.size() > 0) {
-            System.out.println(lstCauHinh.isEmpty());
+    
             tblCauHinh.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
@@ -346,7 +346,7 @@ public class QuanLyCauHinh extends javax.swing.JInternalFrame {
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblCauHinh.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblCauHinh.getRowCount());
+
                 if (funcBase.IsSelected(i, 3, tblCauHinh)) {
                     check = true;
                     int rowSucces = cauhinhDAO.delete(Integer.parseInt(tblCauHinh.getValueAt(i, 1).toString()));
