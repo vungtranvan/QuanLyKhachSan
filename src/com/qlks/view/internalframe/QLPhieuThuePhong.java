@@ -17,7 +17,6 @@ import com.qlks.view.internalframe.action.SearchPhieuThuePhong;
 import com.qlks.view.internalframe.action.UpdatePhieuThuePhong;
 import java.awt.Dimension;
 import java.util.List;
-import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;

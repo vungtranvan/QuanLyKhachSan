@@ -11,7 +11,6 @@ import com.qlks.dao.impl.ChiTietPhieuNhanPhongDAO;
 import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
 import com.qlks.dao.impl.PhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhongDAO;
-import com.qlks.models.ChiTietPhieuNhanPhong;
 import com.qlks.models.DanhSachSuDungDichVu;
 import com.qlks.models.NguoiDung;
 import com.qlks.models.PhieuNhanPhong;
@@ -44,6 +43,10 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private DanhSachSuDungDichVuDAO danhSachSuDungDichVuDAO;
         ResourceBundle rb;
     private Locale lc;
+    
+    
+    
+    
 
     public QLPhieuNhanPhong(List<NguoiDung> lstND) {
         initComponents();
