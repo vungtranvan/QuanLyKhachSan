@@ -17,6 +17,7 @@ public class ChiTietPhieuThuePhong {
     private String maPhong;
     private LocalDate ngayDangKy;
     private LocalDate ngayNhan;
+    private LocalDate ngayTraDuKien;
 
     public ChiTietPhieuThuePhong() {
     }
@@ -32,6 +33,22 @@ public class ChiTietPhieuThuePhong {
         this.maPhieuThue = maPhieuThue;
         this.ngayDangKy = ngayDangKy;
         this.ngayNhan = ngayNhan;
+    }
+
+    public ChiTietPhieuThuePhong(String maPhieuThue, String maPhong, LocalDate ngayDangKy, LocalDate ngayNhan, LocalDate ngayTraDuKien) {
+        this.maPhieuThue = maPhieuThue;
+        this.maPhong = maPhong;
+        this.ngayDangKy = ngayDangKy;
+        this.ngayNhan = ngayNhan;
+        this.ngayTraDuKien = ngayTraDuKien;
+    }
+
+    public LocalDate getNgayTraDuKien() {
+        return ngayTraDuKien;
+    }
+
+    public void setNgayTraDuKien(LocalDate ngayTraDuKien) {
+        this.ngayTraDuKien = ngayTraDuKien;
     }
 
     public String getMaPhieuThue() {

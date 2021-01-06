@@ -58,11 +58,11 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             lstPhieuThuePhong = phieuThuePhongDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Trạng thái", ""};
+        Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Ngày trả dự kiến", "Trạng thái", ""};
         dtmPhieuThuePhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (PhieuThuePhong adv : lstPhieuThuePhong) {
-            Object[] o = new Object[9];
+            Object[] o = new Object[10];
             o[0] = index;
             o[1] = adv.getMaPhieuThue();
             o[2] = adv.getMaKhachHang();
@@ -70,18 +70,19 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             o[4] = adv.getMaPhong();
             o[5] = adv.getNgayDangKy();
             o[6] = adv.getNgayNhan();
+            o[7] = adv.getNgayTraDuKien();
 
             Boolean Status = adv.isTrangThai();
             String trangThai = "Chưa xử lý";
             if (Status == true) {
                 trangThai = "Đã xử lý";
             }
-            o[7] = trangThai;
+            o[8] = trangThai;
             dtmPhieuThuePhong.addRow(o);
             index++;
         }
         tblPhieuThuePhong.setModel(dtmPhieuThuePhong);
-        funcBase.addCheckBox(8, tblPhieuThuePhong);
+        funcBase.addCheckBox(9, tblPhieuThuePhong);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -265,7 +266,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
         if (thongbao == JOptionPane.YES_OPTION) {
             String ma_Phong;
             for (int i = 0; i < tblPhieuThuePhong.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 8, tblPhieuThuePhong)) {
+                if (funcBase.IsSelected(i, 9, tblPhieuThuePhong)) {
                     check = true;
 
                     int rowSucces1 = chiTietPhieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
