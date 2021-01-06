@@ -19,6 +19,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
@@ -164,5 +165,9 @@ public class MethodMain {
                 JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");
             }
         }
+    }
+
+    public static boolean isOverlapping(LocalDate start1, LocalDate end1, LocalDate start2, LocalDate end2) {
+        return start1.isBefore(end2) && start2.isBefore(end1);
     }
 }
