@@ -771,11 +771,15 @@ CREATE PROC insertNguoiDung
 @GioiTinh bit,
 @MaNhomQuyen int
 AS
+DECLARE @id int
 BEGIN TRY
     BEGIN TRANSACTION
-Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values(@TenNguoiDung,@TenDangNhap,@MatKhau,@Anh,@Email,@NgaySinh,@GioiTinh,@MaNhomQuyen)
 
-exec insertCauHinhNguoiDung 1,@@IDENTITY,'vietnam'
+Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values(@TenNguoiDung,@TenDangNhap,@MatKhau,@Anh,@Email,@NgaySinh,@GioiTinh,@MaNhomQuyen)
+set @id = @@IDENTITY
+exec insertCauHinhNguoiDung 1,@id,'vietnam'
+exec insertCauHinhNguoiDung 2,@id,'[36, 36,36]'
+
 		COMMIT TRANSACTION
 END TRY
 BEGIN CATCH
@@ -2353,7 +2357,9 @@ CREATE PROC getChiTietHoaDon_By_MaHoaDon
 @MaHoaDon int
 AS
 BEGIN 
-SELECT * FROM ChiTietHoaDon Where MaHoaDon =@MaHoaDon 
+select MaPhong,PhuThu,TienPhong, SUM(TienDichVu) as TongTienDichVu,GiamGiaKH,SoNgay,HinhThucThanhToan 
+from ChiTietHoaDon WHERE  MaHoaDon = @MaHoaDon 
+GROUP BY MaHoaDon,MaPhong,PhuThu,TienPhong,GiamGiaKH,SoNgay,HinhThucThanhToan
 END
 GO
 
@@ -2399,9 +2405,10 @@ CREATE proc getConfigVal
 @MaNguoiDung int
 AS
 BEGIN
-SELECT * from CauHinhNguoiDung WHERE MaCauHinh = @MaCauHinh and @MaNguoiDung = @MaNguoiDung
+SELECT * FROM [CauHinhNguoiDung]
+WHERE MaCauHinh = @MaCauHinh and MaNguoiDung = @MaNguoiDung
 END
-GO
+go
 
 DECLARE @Number INT = 1 ;
 WHILE @Number < = 18

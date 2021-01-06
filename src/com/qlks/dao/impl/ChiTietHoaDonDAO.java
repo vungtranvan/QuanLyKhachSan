@@ -6,6 +6,7 @@
 package com.qlks.dao.impl;
 
 import com.qlks.dao.IChiTietHoaDonDAO;
+import com.qlks.mapper.ChiTietHoaDonByMaMapper;
 import com.qlks.mapper.ChiTietHoaDonMapper;
 import com.qlks.models.ChiTietHoaDon;
 import java.util.List;
@@ -25,7 +26,7 @@ public class ChiTietHoaDonDAO extends AbstractDAO<ChiTietHoaDon> implements IChi
     @Override
     public List<ChiTietHoaDon> getByMaHoaDon(int maHoaDon) {
         String sql = "{Call getChiTietHoaDon_By_MaHoaDon(?)}";
-        return query(sql, new ChiTietHoaDonMapper(), maHoaDon);
+        return query(sql, new ChiTietHoaDonByMaMapper(), maHoaDon);
     }
 
     @Override

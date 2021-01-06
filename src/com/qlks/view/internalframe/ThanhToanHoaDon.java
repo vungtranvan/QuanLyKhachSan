@@ -58,7 +58,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     private FunctionBase funcBase;
     private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
     private int soNgay = 0;
-
+    private int _maHoaDon = 0;
     CallBackCheckOut cb;
 
     public interface CallBackCheckOut {
@@ -665,7 +665,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 hinhThucTT = "Tiền thẻ";
             }
             for (HoaDon idHoaDon : getIdHoaDon) {
-
+                _maHoaDon = idHoaDon.getMaHoaDon();
                 for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
                     row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), maPhong, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
                             Float.parseFloat(lblGiaPhong.getText()), adv.getDonGia(), 0, hinhThucTT, soNgay, sumTongTien()));
@@ -677,8 +677,8 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 phongDAO.updatePhongDaThanhToan(maPhong);
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công", null, JOptionPane.INFORMATION_MESSAGE);
                 cb.doCheckOut();
-                ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView();
-                 showInternalFrame(jframeChiTietHoaDon);
+                ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
+                showInternalFrame(jframeChiTietHoaDon);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thất bại", null, JOptionPane.ERROR_MESSAGE);
