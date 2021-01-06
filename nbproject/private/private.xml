@@ -3,12 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_vi_VN.properties</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_en_US.properties</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/i18n/resources/resources_fr_FR.properties</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/test/NewJInternalFrame.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/utils/MethodMain.java</file>
+=======
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QLHoaDon.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/PhieuSDDichVu.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/ThanhToanHoaDon.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/utils/MethodMain.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/HoaDonDAO.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/QLPhieuNhanPhong.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/DanhSachSuDungDichVuDAO.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/IHoaDonDAO.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/ChiTietHoaDonView.java</file>
+>>>>>>> e09aa55db6632387b112ccbb2067cf257d10ab7b
         </group>
     </open-files>
 </project-private>
