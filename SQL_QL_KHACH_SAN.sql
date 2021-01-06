@@ -2533,4 +2533,4 @@ WHERE (NgayTraThucTe BETWEEN @tuNgay and @denNgay)
 go
 
 exec ThongKeKhachHang '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
-go
+go 
