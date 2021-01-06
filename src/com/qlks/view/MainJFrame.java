@@ -43,6 +43,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -50,11 +51,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.colorchooser.ColorChooserComponentFactory;
 
 /**
  *
@@ -124,8 +127,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private final Font subMenuItemFont = new FontCustom().MontserratSemiBold(16);
     private JPanel jpnSubmenu = new JPanel();
 
-    public Color MainColor = new Color(36, 36, 36);
-    public Color subMenuColor = new Color(56, 56, 56);
+    public Color MainColor;
+    public Color subMenuColor;
 
     JLabel closeSubMenu = new JLabel();
 
@@ -140,7 +143,13 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame(List<NguoiDung> listNd) {
         maNguoiDung = listNd.get(0).getMaNguoiDung();
         cauHinhNguoiDungs = cauHinhNguoiDungDAO.getValue(1, maNguoiDung);
-
+        String color = cauHinhNguoiDungDAO.getValue(2, maNguoiDung).get(0).getNoiDungCauHinh();
+        String newColor = color.replace("[", "").replace("]", "").replace(" ", "");
+        System.out.println(newColor);
+          
+        String[] ColorString = newColor.split(",");
+        this.MainColor = new Color(Integer.parseInt(ColorString[0]), Integer.parseInt(ColorString[1]), Integer.parseInt(ColorString[2]));
+        this.subMenuColor = brighten(MainColor, 0.1);
         cauHinhNguoiDungs.forEach(chnd -> {
             cauHinhNgonNgu = chnd.getNoiDungCauHinh();
         });
@@ -286,17 +295,65 @@ public class MainJFrame extends javax.swing.JFrame {
         // Cau hinh
         QuanLyCauHinh quanLyCauHinh = new QuanLyCauHinh();
         subMenuConfig = new JPanel();
-        listSubMenuItemConfig.add(makeSubMenuItem(subMenuConfig, rb.getString("subMenuConfig")));
-        showInternalFrame(subMenuConfig, quanLyCauHinh);
+        listSubMenuItemConfig.add(makeSubMenuItem(subMenuConfig, rb.getString("subMenuColor")));
+        subMenuConfig.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
 
+                MainColor = JColorChooser.showDialog(jMain, "Choise color", MainColor);
+                jpnSubmenu.setBackground(brighten(MainColor, 0.25));
+                setMenuBackGroundColor(MainColor.getRed(), MainColor.getGreen(), MainColor.getBlue());
+                System.out.println(MainColor.getRGB());
+                int[] color = {MainColor.getRed(), MainColor.getGreen(), MainColor.getBlue()};
+                Arrays.toString(color);
+                CauHinhNguoiDung cauHinhNguoiDungColor = new CauHinhNguoiDung(2, 1, Arrays.toString(color));
+
+                cauHinhNguoiDungDAO.update(cauHinhNguoiDungColor);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+
+            }
+        });
+
+//        showInternalFrame(subMenuConfig, quanLyCauHinh);
         visibleSubMenu(menuConfig, rb.getString("SubMenuTitleConfig"), listSubMenuItemConfig, 4);
 
         invisibleSubMenu(closeSubMenu);
         invisibleSubMenu(jMain);
-        setMenuBackGroundColor(36, 36, 36);
+        setMenuBackGroundColor(this.MainColor.getRed(), this.MainColor.getGreen(), this.MainColor.getBlue());
+        System.out.println(this.MainColor.getRed());
 
         doiMatKhauNguoiDung = new DoiMatKhauNguoiDung(listNd, lc);
         showInternalFrame(menuAvatar, doiMatKhauNguoiDung);
+    }
+
+    public Color brighten(Color color, double fraction) {
+
+        int red = (int) Math.round(Math.min(255, color.getRed() + 255 * fraction));
+        int green = (int) Math.round(Math.min(255, color.getGreen() + 255 * fraction));
+        int blue = (int) Math.round(Math.min(255, color.getBlue() + 255 * fraction));
+
+        int alpha = color.getAlpha();
+
+        return new Color(red, green, blue, alpha);
+
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -433,7 +490,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jp.setPreferredSize(new Dimension(300, 50));
         jp.setMaximumSize(jp.getPreferredSize());
-        jp.setBackground(subMenuColor);
+        jp.setOpaque(false);
         jp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         jl.setPreferredSize(new Dimension(300 - 30, 50));
@@ -451,7 +508,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jp.setPreferredSize(new Dimension(250, 50));
         jp.setMaximumSize(jp.getPreferredSize());
-        jp.setBackground(subMenuColor);
+        jp.setOpaque(false);
         jl.setSize(jp.getPreferredSize());
         jl.setPreferredSize(jp.getPreferredSize());
 
@@ -729,7 +786,7 @@ public class MainJFrame extends javax.swing.JFrame {
         setTextJlbFromJpn(subMenuCheckout, rb.getString("subMenuCheckout"));
         setTextJlbFromJpn(subMenuCustommer, rb.getString("subMenuCustommer"));
         setTextJlbFromJpn(subMenuDiscount, rb.getString("subMenuDiscount"));
-        setTextJlbFromJpn(subMenuConfig, rb.getString("subMenuConfig"));
+        setTextJlbFromJpn(subMenuConfig, rb.getString("subMenuColor"));
         setTextJlbFromJpn(subMenuLanguage, rb.getString("subMenuLanguage"));
         setTextJlbFromJpn(subMenuLanguage, rb.getString("subMenuLanguage"));
         setTextJlbFromJpn(subMenuBook, rb.getString("subMenuBook"));
