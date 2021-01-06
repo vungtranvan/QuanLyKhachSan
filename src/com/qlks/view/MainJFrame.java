@@ -148,7 +148,7 @@ public class MainJFrame extends javax.swing.JFrame {
           
         String[] ColorString = newColor.split(",");
         this.MainColor = new Color(Integer.parseInt(ColorString[0]), Integer.parseInt(ColorString[1]), Integer.parseInt(ColorString[2]));
-        this.subMenuColor = brighten(MainColor, 0.75);
+        this.subMenuColor = brighten(MainColor, 0.05);
         cauHinhNguoiDungs.forEach(chnd -> {
             cauHinhNgonNgu = chnd.getNoiDungCauHinh();
         });
