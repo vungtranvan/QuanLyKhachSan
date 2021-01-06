@@ -13,21 +13,23 @@ public class ThongKePhong {
 
     private String maPhong;
     private int soNgay;
+    private int soLanThue;
     private float tienPhong;
+    private float tienDichVu;
     private float giamGia;
-    private float thanhTien;
-    private float TienDichVu;
+    private float tongTien;
 
     public ThongKePhong() {
     }
 
-    public ThongKePhong(String maPhong, int soNgay, float tienPhong, float giamGia, float thanhTien, float TienDichVu) {
+    public ThongKePhong(String maPhong, int soNgay, int soLanThue, float tienPhong, float tienDichVu, float giamGia, float tongTien) {
         this.maPhong = maPhong;
         this.soNgay = soNgay;
+        this.soLanThue = soLanThue;
         this.tienPhong = tienPhong;
+        this.tienDichVu = tienDichVu;
         this.giamGia = giamGia;
-        this.thanhTien = thanhTien;
-        this.TienDichVu = TienDichVu;
+        this.tongTien = tongTien;
     }
 
     public String getMaPhong() {
@@ -46,12 +48,28 @@ public class ThongKePhong {
         this.soNgay = soNgay;
     }
 
+    public int getSoLanThue() {
+        return soLanThue;
+    }
+
+    public void setSoLanThue(int soLanThue) {
+        this.soLanThue = soLanThue;
+    }
+
     public float getTienPhong() {
         return tienPhong;
     }
 
     public void setTienPhong(float tienPhong) {
         this.tienPhong = tienPhong;
+    }
+
+    public float getTienDichVu() {
+        return tienDichVu;
+    }
+
+    public void setTienDichVu(float tienDichVu) {
+        this.tienDichVu = tienDichVu;
     }
 
     public float getGiamGia() {
@@ -62,20 +80,12 @@ public class ThongKePhong {
         this.giamGia = giamGia;
     }
 
-    public float getThanhTien() {
-        return thanhTien;
+    public float getTongTien() {
+        return tongTien;
     }
 
-    public void setThanhTien(float thanhTien) {
-        this.thanhTien = thanhTien;
-    }
-
-    public float getTienDichVu() {
-        return TienDichVu;
-    }
-
-    public void setTienDichVu(float TienDichVu) {
-        this.TienDichVu = TienDichVu;
+    public void setTongTien(float tongTien) {
+        this.tongTien = tongTien;
     }
 
 }

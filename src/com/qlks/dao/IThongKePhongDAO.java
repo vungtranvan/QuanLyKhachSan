@@ -15,7 +15,5 @@ import java.util.List;
  */
 public interface IThongKePhongDAO {
 
-    List<ThongKePhong> getAll();
-
-    List<ThongKePhong> search(LocalDate ngayInput1, LocalDate ngayInput2);
+    List<ThongKePhong> getAll(LocalDate ngayInput1, LocalDate ngayInput2);
 }

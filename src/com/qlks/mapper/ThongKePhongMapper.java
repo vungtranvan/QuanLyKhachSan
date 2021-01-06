@@ -19,8 +19,8 @@ public class ThongKePhongMapper implements RowMapper<ThongKePhong> {
     @Override
     public ThongKePhong mapRow(ResultSet rs) {
         try {
-            ThongKePhong data = new ThongKePhong(rs.getString("MaPhong"), rs.getInt("SoNgay"), rs.getFloat("TienPhong"),
-                    rs.getFloat("GiamGia"), rs.getFloat("ThanhTien"),rs.getFloat("DonGia"));
+            ThongKePhong data = new ThongKePhong(rs.getString("MaPhong"), rs.getInt("SoNgay"), rs.getInt("SoLanThue"), rs.getFloat("TienPhong"), rs.getFloat("TienDichVu"),
+                    rs.getFloat("GiamGia"), rs.getFloat("TongTien"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);

@@ -2453,6 +2453,14 @@ exec insertNguoiDung 'Admin Manager','admin','123', null ,'admin@gmail.com','202
 go
     
 
+CREATE VIEW DistinctGiaDichVu
+AS
+select dt.MaPhong,SUM(TienDichVu) as TienDichVu
+FROM (Select DISTINCT(MaHoaDon),MaPhong,TienDichVu,MaSuDungDichVu from ChiTietHoaDon) dt
+GROUP by dt.MaPhong
+Go
+
+
 CREATE VIEW ChiTietKinhDoanh
 as
 SELECT ChiTietHoaDon.*,PhieuNhanPhong.MaPhieuThue,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraThucTe from ChiTietHoaDon
@@ -2464,11 +2472,14 @@ JOIN ChiTietPhieuNhanPhong
 ON ChiTietPhieuNhanPhong.MaNhanPhong = PhieuNhanPhong.MaNhanPhong
 
 go
+
+go
 CREATE PROC ThongKePhong
 @NgayBatDau datetime,
 @NgayKetThuc datetime
 as
-select dt.MaPhong,SUM(SoNgay) as SoNgay,SUM(TienPhong) as TienPhong,SUM(GiamGiaKH) as GiamGia,SUM(ThanhTien) AS ThanhTien ,dv.TongTien as TienDichVu
+select dt.MaPhong,SUM(SoNgay) as SoNgay,COUNT(dt.MaPhong) as SoLanThue,SUM(TienPhong) as TienPhong,DistinctGiaDichVu.TienDichVu,SUM(GiamGiaKH) as GiamGia,
+SUM(ThanhTien) AS TongTien
 FROM (Select DISTINCT(MaHoaDon),MaPhong,TienPhong,GiamGiaKH,SoNgay,ThanhTien from ChiTietKinhDoanh) dt
 JOIN (
 select dt.MaPhong,Sum(dt.ThanhTien) as TongTien
@@ -2489,8 +2500,9 @@ HAVING ChiTietPhieuNhanPhong.NgayTraThucTe BETWEEN @NgayBatDau And @NgayKetThuc
 GROUP by dt.MaPhong
 ) dv
 on dv.MaPhong = dt.MaPhong
-GROUP by dt.MaPhong,dv.TongTien
+JOIN DistinctGiaDichVu
+ON DistinctGiaDichVu.MaPhong = dv.MaPhong
+GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu
 GO
 
-
-exec  ThongKePhong '2021-01-01 00:00:00.000', '2021-02-10 00:00:00.000'
+exec  ThongKePhong '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'

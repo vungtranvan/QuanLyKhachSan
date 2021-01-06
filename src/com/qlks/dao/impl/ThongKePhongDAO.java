@@ -18,15 +18,8 @@ import java.util.List;
 public class ThongKePhongDAO extends AbstractDAO<ThongKePhong> implements IThongKePhongDAO {
 
     @Override
-    public List<ThongKePhong> getAll() {
-        String sql = "{Call getAllCauHinh}";
-        return query(sql, new ThongKePhongMapper());
-    }
-
-    @Override
-    public List<ThongKePhong> search(LocalDate ngayInput1, LocalDate ngayInput2) {
+    public List<ThongKePhong> getAll(LocalDate ngayInput1, LocalDate ngayInput2) {
         String sql = "{Call ThongKePhong(?,?)}";
         return query(sql, new ThongKePhongMapper(), ngayInput1, ngayInput2);
     }
-
 }

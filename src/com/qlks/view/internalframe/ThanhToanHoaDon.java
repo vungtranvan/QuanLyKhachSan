@@ -104,14 +104,11 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     }
 
     public void setData() {
-        ChiTietPhieuNhanPhong ctP = new ChiTietPhieuNhanPhong(maNhanPhong, LocalDate.now());
-        chiTietPhieuNhanPhongDAO.updateNgayTraDuKien(ctP);
-        cb.doCheckOut();
 
         List<ChiTietPhieuNhanPhong> lstCTNPBYID = chiTietPhieuNhanPhongDAO.getByMaNhanPhong(maNhanPhong);
         for (ChiTietPhieuNhanPhong lstCT : lstCTNPBYID) {
             LocalDate ngayDn = lstCT.getNgayNhan();
-            LocalDate ngayDi = lstCT.getNgayTraThucTe();
+            LocalDate ngayDi = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             lblNgayThue.setText(ngayDn.format(formatter));
             lblNgayDi.setText(ngayDi.format(formatter));
@@ -715,6 +712,8 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
             if (row2 > 0) {
                 phieuNhanPhongDAO.updateTrangThai(maNhanPhong);
                 phongDAO.updatePhongDaThanhToan(maPhong);
+                ChiTietPhieuNhanPhong ctP = new ChiTietPhieuNhanPhong(maNhanPhong, LocalDate.now());
+                chiTietPhieuNhanPhongDAO.updateNgayTraDuKien(ctP);
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công", null, JOptionPane.INFORMATION_MESSAGE);
                 cb.doCheckOut();
                 ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
