@@ -2470,10 +2470,8 @@ JOIN PhieuNhanPhong
 ON PhieuNhanPhong.MaNhanPhong = HoaDon.MaNhanPhong
 JOIN ChiTietPhieuNhanPhong
 ON ChiTietPhieuNhanPhong.MaNhanPhong = PhieuNhanPhong.MaNhanPhong
-
 go
 
-go
 CREATE PROC ThongKePhong
 @NgayBatDau datetime,
 @NgayKetThuc datetime
@@ -2506,3 +2504,4 @@ GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu
 GO
 
 exec  ThongKePhong '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
+go

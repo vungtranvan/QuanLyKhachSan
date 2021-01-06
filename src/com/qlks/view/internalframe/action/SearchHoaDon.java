@@ -38,9 +38,9 @@ public class SearchHoaDon extends javax.swing.JInternalFrame {
 
     public void translate(ResourceBundle rb) {
         this.rb = rb;
-        setTitle(this.rb.getString("SearchQuyDinh"));
-        jlbTitle.setText(this.rb.getString("SearchQuyDinh"));
-        jlbTenQuyDinh.setText(this.rb.getString("JIFQLQuyDinhMa"));
+        setTitle(this.rb.getString("SearchHoaDon"));
+        jlbTitle.setText(this.rb.getString("SearchHoaDon"));
+        jlbTenHoaDon.setText(this.rb.getString("JIFQLTenHoaDon"));
      
 
         btnLamMoi.setText(this.rb.getString("BtnLamMoi"));
@@ -63,7 +63,7 @@ public class SearchHoaDon extends javax.swing.JInternalFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jlbTitle = new javax.swing.JLabel();
-        jlbTenQuyDinh = new javax.swing.JLabel();
+        jlbTenHoaDon = new javax.swing.JLabel();
         txtTenKhachHang = new javax.swing.JTextField();
         btnHuyBo = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
@@ -76,8 +76,8 @@ public class SearchHoaDon extends javax.swing.JInternalFrame {
         jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTitle.setText("TÌM KIẾM QUY ĐỊNH");
 
-        jlbTenQuyDinh.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jlbTenQuyDinh.setText("Tên quy định:");
+        jlbTenHoaDon.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbTenHoaDon.setText("Tên quy định:");
 
         btnHuyBo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnHuyBo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_close.png"))); // NOI18N
@@ -118,7 +118,7 @@ public class SearchHoaDon extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(50, Short.MAX_VALUE)
-                        .addComponent(jlbTenQuyDinh)
+                        .addComponent(jlbTenHoaDon)
                         .addGap(29, 29, 29)
                         .addComponent(txtTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -137,7 +137,7 @@ public class SearchHoaDon extends javax.swing.JInternalFrame {
                 .addComponent(jlbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlbTenQuyDinh)
+                    .addComponent(jlbTenHoaDon)
                     .addComponent(txtTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -182,7 +182,7 @@ public class SearchHoaDon extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnTimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel jlbTenQuyDinh;
+    private javax.swing.JLabel jlbTenHoaDon;
     private javax.swing.JLabel jlbTitle;
     private javax.swing.JTextField txtTenKhachHang;
     // End of variables declaration//GEN-END:variables

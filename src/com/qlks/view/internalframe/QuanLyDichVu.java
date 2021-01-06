@@ -59,7 +59,10 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
         } else {
             lstDichVu = dichVuDAO.getAll();
         }
-        lstDichVu.remove(0);
+        
+        if (lstDichVu.size() > 0) {
+            lstDichVu.remove(0);
+        }
 
         Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Giá", ""};
         dtmDichVu = new DefaultTableModel(new Object[0][0], columnNames);

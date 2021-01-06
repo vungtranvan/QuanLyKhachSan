@@ -15,7 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 /**
@@ -29,6 +31,7 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
      */
     List<NguoiDung> listNd;
     private NguoiDungDAO nddao = new NguoiDungDAO();
+    private JDesktopPane jdek;
 
     public DoiMatKhauNguoiDung(List<NguoiDung> listNd, Locale lc) {
         initComponents();
@@ -93,7 +96,7 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         makeText(lc);
         revalidate();
         repaint();
-        
+
     }
 
     /**
@@ -340,10 +343,18 @@ public class DoiMatKhauNguoiDung extends javax.swing.JInternalFrame {
         }
 
         if (check) {
-            if (nddao.updatePassword(listNguoiDung.get(0).getMaNguoiDung(), newPass) > 0) {
-                jlbChangePassMgs.setText("Đổi mật khẩu thành công");
+            int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn đổi mật khẩu không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (thongbao == JOptionPane.YES_OPTION) {
+                if (nddao.updatePassword(listNguoiDung.get(0).getMaNguoiDung(), newPass) > 0) {
+                    jdek = getDesktopPane();
+                    MethodMain.globalMessagerSuccess("Đổi mật khẩu thành công", jdek);
+                    jlbChangePassMgs.setText("");
+                    jpassOldPass.setText("");
+                    jpassNewPass.setText("");
+                    jpassRePass.setText("");
+                    dispose();
+                }
             }
-
         }
 
     }//GEN-LAST:event_btnOkActionPerformed
