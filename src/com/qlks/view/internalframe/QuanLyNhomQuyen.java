@@ -11,7 +11,6 @@ import com.qlks.dao.impl.PhanQuyenDAO;
 import com.qlks.models.NhomQuyen;
 import com.qlks.models.PhanQuyen;
 import com.qlks.utils.MethodMain;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -764,11 +763,11 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
 
         chbQlQd.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
         chbQlQd.setText("Quản Lý");
-        chbQlQd.setName("16"); // NOI18N
+        chbQlQd.setName("18"); // NOI18N
 
         chbXemQd.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
         chbXemQd.setText("Xem");
-        chbXemQd.setName("15"); // NOI18N
+        chbXemQd.setName("17"); // NOI18N
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
