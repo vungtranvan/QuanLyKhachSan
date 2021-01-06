@@ -9,8 +9,6 @@ import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.HoaDonDAO;
 import com.qlks.dao.impl.KhachHangDAO;
 import com.qlks.models.HoaDon;
-import com.qlks.models.KhachHang;
-import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.SearchHoaDon;
 import java.awt.Dimension;
 import java.util.List;

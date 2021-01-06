@@ -2533,4 +2533,61 @@ WHERE (NgayTraThucTe BETWEEN @tuNgay and @denNgay)
 go
 
 exec ThongKeKhachHang '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
+go 
+
+
+--- 
+CREATE VIEW SumPhong
+AS
+select dt.MaPhong,Count(MaPhong) as soLan
+FROM (Select DISTINCT(MaHoaDon),MaPhong from ChiTietHoaDon) dt
+GROUP by dt.MaPhong
+Go
+
+
+CREATE VIEW HsPhong
+AS
+select dt.MaPhong,Count(MaPhong) as soLan,FORMAT(CONVERT(float,Count(MaPhong))*100/(SELECT sum(soLan) From SumPhong),'N2') as HiieuSuatPhong
+FROM (Select DISTINCT(MaHoaDon),MaPhong from ChiTietHoaDon) dt
+GROUP by dt.MaPhong
+Go
+
+CREATE PROC ThongKeHieuSuatPhong
+@NgayBatDau datetime,
+@NgayKetThuc datetime
+as
+select Phong.MaPhong,isnull(HsPhong.HiieuSuatPhong,0) as HieuSuatThue ,isnull(SUM(SoNgay),0) as SoNgay,COUNT(dt.MaPhong) as SoLanThue,
+isnull(SUM(TienPhong),0) as TienPhong, isnull(DistinctGiaDichVu.TienDichVu,0) as TienDichVu,isnull(SUM(GiamGiaKH),0) as GiamGia,
+isnull(SUM(ThanhTien),0) AS TongTien
+FROM (Select DISTINCT(MaHoaDon),MaPhong,TienPhong,GiamGiaKH,SoNgay,ThanhTien from ChiTietKinhDoanh) dt
+JOIN (
+select dt.MaPhong,Sum(dt.ThanhTien) as TongTien
+FROM (Select DISTINCT(MaHoaDon),MaPhong,ngay.ThanhTien from (
+SELECT ChiTietHoaDon.*,PhieuNhanPhong.MaPhieuThue,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraThucTe from ChiTietHoaDon
+JOIN HoaDon
+ON ChiTietHoaDon.MaHoaDon = HoaDon.MaHoaDon
+JOIN PhieuNhanPhong
+ON PhieuNhanPhong.MaNhanPhong = HoaDon.MaNhanPhong
+JOIN ChiTietPhieuNhanPhong
+ON ChiTietPhieuNhanPhong.MaNhanPhong = PhieuNhanPhong.MaNhanPhong
+GROUP by ChiTietPhieuNhanPhong.NgayTraThucTe,ChiTietHoaDon.MaHoaDon,ChiTietHoaDon.MaPhong,ChiTietHoaDon.MaSuDungDichVu,
+ChiTietHoaDon.MaChinhSach,ChiTietHoaDon.PhuThu,ChiTietHoaDon.TienPhong,ChiTietHoaDon.TienDichVu,ChiTietHoaDon.GiamGiaKH,
+ChiTietHoaDon.HinhThucThanhToan,ChiTietHoaDon.SoNgay,ChiTietHoaDon.ThanhTien,PhieuNhanPhong.MaPhieuThue,ChiTietPhieuNhanPhong.NgayNhan
+HAVING ChiTietPhieuNhanPhong.NgayTraThucTe BETWEEN @NgayBatDau And @NgayKetThuc
+) ngay
+) dt
+GROUP by dt.MaPhong
+) dv
+on dv.MaPhong = dt.MaPhong
+JOIN DistinctGiaDichVu
+ON DistinctGiaDichVu.MaPhong = dv.MaPhong
+
+JOIN HsPhong
+ON dt.MaPhong = HsPhong.MaPhong
+right JOIN Phong
+ON dt.MaPhong  = Phong.MaPhong
+GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu,HsPhong.HiieuSuatPhong,Phong.MaPhong
+GO
+
+exec  ThongKeHieuSuatPhong '2018-01-29 00:00:00.000', '2030-02-10 00:00:00.000'
 go

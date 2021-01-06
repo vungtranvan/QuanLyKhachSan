@@ -7,14 +7,11 @@ package com.qlks.view.internalframe.action;
 
 import com.qlks.dao.impl.LoaiPhongDAO;
 import com.qlks.dao.impl.LoaiTinhTrangDAO;
-import com.qlks.dao.impl.PhongDAO;
 import com.qlks.models.LoaiPhong;
 import com.qlks.models.LoaiTinhTrang;
-import com.qlks.models.Phong;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
 /**
  *

@@ -5,7 +5,6 @@
  */
 package com.qlks.view.internalframe;
 
-import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.ThongKePhongDAO;
 import com.qlks.models.ThongKePhong;
 import com.qlks.utils.MethodMain;
@@ -25,7 +24,6 @@ public class ThongKeDoanhThuPhong extends javax.swing.JInternalFrame {
     private ThongKePhongDAO thongKePhongDAO;
     private List<ThongKePhong> lstThongKePhong;
     private DefaultTableModel dtmThongKePhong;
-    private FunctionBase funcBase;
     ResourceBundle rb;
     private Locale lc;
 
@@ -35,7 +33,6 @@ public class ThongKeDoanhThuPhong extends javax.swing.JInternalFrame {
         this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
         dtmThongKePhong = new DefaultTableModel();
         thongKePhongDAO = new ThongKePhongDAO();
-        funcBase = new FunctionBase();
         loadData(null, null);
     }
 
