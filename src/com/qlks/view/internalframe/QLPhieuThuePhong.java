@@ -11,11 +11,13 @@ import com.qlks.dao.impl.PhieuThuePhongDAO;
 import com.qlks.dao.impl.PhongDAO;
 import com.qlks.models.ChiTietPhieuThuePhong;
 import com.qlks.models.PhieuThuePhong;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddPhieuThuePhong;
 import com.qlks.view.internalframe.action.SearchPhieuThuePhong;
 import com.qlks.view.internalframe.action.UpdatePhieuThuePhong;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -43,6 +45,10 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
         chiTietPhieuThuePhongDAO = new ChiTietPhieuThuePhongDAO();
         funcBase = new FunctionBase();
         loadData(null, null, null);
+
+        if (!MethodMain.checkQuyen("QlDaoDich")) {
+            GroupBtn.setVisible(false);
+        }
     }
 
     public void loadData(String maPhieu, String tenKH, String maPhong) {
@@ -65,7 +71,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             o[4] = adv.getMaPhong();
             o[5] = adv.getNgayDangKy();
             o[6] = adv.getNgayNhan();
-            
+
             Boolean Status = adv.isTrangThai();
             String trangThai = "Chưa xử lý";
             if (Status == true) {
@@ -107,7 +113,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        GroupBtn = new javax.swing.JPanel();
         btnLamMoi = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -166,11 +172,11 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout GroupBtnLayout = new javax.swing.GroupLayout(GroupBtn);
+        GroupBtn.setLayout(GroupBtnLayout);
+        GroupBtnLayout.setHorizontalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -183,11 +189,11 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
                 .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(235, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        GroupBtnLayout.setVerticalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,7 +237,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
@@ -239,13 +245,11 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GroupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        getAccessibleContext().setAccessibleName("Quản lý phiếu thuê phòng");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -321,12 +325,12 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GroupBtn;
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPhieuThuePhong;

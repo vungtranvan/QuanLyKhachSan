@@ -335,7 +335,7 @@ public class LogInJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnResetActionPerformed
 
     /**

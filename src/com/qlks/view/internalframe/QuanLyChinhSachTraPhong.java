@@ -7,6 +7,7 @@ package com.qlks.view.internalframe;
 
 import com.qlks.dao.impl.ChinhSachTraPhongDAO;
 import com.qlks.models.ChinhSachTraPhong;
+import com.qlks.utils.MethodMain;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -32,6 +33,9 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
         chinhsachtpDAO = new ChinhSachTraPhongDAO();
         loadData(null, null);
         resetText();
+        if (!MethodMain.checkQuyen("QlChinhSachTraPhong")) {
+            jPanel1.setVisible(false);
+        }
     }
 
     public void loadData(String maSeaechInput, String noidungSearchInput) {
