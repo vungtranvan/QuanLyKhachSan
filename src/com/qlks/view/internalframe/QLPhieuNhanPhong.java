@@ -15,10 +15,13 @@ import com.qlks.models.ChiTietPhieuNhanPhong;
 import com.qlks.models.DanhSachSuDungDichVu;
 import com.qlks.models.NguoiDung;
 import com.qlks.models.PhieuNhanPhong;
+import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddPhieuNhanPhong;
 import com.qlks.view.internalframe.action.SearchPhieuNhanPhong;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -39,6 +42,8 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private PhongDAO phongDAO;
     private String tenNhanVien;
     private DanhSachSuDungDichVuDAO danhSachSuDungDichVuDAO;
+        ResourceBundle rb;
+    private Locale lc;
 
     public QLPhieuNhanPhong(List<NguoiDung> lstND) {
         initComponents();
@@ -50,6 +55,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         funcBase = new FunctionBase();
         loadData(null, null, null);
         tenNhanVien = lstND.get(0).getTenNguoiDung();
+                this.lc = lc;
+ 
+                if (!MethodMain.checkQuyen("QlDaoDich")) {
+                    GroupBtn.setVisible(false);
+        }
     }
 
     public void loadData(String maPhong, String tenKH, String CMND) {
@@ -121,7 +131,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        GroupBtn = new javax.swing.JPanel();
         btnLamMoi = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -171,11 +181,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout GroupBtnLayout = new javax.swing.GroupLayout(GroupBtn);
+        GroupBtn.setLayout(GroupBtnLayout);
+        GroupBtnLayout.setHorizontalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GroupBtnLayout.createSequentialGroup()
                 .addContainerGap(407, Short.MAX_VALUE)
                 .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -186,11 +196,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(415, 415, 415))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        GroupBtnLayout.setVerticalGroup(
+            GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GroupBtnLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(GroupBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +248,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
@@ -246,7 +256,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GroupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -346,11 +356,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GroupBtn;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPhieuNhanPhong;
