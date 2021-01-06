@@ -53,15 +53,13 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                  <Component id="btnInHoaDon" min="-2" pref="132" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
                   <Component id="btnLamMoi" min="-2" pref="133" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Component id="btnChiTiet" min="-2" pref="125" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Component id="btnTimKiem" min="-2" pref="125" max="-2" attributes="0"/>
-                  <EmptySpace pref="240" max="32767" attributes="0"/>
+                  <EmptySpace pref="260" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -71,7 +69,6 @@
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnLamMoi" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="btnInHoaDon" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="btnTimKiem" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="btnChiTiet" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
@@ -91,17 +88,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLamMoiActionPerformed"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnLamMoiKeyPressed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnInHoaDon">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/qlks/icon/icon_printer.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="In h&#xf3;a &#x111;&#x1a1;n"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInHoaDonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnTimKiem">

@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -120,5 +121,19 @@ public class FunctionBase {
             phuThu = lstCSTraPhong.get(0).getPhuThu();
         }
         return phuThu;
+    }
+
+    public String formatTien(float number) {
+        String pattern = "###, ###";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        String format = decimalFormat.format(number);
+        return format;
+    }
+
+    public String formatTien(int number) {
+        String pattern = "###, ###";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        String format = decimalFormat.format(number);
+        return format;
     }
 }

@@ -60,17 +60,17 @@ public class HoaDonDAO extends AbstractDAO<HoaDon> implements IHoaDonDAO {
                 hoaDon.getMaKhuyenMai(), hoaDon.getNhanVienLap(), hoaDon.getTongTien(), hoaDon.getNgayLap());
     }
 
-    @Override
-    public int update(HoaDon hoaDon) {
-        String sql = "{Call updateHoaDon(?,?,?,?,?,?,?)}";
-        return this.update(sql, hoaDon.getMaHoaDon(), hoaDon.getMaKhachHang(), hoaDon.getMaNhanPhong(),
-                hoaDon.getMaKhuyenMai(), hoaDon.getNhanVienLap(), hoaDon.getTongTien(), hoaDon.getNgayLap());
-    }
 
     @Override
     public int delete(int maHoaDon) {
         String sql = "{Call deleteHoaDon(?)}";
         return this.update(sql, maHoaDon);
+    }
+
+    @Override
+    public int addNoKM(HoaDon hoaDon) {
+       String sql = "{Call insertHoaDon_NoKM(?,?,?,?,?)}";
+        return this.update(sql, hoaDon.getMaKhachHang(), hoaDon.getMaNhanPhong(), hoaDon.getNhanVienLap(), hoaDon.getTongTien(), hoaDon.getNgayLap());
     }
 
 }

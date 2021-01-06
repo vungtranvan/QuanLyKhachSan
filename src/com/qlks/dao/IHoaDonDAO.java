@@ -28,7 +28,7 @@ public interface IHoaDonDAO {
 
     int add(HoaDon hoaDon);
 
-    int update(HoaDon hoaDon);
+    int addNoKM(HoaDon hoaDon);
 
     int delete(int maHoaDon);
 }

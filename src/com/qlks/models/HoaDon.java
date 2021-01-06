@@ -55,6 +55,14 @@ public class HoaDon {
         this.ngayLap = ngayLap;
     }
 
+    public HoaDon( String maKhachHang, String maNhanPhong, String nhanVienLap, float tongTien, LocalDate ngayLap) {
+        this.maKhachHang = maKhachHang;
+        this.maNhanPhong = maNhanPhong;
+        this.nhanVienLap = nhanVienLap;
+        this.tongTien = tongTien;
+        this.ngayLap = ngayLap;
+    }
+
     public String getTenKhachHang() {
         return tenKhachHang;
     }
