@@ -44,9 +44,6 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         ResourceBundle rb;
     private Locale lc;
     
-    
-    
-    
 
     public QLPhieuNhanPhong(List<NguoiDung> lstND) {
         initComponents();
