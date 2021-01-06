@@ -5,10 +5,15 @@
  */
 package com.qlks.dao;
 
+import com.qlks.models.ThongKePhong;
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  *
  * @author hello
  */
 public interface IThongKeHieuSuatPhongDAO {
-    
+
+    List<ThongKePhong> getAll(LocalDate ngayInput1, LocalDate ngayInput2);
 }

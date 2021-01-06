@@ -12,6 +12,7 @@ package com.qlks.models;
 public class ThongKePhong {
 
     private String maPhong;
+    private float hieuSuatPhong;
     private int soNgay;
     private int soLanThue;
     private float tienPhong;
@@ -30,6 +31,25 @@ public class ThongKePhong {
         this.tienDichVu = tienDichVu;
         this.giamGia = giamGia;
         this.tongTien = tongTien;
+    }
+
+    public ThongKePhong(String maPhong, float hieuSuatPhong, int soNgay, int soLanThue, float tienPhong, float tienDichVu, float giamGia, float tongTien) {
+        this.maPhong = maPhong;
+        this.hieuSuatPhong = hieuSuatPhong;
+        this.soNgay = soNgay;
+        this.soLanThue = soLanThue;
+        this.tienPhong = tienPhong;
+        this.tienDichVu = tienDichVu;
+        this.giamGia = giamGia;
+        this.tongTien = tongTien;
+    }
+
+    public float getHieuSuatPhong() {
+        return hieuSuatPhong;
+    }
+
+    public void setHieuSuatPhong(float hieuSuatPhong) {
+        this.hieuSuatPhong = hieuSuatPhong;
     }
 
     public String getMaPhong() {
