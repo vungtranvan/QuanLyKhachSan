@@ -2452,3 +2452,45 @@ GO
 exec insertNguoiDung 'Admin Manager','admin','123', null ,'admin@gmail.com','2020-12-12',1,1
 go
     
+
+CREATE VIEW ChiTietKinhDoanh
+as
+SELECT ChiTietHoaDon.*,PhieuNhanPhong.MaPhieuThue,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraThucTe from ChiTietHoaDon
+JOIN HoaDon
+ON ChiTietHoaDon.MaHoaDon = HoaDon.MaHoaDon
+JOIN PhieuNhanPhong
+ON PhieuNhanPhong.MaNhanPhong = HoaDon.MaNhanPhong
+JOIN ChiTietPhieuNhanPhong
+ON ChiTietPhieuNhanPhong.MaNhanPhong = PhieuNhanPhong.MaNhanPhong
+
+go
+CREATE PROC ThongKePhong
+@NgayBatDau datetime,
+@NgayKetThuc datetime
+as
+select dt.MaPhong,SUM(SoNgay) as SoNgay,SUM(TienPhong) as TienPhong,SUM(GiamGiaKH) as GiamGia,SUM(ThanhTien) AS ThanhTien ,dv.TongTien as TienDichVu
+FROM (Select DISTINCT(MaHoaDon),MaPhong,TienPhong,GiamGiaKH,SoNgay,ThanhTien from ChiTietKinhDoanh) dt
+JOIN (
+select dt.MaPhong,Sum(dt.ThanhTien) as TongTien
+FROM (Select DISTINCT(MaHoaDon),MaPhong,ngay.ThanhTien from (
+SELECT ChiTietHoaDon.*,PhieuNhanPhong.MaPhieuThue,ChiTietPhieuNhanPhong.NgayNhan,ChiTietPhieuNhanPhong.NgayTraThucTe from ChiTietHoaDon
+JOIN HoaDon
+ON ChiTietHoaDon.MaHoaDon = HoaDon.MaHoaDon
+JOIN PhieuNhanPhong
+ON PhieuNhanPhong.MaNhanPhong = HoaDon.MaNhanPhong
+JOIN ChiTietPhieuNhanPhong
+ON ChiTietPhieuNhanPhong.MaNhanPhong = PhieuNhanPhong.MaNhanPhong
+GROUP by ChiTietPhieuNhanPhong.NgayTraThucTe,ChiTietHoaDon.MaHoaDon,ChiTietHoaDon.MaPhong,ChiTietHoaDon.MaSuDungDichVu,
+ChiTietHoaDon.MaChinhSach,ChiTietHoaDon.PhuThu,ChiTietHoaDon.TienPhong,ChiTietHoaDon.TienDichVu,ChiTietHoaDon.GiamGiaKH,
+ChiTietHoaDon.HinhThucThanhToan,ChiTietHoaDon.SoNgay,ChiTietHoaDon.ThanhTien,PhieuNhanPhong.MaPhieuThue,ChiTietPhieuNhanPhong.NgayNhan
+HAVING ChiTietPhieuNhanPhong.NgayTraThucTe BETWEEN @NgayBatDau And @NgayKetThuc
+) ngay
+) dt
+GROUP by dt.MaPhong
+) dv
+on dv.MaPhong = dt.MaPhong
+GROUP by dt.MaPhong,dv.TongTien
+GO
+
+
+exec  ThongKePhong '2021-01-01 00:00:00.000', '2021-02-10 00:00:00.000'
