@@ -50,7 +50,6 @@ public class AddThietBi extends javax.swing.JInternalFrame {
     public void initDataLoaiPhong() {
         for (LoaiPhong adv : lstLoaiPhong) {
             modelLoaiPhong.addElement(adv);
-            System.out.println("Loại phòng - " + adv.getMaLoaiPhong());
         }
         jcbMaLoaiPhong.setModel(modelLoaiPhong);
     }
@@ -299,7 +298,6 @@ public class AddThietBi extends javax.swing.JInternalFrame {
                 check = false;
             }
         } catch (Exception e) {
-            System.out.println("Mã thiết bị đã tồn tại !");
             txtErrorMaTB.setText("Mã thiết bị đã tồn tại !");
         }
 

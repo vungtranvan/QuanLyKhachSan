@@ -66,11 +66,11 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
 
     public void initdataTablePhong() {
         lstPhieuThuePhong = phieuThuePhongDAO.getChuaXuLy();
-        Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận"};
+        Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Ngày trả dự kiến"};
         dtmPhieuThuePhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (PhieuThuePhong adv : lstPhieuThuePhong) {
-            Object[] o = new Object[7];
+            Object[] o = new Object[8];
             o[0] = index;
             o[1] = adv.getMaPhieuThue();
             o[2] = adv.getMaKhachHang();
@@ -78,6 +78,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
             o[4] = adv.getMaPhong();
             o[5] = adv.getNgayDangKy();
             o[6] = adv.getNgayNhan();
+            o[7] = adv.getNgayTraDuKien();
             dtmPhieuThuePhong.addRow(o);
             index++;
         }
@@ -101,6 +102,10 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
 
                             Date dateBD = java.sql.Date.valueOf(ngayBD);
                             txtNgayNhan.setDate(dateBD);
+
+                            LocalDate ngayTraDK = adm.getNgayTraDuKien();
+                            Date dateTra = java.sql.Date.valueOf(ngayTraDK);
+                            txtNgayTraDuKien.setDate(dateTra);
                         }
                         txtTenKhachHang.setText(tblPhieuThuePhong.getValueAt(pos, 3).toString());
                         txtMaPhong.setText(tblPhieuThuePhong.getValueAt(pos, 4).toString());
@@ -169,6 +174,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
         jLabel5.setText("Ngày nhận:");
 
         txtNgayTraDuKien.setDateFormatString("dd/MM/yyyy");
+        txtNgayTraDuKien.setEnabled(false);
         txtNgayTraDuKien.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -213,26 +219,17 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(50, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(22, Short.MAX_VALUE)
+                        .addContainerGap(29, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel3))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(20, 20, 20))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtErrorNgayTraDuKien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtErrorMaNhanPhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

@@ -184,11 +184,7 @@ public class Main {
         LocalDate b1 = LocalDate.parse("2020-10-20");
         
         boolean bl =  MethodMain.isOverlapping(a, a1, b, b1);
-      
-        System.out.println(bl);
-        
-        
-        
+       
         
         Main main = new Main();
 

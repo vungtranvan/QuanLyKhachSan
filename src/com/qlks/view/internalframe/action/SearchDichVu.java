@@ -256,7 +256,6 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             ma_LoaiDichVu = "";
         }
-        System.out.println("ma_LoaiDichVu:  a" + ma_LoaiDichVu + "b");
         DonVi dv = null;
         String ma_DonVi = "";
         try {
@@ -266,7 +265,6 @@ public class SearchDichVu extends javax.swing.JInternalFrame {
             ma_DonVi = "";
         }
 
-        System.out.println("ma_DonVi: a" + ma_DonVi + "b");
         cb.doSearch(maDV, ma_LoaiDichVu, ma_DonVi);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 

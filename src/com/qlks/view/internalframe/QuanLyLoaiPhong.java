@@ -300,7 +300,6 @@ public class QuanLyLoaiPhong extends javax.swing.JInternalFrame implements AddLo
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblLoaiPhong.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblLoaiPhong.getRowCount());
                 if (funcBase.IsSelected(i, 7, tblLoaiPhong)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));

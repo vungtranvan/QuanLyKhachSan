@@ -31,8 +31,8 @@ public class ChiTietPhieuThuePhongDAO extends AbstractDAO<ChiTietPhieuThuePhong>
 
     @Override
     public int add(ChiTietPhieuThuePhong ct) {
-        String sql = "{Call insertChiTietPhieuThuePhong(?,?,?,?)}";
-        return this.update(sql, ct.getMaPhieuThue(), ct.getMaPhong(), ct.getNgayDangKy(), ct.getNgayNhan());
+        String sql = "{Call insertChiTietPhieuThuePhong(?,?,?,?,?)}";
+        return this.update(sql, ct.getMaPhieuThue(), ct.getMaPhong(), ct.getNgayDangKy(), ct.getNgayNhan(), ct.getNgayTraDuKien());
     }
 
     @Override

@@ -302,7 +302,6 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
             for (int i = 0; i < tblDichVu.getRowCount(); i++) {
                 if (funcBase.IsSelected(i, 5, tblDichVu)) {
                     check = true;
-                    //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 
                     int rowSucces = dichVuDAO.delete(tblDichVu.getValueAt(i, 1).toString());
                     if (rowSucces > 0) {

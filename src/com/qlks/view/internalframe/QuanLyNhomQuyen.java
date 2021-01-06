@@ -990,7 +990,7 @@ public class QuanLyNhomQuyen extends javax.swing.JInternalFrame {
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblNhomQuyen.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblNhomQuyen.getRowCount());
+
                 if (funcBase.IsSelected(i, 3, tblNhomQuyen)) {
                     check = true;
                     int rowSucces = nhomQuyenDAO.delete(Integer.parseInt(tblNhomQuyen.getValueAt(i, 1).toString()));

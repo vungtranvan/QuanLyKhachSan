@@ -111,7 +111,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private JPanel subMenuService;
     QuanLyDonVi quanLyDonVi;
     private JPanel subMenuUnit;
-    
+
     private JPanel subMenuCheckout;
 
     QuanLyKhachHang quanLyKhachHang;
@@ -204,7 +204,7 @@ public class MainJFrame extends javax.swing.JFrame {
             showInternalFrame(subMenuBook, new QLPhieuThuePhong());
 
             subMenuCheckIn = new JPanel();
-            qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd,lc);
+            qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd, lc);
             listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
             showInternalFrame(subMenuCheckIn, qLPhieuNhanPhong);
 
@@ -295,24 +295,25 @@ public class MainJFrame extends javax.swing.JFrame {
             visibleSubMenu(menuCustomer, rb.getString("SubMenuTitleCustomer"), listSubMenuItemCustomer, 3);
         }
         //Thong ke
+        if (MethodMain.checkQuyen("QlDaoDich")) {
 
-        submenuStatisticsRoom = new JPanel();
-        thongKeDoanhThuPhong = new ThongKeDoanhThuPhong(lc);
-        listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom")));
-        showInternalFrame(submenuStatisticsRoom, thongKeDoanhThuPhong);
+            submenuStatisticsRoom = new JPanel();
+            thongKeDoanhThuPhong = new ThongKeDoanhThuPhong(lc);
+            listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom")));
+            showInternalFrame(submenuStatisticsRoom, thongKeDoanhThuPhong);
 
-        submenuStatisticsKhachHang = new JPanel();
-        thongKeKhachHang = new ThongKeKhachHang(lc);
-        listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsKhachHang, rb.getString("submenuStatisticsKhachHang")));
-        showInternalFrame(submenuStatisticsKhachHang, thongKeKhachHang);
+            submenuStatisticsKhachHang = new JPanel();
+            thongKeKhachHang = new ThongKeKhachHang(lc);
+            listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsKhachHang, rb.getString("submenuStatisticsKhachHang")));
+            showInternalFrame(submenuStatisticsKhachHang, thongKeKhachHang);
 
-        JPanel submenuStatisticsHsPhong = new JPanel();
-        ThongKeHieuSuatPhong thongKeHsPhong = new ThongKeHieuSuatPhong(lc);
-        listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsHsPhong, rb.getString("submenuStatisticsHsPhong")));
-        showInternalFrame(submenuStatisticsHsPhong, thongKeHsPhong);
+            JPanel submenuStatisticsHsPhong = new JPanel();
+            ThongKeHieuSuatPhong thongKeHsPhong = new ThongKeHieuSuatPhong(lc);
+            listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsHsPhong, rb.getString("submenuStatisticsHsPhong")));
+            showInternalFrame(submenuStatisticsHsPhong, thongKeHsPhong);
 
-        visibleSubMenu(menuStatistics, rb.getString("SubMenuTitleStatistics"), listSubMenuStatistic, 7);
-
+            visibleSubMenu(menuStatistics, rb.getString("SubMenuTitleStatistics"), listSubMenuStatistic, 7);
+        }
         // Ngon ngu
         NgonNgu ngonNgu = new NgonNgu(lc);
         subMenuLanguage = new JPanel();
@@ -331,7 +332,6 @@ public class MainJFrame extends javax.swing.JFrame {
                 MainColor = JColorChooser.showDialog(jMain, "Choise color", MainColor);
                 jpnSubmenu.setBackground(brighten(MainColor, 0.25));
                 setMenuBackGroundColor(MainColor.getRed(), MainColor.getGreen(), MainColor.getBlue());
-                System.out.println(MainColor.getRGB());
                 int[] color = {MainColor.getRed(), MainColor.getGreen(), MainColor.getBlue()};
                 Arrays.toString(color);
                 CauHinhNguoiDung cauHinhNguoiDungColor = new CauHinhNguoiDung(2, 1, Arrays.toString(color));
@@ -366,7 +366,6 @@ public class MainJFrame extends javax.swing.JFrame {
         invisibleSubMenu(closeSubMenu);
         invisibleSubMenu(jMain);
         setMenuBackGroundColor(this.MainColor.getRed(), this.MainColor.getGreen(), this.MainColor.getBlue());
-        System.out.println(this.MainColor.getRed());
 
         doiMatKhauNguoiDung = new DoiMatKhauNguoiDung(listNd, lc);
         showInternalFrame(menuAvatar, doiMatKhauNguoiDung);
@@ -422,7 +421,7 @@ public class MainJFrame extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent me) {
                 if (me.getButton() == MouseEvent.BUTTON1) {
 
-                    Dimension dmnsn = new Dimension(300, 1000);
+                    Dimension dmnsn = new Dimension(300, 2000);
                     jpnSubmenu.setPreferredSize(dmnsn);
 
                     jpnSubmenu.setMaximumSize(new Dimension(1000, 1000));
@@ -689,14 +688,14 @@ public class MainJFrame extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 NgonNguItem it = (NgonNguItem) ngonNgu.getJcbLang().getSelectedItem();
                 MainJFrame.this.cauHinhNgonNgu = it.getId();
-                System.out.println(cauHinhNgonNgu);
+
                 ngonNgu.getJlbLangMsg().setText("");
             }
         });
         ngonNgu.getJpnLangOk().addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                System.out.println(cauHinhNgonNgu);
+
                 cauHinhNguoiDung = new CauHinhNguoiDung(1, maNd, cauHinhNgonNgu);
                 setLocale(cauHinhNgonNgu);
                 int row = cauHinhNguoiDungDAO.update(cauHinhNguoiDung);
@@ -740,9 +739,6 @@ public class MainJFrame extends javax.swing.JFrame {
                     }
                     if (quanLyQuyDinh != null) {
                         quanLyQuyDinh.translate(lc);
-                    }
-                    if (qLPhieuNhanPhong != null) {
-                        qLPhieuNhanPhong.translate(lc);
                     }
 
                 }
@@ -823,6 +819,7 @@ public class MainJFrame extends javax.swing.JFrame {
         setTextJlbFromJpn(subMenuBook, rb.getString("subMenuBook"));
         setTextJlbFromJpn(subMenuCheckIn, rb.getString("subMenuCheckIn"));
         setTextJlbFromJpn(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom"));
+        setTextJlbFromJpn(subMenuHoaDon, rb.getString("subMenuHoaDon"));
 
         switch (languageKey) {
             case 1:

@@ -124,11 +124,6 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         }
     }
 
-    public void translate(Locale lc) {
-        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
-        this.thanhToanHoaDon.translate(this.rb);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -349,7 +344,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         }
         if (currentRow >= 0 && currentColumns == 12) {
             String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
-
+         
             if (trangThai.equals("Chưa thanh toán")) {
                 String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
                 String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();

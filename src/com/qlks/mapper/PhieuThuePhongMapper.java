@@ -20,7 +20,7 @@ public class PhieuThuePhongMapper implements RowMapper<PhieuThuePhong> {
     public PhieuThuePhong mapRow(ResultSet rs) {
         try {
             PhieuThuePhong data = new PhieuThuePhong(rs.getString("MaPhieuThue"), rs.getString("MaKhachHang"), rs.getString("TenKhachHang"),
-                    rs.getString("MaPhong"), rs.getDate("NgayDangKy").toLocalDate(), rs.getDate("NgayNhan").toLocalDate(), rs.getBoolean("TrangThai"));
+                    rs.getString("MaPhong"), rs.getDate("NgayDangKy").toLocalDate(), rs.getDate("NgayNhan").toLocalDate(), rs.getDate("NgayTraDuKien").toLocalDate(), rs.getBoolean("TrangThai"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);

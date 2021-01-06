@@ -293,7 +293,7 @@ public class QuanLyQuyDinh extends javax.swing.JInternalFrame implements AddQuyD
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblQuyDinh.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblQuyDinh.getRowCount());
+     
                 if (funcBase.IsSelected(i, 4, tblQuyDinh)) {
                     check = true;
                     //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));

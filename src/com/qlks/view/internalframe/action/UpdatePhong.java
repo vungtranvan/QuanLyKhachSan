@@ -74,7 +74,6 @@ public class UpdatePhong extends javax.swing.JInternalFrame {
     public void initDataLoaiPhong() {
         for (LoaiPhong adv : lstLoaiPhong) {
             modelLoaiPhong.addElement(adv);
-            System.out.println("Loại phòng - " + adv.getMaLoaiPhong());
         }
         jcbMaLoaiPhong.setModel(modelLoaiPhong);
     }
