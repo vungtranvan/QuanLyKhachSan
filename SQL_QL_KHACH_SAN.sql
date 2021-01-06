@@ -2434,3 +2434,4 @@ GO
 
 exec insertNguoiDung 'Admin Manager','admin','123', null ,'admin@gmail.com','2020-12-12',1,1
 go
+   
