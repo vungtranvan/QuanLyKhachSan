@@ -346,9 +346,6 @@ insert into NhomQuyen(TenNhomQuyen) Values
 (N'Nhân Viên')
 GO
 
-Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values('Admin Manager','admin','123', null ,'admin@gmail.com','2020-12-12',1,1)
-GO
-
 INSERT INTO QuyDinh(TenQuyDinh,MoTa) VALUES
 (N'Quy định 1',N'Quý khách vui lòng xuất trình hộ chiếu hoặc chứng minh nhân dân để làm thủ tục nhận phòng tại Lễ tân.'),
 (N'Quy định 2',N'Khách sạn chỉ chịu trách nhiệm với những tài sản hoặc tiền được gửi tại quầy Lễ tân.'),
@@ -761,31 +758,6 @@ SELECT * FROM NguoiDung Where TenDangNhap = @TenDangNhap
 END
 GO
 
-CREATE PROC insertNguoiDung
-@TenNguoiDung nvarchar (50),
-@TenDangNhap varchar (50),
-@MatKhau nvarchar (50),
-@Anh image,
-@Email varchar (50),
-@NgaySinh datetime,
-@GioiTinh bit,
-@MaNhomQuyen int
-AS
-DECLARE @id int
-BEGIN TRY
-    BEGIN TRANSACTION
-
-Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values(@TenNguoiDung,@TenDangNhap,@MatKhau,@Anh,@Email,@NgaySinh,@GioiTinh,@MaNhomQuyen)
-set @id = @@IDENTITY
-exec insertCauHinhNguoiDung 1,@id,'vietnam'
-exec insertCauHinhNguoiDung 2,@id,'[36, 36,36]'
-
-		COMMIT TRANSACTION
-END TRY
-BEGIN CATCH
-    ROLLBACK TRANSACTION
-END CATCH
-GO
 
 
 CREATE PROC updateNguoiDung
@@ -2418,10 +2390,9 @@ SET @Number = @Number + 1 ;
 END
 GO
 
-INSERT INTO CauHinh(LoaiCauHinh) VALUES ('Language')
-GO
-
-INSERT INTO CauHinhNguoiDung(MaCauHinh,MaNguoiDung,NoiDungCauHinh) VALUES (1,1,'vietnam')
+INSERT INTO CauHinh(LoaiCauHinh) VALUES 
+('Language'),
+('Color')
 GO
 
 CREATE PROC updateCauHinhNguoiDung
@@ -2433,3 +2404,33 @@ BEGIN
 update CauHinhNguoiDung SET NoiDungCauHinh = @NoiDungCauHinh WHERE MaCauHinh = @MaCauHinh AND MaNguoiDung = @MaNguoiDung
 END
 GO
+
+
+CREATE PROC insertNguoiDung
+@TenNguoiDung nvarchar (50),
+@TenDangNhap varchar (50),
+@MatKhau nvarchar (50),
+@Anh image,
+@Email varchar (50),
+@NgaySinh datetime,
+@GioiTinh bit,
+@MaNhomQuyen int
+AS
+DECLARE @id int
+BEGIN TRY
+    BEGIN TRANSACTION
+
+Insert into NguoiDung(TenNguoiDung,TenDangNhap,MatKhau,Anh,Email,NgaySinh,GioiTinh,MaNhomQuyen) Values(@TenNguoiDung,@TenDangNhap,@MatKhau,@Anh,@Email,@NgaySinh,@GioiTinh,@MaNhomQuyen)
+set @id = @@IDENTITY
+exec insertCauHinhNguoiDung 1,@id,'vietnam'
+exec insertCauHinhNguoiDung 2,@id,'[36, 36,36]'
+
+		COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION
+END CATCH
+GO
+
+exec insertNguoiDung 'Admin Manager','admin','123', null ,'admin@gmail.com','2020-12-12',1,1
+go
