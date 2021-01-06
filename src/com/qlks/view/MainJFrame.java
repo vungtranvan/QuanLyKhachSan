@@ -32,6 +32,8 @@ import com.qlks.view.internalframe.QuanLyPhong;
 import com.qlks.view.internalframe.QuanLyQuyDinh;
 import com.qlks.view.internalframe.QuanLyThietBi;
 import com.qlks.view.internalframe.ThongKeDoanhThuPhong;
+import com.qlks.view.internalframe.ThongKeHieuSuatPhong;
+import com.qlks.view.internalframe.ThongKeKhachHang;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -118,6 +120,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
     ThongKeDoanhThuPhong thongKeDoanhThuPhong;
     private JPanel submenuStatisticsRoom;
+    private JPanel submenuStatisticsKhachHang;
+    ThongKeKhachHang thongKeKhachHang;
+
+    JPanel submenuStatisticsHsPhong;
+    ThongKeHieuSuatPhong thongKeHsPhong;
 
     private JPanel subMenuConfig;
     private JPanel subMenuLanguage;
@@ -292,6 +299,17 @@ public class MainJFrame extends javax.swing.JFrame {
         thongKeDoanhThuPhong = new ThongKeDoanhThuPhong(lc);
         listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom")));
         showInternalFrame(submenuStatisticsRoom, thongKeDoanhThuPhong);
+
+        submenuStatisticsKhachHang = new JPanel();
+        thongKeKhachHang = new ThongKeKhachHang(lc);
+        listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsKhachHang, rb.getString("submenuStatisticsKhachHang")));
+        showInternalFrame(submenuStatisticsKhachHang, thongKeKhachHang);
+
+        JPanel submenuStatisticsHsPhong = new JPanel();
+        ThongKeHieuSuatPhong thongKeHsPhong = new ThongKeHieuSuatPhong(lc);
+        listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsHsPhong, rb.getString("submenuStatisticsHsPhong")));
+        showInternalFrame(submenuStatisticsHsPhong, thongKeHsPhong);
+
         visibleSubMenu(menuStatistics, rb.getString("SubMenuTitleStatistics"), listSubMenuStatistic, 7);
 
         // Ngon ngu
@@ -801,7 +819,6 @@ public class MainJFrame extends javax.swing.JFrame {
         setTextJlbFromJpn(subMenuBook, rb.getString("subMenuBook"));
         setTextJlbFromJpn(subMenuCheckIn, rb.getString("subMenuCheckIn"));
         setTextJlbFromJpn(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom"));
-
 
         switch (languageKey) {
             case 1:
