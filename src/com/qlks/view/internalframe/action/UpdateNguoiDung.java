@@ -495,16 +495,6 @@ public class UpdateNguoiDung extends javax.swing.JInternalFrame {
             txtErrorTenDangNhap.setText("");
         }
 
-        try {
-            List<NguoiDung> lstCheckID = nguoiDungDAO.getByTenDangNhap(tenDangNhap);
-            if (lstCheckID.size() > 0) {
-                txtErrorTenDangNhap.setText(this.rb.getString("AddNdTenDangNhapTonTai"));
-                check = false;
-            }
-        } catch (Exception e) {
-            txtErrorTenDangNhap.setText(this.rb.getString("AddNdTenDangNhapTonTai"));
-        }
-
         if (email.length() <= 0) {
             txtErrorEmail.setText(this.rb.getString("AddNdEmailTrong"));
             check = false;
@@ -515,15 +505,6 @@ public class UpdateNguoiDung extends javax.swing.JInternalFrame {
             txtErrorEmail.setText("");
         }
 
-        try {
-            List<NguoiDung> lstCheckID = nguoiDungDAO.getByEmail(email);
-            if (lstCheckID.size() > 0) {
-                txtErrorEmail.setText(this.rb.getString("AddNdEmailTonTai"));
-                check = false;
-            }
-        } catch (Exception e) {
-            txtErrorEmail.setText(this.rb.getString("AddNdEmailTonTai"));
-        }
 
         if (matKhau.length() <= 0) {
             txtErrorMatKhau.setText(this.rb.getString("AddNdMkTrong"));

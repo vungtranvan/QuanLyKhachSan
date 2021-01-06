@@ -21,6 +21,8 @@ public interface IKhuyenMaiDAO {
 
     List<KhuyenMai> getByMaPhieuKhuyenMai(String maPhieu);
 
+    List<KhuyenMai> kiemTraHieuLucKM(String maPhieu, LocalDate ngayKT);
+
     List<KhuyenMai> search(String maPhieu, String noiDung, Boolean trangThai);
 
     List<KhuyenMai> search(String maPhieu, String noiDung);
@@ -28,6 +30,8 @@ public interface IKhuyenMaiDAO {
     int add(KhuyenMai khuyenMai);
 
     int update(KhuyenMai khuyenMai);
+
+    int updateTrangThai(String maPhieu);
 
     int delete(int maKhuyenMai);
 }

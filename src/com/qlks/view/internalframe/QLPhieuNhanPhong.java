@@ -17,7 +17,6 @@ import com.qlks.models.NguoiDung;
 import com.qlks.models.PhieuNhanPhong;
 import com.qlks.view.internalframe.action.AddPhieuNhanPhong;
 import com.qlks.view.internalframe.action.SearchPhieuNhanPhong;
-import com.qlks.view.internalframe.action.UpdatePhieuChiTietNhanPhong;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JDesktopPane;
@@ -29,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, UpdatePhieuChiTietNhanPhong.CallBackUpdate, SearchPhieuNhanPhong.CallBackSearch, ThanhToanHoaDon.CallBackCheckOut {
+public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, SearchPhieuNhanPhong.CallBackSearch, ThanhToanHoaDon.CallBackCheckOut {
 
     private PhieuNhanPhongDAO phieuNhanPhongDAO;
     private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
@@ -127,7 +126,6 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         btnThemMoi = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
-        btnCapNhat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPhieuNhanPhong = new javax.swing.JTable();
@@ -173,14 +171,6 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             }
         });
 
-        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_edit.png"))); // NOI18N
-        btnCapNhat.setText("Cập nhật");
-        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCapNhatActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -194,9 +184,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(258, 258, 258))
+                .addGap(415, 415, 415))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,8 +194,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -325,24 +312,6 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         loadData(null, null, null);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
-    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        int currentRow = tblPhieuNhanPhong.getSelectedRow();
-
-        if (currentRow >= 0) {
-            String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
-            List<ChiTietPhieuNhanPhong> lstNhanPhong = chiTietPhieuNhanPhongDAO.getByMaNhanPhong(maNhanPhong);
-
-            ChiTietPhieuNhanPhong data = null;
-            for (ChiTietPhieuNhanPhong adx : lstNhanPhong) {
-                data = new ChiTietPhieuNhanPhong(adx.getMaNhanPhong(), adx.getNgayTraThucTe());
-            }
-
-            showInternalFrame(new UpdatePhieuChiTietNhanPhong(data, this));
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_btnCapNhatActionPerformed
-
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         showInternalFrame(new SearchPhieuNhanPhong(this));
     }//GEN-LAST:event_btnTimKiemActionPerformed
@@ -363,19 +332,12 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         }
         if (currentRow >= 0 && currentColumns == 12) {
             String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
-            String ngayTraThucTe = null;
-            try {
-                ngayTraThucTe = dtmPhieuNhanPhong.getValueAt(currentRow, 9).toString();
-            } catch (Exception e) {
-                ngayTraThucTe = null;
-            }
-            if (trangThai.equals("Chưa thanh toán") && ngayTraThucTe != null) {
+  
+            if (trangThai.equals("Chưa thanh toán")) {
                 String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
                 String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
                 String maKH = dtmPhieuNhanPhong.getValueAt(currentRow, 3).toString();
                 showInternalFrame(new ThanhToanHoaDon(this, maNhanPhong, maPhong, maKH, tenNhanVien));
-            } else if (ngayTraThucTe == null) {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng cập nhật ngày trả thực tế khách hàng này trước khi thanh toán !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán !", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
@@ -384,7 +346,6 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
@@ -397,11 +358,6 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
 
     @Override
     public void doAdd() {
-        loadData(null, null, null);
-    }
-
-    @Override
-    public void doUpdate() {
         loadData(null, null, null);
     }
 

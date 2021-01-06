@@ -5,7 +5,6 @@
  */
 package com.qlks.view.internalframe;
 
-import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.ChinhSachTraPhongDAO;
 import com.qlks.models.ChinhSachTraPhong;
 import java.util.List;
@@ -23,7 +22,6 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
     private ChinhSachTraPhongDAO chinhsachtpDAO;
     private List<ChinhSachTraPhong> lstCSTraPhong;
     private DefaultTableModel dtmCSTraPhong;
-    private FunctionBase funcBase;
 
     /**
      * Creates new form QuanLyTaiSan
@@ -32,7 +30,6 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
         initComponents();
         dtmCSTraPhong = new DefaultTableModel();
         chinhsachtpDAO = new ChinhSachTraPhongDAO();
-        funcBase = new FunctionBase();
         loadData(null, null);
         resetText();
     }
@@ -43,7 +40,7 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
         } else {
             lstCSTraPhong = chinhsachtpDAO.getAll();
         }
-        Object[] columnNames = {"STT", "Mã Chính Sách Trả Phòng", "Nội dung", "Phụ thu", ""};
+        Object[] columnNames = {"STT", "Mã Chính Sách Trả Phòng", "Nội dung", "Phụ thu(%)"};
         dtmCSTraPhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (ChinhSachTraPhong adv : lstCSTraPhong) {
@@ -56,7 +53,6 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
             index++;
         }
         tblChinhSachTraPhong.setModel(dtmCSTraPhong);
-        funcBase.addCheckBox(4, tblChinhSachTraPhong);
         // Cài đặt sự kiện khi click từng dòng trong bảng
         if (lstCSTraPhong.size() > 0) {
             System.out.println(lstCSTraPhong.isEmpty());
@@ -103,7 +99,6 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
         txtNoiDung = new javax.swing.JTextField();
         btnThemMoi = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
         lblResult = new javax.swing.JLabel();
         btnLamMoi = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -153,14 +148,6 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
             }
         });
 
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_delete.png"))); // NOI18N
-        btnXoa.setText("Xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
-
         lblResult.setForeground(new java.awt.Color(248, 13, 33));
 
         btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_refresh.png"))); // NOI18N
@@ -199,27 +186,27 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
                         .addGap(161, 161, 161)
                         .addComponent(lblResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnLamMoi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnThemMoi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCapNhat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 10, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNoiDung)
-                            .addComponent(txtPhuThu)
-                            .addComponent(txtMaChinhSach)
-                            .addComponent(txtErrorMaChinhSach, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtErrorNoiDung, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtErrorPhuThu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 79, Short.MAX_VALUE)
+                                .addComponent(btnLamMoi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnThemMoi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCapNhat))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNoiDung)
+                                    .addComponent(txtPhuThu)
+                                    .addComponent(txtMaChinhSach)
+                                    .addComponent(txtErrorMaChinhSach, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtErrorNoiDung, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtErrorPhuThu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -245,12 +232,11 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorPhuThu)
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -320,7 +306,7 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearchNoiDung)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 2, Short.MAX_VALUE)
+                        .addGap(0, 6, Short.MAX_VALUE)
                         .addComponent(txtSeachMaCSach, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(32, 32, 32)
@@ -473,43 +459,6 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        String succesDeltete = "";
-        String errDeltete = "";
-        Boolean check = false;
-        int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (thongbao == JOptionPane.YES_OPTION) {
-
-            for (int i = 0; i < tblChinhSachTraPhong.getRowCount(); i++) {
-                System.out.println("getRowCount= " + tblChinhSachTraPhong.getRowCount());
-                if (funcBase.IsSelected(i, 4, tblChinhSachTraPhong)) {
-                    check = true;
-                    int rowSucces = chinhsachtpDAO.delete(tblChinhSachTraPhong.getValueAt(i, 1).toString());
-                    tblChinhSachTraPhong.clearSelection();
-                    if (rowSucces > 0) {
-                        succesDeltete += "\t" + tblChinhSachTraPhong.getValueAt(i, 2).toString() + "\n";
-                    } else {
-                        errDeltete += "\t" + tblChinhSachTraPhong.getValueAt(i, 2).toString() + "\n";
-                    }
-                }
-            }
-            loadData(null, null);
-            resetText();
-            if (check == true) {
-                String mess = "";
-                if (succesDeltete.length() > 0) {
-                    mess += "Bạn đã xóa thành công: \n" + succesDeltete;
-                }
-                if (errDeltete.length() > 0) {
-                    mess += "Không thể xóa: \n" + errDeltete;
-                }
-                JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnXoaActionPerformed
-
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         tblChinhSachTraPhong.clearSelection();
         loadData(null, null);
@@ -535,7 +484,6 @@ public class QuanLyChinhSachTraPhong extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnThemMoi;
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

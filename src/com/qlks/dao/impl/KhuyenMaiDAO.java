@@ -65,4 +65,16 @@ public class KhuyenMaiDAO extends AbstractDAO<KhuyenMai> implements IKhuyenMaiDA
         return this.update(sql, maKhuyenMai);
     }
 
+    @Override
+    public List<KhuyenMai> kiemTraHieuLucKM(String maPhieu, LocalDate ngayKT) {
+        String sql = "{Call kiemTraHieuLucKM(?,?)}";
+        return query(sql, new KhuyenMaiMapper(), maPhieu, ngayKT);
+    }
+
+    @Override
+    public int updateTrangThai(String maPhieu) {
+        String sql = "{Call updateTrangThaiKhuyenMai(?)}";
+        return this.update(sql, maPhieu);
+    }
+
 }

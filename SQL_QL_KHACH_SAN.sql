@@ -400,10 +400,11 @@ INSERT INTO LoaiTinhTrang(TenLoaiTinhTrang) VALUES
 GO 
 
 INSERT INTO KhuyenMai(MaPhieu,GiaTri,NoiDung,NgayBatDau,NgayKetThuc,KieuTinh,TrangThai) VALUES
-('CTKM01',10,N'Khuyến mại 1','2020-12-20','2020-01-20',1,0),
-('TRIANKHACHHANG',10,N'Tri ân khách hàng','2020-01-01','2020-01-15',1,0),
-('HOLIDAY',500000,N'Khuyến mại 1','2020-12-20','2020-01-20',0,0),
-('OK123',40,N'Khuyến mại 2','2020-12-20','2020-01-20',1,1)
+('CTKM01',10,N'Khuyến mại 1','2020-12-20','2020-12-27',1,0),
+('TRIANKHACHHANG',15,N'Tri ân khách hàng','2020-01-01','2020-01-15',1,0),
+('HOLIDAY',350000,N'Khuyến mại 1','2021-01-05','2021-01-20',0,0),
+('OK123',40,N'Khuyến mại 2','2020-12-20','2021-01-20',1,1),
+('OCE',50,N'Khuyến mại 3','2020-12-25','2021-01-20',1,0)
 GO
 
 INSERT into Quyen(Quyen) VALUES 
@@ -1542,17 +1543,15 @@ Insert into HoaDon(MaKhachHang,MaNhanPhong,MaKhuyenMai,NhanVienLap,TongTien,Ngay
 END
 GO
 
-CREATE PROC updateHoaDon
-@MaHoaDon int,
+CREATE PROC insertHoaDon_NoKM
 @MaKhachHang varchar (3),
 @MaNhanPhong varchar (5),
-@MaKhuyenMai int,
 @NhanVienLap nvarchar (50),
 @TongTien float,
 @NgayLap datetime
 AS
 BEGIN 
-Update HoaDon set MaKhachHang = @MaKhachHang, MaNhanPhong = @MaNhanPhong,MaKhuyenMai=@MaKhuyenMai,NhanVienLap=@NhanVienLap,TongTien=@TongTien,NgayLap=@NgayLap Where MaHoaDon = @MaHoaDon
+Insert into HoaDon(MaKhachHang,MaNhanPhong,NhanVienLap,TongTien,NgayLap) Values(@MaKhachHang,@MaNhanPhong,@NhanVienLap,@TongTien,@NgayLap)
 END
 GO
 
@@ -1610,6 +1609,24 @@ SELECT * FROM KhuyenMai
 Where MaPhieu LIKE '%'+@MaPhieu+'%'
 AND NoiDung LIKE '%'+@NoiDung+'%' AND TrangThai =@TrangThai
 ORDER BY MaKhuyenMai DESC
+END
+GO
+
+CREATE PROC kiemTraHieuLucKM
+@MaPhieu varchar (50),
+@dateInput datetime
+AS
+BEGIN 
+SELECT * FROM KhuyenMai
+WHERE MaPhieu = @MaPhieu AND @dateInput BETWEEN NgayBatDau AND NgayKetThuc 
+END
+GO
+
+CREATE PROC updateTrangThaiKhuyenMai
+@MaPhieu varchar (50)
+AS
+BEGIN 
+Update KhuyenMai set TrangThai= 1 Where MaPhieu = @MaPhieu
 END
 GO
 

@@ -11,6 +11,7 @@ import com.qlks.dao.impl.ChiTietPhieuNhanPhongDAO;
 import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
 import com.qlks.dao.impl.HoaDonDAO;
 import com.qlks.dao.impl.KhachHangDAO;
+import com.qlks.dao.impl.KhuyenMaiDAO;
 import com.qlks.dao.impl.LoaiPhongDAO;
 import com.qlks.dao.impl.PhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhongDAO;
@@ -20,8 +21,9 @@ import com.qlks.models.KhachHang;
 import com.qlks.models.LoaiPhong;
 import com.qlks.models.ChiTietHoaDon;
 import com.qlks.models.ChiTietPhieuNhanPhong;
+import com.qlks.models.KhuyenMai;
 import com.qlks.models.Phong;
-import com.qlks.utils.MethodMain;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -56,10 +58,16 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     private String maPhong;
     private String tenNhanVien;
     private FunctionBase funcBase;
+    private KhuyenMaiDAO khuyenMaiDAO;
     private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
     private int soNgay = 0;
     private int _maHoaDon = 0;
     CallBackCheckOut cb;
+    private float tienPhong = 0;
+    private float tongTienDVu = 0;
+    private float tienKM = 0;
+    private String maPhieuCodeKM = "";
+    private int maKhuyenMai = 0;
 
     public interface CallBackCheckOut {
 
@@ -72,6 +80,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     public ThanhToanHoaDon(CallBackCheckOut _cb, String _maNhanPhong, String _maPhong, String maKH, String _tenNhanVien) {
         initComponents();
         cb = _cb;
+        khuyenMaiDAO = new KhuyenMaiDAO();
         phieuNhanPhongDAO = new PhieuNhanPhongDAO();
         dtmDanhSachSuDungDichVu = new DefaultTableModel();
         chiTietPhieuNhanPhongDAO = new ChiTietPhieuNhanPhongDAO();
@@ -88,12 +97,17 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         maPhong = _maPhong;
         tenNhanVien = _tenNhanVien;
         lstKhachHangByID = khachHangDAO.getByMa(maKH);
+        txtThongBaoKM.setText("");
         setData();
         initDVDSD();
-        lblTongTien.setText(Float.toString(sumTongTien()));
+        lblTongTien.setText(funcBase.formatTien(sumTongTien()));
     }
 
     public void setData() {
+        ChiTietPhieuNhanPhong ctP = new ChiTietPhieuNhanPhong(maNhanPhong, LocalDate.now());
+        chiTietPhieuNhanPhongDAO.updateNgayTraDuKien(ctP);
+        cb.doCheckOut();
+
         List<ChiTietPhieuNhanPhong> lstCTNPBYID = chiTietPhieuNhanPhongDAO.getByMaNhanPhong(maNhanPhong);
         for (ChiTietPhieuNhanPhong lstCT : lstCTNPBYID) {
             LocalDate ngayDn = lstCT.getNgayNhan();
@@ -109,11 +123,12 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         for (Phong p : lstPhong) {
             List<LoaiPhong> lstLoaiPhong = loaiPhongDAO.getByMa(p.getMaLoaiPhong());
             for (LoaiPhong lp : lstLoaiPhong) {
-                lblGiaPhong.setText(Float.toString(lp.getDonGia()));
+                tienPhong = lp.getDonGia();
+                lblGiaPhong.setText(funcBase.formatTien(tienPhong));
                 lblLoaiPhong.setText(lp.getTenLoaiPhong());
             }
         }
-        float tienKM = 0;
+
         lblKhuyenMai.setText(Float.toString(tienKM));
 
         lblPhuThu.setText(Float.toString(funcBase.funcGetGiaTriPhuThu()));
@@ -133,31 +148,31 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     public void initDVDSD() {
         lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(maNhanPhong);
         //lstDanhSachSuDungDichVu.remove(0);
-        Object[] columnNames = {"STT", "Mã SD dịch vụ", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", "Thành tiền"};
+        Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", "Thành tiền"};
         dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
         if (lstDanhSachSuDungDichVu.size() > 0) {
             int index = 1;
             for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
                 if (lstDanhSachSuDungDichVu.get(lstDanhSachSuDungDichVu.size() - 1) != adv) {
                     modelDichVu.addElement(adv);
-                    Object[] o = new Object[8];
+                    Object[] o = new Object[7];
                     o[0] = index;
-                    o[1] = adv.getMaSuDungDVu();
-                    o[2] = adv.getMaDichVu();
-                    o[3] = adv.getTenLoaiDichVu();
-                    o[4] = adv.getTenDonvi();
-                    o[5] = adv.getSoLuong();
-                    o[6] = (int) adv.getDonGia();
-                    o[7] = adv.getSoLuong() * (int) adv.getDonGia();
+                    o[1] = adv.getMaDichVu();
+                    o[2] = adv.getTenLoaiDichVu();
+                    o[3] = adv.getTenDonvi();
+                    o[4] = adv.getSoLuong();
+                    o[5] = (int) adv.getDonGia();
+                    o[6] = adv.getSoLuong() * (int) adv.getDonGia();
                     dtmDanhSachSuDungDichVu.addRow(o);
                     index++;
                 }
             }
             tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
-            lblTienDichVu.setText(Integer.toString(SumTienDV()));
+            tongTienDVu = SumTienDV();
+            lblTienDichVu.setText(funcBase.formatTien(tongTienDVu));
         } else {
             tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
-            lblTienDichVu.setText(Integer.toString(0));
+            lblTienDichVu.setText(funcBase.formatTien(tongTienDVu));
         }
 
     }
@@ -166,7 +181,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         int rowcount = tblDichVuDaSD.getRowCount();
         int sum = 0;
         for (int i = 0; i < rowcount; i++) {
-            sum += Integer.parseInt(tblDichVuDaSD.getValueAt(i, 7).toString());
+            sum += Integer.parseInt(tblDichVuDaSD.getValueAt(i, 6).toString());
         }
         return sum;
     }
@@ -178,9 +193,9 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
             tongTienDV = (float) SumTienDV();
         }
 
-        float tongTienPhong = Float.parseFloat(lblGiaPhong.getText().toString()) * soNgay;
-        float tienPhuThu = Float.parseFloat(lblGiaPhong.getText().toString()) * funcBase.funcGetGiaTriPhuThu() / 100;
-        float tienKhuyenMai = Float.parseFloat(lblKhuyenMai.getText().toString());
+        float tongTienPhong = tienPhong * soNgay;
+        float tienPhuThu = tienPhong * funcBase.funcGetGiaTriPhuThu() / 100;
+        float tienKhuyenMai = tienKM;
         sum = tongTienDV + tongTienPhong + tienPhuThu - tienKhuyenMai;
         return sum;
     }
@@ -247,7 +262,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         btnThanhToan = new javax.swing.JButton();
         btnHuyBo = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        txtKhuyenMai = new javax.swing.JTextField();
+        txtSearchMaKhuyenMai = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         lblKhuyenMai = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -260,7 +275,8 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnKiemTraMaKM = new javax.swing.JButton();
+        txtThongBaoKM = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -386,7 +402,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                     .addComponent(lblNgayThue)
                     .addComponent(jLabel24)
                     .addComponent(lblNgayDi))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách dịch vụ đã sử dụng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -428,18 +444,21 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         jLabel7.setText("Tiền phòng:");
 
         lblGiaPhong.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblGiaPhong.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblGiaPhong.setText("...");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Tiền dịch vụ: ");
 
         lblTienDichVu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblTienDichVu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTienDichVu.setText("...");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Tổng tiền:");
 
         lblTongTien.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTongTien.setText("...");
 
         btnThanhToan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -467,6 +486,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         jLabel18.setText("Khuyến mại:");
 
         lblKhuyenMai.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblKhuyenMai.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblKhuyenMai.setText("...");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -483,6 +503,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         jLabel21.setText("Phụ thu:");
 
         lblPhuThu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPhuThu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPhuThu.setText("...");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -500,8 +521,16 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel23.setText("VND");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("Kiểm tra");
+        btnKiemTraMaKM.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnKiemTraMaKM.setText("Kiểm tra");
+        btnKiemTraMaKM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKiemTraMaKMActionPerformed(evt);
+            }
+        });
+
+        txtThongBaoKM.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        txtThongBaoKM.setText("Mã đã tồn tại");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -525,9 +554,11 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
-                        .addComponent(txtKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtThongBaoKM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSearchMaKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnKiemTraMaKM, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -578,10 +609,14 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                         .addGap(129, 129, 129)
                         .addComponent(jLabel16))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(lblGiaPhong))
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7)
+                                .addComponent(lblGiaPhong))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(txtThongBaoKM, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(lblTienDichVu))
@@ -603,9 +638,9 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtSearchMaKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel17)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnKiemTraMaKM, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(25, 25, 25)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel20)
@@ -655,7 +690,12 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        int row = hoaDonDAO.add(new HoaDon(maKhachHang, maNhanPhong, 1, tenNhanVien, sumTongTien(), LocalDate.now()));
+        int row = 0;
+        if (tienKM > 0) {
+            row = hoaDonDAO.add(new HoaDon(maKhachHang, maNhanPhong, maKhuyenMai, tenNhanVien, sumTongTien(), LocalDate.now()));
+        } else {
+            row = hoaDonDAO.addNoKM(new HoaDon(maKhachHang, maNhanPhong, tenNhanVien, sumTongTien(), LocalDate.now()));
+        }
 
         if (row > 0) {
             List<HoaDon> getIdHoaDon = hoaDonDAO.getIdMAX();
@@ -668,7 +708,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 _maHoaDon = idHoaDon.getMaHoaDon();
                 for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
                     row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), maPhong, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
-                            Float.parseFloat(lblGiaPhong.getText()), adv.getDonGia(), 0, hinhThucTT, soNgay, sumTongTien()));
+                            tienPhong, adv.getDonGia(), tienKM, hinhThucTT, soNgay, sumTongTien()));
                 }
 
             }
@@ -679,6 +719,11 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 cb.doCheckOut();
                 ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
                 showInternalFrame(jframeChiTietHoaDon);
+
+                if (tienKM > 0) {
+                    khuyenMaiDAO.updateTrangThai(maPhieuCodeKM);
+                }
+
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thất bại", null, JOptionPane.ERROR_MESSAGE);
@@ -690,12 +735,53 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnHuyBoActionPerformed
 
+    private void btnKiemTraMaKMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKiemTraMaKMActionPerformed
+        String maPhieuInput = txtSearchMaKhuyenMai.getText().trim();
+        if (maPhieuInput.length() > 0) {
+            List<KhuyenMai> lstKM = khuyenMaiDAO.getByMaPhieuKhuyenMai(maPhieuInput);
+            List<KhuyenMai> lstKM_KTDate = khuyenMaiDAO.kiemTraHieuLucKM(maPhieuInput, LocalDate.now());
+            if (lstKM.size() > 0) {
+                if (lstKM_KTDate.size() > 0) {
+                    for (KhuyenMai km : lstKM) {
+                        maPhieuCodeKM = km.getMaPhieu();
+                        maKhuyenMai = km.getMaKhuyenMai();
+                        if (km.isTrangThai() == false) {
+                            if (km.isKieuTinh() == true) {
+                                tienKM = (tienPhong * km.getGiaTri()) / 100;
+                            } else {
+                                tienKM = km.getGiaTri();
+                            }
+                            txtThongBaoKM.setText("");
+                        } else {
+                            txtThongBaoKM.setText("Mã này đã được sử dụng trước đó !!!");
+                            txtThongBaoKM.setForeground(Color.RED);
+                        }
+                    }
+                } else {
+                    txtThongBaoKM.setText("Mã này đã hết hạn sử dụng !!!");
+                    txtThongBaoKM.setForeground(Color.RED);
+                }
+
+            } else {
+                txtThongBaoKM.setText("Mã không tồn tại !!!");
+                txtThongBaoKM.setForeground(Color.RED);
+            }
+        } else {
+            txtThongBaoKM.setText("");
+            txtThongBaoKM.setForeground(Color.BLACK);
+            tienKM = 0;
+        }
+        setData();
+        initDVDSD();
+        lblTongTien.setText(funcBase.formatTien(sumTongTien()));
+    }//GEN-LAST:event_btnKiemTraMaKMActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuyBo;
+    private javax.swing.JButton btnKiemTraMaKM;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -739,6 +825,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rdTienMat;
     private javax.swing.JRadioButton rdTienThe;
     private javax.swing.JTable tblDichVuDaSD;
-    private javax.swing.JTextField txtKhuyenMai;
+    private javax.swing.JTextField txtSearchMaKhuyenMai;
+    private javax.swing.JLabel txtThongBaoKM;
     // End of variables declaration//GEN-END:variables
 }

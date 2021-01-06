@@ -103,7 +103,6 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon
 
         jPanel1 = new javax.swing.JPanel();
         btnLamMoi = new javax.swing.JButton();
-        btnInHoaDon = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
         btnChiTiet = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -124,14 +123,6 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon
         btnLamMoi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 btnLamMoiKeyPressed(evt);
-            }
-        });
-
-        btnInHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_printer.png"))); // NOI18N
-        btnInHoaDon.setText("In hóa đơn");
-        btnInHoaDon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInHoaDonActionPerformed(evt);
             }
         });
 
@@ -156,15 +147,13 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addComponent(btnInHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(244, 244, 244)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(54, 54, 54)
                 .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(57, 57, 57)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +161,6 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnInHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -230,11 +218,6 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
-        //QuanLyCauHinh jInterFrame = new QuanLyCauHinh();
-        // showInternalFrame(new AddKhachHang(this));
-    }//GEN-LAST:event_btnInHoaDonActionPerformed
-
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
         loadData(null);
     }//GEN-LAST:event_btnLamMoiKeyPressed
@@ -247,22 +230,11 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon
         int currentRow = tblHoaDon.getSelectedRow();
 
         if (currentRow >= 0) {
-//            String maKH = dtmHoaDon.getValueAt(currentRow, 1).toString();
-//            String tenKH = dtmHoaDon.getValueAt(currentRow, 2).toString();
-//            String CMND = dtmHoaDon.getValueAt(currentRow, 3).toString();
-//            String diaChi = dtmHoaDon.getValueAt(currentRow, 4).toString();
-//            String dienThoai = dtmHoaDon.getValueAt(currentRow, 5).toString();
-//            String gioiTinhInTable = dtmHoaDon.getValueAt(currentRow, 6).toString();
-//            Boolean gioiTinh = true;
-//            if (gioiTinhInTable.equals("Nữ")) {
-//                gioiTinh = false;
-//            }
-//            String quocTich = dtmHoaDon.getValueAt(currentRow, 7).toString();
-//            KhachHang dataKH = new KhachHang(maKH, tenKH, CMND, diaChi, dienThoai, gioiTinh, quocTich);
+            int maHĐ = Integer.parseInt(dtmHoaDon.getValueAt(currentRow, 1).toString());
 
-//            showInternalFrame(new UpdateKhachHang(dataKH, this));
+            showInternalFrame(new ChiTietHoaDonView(maHĐ));
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn hàng để xem chi tiết hóa đơn", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnChiTietActionPerformed
 
@@ -273,7 +245,6 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChiTiet;
-    private javax.swing.JButton btnInHoaDon;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JPanel jPanel1;
