@@ -6,7 +6,11 @@
 package com.qlks.custom;
 
 import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
+import com.qlks.dao.impl.PhieuNhanPhongDAO;
+import com.qlks.dao.impl.PhieuThuePhongDAO;
 import com.qlks.models.DanhSachSuDungDichVu;
+import com.qlks.models.PhieuNhanPhong;
+import com.qlks.models.PhieuThuePhong;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +18,7 @@ import java.util.Random;
  *
  * @author hello
  */
-public class RanDomMaSDDV {
+public class RanDomMa {
 
     private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
@@ -50,6 +54,40 @@ public class RanDomMaSDDV {
         do {
             ma = generateRandomString() + number;
             List<DanhSachSuDungDichVu> lst = dao.getByMaSuDungDichVu(ma);
+            if (lst.size() <= 0) {
+                break;
+            }
+        } while (true);
+
+        return ma;
+    }
+
+    public String rDomMaThuePhong() {
+        String ma = "";
+        Random rd = new Random();
+        int number = rd.nextInt(999);
+        PhieuThuePhongDAO dao = new PhieuThuePhongDAO();
+
+        do {
+            ma = generateRandomString() + number;
+            List<PhieuThuePhong> lst = dao.getByMaPhieuThue(ma);
+            if (lst.size() <= 0) {
+                break;
+            }
+        } while (true);
+
+        return ma;
+    }
+
+    public String rDomMaNhanPhong() {
+        String ma = "";
+        Random rd = new Random();
+        int number = rd.nextInt(999);
+        PhieuNhanPhongDAO dao = new PhieuNhanPhongDAO();
+
+        do {
+            ma = generateRandomString() + number;
+            List<PhieuNhanPhong> lst = dao.getByMaNhanPhong(ma);
             if (lst.size() <= 0) {
                 break;
             }
