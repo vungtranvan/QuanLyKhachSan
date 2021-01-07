@@ -66,7 +66,7 @@ public class SearchNguoiDung extends javax.swing.JInternalFrame {
         jlbNhomQuyen.setText(rb.getString("JIFQuanLyNhomQuyenJpnNhomQuyenTitle"));
         btnLamMoi.setText(rb.getString("BtnLamMoi"));
         btnTimKiem.setText(rb.getString("BtnTimKiem"));
-        btnHuyBo.setText(rb.getString("SearchNdTitle"));
+        btnHuyBo.setText(rb.getString("BtnHuy"));
         revalidate();
         repaint();
     }

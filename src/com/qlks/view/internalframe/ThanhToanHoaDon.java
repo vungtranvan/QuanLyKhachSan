@@ -225,7 +225,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         btnHuyBo.setText(rb.getString("btnHuyBo"));
         btnThanhToan.setText(rb.getString("btnThanhToan"));
         jlbKhuyenMai.setText(rb.getString("jlbKhuyenMai"));
-        jlbMaDaTonTai.setText(rb.getString("jlbMaDaTonTai"));
+        jlbHinhThucThanhToan.setText(rb.getString("jlbHinhThucThanhToan"));
         jlbMaGiamGia.setText(rb.getString("jlbMaGiamGia"));
         jlbMaNhanPhong.setText(rb.getString("jlbMaNhanPhong"));
         jlbMaPhong.setText(rb.getString("jlbMaPhong"));
@@ -236,17 +236,17 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         jlbTienDichVu.setText(rb.getString("jlbTienDichVu"));
         jlbTienPhong.setText(rb.getString("jlbTienPhong"));
         jlbTongTien.setText(rb.getString("jlbTongTien"));
-        lblCMND.setText(rb.getString("lblCMND"));
-        lblGiaPhong.setText(rb.getString("lblGiaPhong"));
-        lblGioiTinh.setText(rb.getString("lblGioiTinh"));
-        lblMaNhanPhong.setText(rb.getString("lblMaNhanPhong"));
-        lblMaPhong.setText(rb.getString("lblMaPhong"));
-        lblNgayDi.setText(rb.getString("lblNgayDi"));
-        lblNgayThue.setText(rb.getString("lblNgayThue"));
-        lblPhuThu.setText(rb.getString("lblPhuThu"));
-        lblTenKhachHang.setText(rb.getString("lblTenKhachHang"));
-        lblTienDichVu.setText(rb.getString("lblTienDichVu"));
-        lblTongTien.setText(rb.getString("lblTongTien"));
+        jlbCMND.setText(rb.getString("lblCMND"));
+        jlbLoaiPhong.setText(rb.getString("jlbLoaiPhong"));
+        jlbGioiTinh.setText(rb.getString("lblGioiTinh"));
+        jlbMaNhanPhong.setText(rb.getString("lblMaNhanPhong"));
+        jlbMaPhong.setText(rb.getString("lblMaPhong"));
+        jlbNgayDi.setText(rb.getString("lblNgayDi"));
+        jlbNgayThue.setText(rb.getString("lblNgayThue"));
+        jlbPhuThu.setText(rb.getString("lblPhuThu"));
+        jlbTenKhachhang.setText(rb.getString("lblTenKhachHang"));
+        jlbTienDichVu.setText(rb.getString("lblTienDichVu"));
+        jlbTongTien.setText(rb.getString("lblTongTien"));
         rdTienMat.setText(rb.getString("rdTienMat"));
         rdTienThe.setText(rb.getString("rdTienThe"));
     }

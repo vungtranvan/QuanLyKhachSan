@@ -395,7 +395,7 @@ GO
 
 INSERT INTO LoaiTinhTrang(TenLoaiTinhTrang) VALUES
 (N'Trống'),
-(N'Đã đặt cọc'),
+(N'Đã được thuê'),
 (N'Có người ở'),
 (N'Đang sửa chữa')
 GO 
