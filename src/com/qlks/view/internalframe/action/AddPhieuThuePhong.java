@@ -574,10 +574,10 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         if (checkMessError == true) {
             String mess = "";
             if (succesThuePhong.length() > 0) {
-                mess += "Đã thuê phòng <" + succesThuePhong + "> thành công: \n";
+                mess += "Đã thuê phòng <" + succesThuePhong.replaceFirst(",", "") + "> thành công: \n";
             }
             if (errThuePhong.length() > 0) {
-                mess += "Không thể đặt phòng: <" + errThuePhong + "> vì đã có người ở";
+                mess += "Không thể đặt phòng: <" + errThuePhong.replaceFirst(",", "") + "> vì đã có người ở";
             }
             JOptionPane.showMessageDialog(rootPane, mess, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();

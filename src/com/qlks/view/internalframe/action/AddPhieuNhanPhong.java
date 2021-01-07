@@ -20,8 +20,17 @@ import com.qlks.models.PhieuNhanPhong;
 import com.qlks.models.PhieuThuePhong;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,6 +47,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
     private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
     private PhongDAO phongDAO;
     private List<PhieuThuePhong> lstPhieuThuePhong;
+    private List<PhieuThuePhong> lstPhieuThuePhong2;
     private DefaultTableModel dtmPhieuThuePhong;
     private DanhSachSuDungDichVuDAO danhSachSuDungDichVuDAO;
     private KhachHangDAO khachHangDAO;
@@ -60,12 +70,34 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
         phongDAO = new PhongDAO();
         chiTietPhieuNhanPhongDAO = new ChiTietPhieuNhanPhongDAO();
         khachHangDAO = new KhachHangDAO();
+        lstPhieuThuePhong2 = new ArrayList<>();
         resetText();
         initdataTablePhong();
     }
 
+    List<PhieuThuePhong> getListPtpByMaPt(String maPt, List<PhieuThuePhong> list) {
+        List<PhieuThuePhong> listPt = new ArrayList<>();
+        for (PhieuThuePhong phieuThuePhong : list) {
+            if (phieuThuePhong.getMaPhieuThue().equals(maPt)) {
+                listPt.add(phieuThuePhong);
+            }
+        }
+        return listPt;
+    }
+
     public void initdataTablePhong() {
-        lstPhieuThuePhong = phieuThuePhongDAO.getChuaXuLy();
+        lstPhieuThuePhong2 = phieuThuePhongDAO.getChuaXuLy();
+        Set<String> set = new HashSet<>(lstPhieuThuePhong2.size());
+        lstPhieuThuePhong = lstPhieuThuePhong2.stream().filter(p -> set.add(p.getMaPhieuThue())).collect(Collectors.toList());
+        String phong = "";
+        for (PhieuThuePhong phieuThuePhong : lstPhieuThuePhong2) {
+            phong = "";
+            for (PhieuThuePhong phieuThuePhong1 : getListPtpByMaPt(phieuThuePhong.getMaPhieuThue(), lstPhieuThuePhong2)) {
+                phong += phieuThuePhong1.getMaPhong() + ",";
+            }
+            phieuThuePhong.setMaPhong(phong.replaceFirst(".$",""));
+        }
+
         Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Ngày trả dự kiến"};
         dtmPhieuThuePhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
@@ -337,11 +369,10 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
             dateNhan = txtNgayNhan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
 
-
         String ma_PhieuThue = dtmPhieuThuePhong.getValueAt(currentRow, 1).toString();
         String ma_KH = dtmPhieuThuePhong.getValueAt(currentRow, 2).toString();
         String ma_Phong = "";
-        
+
         String ten_KH = txtTenKhachHang.getText();
         String CMND = "";
         List<KhachHang> lstKhachHangByID = khachHangDAO.getByMa(ma_KH);
@@ -351,8 +382,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
         if (check == true) {
 
             //int count1 = phieuNhanPhongDAO.add(new PhieuNhanPhong(ma_NhanPhong, ma_PhieuThue, ma_KH));
-           // int count2 = chiTietPhieuNhanPhongDAO.add(new ChiTietPhieuNhanPhong(ma_NhanPhong, ma_Phong, ten_KH, CMND, dateNhan, dateTraDuKien));
-
+            // int count2 = chiTietPhieuNhanPhongDAO.add(new ChiTietPhieuNhanPhong(ma_NhanPhong, ma_Phong, ten_KH, CMND, dateNhan, dateTraDuKien));
 //            if (count1 > 0 && count2 > 0) {
 //                phieuThuePhongDAO.updateTrangThai(ma_PhieuThue);
 //                phongDAO.updatePhongDaNhan(ma_Phong);
@@ -366,7 +396,6 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
 //            } else {
 //                JOptionPane.showMessageDialog(rootPane, "Nhận phòng thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
 //            }
-
         }
 
     }//GEN-LAST:event_btnNhanPhongActionPerformed
