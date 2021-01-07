@@ -24,7 +24,7 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
 
     public interface CallBackAdd {
 
-        void doAdd();
+        void doAddKH();
     }
 
     /**
@@ -414,7 +414,7 @@ public class AddKhachHang extends javax.swing.JInternalFrame {
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 resetText();
-                cb.doAdd();
+                cb.doAddKH();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);

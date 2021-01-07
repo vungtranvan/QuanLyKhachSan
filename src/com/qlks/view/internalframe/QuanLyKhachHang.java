@@ -395,7 +395,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements AddKh
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void doAdd() {
+    public void doAddKH() {
         loadData(null, null, null, null, null, null, null);
     }
 
