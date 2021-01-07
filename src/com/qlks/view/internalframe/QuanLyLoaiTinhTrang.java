@@ -377,6 +377,22 @@ public class QuanLyLoaiTinhTrang extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        tblLoaiTinhTrang.clearSelection();
+        loadData(null);
+        resetText();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        tblLoaiTinhTrang.clearSelection();
+        if (txtSearch.getText() != null) {
+            loadData(txtSearch.getText());
+        } else {
+            loadData(null);
+        }
+        resetText();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         String succesDeltete = "";
         String errDeltete = "";
@@ -413,22 +429,6 @@ public class QuanLyLoaiTinhTrang extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        tblLoaiTinhTrang.clearSelection();
-        loadData(null);
-        resetText();
-    }//GEN-LAST:event_btnLamMoiActionPerformed
-
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        tblLoaiTinhTrang.clearSelection();
-        if (txtSearch.getText() != null) {
-            loadData(txtSearch.getText());
-        } else {
-            loadData(null);
-        }
-        resetText();
-    }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -15,8 +15,10 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.time.LocalDate;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
@@ -99,6 +101,7 @@ public class MethodMain {
         if (i == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             try {
+               // BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file + ".xls"), "UTF-8"));
                 FileWriter out = new FileWriter(file + ".xls");
                 try (BufferedWriter bwrite = new BufferedWriter(out)) {
                     DefaultTableModel model = (DefaultTableModel) table.getModel();
