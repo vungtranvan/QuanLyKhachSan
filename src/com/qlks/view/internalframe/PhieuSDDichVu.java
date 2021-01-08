@@ -491,13 +491,27 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         String ma_DichVu = lp.getMaDichVu();
 
         if (check == true) {
-            int row = dsSDDichVuDAO.add(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), maPhong, soLuong));
-            if (row > 0) {
-                JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                initDVDSD();
-                resetText();
+            List<DanhSachSuDungDichVu> lstCheck = dsSDDichVuDAO.getCheckTrungDVu(ma_DichVu, lblMaNhanPhong.getText(), maPhong);
+            if (lstCheck.size() > 0) {
+
+                for (DanhSachSuDungDichVu lstCheck1 : lstCheck) {
+                    int numberDV = lstCheck1.getSoLuong() + soLuong;
+                    int row = dsSDDichVuDAO.update(new DanhSachSuDungDichVu(lstCheck1.getMaSuDungDVu(), ma_DichVu, lblMaNhanPhong.getText(), maPhong, numberDV));
+                    if (row > 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        initDVDSD();
+                        resetText();
+                    }
+                }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                int row = dsSDDichVuDAO.add(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), maPhong, soLuong));
+                if (row > 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    initDVDSD();
+                    resetText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Thêm thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_btnThemMoiActionPerformed
@@ -603,7 +617,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
             String maSDDV = dtmDanhSachSuDungDichVu.getValueAt(currentRow, 1).toString();
             txtMaSDDicVu.setText(maSDDV);
 
-            String maDV = dtmDanhSachSuDungDichVu.getValueAt(currentRow, 2).toString();  
+            String maDV = dtmDanhSachSuDungDichVu.getValueAt(currentRow, 2).toString();
             DichVu dv = lstDichVu.stream().filter(x -> x.getMaDichVu().equals(maDV)).findAny().orElse(null);
 
             int soLuong = Integer.parseInt(dtmDanhSachSuDungDichVu.getValueAt(currentRow, 5).toString());

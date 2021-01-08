@@ -58,4 +58,10 @@ public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> i
         return this.update(sql, maSuDungDVu, maNhanPhong, maPhong);
     }
 
+    @Override
+    public List<DanhSachSuDungDichVu> getCheckTrungDVu(String maDvu, String maNhanPhong, String maPhong) {
+        String sql = "{Call getDanhSachSuDungDichVu_CheckTrungDVu(?,?,?)}";
+        return query(sql, new DanhSachSuDungDichVuMapper(), maDvu, maNhanPhong, maPhong);
+    }
+
 }
