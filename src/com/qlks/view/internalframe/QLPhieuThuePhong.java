@@ -16,7 +16,11 @@ import com.qlks.view.internalframe.action.AddPhieuThuePhong;
 import com.qlks.view.internalframe.action.SearchPhieuThuePhong;
 import com.qlks.view.internalframe.action.UpdatePhieuThuePhong;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -35,6 +39,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
     private DefaultTableModel dtmPhieuThuePhong;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
+    private List<PhieuThuePhong> lstPhieuThuePhong2;
 
     public QLPhieuThuePhong() {
         initComponents();
@@ -43,6 +48,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
         phongDAO = new PhongDAO();
         chiTietPhieuThuePhongDAO = new ChiTietPhieuThuePhongDAO();
         funcBase = new FunctionBase();
+        lstPhieuThuePhong2 = new ArrayList<>();
         loadData(null, null, null);
 
         if (!MethodMain.checkQuyen("QlDaoDich")) {
@@ -50,12 +56,33 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
         }
     }
 
+    List<PhieuThuePhong> getListPtpByMaPt(String maPt, List<PhieuThuePhong> list) {
+        List<PhieuThuePhong> listPt = new ArrayList<>();
+        for (PhieuThuePhong phieuThuePhong : list) {
+            if (phieuThuePhong.getMaPhieuThue().equals(maPt)) {
+                listPt.add(phieuThuePhong);
+            }
+        }
+        return listPt;
+    }
+
     public void loadData(String maPhieu, String tenKH, String maPhong) {
 
         if (maPhieu != null || tenKH != null || maPhong != null) {
-            lstPhieuThuePhong = phieuThuePhongDAO.search(maPhieu, tenKH, maPhong);
+            lstPhieuThuePhong2 = phieuThuePhongDAO.search(maPhieu, tenKH, maPhong);
         } else {
-            lstPhieuThuePhong = phieuThuePhongDAO.getAll();
+            lstPhieuThuePhong2 = phieuThuePhongDAO.getAll();
+        }
+
+        Set<String> set = new HashSet<>(lstPhieuThuePhong2.size());
+        lstPhieuThuePhong = lstPhieuThuePhong2.stream().filter(p -> set.add(p.getMaPhieuThue())).collect(Collectors.toList());
+        String phong = "";
+        for (PhieuThuePhong phieuThuePhong : lstPhieuThuePhong2) {
+            phong = "";
+            for (PhieuThuePhong phieuThuePhong1 : getListPtpByMaPt(phieuThuePhong.getMaPhieuThue(), lstPhieuThuePhong2)) {
+                phong += phieuThuePhong1.getMaPhong() + ",";
+            }
+            phieuThuePhong.setMaPhong(phong.replaceFirst(".$",""));
         }
 
         Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Ngày trả dự kiến", "Trạng thái", ""};
