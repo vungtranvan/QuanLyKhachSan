@@ -48,7 +48,6 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
         funcBase = new FunctionBase();
         loadData(null, null, 0);
 
-    
         if (!MethodMain.checkQuyen("QlNguoiDung")) {
             GroupBtn.setVisible(false);
         }
@@ -322,14 +321,19 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
             for (int i = 0; i < tblNguoiDung.getRowCount(); i++) {
                 if (funcBase.IsSelected(i, 8, tblNguoiDung)) {
                     check = true;
-                    //System.out.println("IsSelected =" + IsSelected(i, 8, tblKhachHang));
 
-                    int rowSucces = nguoiDungDAO.delete(Integer.parseInt(tblNguoiDung.getValueAt(i, 1).toString()));
-                    if (rowSucces > 0) {
-                        succesDeltete += "\t" + tblNguoiDung.getValueAt(i, 2).toString() + "\n";
+                    List<NguoiDung> lstCheck = nguoiDungDAO.getByMa(Integer.parseInt(tblNguoiDung.getValueAt(i, 1).toString()));
+                    if (lstCheck.size() > 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Không thể xóa admin", "Thông báo", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        errDeltete += "\t" + tblNguoiDung.getValueAt(i, 2).toString() + "\n";
+                        int rowSucces = nguoiDungDAO.delete(Integer.parseInt(tblNguoiDung.getValueAt(i, 1).toString()));
+                        if (rowSucces > 0) {
+                            succesDeltete += "\t" + tblNguoiDung.getValueAt(i, 2).toString() + "\n";
+                        } else {
+                            errDeltete += "\t" + tblNguoiDung.getValueAt(i, 2).toString() + "\n";
+                        }
                     }
+
                 }
             }
             loadData(null, null, 0);
@@ -345,12 +349,13 @@ public class QuanLyNguoiDung extends javax.swing.JInternalFrame implements AddNg
             } else {
                 JOptionPane.showMessageDialog(rootPane, rb.getString("ConfirmDialogMsgChonXoa"), rb.getString("ConfirmDialogTitle"), JOptionPane.WARNING_MESSAGE);
             }
+
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLamMoiKeyPressed
         loadData(null, null, 0);
-   
+
     }//GEN-LAST:event_btnLamMoiKeyPressed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
