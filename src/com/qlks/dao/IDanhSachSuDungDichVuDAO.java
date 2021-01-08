@@ -16,6 +16,8 @@ public interface IDanhSachSuDungDichVuDAO {
 
     List<DanhSachSuDungDichVu> getAll(String maNhanPhong, String maPhong);
 
+    List<DanhSachSuDungDichVu> getAll(String maNhanPhong);
+
     List<DanhSachSuDungDichVu> getByMaSuDungDichVu(String maSuDungDVu);
 
     int add(DanhSachSuDungDichVu dv);
