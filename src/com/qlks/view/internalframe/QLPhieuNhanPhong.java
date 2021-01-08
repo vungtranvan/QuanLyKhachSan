@@ -17,9 +17,13 @@ import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddPhieuNhanPhong;
 import com.qlks.view.internalframe.action.SearchPhieuNhanPhong;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -34,6 +38,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private PhieuNhanPhongDAO phieuNhanPhongDAO;
     private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
     private List<PhieuNhanPhong> lstPhieuNhanPhong;
+    private List<PhieuNhanPhong> lstPhieuNhanPhong2;
     private DefaultTableModel dtmPhieuNhanPhong;
     private JDesktopPane jdek;
     private FunctionBase funcBase;
@@ -63,12 +68,32 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         }
     }
 
+    List<PhieuNhanPhong> getListPtpByMaPt(String maPt, List<PhieuNhanPhong> list) {
+        List<PhieuNhanPhong> listPt = new ArrayList<>();
+        for (PhieuNhanPhong phieuNhanPhong : list) {
+            if (phieuNhanPhong.getMaNhanPhong().equals(maPt)) {
+                listPt.add(phieuNhanPhong);
+            }
+        }
+        return listPt;
+    }
+
     public void loadData(String maPhong, String tenKH, String CMND) {
 
         if (maPhong != null || tenKH != null || CMND != null) {
-            lstPhieuNhanPhong = phieuNhanPhongDAO.search(maPhong, tenKH, CMND);
+            lstPhieuNhanPhong2 = phieuNhanPhongDAO.search(maPhong, tenKH, CMND);
         } else {
-            lstPhieuNhanPhong = phieuNhanPhongDAO.getAll();
+            lstPhieuNhanPhong2 = phieuNhanPhongDAO.getAll();
+        }
+        Set<String> set = new HashSet<>(lstPhieuNhanPhong2.size());
+        lstPhieuNhanPhong = lstPhieuNhanPhong2.stream().filter(p -> set.add(p.getMaNhanPhong())).collect(Collectors.toList());
+        String phong = "";
+        for (PhieuNhanPhong phieuNhanPhong : lstPhieuNhanPhong2) {
+            phong = "";
+            for (PhieuNhanPhong phieuNhanPhong1 : getListPtpByMaPt(phieuNhanPhong.getMaNhanPhong(), lstPhieuNhanPhong2)) {
+                phong += phieuNhanPhong1.getMaPhong() + ",";
+            }
+            phieuNhanPhong.setMaPhong(phong.replaceFirst(".$", ""));
         }
 
         Object[] columnNames = {"STT", "Mã nhận phòng", "Mã phiếu thuê", "Mã khách hàng", "Mã phòng", "Tên khách hàng", "CMND", "Ngày nhận", "Ngày trả dự kiến", "Ngày trả thực tế", "Trạng thái", "Xóa"};
@@ -310,7 +335,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                         JOptionPane.showMessageDialog(rootPane, "Không thể xóa", "Thông báo", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-            }   
+            }
             loadData(null, null, null);
             if (check == true) {
                 String mess = "";
