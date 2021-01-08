@@ -91,7 +91,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
-            if (lstDanhSachSuDungDichVu.get(lstDanhSachSuDungDichVu.size() - 1) != adv) {
+            if (!adv.getMaDichVu().equals("DV00")) {
                 modelDichVu.addElement(adv);
                 Object[] o = new Object[8];
                 o[0] = index;

@@ -59,23 +59,21 @@ public class QuanLyDichVu extends javax.swing.JInternalFrame implements AddDichV
         } else {
             lstDichVu = dichVuDAO.getAll();
         }
-        
-        if (lstDichVu.size() > 0) {
-            lstDichVu.remove(0);
-        }
 
         Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Giá", ""};
         dtmDichVu = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (DichVu adv : lstDichVu) {
             Object[] o = new Object[6];
-            o[0] = index;
-            o[1] = adv.getMaDichVu();
-            o[2] = adv.getTenLoaiDichVu();
-            o[3] = adv.getTenDonVi();
-            o[4] = (int) adv.getDonGia();
-            dtmDichVu.addRow(o);
-            index++;
+            if (!adv.getMaDichVu().equals("DV00")) {
+                o[0] = index;
+                o[1] = adv.getMaDichVu();
+                o[2] = adv.getTenLoaiDichVu();
+                o[3] = adv.getTenDonVi();
+                o[4] = (int) adv.getDonGia();
+                dtmDichVu.addRow(o);
+                index++;
+            }
         }
         tblDichVu.setModel(dtmDichVu);
         funcBase.addCheckBox(5, tblDichVu);
