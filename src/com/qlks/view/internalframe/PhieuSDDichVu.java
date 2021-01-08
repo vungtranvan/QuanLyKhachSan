@@ -481,7 +481,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         }
 
         int soLuong = (int) txtSoLuong.getValue();
-        if (soLuong < 0) {
+        if (soLuong <= 0) {
             txtErrorSoLuong.setText("Số lượng phải lớn hơn hoặc bằng 0");
             check = false;
         } else {
