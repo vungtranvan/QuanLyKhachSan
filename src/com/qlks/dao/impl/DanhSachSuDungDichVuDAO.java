@@ -48,7 +48,7 @@ public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> i
 
     @Override
     public int addDefault(String maSuDungDVu, String maNhanPhong, String maPhong) {
-        String sql = "{Call insertDanhSachSuDungDichVuDefault(?,?)}";
+        String sql = "{Call insertDanhSachSuDungDichVuDefault(?,?,?)}";
         return this.update(sql, maSuDungDVu, maNhanPhong, maPhong);
     }
 

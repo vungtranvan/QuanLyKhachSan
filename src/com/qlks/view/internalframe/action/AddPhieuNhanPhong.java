@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,6 +47,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
     private DanhSachSuDungDichVuDAO danhSachSuDungDichVuDAO;
     private KhachHangDAO khachHangDAO;
     private RanDomMa ranDomMa;
+    private List<String> lstMaPhong;
 
     public interface CallBackAdd {
 
@@ -56,6 +58,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
         initComponents();
         cb = _cb;
         ranDomMa = new RanDomMa();
+        lstMaPhong = new ArrayList<>();
         danhSachSuDungDichVuDAO = new DanhSachSuDungDichVuDAO();
         phieuNhanPhongDAO = new PhieuNhanPhongDAO();
         phieuThuePhongDAO = new PhieuThuePhongDAO();
@@ -81,6 +84,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
 
     public void initdataTablePhong() {
         lstPhieuThuePhong2 = phieuThuePhongDAO.getChuaXuLy();
+
         Set<String> set = new HashSet<>(lstPhieuThuePhong2.size());
         lstPhieuThuePhong = lstPhieuThuePhong2.stream().filter(p -> set.add(p.getMaPhieuThue())).collect(Collectors.toList());
         String phong = "";
@@ -89,7 +93,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
             for (PhieuThuePhong phieuThuePhong1 : getListPtpByMaPt(phieuThuePhong.getMaPhieuThue(), lstPhieuThuePhong2)) {
                 phong += phieuThuePhong1.getMaPhong() + ",";
             }
-            phieuThuePhong.setMaPhong(phong.replaceFirst(".$",""));
+            phieuThuePhong.setMaPhong(phong.replaceFirst(".$", ""));
         }
 
         Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Ngày trả dự kiến"};
@@ -363,9 +367,13 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
             dateNhan = txtNgayNhan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
 
+        LocalDate dateTraDuKien = null;
+        if (txtNgayNhan.getDate() != null) {
+            dateTraDuKien = txtNgayTraDuKien.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+
         String ma_PhieuThue = dtmPhieuThuePhong.getValueAt(currentRow, 1).toString();
         String ma_KH = dtmPhieuThuePhong.getValueAt(currentRow, 2).toString();
-        String ma_Phong = "";
 
         String ten_KH = txtTenKhachHang.getText();
         String CMND = "";
@@ -375,21 +383,26 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
         }
         if (check == true) {
 
-            //int count1 = phieuNhanPhongDAO.add(new PhieuNhanPhong(ma_NhanPhong, ma_PhieuThue, ma_KH));
-            // int count2 = chiTietPhieuNhanPhongDAO.add(new ChiTietPhieuNhanPhong(ma_NhanPhong, ma_Phong, ten_KH, CMND, dateNhan, dateTraDuKien));
-//            if (count1 > 0 && count2 > 0) {
-//                phieuThuePhongDAO.updateTrangThai(ma_PhieuThue);
-//                phongDAO.updatePhongDaNhan(ma_Phong);
-//                RanDomMa rd = new RanDomMa();
-//                danhSachSuDungDichVuDAO.addDefault(rd.rDomMaSDVV(), ma_NhanPhong);
-//                tblPhieuThuePhong.clearSelection();
-//                JOptionPane.showMessageDialog(rootPane, "Nhận phòng thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//                resetText();
-//                cb.doAdd();
-//                dispose();
-//            } else {
-//                JOptionPane.showMessageDialog(rootPane, "Nhận phòng thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-//            }
+            int count1 = phieuNhanPhongDAO.add(new PhieuNhanPhong(ma_NhanPhong, ma_PhieuThue, ma_KH));
+
+            if (count1 > 0) {
+                for (String maP : lstMaPhong) {
+                    chiTietPhieuNhanPhongDAO.add(new ChiTietPhieuNhanPhong(ma_NhanPhong, maP, ten_KH, CMND, dateNhan, dateTraDuKien));
+                    RanDomMa rd = new RanDomMa();
+                    danhSachSuDungDichVuDAO.addDefault(rd.rDomMaSDVV(), ma_NhanPhong, maP);
+                    phongDAO.updatePhongDaNhan(maP);
+                }
+
+                phieuThuePhongDAO.updateTrangThai(ma_PhieuThue);
+
+                tblPhieuThuePhong.clearSelection();
+                JOptionPane.showMessageDialog(rootPane, "Nhận phòng thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                resetText();
+                cb.doAdd();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Nhận phòng thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }//GEN-LAST:event_btnNhanPhongActionPerformed
@@ -399,6 +412,7 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
 
         String ma_PhieuThue = tblPhieuThuePhong.getValueAt(pos, 1).toString();
         List<ChiTietPhieuThuePhong> lstPhieuThue = chiTietPhieuThuePhongDAO.getByMaPhieuThue(ma_PhieuThue);
+
         for (ChiTietPhieuThuePhong adm : lstPhieuThue) {
             LocalDate ngayBD = adm.getNgayNhan();
 
@@ -409,6 +423,12 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
             Date dateTra = java.sql.Date.valueOf(ngayTraDK);
             txtNgayTraDuKien.setDate(dateTra);
         }
+        String ma_KH = tblPhieuThuePhong.getValueAt(pos, 2).toString();
+        List<PhieuThuePhong> lstPhieuP = phieuThuePhongDAO.getChuaXuLy(ma_PhieuThue, ma_KH);
+        for (PhieuThuePhong lstPhieuT : lstPhieuP) {
+            lstMaPhong.add(lstPhieuT.getMaPhong());
+        }
+
         txtTenKhachHang.setText(tblPhieuThuePhong.getValueAt(pos, 3).toString());
         txtMaNhanPhong.setText(ranDomMa.rDomMaNhanPhong());
     }//GEN-LAST:event_tblPhieuThuePhongMouseClicked
