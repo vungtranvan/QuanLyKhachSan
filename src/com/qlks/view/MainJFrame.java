@@ -876,6 +876,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
         revalidate();
         repaint();
+        
+        
+        
     }
 
     /**
