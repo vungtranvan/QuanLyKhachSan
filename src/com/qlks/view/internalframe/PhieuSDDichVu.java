@@ -164,7 +164,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         txtErrorMaSDDichVu.setForeground(new java.awt.Color(255, 0, 51));
         txtErrorMaSDDichVu.setText("...");
 
-        jLabel11.setText("Số llượng:");
+        jLabel11.setText("Số lượng:");
 
         txtErrorSoLuong.setForeground(new java.awt.Color(255, 51, 51));
         txtErrorSoLuong.setText("...");
@@ -603,7 +603,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
             String maSDDV = dtmDanhSachSuDungDichVu.getValueAt(currentRow, 1).toString();
             txtMaSDDicVu.setText(maSDDV);
 
-            String maDV = dtmDanhSachSuDungDichVu.getValueAt(currentRow, 2).toString();
+            String maDV = dtmDanhSachSuDungDichVu.getValueAt(currentRow, 2).toString();  
             DichVu dv = lstDichVu.stream().filter(x -> x.getMaDichVu().equals(maDV)).findAny().orElse(null);
 
             int soLuong = Integer.parseInt(dtmDanhSachSuDungDichVu.getValueAt(currentRow, 5).toString());

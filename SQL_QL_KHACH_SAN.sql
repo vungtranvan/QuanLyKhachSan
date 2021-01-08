@@ -476,7 +476,6 @@ Insert into DichVu(MaDichVu,MaLoaiDichVu,MaDonVi,DonGia) Values
 ('DV02','LDV01','DV3',3500000),
 ('DV03','LDV06','DV2',200000),
 ('DV04','LDV07','DV1',1200000),
-('DV05','LDV08','DV1',200000),
 ('DV06','LDV02','DV9',0),
 ('DV07','LDV10','DV8',300000),
 ('DV08','LDV03','DV9',50000),
@@ -2211,6 +2210,7 @@ JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
 JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
 JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
 WHERE DanhSachSuDungDichVu.MaNhanPhong = @MaNhanPhong AND MaPhong=@MaPhong
+ORDER BY DanhSachSuDungDichVu.MaDichVu DESC
 END
 GO
 
@@ -2218,12 +2218,13 @@ CREATE PROC getByMaSuDungDichVu
 @MaSuDungDVu varchar (4)
 AS
 BEGIN 
-SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
+SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.MaPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
 FROM DanhSachSuDungDichVu 
 JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
 JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
 JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
  WHERE MaSuDungDVu = @MaSuDungDVu
+ ORDER BY DanhSachSuDungDichVu.MaDichVu DESC
 END
 GO
 
