@@ -14,6 +14,7 @@ import com.qlks.view.internalframe.BieuDoHieuSuatPhong;
 import com.qlks.view.internalframe.DoiMatKhauNguoiDung;
 import com.qlks.view.internalframe.NgonNgu;
 import com.qlks.view.internalframe.NgonNguItem;
+import com.qlks.view.internalframe.QLDichVuPhong;
 import com.qlks.view.internalframe.QLHoaDon;
 import com.qlks.view.internalframe.QLPhieuNhanPhong;
 import com.qlks.view.internalframe.QLPhieuThuePhong;
@@ -96,6 +97,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private JPanel subMenuBook;
     QLPhieuNhanPhong qLPhieuNhanPhong;
     BieuDoHieuSuatPhong bieuDoHieuSuatPhong;
+
+    private JPanel subMenuAddServiceToRoom;
+    QLDichVuPhong qLDichVuPhong;
     private JPanel subMenuCheckIn;
     private JPanel subMenuTax;
     QLHoaDon qLHoaDon;
@@ -113,6 +117,7 @@ public class MainJFrame extends javax.swing.JFrame {
     QuanLyLoaiDichVu quanLyLoaiDichVu;
     private JPanel subMenuServiceType;
     QuanLyDichVu quanLyDichVu;
+
     private JPanel subMenuService;
     QuanLyDonVi quanLyDonVi;
     private JPanel subMenuUnit;
@@ -213,11 +218,11 @@ public class MainJFrame extends javax.swing.JFrame {
             qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd, lc);
             listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
             showInternalFrame(subMenuCheckIn, qLPhieuNhanPhong);
-            
-            subMenuCheckIn = new JPanel();
-            qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd, lc);
-            listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
-            showInternalFrame(subMenuCheckIn, qLPhieuNhanPhong);
+
+            subMenuAddServiceToRoom = new JPanel();
+            qLDichVuPhong = new QLDichVuPhong(listNd, lc);
+            listSubMenuItemChecking.add(makeSubMenuItem(subMenuAddServiceToRoom, rb.getString("subMenuAddServiceToRoom")));
+            showInternalFrame(subMenuAddServiceToRoom, qLDichVuPhong);
 
             subMenuHoaDon = new JPanel();
             qLHoaDon = new QLHoaDon(lc);
@@ -314,7 +319,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
             submenuStatisticsRoomChart = new JPanel();
             BieuDoHieuSuatPhong bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong();
-            listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoomChart, rb.getString("submenuStatisticsRoom")));
+            listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoomChart, rb.getString("submenuStatisticsRoomChart")));
             showInternalFrame(submenuStatisticsRoomChart, bieuDoHieuSuatPhong);
 
             submenuStatisticsKhachHang = new JPanel();
@@ -828,6 +833,7 @@ public class MainJFrame extends javax.swing.JFrame {
         setTextJlbFromJpn(subMenuCheckout, rb.getString("subMenuCheckout"));
         setTextJlbFromJpn(subMenuCustommer, rb.getString("subMenuCustommer"));
         setTextJlbFromJpn(subMenuDiscount, rb.getString("subMenuDiscount"));
+        setTextJlbFromJpn(subMenuAddServiceToRoom, rb.getString("subMenuAddServiceToRoom"));
         setTextJlbFromJpn(subMenuConfig, rb.getString("subMenuColor"));
         setTextJlbFromJpn(subMenuLanguage, rb.getString("subMenuLanguage"));
         setTextJlbFromJpn(subMenuLanguage, rb.getString("subMenuLanguage"));
@@ -835,6 +841,7 @@ public class MainJFrame extends javax.swing.JFrame {
         setTextJlbFromJpn(subMenuCheckIn, rb.getString("subMenuCheckIn"));
         setTextJlbFromJpn(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom"));
         setTextJlbFromJpn(subMenuHoaDon, rb.getString("subMenuHoaDon"));
+        setTextJlbFromJpn(submenuStatisticsRoomChart, rb.getString("submenuStatisticsRoomChart"));
 
         switch (languageKey) {
             case 1:
@@ -864,8 +871,8 @@ public class MainJFrame extends javax.swing.JFrame {
         visibleSubMenu(menuCustomer, rb.getString("SubMenuTitleCustomer"), listSubMenuItemCustomer, 3);
         visibleSubMenu(menuConfig, rb.getString("SubMenuTitleConfig"), listSubMenuItemConfig, 4);
         visibleSubMenu(menuConfig, rb.getString("SubMenuTitleChecking"), listSubMenuItemConfig, 5);
-        visibleSubMenu(menuConfig, rb.getString("SubMenuTitleSevice"), listSubMenuItemConfig, 6);
-        visibleSubMenu(menuConfig, rb.getString("SubMenuTitleStatistics"), listSubMenuItemConfig, 7);
+        visibleSubMenu(menuConfig, rb.getString("SubMenuTitleSevice"), listSubMenuSevice, 6);
+        visibleSubMenu(menuConfig, rb.getString("SubMenuTitleStatistics"), listSubMenuStatistic, 7);
 
         revalidate();
         repaint();

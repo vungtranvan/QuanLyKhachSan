@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hello
  */
-public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, SearchPhieuNhanPhong.CallBackSearch, ThanhToanHoaDon.CallBackCheckOut {
+public class QLDichVuPhong extends javax.swing.JInternalFrame implements AddPhieuNhanPhong.CallBackAdd, SearchPhieuNhanPhong.CallBackSearch, ThanhToanHoaDon.CallBackCheckOut {
 
     private PhieuNhanPhongDAO phieuNhanPhongDAO;
     private ChiTietPhieuNhanPhongDAO chiTietPhieuNhanPhongDAO;
@@ -45,7 +45,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     private Locale lc;
     ThanhToanHoaDon thanhToanHoaDon;
 
-    public QLPhieuNhanPhong(List<NguoiDung> lstND, Locale lc) {
+    public QLDichVuPhong(List<NguoiDung> lstND, Locale lc) {
         initComponents();
         danhSachSuDungDichVuDAO = new DanhSachSuDungDichVuDAO();
         dtmPhieuNhanPhong = new DefaultTableModel();

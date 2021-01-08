@@ -29,6 +29,12 @@ public class PhieuThuePhongDAO extends AbstractDAO<PhieuThuePhong> implements IP
     }
 
     @Override
+    public List<PhieuThuePhong> getChuaXuLy(String maPhieu, String maKH) {
+        String sql = "{Call getPhieuThuePhong_ChuaXL_ByMa(?,?)}";
+        return query(sql, new PhieuThuePhongMapper(), maPhieu, maKH);
+    }
+
+    @Override
     public List<PhieuThuePhong> getByMaPhieuThue(String maPhieu) {
         String sql = "{Call getPhieuNhanPhong_ByMaPhieuThue(?)}";
         return query(sql, new PhieuThuePhongMapper(), maPhieu);

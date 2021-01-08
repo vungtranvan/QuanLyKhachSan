@@ -18,6 +18,8 @@ public interface IPhieuThuePhongDAO {
 
     List<PhieuThuePhong> getChuaXuLy();
 
+    List<PhieuThuePhong> getChuaXuLy(String maPhieu, String maKH);
+
     List<PhieuThuePhong> getByMaPhieuThue(String maPhieu);
 
     List<PhieuThuePhong> search(String maPhieu, String tenKH, String maPhong);

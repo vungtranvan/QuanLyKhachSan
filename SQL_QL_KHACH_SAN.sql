@@ -1909,6 +1909,19 @@ BEGIN
 END
 GO
 
+CREATE PROC getPhieuThuePhong_ChuaXL_ByMa
+@MaPhieuThue varchar (10),
+@MaKhachHang varchar (3)
+AS
+BEGIN 
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang,ChiTietPhieuThuePhong.MaPhong ,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,ChiTietPhieuThuePhong.NgayTraDuKien,PhieuThuePhong.TrangThai
+ FROM PhieuThuePhong
+ INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
+ INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
+ WHERE PhieuThuePhong.TrangThai = 0 AND PhieuThuePhong.MaPhieuThue = @MaPhieuThue AND PhieuThuePhong.MaKhachHang = @MaKhachHang
+END
+GO
+
 CREATE PROC SearchThuePhong
 @MaPhieuThue varchar (10),
 @TenKhachHang varchar (50),
@@ -2192,7 +2205,7 @@ CREATE PROC getDanhSachSuDungDichVu_ByMaNhanPhong
 @MaPhong varchar(3)
 AS
 BEGIN 
-SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
+SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.MaPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
 FROM DanhSachSuDungDichVu 
 JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
 JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
