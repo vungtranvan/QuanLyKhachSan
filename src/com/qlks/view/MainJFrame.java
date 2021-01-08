@@ -10,10 +10,10 @@ import com.qlks.fonts.FontCustom;
 import com.qlks.models.CauHinhNguoiDung;
 import com.qlks.models.NguoiDung;
 import com.qlks.utils.MethodMain;
-import com.qlks.view.internalframe.BieuDoHieuSuatPhong;
+import com.qlks.view.internalframe.BieuDoThongKePhong;
 import com.qlks.view.internalframe.DoiMatKhauNguoiDung;
-import com.qlks.view.internalframe.NgonNgu;
-import com.qlks.view.internalframe.NgonNguItem;
+import com.qlks.models.NgonNgu;
+import com.qlks.models.NgonNguItem;
 import com.qlks.view.internalframe.QLDichVuPhong;
 import com.qlks.view.internalframe.QLHoaDon;
 import com.qlks.view.internalframe.QLPhieuNhanPhong;
@@ -96,7 +96,7 @@ public class MainJFrame extends javax.swing.JFrame {
     QLPhieuThuePhong qLPhieuThuePhong;
     private JPanel subMenuBook;
     QLPhieuNhanPhong qLPhieuNhanPhong;
-    BieuDoHieuSuatPhong bieuDoHieuSuatPhong;
+    BieuDoHieuSuatPhong BieuDoThongKePhong;
 
     private JPanel subMenuAddServiceToRoom;
     QLDichVuPhong qLDichVuPhong;

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.qlks.view.internalframe;
+package com.qlks.view.internalframe.action;
 
+import com.qlks.models.NgonNguItem;
 import java.awt.Component;
 import javax.swing.JList;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
