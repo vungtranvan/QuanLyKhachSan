@@ -870,9 +870,9 @@ public class MainJFrame extends javax.swing.JFrame {
         visibleSubMenu(menuRoom, rb.getString("SubMenuTitleRoom"), listSubMenuItemRoom, 2);
         visibleSubMenu(menuCustomer, rb.getString("SubMenuTitleCustomer"), listSubMenuItemCustomer, 3);
         visibleSubMenu(menuConfig, rb.getString("SubMenuTitleConfig"), listSubMenuItemConfig, 4);
-        visibleSubMenu(menuConfig, rb.getString("SubMenuTitleChecking"), listSubMenuItemConfig, 5);
-        visibleSubMenu(menuConfig, rb.getString("SubMenuTitleSevice"), listSubMenuSevice, 6);
-        visibleSubMenu(menuConfig, rb.getString("SubMenuTitleStatistics"), listSubMenuStatistic, 7);
+        visibleSubMenu(menuChecking, rb.getString("SubMenuTitleChecking"), listSubMenuItemChecking, 5);
+        visibleSubMenu(menuService, rb.getString("SubMenuTitleSevice"), listSubMenuSevice, 6);
+        visibleSubMenu(menuStatistics, rb.getString("SubMenuTitleStatistics"), listSubMenuStatistic, 7);
 
         revalidate();
         repaint();
