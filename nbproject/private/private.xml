@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/action/AddPhieuThuePhong.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/ThongKeHieuSuatPhong.java</file>
+            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/action/AddPhieuNhanPhong.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/ThongKeDoanhThuPhong.java</file>
             <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/BieuDoThongKePhong.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/BieuDoHieuSuatPhong.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/QLPhieuThuePhong.java</file>
         </group>
     </open-files>
 </project-private>

@@ -13,6 +13,7 @@ import com.qlks.utils.MethodMain;
 import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -34,6 +35,9 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
     private Locale lc;
     private BieuDoHieuSuatPhong bieuDoHieuSuatPhong;
     private JDesktopPane jdek;
+    LocalDate ngayBatDau;
+    LocalDate ngayKetThuc;
+    DateTimeFormatter dateTimeFormatter;
 
     public ThongKeHieuSuatPhong(Locale lc) {
         initComponents();
@@ -57,6 +61,9 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
         } else {
             lstThongKeHieuSuatPhong = thongKeHieuSuatPhongDAO.getAll(date1, date2);
         }
+
+        ngayBatDau = ngayInput1 != null ? ngayInput1 : null;
+        ngayKetThuc = ngayInput2 != null ? ngayInput2 : null;
 
         Object[] columnNames = {"STT", "Mã phòng", "Hiệu suất thuê(%)", "Số ngày thuê", "Số lần thuê", "Tiền phòng", "Tiền dịch vụ", "Tiền giảm giá", "Tổng tiền"};
         dtmThongKeHieuSuatPhong = new DefaultTableModel(new Object[0][0], columnNames);
@@ -271,10 +278,11 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
 
     private void btnShowChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowChartActionPerformed
         if (bieuDoHieuSuatPhong == null) {
-            bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong(rb,lstThongKeHieuSuatPhong);
+            bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong(ngayBatDau, ngayKetThuc, rb, lstThongKeHieuSuatPhong);
+
         } else {
-//            bieuDoHieuSuatPhong.dispose();
-//            bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong(lstThongKePhong, rb, ngayBatDau, ngayKetThuc);
+            bieuDoHieuSuatPhong.dispose();
+            bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong(ngayBatDau, ngayKetThuc, rb, lstThongKeHieuSuatPhong);
         }
         showInternalFrame(bieuDoHieuSuatPhong);
     }//GEN-LAST:event_btnShowChartActionPerformed

@@ -123,7 +123,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jlbGioiTinh" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jlbSDT" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jlbSoNguoiO" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlbSoNgayO" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -162,7 +162,7 @@
                       <Component id="jlbNgayDi" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblNgayDi" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jlbNgayThue" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jlbSoNguoiO" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlbSoNgayO" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSoNgayO" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -267,7 +267,7 @@
             <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jlbSoNguoiO">
+        <Component class="javax.swing.JLabel" name="jlbSoNgayO">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>

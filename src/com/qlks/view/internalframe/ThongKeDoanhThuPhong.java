@@ -41,6 +41,7 @@ public class ThongKeDoanhThuPhong extends javax.swing.JInternalFrame {
         dtmThongKePhong = new DefaultTableModel();
         thongKePhongDAO = new ThongKePhongDAO();
         loadData(null, null);
+        
     }
 
     public void loadData(LocalDate ngayInput1, LocalDate ngayInput2) {

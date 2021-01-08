@@ -611,7 +611,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
                         checkMessError = true;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Không thể dặt phòng <" + errCheckDatP + "> vì đã có người ở 1", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Không thể dặt phòng <" + errCheckDatP + "> vì đã có người ở", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }
 
             }

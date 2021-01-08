@@ -244,7 +244,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         jlbTienPhong.setText(rb.getString("jlbTienPhong"));
         jlbTongTien.setText(rb.getString("jlbTongTien"));
         jlbCMND.setText(rb.getString("lblCMND"));
-        jlbSoNguoiO.setText(rb.getString("jlbSoNguoiO"));
+        jlbSoNgayO.setText(rb.getString("jlbSoNgayO"));
         jlbGioiTinh.setText(rb.getString("lblGioiTinh"));
         jlbMaNhanPhong.setText(rb.getString("lblMaNhanPhong"));
         jlbMaPhong.setText(rb.getString("lblMaPhong"));
@@ -281,7 +281,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         lblGioiTinh = new javax.swing.JLabel();
         jlbSDT = new javax.swing.JLabel();
         lblSDT = new javax.swing.JLabel();
-        jlbSoNguoiO = new javax.swing.JLabel();
+        jlbSoNgayO = new javax.swing.JLabel();
         lblSoNgayO = new javax.swing.JLabel();
         jlbNgayThue = new javax.swing.JLabel();
         lblNgayThue = new javax.swing.JLabel();
@@ -358,8 +358,8 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         lblSDT.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSDT.setText("...");
 
-        jlbSoNguoiO.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jlbSoNguoiO.setText("Số ngày ở:");
+        jlbSoNgayO.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlbSoNgayO.setText("Số ngày ở:");
 
         lblSoNgayO.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSoNgayO.setText("...");
@@ -413,7 +413,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 .addGroup(jpnTTKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlbGioiTinh)
                     .addComponent(jlbSDT)
-                    .addComponent(jlbSoNguoiO))
+                    .addComponent(jlbSoNgayO))
                 .addGap(18, 18, 18)
                 .addGroup(jpnTTKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -446,7 +446,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                     .addComponent(jlbNgayDi)
                     .addComponent(lblNgayDi)
                     .addComponent(jlbNgayThue)
-                    .addComponent(jlbSoNguoiO)
+                    .addComponent(jlbSoNgayO)
                     .addComponent(lblSoNgayO))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -877,7 +877,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlbNgayThue;
     private javax.swing.JLabel jlbPhuThu;
     private javax.swing.JLabel jlbSDT;
-    private javax.swing.JLabel jlbSoNguoiO;
+    private javax.swing.JLabel jlbSoNgayO;
     private javax.swing.JLabel jlbTenKhachhang;
     private javax.swing.JLabel jlbTienDichVu;
     private javax.swing.JLabel jlbTienPhong;

@@ -11,6 +11,7 @@ import com.qlks.utils.MethodMain;
 import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -32,6 +33,7 @@ public class BieuDoThongKePhong extends javax.swing.JInternalFrame {
     private List<ThongKePhong> lstThongKePhong;
     private DefaultTableModel dtmThongKePhong;
     ResourceBundle rb;
+        DateTimeFormatter dateTimeFormatter;
 
     public BieuDoThongKePhong(List<ThongKePhong> listtkPhong, ResourceBundle rb,LocalDate ngayBatDau,LocalDate ngayKetThuc) {
         initComponents();
@@ -40,10 +42,11 @@ public class BieuDoThongKePhong extends javax.swing.JInternalFrame {
         ChartPanel chartPanel = new ChartPanel(createChart());
 
         jpnContent.add(chartPanel);
+         dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
         
   
-        jlbNgayBd.setText(ngayBatDau != null?ngayBatDau.toString():"");
-        jlbNgayKt.setText(ngayKetThuc != null?ngayKetThuc.toString():"");
+        jlbNgayBd.setText(ngayBatDau != null?ngayBatDau.format(dateTimeFormatter).toString():"");
+        jlbNgayKt.setText(ngayKetThuc != null?ngayKetThuc.format(dateTimeFormatter).toString():"");
         
     }
 
