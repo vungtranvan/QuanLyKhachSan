@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -53,6 +54,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
     private FunctionBase funcBase;
     private List<String> lstMaPhong;
     private RanDomMa ranDomMa;
+    ResourceBundle rb;
 
     @Override
     public void doAddKH() {
@@ -64,7 +66,8 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         void doAdd();
     }
 
-    public AddPhieuThuePhong(CallBackAdd _cb) {
+    public AddPhieuThuePhong(CallBackAdd _cb,ResourceBundle rb) {
+        this.rb = rb;
         initComponents();
         funcBase = new FunctionBase();
         cb = _cb;
@@ -84,6 +87,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
 
     public void initdataTablePhong() {
         lstPhong = phongDAO.getPhongTrong();
+       
         Object[] columnNames = {"", "Mã Phòng", "Loại phòng", "Tình trạng", "Giá", "Ghi chú"};
         dtmPhong = new DefaultTableModel(new Object[0][0], columnNames);
 
@@ -586,7 +590,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void btnThemMoiKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiKhachHangActionPerformed
-        //  showInternalFrame(new AddKhachHang(this, lc));
+          showInternalFrame(new AddKhachHang(this, rb));
     }//GEN-LAST:event_btnThemMoiKhachHangActionPerformed
 
     private void tblPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongMouseClicked
