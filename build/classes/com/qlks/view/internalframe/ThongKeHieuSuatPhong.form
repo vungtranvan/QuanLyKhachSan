@@ -100,7 +100,7 @@
         <Component class="javax.swing.JButton" name="btnTimKiem">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="DejaVu Sans Condensed" size="18" style="0"/>
+              <Font name="DejaVu Sans Condensed" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/qlks/icon/icon_search.png"/>
@@ -117,7 +117,7 @@
         <Component class="javax.swing.JButton" name="btnGhiFile">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="DejaVu Sans Condensed" size="18" style="0"/>
+              <Font name="DejaVu Sans Condensed" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/qlks/icon/icon_printer.png"/>
@@ -160,10 +160,10 @@
         <Component class="javax.swing.JButton" name="btnShowChart">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="DejaVu Sans Condensed" size="18" style="0"/>
+              <Font name="DejaVu Sans Condensed" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/qlks/icon/icon_search.png"/>
+              <Image iconType="3" name="/com/qlks/icon/icon_chart.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Bi&#x1ec3;u &#x111;&#x1ed3;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">

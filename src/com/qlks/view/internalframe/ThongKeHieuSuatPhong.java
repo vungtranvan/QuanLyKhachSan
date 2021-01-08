@@ -122,7 +122,7 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("Thống kê hiệu suất phòng");
 
-        btnTimKiem.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 18)); // NOI18N
+        btnTimKiem.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
         btnTimKiem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -132,7 +132,7 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
             }
         });
 
-        btnGhiFile.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 18)); // NOI18N
+        btnGhiFile.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
         btnGhiFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_printer.png"))); // NOI18N
         btnGhiFile.setText("Ghi file excel");
         btnGhiFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -152,8 +152,8 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 18)); // NOI18N
         jLabel2.setText("Đến ngày:");
 
-        btnShowChart.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 18)); // NOI18N
-        btnShowChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
+        btnShowChart.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
+        btnShowChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_chart.png"))); // NOI18N
         btnShowChart.setText("Biểu đồ");
         btnShowChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnShowChart.addActionListener(new java.awt.event.ActionListener() {

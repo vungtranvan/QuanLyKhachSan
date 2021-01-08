@@ -160,7 +160,7 @@ public class ThongKeDoanhThuPhong extends javax.swing.JInternalFrame {
         jLabel2.setText("Đến ngày:");
 
         btnShowChart.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
-        btnShowChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
+        btnShowChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_chart.png"))); // NOI18N
         btnShowChart.setText("Xem biểu đồ");
         btnShowChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnShowChart.addActionListener(new java.awt.event.ActionListener() {
@@ -183,8 +183,8 @@ public class ThongKeDoanhThuPhong extends javax.swing.JInternalFrame {
                     .addComponent(jDate2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(btnShowChart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnGhiFile, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)

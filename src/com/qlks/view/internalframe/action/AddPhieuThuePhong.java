@@ -173,6 +173,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         }
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,7 +187,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         txtMaPhieuThue = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jcbxKhachHang = new javax.swing.JComboBox<KhachHang>();
+        jcbxKhachHang = new javax.swing.JComboBox<>();
         txtNgayDangKy = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         txtNgayNhan = new com.toedter.calendar.JDateChooser();
@@ -328,7 +329,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(62, 62, 62))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnThemMoiKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThemMoiKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18))))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -337,7 +338,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
                 .addContainerGap()
                 .addComponent(btnThemMoiKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMaPhieuThue, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,7 +364,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorNgayNhan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNgayTraDuKien, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -550,13 +551,26 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
                 String errCheckDatP = "";
                 for (String lstP : lstMaPhong) {
                     List<ChiTietPhieuNhanPhong> lstCheckDate = chiTietPhieuNhanPhongDAO.getChiTietPhieuNhanPhongByMaPhong(lstP);
-
+                    List<PhieuThuePhong> lstPhieuThuePhongCxl = phieuThuePhongDAO.getChuaXuLy();
                     if (lstCheckDate.size() > 0) {
                         for (ChiTietPhieuNhanPhong lstCheckDate1 : lstCheckDate) {
                             if (MethodMain.isOverlapping(lstCheckDate1.getNgayNhan(), lstCheckDate1.getNgayTraDuKien(), dateNhan, dateTraDuKien) && lstCheckDate1.getNgayTraThucTe() == null) {
                                 checkOver = true;
                                 if (checkOver == true) {
                                     errCheckDatP += "," + lstP;
+                                }
+                            }
+                        }
+
+                        if (lstPhieuThuePhongCxl.size() > 0) {
+                            for (PhieuThuePhong phieuThuePhong : lstPhieuThuePhongCxl) {
+                                for (String maphong : phieuThuePhong.getMaPhong().split(",")) {
+                                    if (maphong.equals(lstP) && MethodMain.isOverlapping(phieuThuePhong.getNgayNhan(), phieuThuePhong.getNgayTraDuKien(), dateNhan, dateTraDuKien)) {
+                                        checkOver = true;
+                                        if (checkOver == true) {
+                                            errCheckDatP += "," + lstP;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -568,13 +582,14 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
                         boolean checkOverlapping = false;
 
                         List<ChiTietPhieuNhanPhong> lstCheckDate = chiTietPhieuNhanPhongDAO.getChiTietPhieuNhanPhongByMaPhong(lstP);
-                          
+
                         if (lstCheckDate.size() > 0) {
                             for (ChiTietPhieuNhanPhong lstCheckDate1 : lstCheckDate) {
                                 if (MethodMain.isOverlapping(lstCheckDate1.getNgayNhan(), lstCheckDate1.getNgayTraDuKien(), dateNhan, dateTraDuKien) && lstCheckDate1.getNgayTraThucTe() == null) {
                                     checkOverlapping = true;
                                 }
                             }
+
                         }
 
                         if (checkOverlapping == true) {
