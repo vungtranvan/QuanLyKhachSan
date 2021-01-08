@@ -568,7 +568,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
                         boolean checkOverlapping = false;
 
                         List<ChiTietPhieuNhanPhong> lstCheckDate = chiTietPhieuNhanPhongDAO.getChiTietPhieuNhanPhongByMaPhong(lstP);
-
+                       
                         if (lstCheckDate.size() > 0) {
                             for (ChiTietPhieuNhanPhong lstCheckDate1 : lstCheckDate) {
                                 if (MethodMain.isOverlapping(lstCheckDate1.getNgayNhan(), lstCheckDate1.getNgayTraDuKien(), dateNhan, dateTraDuKien) && lstCheckDate1.getNgayTraThucTe() == null) {
