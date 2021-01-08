@@ -47,7 +47,7 @@ public class BieuDoHieuSuatPhong extends javax.swing.JInternalFrame {
 
     private PieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("Nhóm 0 - 14", new Double(25.0));
+      
         for (ThongKePhong thongKePhong : this.lstThongKeHieuSuatPhong) {
             if (thongKePhong.getHieuSuatPhong() != 0) {
                 dataset.setValue(thongKePhong.getMaPhong()+": "+thongKePhong.getHieuSuatPhong()+"%", thongKePhong.getHieuSuatPhong());
