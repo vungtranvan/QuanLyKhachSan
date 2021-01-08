@@ -341,7 +341,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                         JOptionPane.showMessageDialog(rootPane, "Không thể xóa", "Thông báo", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-            }
+            }   
             loadData(null, null, null);
             if (check == true) {
                 String mess = "";
