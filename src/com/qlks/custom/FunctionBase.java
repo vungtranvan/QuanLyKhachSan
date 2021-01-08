@@ -109,13 +109,13 @@ public class FunctionBase {
         List<ChinhSachTraPhong> lstCSTraPhong = chinhsachtpDAO.getAll();
 
         float phuThu = 0;
-        if (gio > 13 && gio <= 15) {
+        if (gio >= 13 && gio < 15) {
             phuThu = lstCSTraPhong.get(1).getPhuThu();
-        } else if (gio > 15 && gio <= 17) {
+        } else if (gio >= 15 && gio < 17) {
             phuThu = lstCSTraPhong.get(2).getPhuThu();
-        } else if (gio > 17 && gio <= 19) {
+        } else if (gio >= 17 && gio < 19) {
             phuThu = lstCSTraPhong.get(3).getPhuThu();
-        } else if (gio > 19) {
+        } else if (gio >= 19) {
             phuThu = lstCSTraPhong.get(4).getPhuThu();
         } else {
             phuThu = lstCSTraPhong.get(0).getPhuThu();
