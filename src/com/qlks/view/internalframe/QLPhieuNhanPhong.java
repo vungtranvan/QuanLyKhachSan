@@ -5,7 +5,6 @@
  */
 package com.qlks.view.internalframe;
 
-import com.qlks.custom.CustomButtonClumnJTable;
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.ChiTietPhieuNhanPhongDAO;
 import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
@@ -72,11 +71,11 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             lstPhieuNhanPhong = phieuNhanPhongDAO.getAll();
         }
 
-        Object[] columnNames = {"STT", "Mã nhận phòng", "Mã phiếu thuê", "Mã khách hàng", "Mã phòng", "Tên khách hàng", "CMND", "Ngày nhận", "Ngày trả dự kiến", "Ngày trả thực tế", "Trạng thái", "", "", "Xóa"};
+        Object[] columnNames = {"STT", "Mã nhận phòng", "Mã phiếu thuê", "Mã khách hàng", "Mã phòng", "Tên khách hàng", "CMND", "Ngày nhận", "Ngày trả dự kiến", "Ngày trả thực tế", "Trạng thái", "Xóa"};
         dtmPhieuNhanPhong = new DefaultTableModel(new Object[0][0], columnNames);
         int index = 1;
         for (PhieuNhanPhong adv : lstPhieuNhanPhong) {
-            Object[] o = new Object[14];
+            Object[] o = new Object[12];
             o[0] = index;
             o[1] = adv.getMaNhanPhong();
             o[2] = adv.getMaPhieuThue();
@@ -93,16 +92,12 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 trangThai = "Đã thanh toán";
             }
             o[10] = trangThai;
-            o[11] = "Thêm DV";
-            o[12] = "Thanh toán";
             dtmPhieuNhanPhong.addRow(o);
             index++;
         }
         tblPhieuNhanPhong.setModel(dtmPhieuNhanPhong);
-        new CustomButtonClumnJTable(tblPhieuNhanPhong, 12);
-        new CustomButtonClumnJTable(tblPhieuNhanPhong, 11);
 
-        funcBase.addCheckBox(13, tblPhieuNhanPhong);
+        funcBase.addCheckBox(11, tblPhieuNhanPhong);
     }
 
     public void centerJIF(JInternalFrame jif) {
@@ -284,33 +279,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void tblPhieuNhanPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhieuNhanPhongMouseClicked
-        int currentRow = tblPhieuNhanPhong.getSelectedRow();
-        int currentColumns = tblPhieuNhanPhong.getSelectedColumn();
-        if (currentRow >= 0 && currentColumns == 11) {
-            String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
-            if (trangThai.equals("Chưa thanh toán")) {
-                String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
-                String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
-                String tenKH = dtmPhieuNhanPhong.getValueAt(currentRow, 5).toString();
-                showInternalFrame(new PhieuSDDichVu(maNhanPhong, maPhong, tenKH));
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán. Không thể thêm dịch vụ cho khách hàng này !", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            }
-        }
-        if (currentRow >= 0 && currentColumns == 12) {
-            String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
 
-            if (trangThai.equals("Chưa thanh toán")) {
-                String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();
-                String maPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 4).toString();
-                String maKH = dtmPhieuNhanPhong.getValueAt(currentRow, 3).toString();
-                thanhToanHoaDon = new ThanhToanHoaDon(this, maNhanPhong, maPhong, maKH, tenNhanVien, rb);
-                this.thanhToanHoaDon.translate(this.rb);
-                showInternalFrame(thanhToanHoaDon);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Khách hàng này đã thanh toán !", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            }
-        }
     }//GEN-LAST:event_tblPhieuNhanPhongMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -321,7 +290,7 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         if (thongbao == JOptionPane.YES_OPTION) {
 
             for (int i = 0; i < tblPhieuNhanPhong.getRowCount(); i++) {
-                if (funcBase.IsSelected(i, 13, tblPhieuNhanPhong)) {
+                if (funcBase.IsSelected(i, 11, tblPhieuNhanPhong)) {
                     if (tblPhieuNhanPhong.getValueAt(i, 10).toString().equals("Chưa thanh toán")) {
                         check = true;
                         List<DanhSachSuDungDichVu> lstDSSĐV = danhSachSuDungDichVuDAO.getAll(tblPhieuNhanPhong.getValueAt(i, 1).toString(), tblPhieuNhanPhong.getValueAt(i, 2).toString());
