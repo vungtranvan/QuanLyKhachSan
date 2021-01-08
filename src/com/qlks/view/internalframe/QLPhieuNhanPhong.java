@@ -114,19 +114,19 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
             o[7] = adv.getNgayNhan();
             o[8] = adv.getNgayTraDuKien();
             o[9] = adv.getNgayTraThucTe();
-            o[10] = "Thanh toán";
-
             Boolean Status = adv.isTrangThai();
             String trangThai = "Chưa thanh toán";
             if (Status == true) {
                 trangThai = "Đã thanh toán";
             }
-            o[11] = trangThai;
+            o[10] = trangThai;
+            o[11] = "Thanh toán";
+
             dtmPhieuNhanPhong.addRow(o);
             index++;
         }
         tblPhieuNhanPhong.setModel(dtmPhieuNhanPhong);
-        new CustomButtonClumnJTable(tblPhieuNhanPhong, 10);
+        new CustomButtonClumnJTable(tblPhieuNhanPhong, 11);
 
         funcBase.addCheckBox(12, tblPhieuNhanPhong);
     }
@@ -326,8 +326,8 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
         int currentRow = tblPhieuNhanPhong.getSelectedRow();
         int currentColumns = tblPhieuNhanPhong.getSelectedColumn();
 
-        if (currentRow >= 0 && currentColumns == 10) {
-            String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 11).toString();
+        if (currentRow >= 0 && currentColumns == 11) {
+            String trangThai = dtmPhieuNhanPhong.getValueAt(currentRow, 10).toString();
 
             if (trangThai.equals("Chưa thanh toán")) {
                 String maNhanPhong = dtmPhieuNhanPhong.getValueAt(currentRow, 1).toString();

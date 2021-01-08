@@ -64,7 +64,7 @@ public class QLHoaDon extends javax.swing.JInternalFrame implements SearchHoaDon
             o[3] = adv.getMaNhanPhong();
             o[4] = adv.getTenKhachHang();
             o[5] = adv.getNhanVienLap();
-            o[6] = adv.getTongTien();
+            o[6] = (int) adv.getTongTien();
             o[7] = adv.getNgayLap();
             dtmHoaDon.addRow(o);
             index++;

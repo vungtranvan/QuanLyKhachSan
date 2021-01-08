@@ -67,7 +67,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         void doAdd();
     }
 
-    public AddPhieuThuePhong(CallBackAdd _cb,ResourceBundle rb) {
+    public AddPhieuThuePhong(CallBackAdd _cb, ResourceBundle rb) {
         this.rb = rb;
         initComponents();
         funcBase = new FunctionBase();
@@ -92,7 +92,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
 
     public void initdataTablePhong() {
         lstPhong = phongDAO.getPhongTrong();
-       
+
         Object[] columnNames = {"", "Mã Phòng", "Loại phòng", "Tình trạng", "Giá", "Ghi chú"};
         dtmPhong = new DefaultTableModel(new Object[0][0], columnNames);
 
@@ -222,7 +222,6 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         jcbxKhachHang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         txtNgayDangKy.setDateFormatString("dd/MM/yyyy");
-        txtNgayDangKy.setEnabled(false);
         txtNgayDangKy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -547,37 +546,59 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
             if (dateNhan.isAfter(dateTraDuKien)) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thất bại vì ngày đi trước ngày đến", "Thông báo", JOptionPane.ERROR_MESSAGE);
             } else {
+                boolean checkOver = false;
+                String errCheckDatP = "";
                 for (String lstP : lstMaPhong) {
-                    boolean checkOverlapping = false;
-
                     List<ChiTietPhieuNhanPhong> lstCheckDate = chiTietPhieuNhanPhongDAO.getChiTietPhieuNhanPhongByMaPhong(lstP);
 
                     if (lstCheckDate.size() > 0) {
                         for (ChiTietPhieuNhanPhong lstCheckDate1 : lstCheckDate) {
-                            if (MethodMain.isOverlapping(lstCheckDate1.getNgayNhan(), lstCheckDate1.getNgayTraDuKien(), dateNhan, dateTraDuKien)) {
-                                checkOverlapping = true;
+                            if (MethodMain.isOverlapping(lstCheckDate1.getNgayNhan(), lstCheckDate1.getNgayTraDuKien(), dateNhan, dateTraDuKien) && lstCheckDate1.getNgayTraThucTe() == null) {
+                                checkOver = true;
+                                if (checkOver == true) {
+                                    errCheckDatP += "," + lstP;
+                                }
                             }
                         }
                     }
-
-                    if (checkOverlapping == true) {
-                        errThuePhong += ", " + lstP;
-                    } else {
-
-                        if (checkAddThuePhong == false) {
-                            int count1 = phieuThuePhongDAO.add(new PhieuThuePhong(ma_PhieuThue, ma_KhachHang));
-                            if (count1 > 0) {
-                                checkAddThuePhong = true;
-                            }
-                        }
-                        succesThuePhong += ", " + lstP;
-                        chiTietPhieuThuePhongDAO.add(new ChiTietPhieuThuePhong(ma_PhieuThue, lstP, dateDKy, dateNhan, dateTraDuKien));
-                        phongDAO.updatePhongDaThue(lstP);
-                        cb.doAdd();
-                        resetText();
-                    }
-                    checkMessError = true;
                 }
+
+                if (checkOver != true) {
+                    for (String lstP : lstMaPhong) {
+                        boolean checkOverlapping = false;
+
+                        List<ChiTietPhieuNhanPhong> lstCheckDate = chiTietPhieuNhanPhongDAO.getChiTietPhieuNhanPhongByMaPhong(lstP);
+
+                        if (lstCheckDate.size() > 0) {
+                            for (ChiTietPhieuNhanPhong lstCheckDate1 : lstCheckDate) {
+                                if (MethodMain.isOverlapping(lstCheckDate1.getNgayNhan(), lstCheckDate1.getNgayTraDuKien(), dateNhan, dateTraDuKien) && lstCheckDate1.getNgayTraThucTe() == null) {
+                                    checkOverlapping = true;
+                                }
+                            }
+                        }
+
+                        if (checkOverlapping == true) {
+                            errThuePhong += ", " + lstP;
+                        } else {
+
+                            if (checkAddThuePhong == false) {
+                                int count1 = phieuThuePhongDAO.add(new PhieuThuePhong(ma_PhieuThue, ma_KhachHang));
+                                if (count1 > 0) {
+                                    checkAddThuePhong = true;
+                                }
+                            }
+                            succesThuePhong += ", " + lstP;
+                            chiTietPhieuThuePhongDAO.add(new ChiTietPhieuThuePhong(ma_PhieuThue, lstP, dateDKy, dateNhan, dateTraDuKien));
+                            phongDAO.updatePhongDaThue(lstP);
+                            cb.doAdd();
+                            resetText();
+                        }
+                        checkMessError = true;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Không thể dặt phòng <" + errCheckDatP + "> vì đã có người ở 1", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+
             }
         }
 
@@ -596,7 +617,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void btnThemMoiKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiKhachHangActionPerformed
-          showInternalFrame(new AddKhachHang(this, rb));
+        showInternalFrame(new AddKhachHang(this, rb));
     }//GEN-LAST:event_btnThemMoiKhachHangActionPerformed
 
     private void tblPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongMouseClicked

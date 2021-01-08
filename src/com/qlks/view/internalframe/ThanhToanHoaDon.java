@@ -775,10 +775,10 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
 
                     for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
                         float tongTienPhong = tienPhongz * soNgay;
-                        float tienPhuThu = tienPhong * funcBase.funcGetGiaTriPhuThu() / 100;                       
+                        float tienPhuThu = tienPhong * funcBase.funcGetGiaTriPhuThu() / 100;
                         float sumTienDvu = adv.getDonGia() * adv.getSoLuong();
                         float thanhTien = tongTienPhong + sumTienDvu + tienPhuThu;
-                        
+
                         row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), lstP, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
                                 tienPhongz, adv.getDonGia(), tienKM, hinhThucTT, soNgay, thanhTien));
                     }
@@ -792,8 +792,8 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                 chiTietPhieuNhanPhongDAO.updateNgayTraDuKien(ctP);
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công", null, JOptionPane.INFORMATION_MESSAGE);
                 cb.doCheckOut();
-                //  ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
-                //showInternalFrame(jframeChiTietHoaDon);
+                ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
+                showInternalFrame(jframeChiTietHoaDon);
 
                 if (tienKM > 0) {
                     khuyenMaiDAO.updateTrangThai(maPhieuCodeKM);

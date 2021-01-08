@@ -7,9 +7,11 @@ package com.qlks.view.internalframe;
 
 import com.qlks.custom.FunctionBase;
 import com.qlks.dao.impl.ChiTietPhieuThuePhongDAO;
+import com.qlks.dao.impl.PhieuNhanPhongDAO;
 import com.qlks.dao.impl.PhieuThuePhongDAO;
 import com.qlks.dao.impl.PhongDAO;
 import com.qlks.models.ChiTietPhieuThuePhong;
+import com.qlks.models.PhieuNhanPhong;
 import com.qlks.models.PhieuThuePhong;
 import com.qlks.utils.MethodMain;
 import com.qlks.view.internalframe.action.AddPhieuThuePhong;
@@ -35,6 +37,7 @@ import javax.swing.table.DefaultTableModel;
 public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddPhieuThuePhong.CallBackAdd, UpdatePhieuThuePhong.CallBackUpdate, SearchPhieuThuePhong.CallBackSearch {
 
     private PhieuThuePhongDAO phieuThuePhongDAO;
+    private PhieuNhanPhongDAO phieuNhanPhongDAO;
     private ChiTietPhieuThuePhongDAO chiTietPhieuThuePhongDAO;
     private PhongDAO phongDAO;
     private List<PhieuThuePhong> lstPhieuThuePhong;
@@ -47,6 +50,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
 
     public QLPhieuThuePhong(Locale lc) {
         initComponents();
+        phieuNhanPhongDAO = new PhieuNhanPhongDAO();
         dtmPhieuThuePhong = new DefaultTableModel();
         phieuThuePhongDAO = new PhieuThuePhongDAO();
         phongDAO = new PhongDAO();
@@ -288,7 +292,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddPhieuThuePhong(this,this.rb));
+        showInternalFrame(new AddPhieuThuePhong(this, this.rb));
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -297,18 +301,23 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
         Boolean check = false;
         int thongbao = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn không ?", "Thông báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (thongbao == JOptionPane.YES_OPTION) {
-            String ma_Phong;
+
             for (int i = 0; i < tblPhieuThuePhong.getRowCount(); i++) {
                 if (funcBase.IsSelected(i, 9, tblPhieuThuePhong)) {
                     check = true;
-
-                    int rowSucces1 = chiTietPhieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
-                    int rowSucces2 = phieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
-                    if (rowSucces1 > 0 && rowSucces2 > 0) {
-                        phongDAO.updatePhongDaThanhToan(tblPhieuThuePhong.getValueAt(i, 4).toString());
-                        succesDeltete += "\t" + tblPhieuThuePhong.getValueAt(i, 1).toString() + "\n";
+                    List<PhieuNhanPhong> lstcheckDelete = phieuNhanPhongDAO.getByMaPhieuThue(tblPhieuThuePhong.getValueAt(i, 1).toString());
+                    if (lstcheckDelete.size() > 0) {
+                        check = false;
+                        JOptionPane.showMessageDialog(rootPane, "Không thể xóa <" + tblPhieuThuePhong.getValueAt(i, 1).toString() + ">", "Thông báo", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        errDeltete += "\t" + tblPhieuThuePhong.getValueAt(i, 1).toString() + "\n";
+                        int rowSucces1 = chiTietPhieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
+                        int rowSucces2 = phieuThuePhongDAO.delete(tblPhieuThuePhong.getValueAt(i, 1).toString());
+                        if (rowSucces1 > 0 && rowSucces2 > 0) {
+                            phongDAO.updatePhongDaThanhToan(tblPhieuThuePhong.getValueAt(i, 4).toString());
+                            succesDeltete += "\t" + tblPhieuThuePhong.getValueAt(i, 1).toString() + "\n";
+                        } else {
+                            errDeltete += "\t" + tblPhieuThuePhong.getValueAt(i, 1).toString() + "\n";
+                        }
                     }
                 }
             }
