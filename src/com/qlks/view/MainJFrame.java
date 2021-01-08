@@ -91,6 +91,7 @@ public class MainJFrame extends javax.swing.JFrame {
     QuanLyQuyDinh quanLyQuyDinh;
     private JPanel subMenuRule;
 
+    QLPhieuThuePhong qLPhieuThuePhong;
     private JPanel subMenuBook;
     QLPhieuNhanPhong qLPhieuNhanPhong;
     private JPanel subMenuCheckIn;
@@ -200,8 +201,9 @@ public class MainJFrame extends javax.swing.JFrame {
             menuChecking.setVisible(true);
 
             subMenuBook = new JPanel();
+            qLPhieuThuePhong = new QLPhieuThuePhong(lc);
             listSubMenuItemChecking.add(makeSubMenuItem(subMenuBook, rb.getString("subMenuBook")));
-            showInternalFrame(subMenuBook, new QLPhieuThuePhong());
+            showInternalFrame(subMenuBook, qLPhieuThuePhong);
 
             subMenuCheckIn = new JPanel();
             qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd, lc);

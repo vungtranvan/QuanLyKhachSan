@@ -19,6 +19,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.swing.JDesktopPane;
@@ -40,8 +42,10 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
     private JDesktopPane jdek;
     private FunctionBase funcBase;
     private List<PhieuThuePhong> lstPhieuThuePhong2;
+    ResourceBundle rb;
+    private Locale lc;
 
-    public QLPhieuThuePhong() {
+    public QLPhieuThuePhong(Locale lc) {
         initComponents();
         dtmPhieuThuePhong = new DefaultTableModel();
         phieuThuePhongDAO = new PhieuThuePhongDAO();
@@ -50,6 +54,8 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
         funcBase = new FunctionBase();
         lstPhieuThuePhong2 = new ArrayList<>();
         loadData(null, null, null);
+        this.lc = lc;
+        this.rb = ResourceBundle.getBundle("com.qlks.i18n.resources.resources", this.lc);
 
         if (!MethodMain.checkQuyen("QlDaoDich")) {
             GroupBtn.setVisible(false);
@@ -82,7 +88,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
             for (PhieuThuePhong phieuThuePhong1 : getListPtpByMaPt(phieuThuePhong.getMaPhieuThue(), lstPhieuThuePhong2)) {
                 phong += phieuThuePhong1.getMaPhong() + ",";
             }
-            phieuThuePhong.setMaPhong(phong.replaceFirst(".$",""));
+            phieuThuePhong.setMaPhong(phong.replaceFirst(".$", ""));
         }
 
         Object[] columnNames = {"STT", "Mã phiếu thuê", "Mã khách hàng", "Tên khách hàng", "Mã phòng", "Ngày đăng ký", "Ngày nhận", "Ngày trả dự kiến", "Trạng thái", ""};
@@ -282,7 +288,7 @@ public class QLPhieuThuePhong extends javax.swing.JInternalFrame implements AddP
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMoiActionPerformed
-        showInternalFrame(new AddPhieuThuePhong(this));
+        showInternalFrame(new AddPhieuThuePhong(this,this.rb));
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
