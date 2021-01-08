@@ -402,11 +402,11 @@ INSERT INTO LoaiTinhTrang(TenLoaiTinhTrang) VALUES
 GO 
 
 INSERT INTO KhuyenMai(MaPhieu,GiaTri,NoiDung,NgayBatDau,NgayKetThuc,KieuTinh,TrangThai) VALUES
-('CTKM01',10,N'Khuyến mại 1','2020-12-20','2020-12-27',1,0),
-('TRIANKHACHHANG',15,N'Tri ân khách hàng','2020-01-01','2020-01-15',1,0),
+('CTKM01',10,N'Khuyến mại 1','2020-12-20','2021-12-27',1,0),
+('TRIANKHACHHANG',15,N'Tri ân khách hàng','2021-01-10','2020-01-15',1,0),
 ('HOLIDAY',350000,N'Khuyến mại 1','2021-01-05','2021-01-20',0,0),
-('OK123',40,N'Khuyến mại 2','2020-12-20','2021-01-20',1,1),
-('OCE',50,N'Khuyến mại 3','2020-12-25','2021-01-20',1,0)
+('OK123',12,N'Khuyến mại 2','2020-12-20','2021-01-20',1,1),
+('OCE',500000,N'Khuyến mại 3','2020-12-25','2021-01-20',1,0)
 GO
 
 INSERT into Quyen(Quyen) VALUES 

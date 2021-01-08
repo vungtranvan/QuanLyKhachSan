@@ -40,9 +40,9 @@ import javax.swing.table.DefaultTableModel;
  * @author hello
  */
 public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
-    
+
     private DefaultComboBoxModel modelDichVu;
-    
+
     private DanhSachSuDungDichVuDAO dsSDDichVuDAO;
     private JDesktopPane jdek;
     private PhieuNhanPhongDAO phieuNhanPhongDAO;
@@ -71,9 +71,10 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     private int maKhuyenMai = 0;
     private String[] lstMaPhong;
     ResourceBundle rb;
-    
+    Boolean ckeckSumTongTienPhong = true;
+
     public interface CallBackCheckOut {
-        
+
         void doCheckOut();
     }
 
@@ -108,9 +109,9 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         lblTongTien.setText(funcBase.formatTien(sumTongTien()));
         lblSoNgayO.setText(Integer.toString(soNgay));
     }
-    
+
     public void setData() {
-        
+
         List<ChiTietPhieuNhanPhong> lstCTNPBYID = chiTietPhieuNhanPhongDAO.getByMaNhanPhong(maNhanPhong);
         for (ChiTietPhieuNhanPhong lstCT : lstCTNPBYID) {
             LocalDate ngayDn = lstCT.getNgayNhan();
@@ -122,20 +123,22 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         soNgay = funcBase.calendaDay(lblNgayThue.getText(), lblNgayDi.getText());
         hoaDonDAO = new HoaDonDAO();
         chiTietHoaDonDAO = new ChiTietHoaDonDAO();
-        
-        for (String lstP : lstMaPhong) {
-            List<Phong> lstPhong = phongDAO.getByMaPhong(lstP);
-            for (Phong p : lstPhong) {
-                List<LoaiPhong> lstLoaiPhong = loaiPhongDAO.getByMa(p.getMaLoaiPhong());
-                for (LoaiPhong lp : lstLoaiPhong) {
-                    tienPhong += lp.getDonGia();
+        if (ckeckSumTongTienPhong == true) {
+            ckeckSumTongTienPhong = false;
+            for (String lstP : lstMaPhong) {
+                List<Phong> lstPhong = phongDAO.getByMaPhong(lstP);
+                for (Phong p : lstPhong) {
+                    List<LoaiPhong> lstLoaiPhong = loaiPhongDAO.getByMa(p.getMaLoaiPhong());
+                    for (LoaiPhong lp : lstLoaiPhong) {
+                        tienPhong += lp.getDonGia();
+                    }
                 }
             }
         }
         lblGiaPhong.setText(funcBase.formatTien(tienPhong));
-        
+
         lblKhuyenMai.setText(Float.toString(tienKM));
-        
+
         lblPhuThu.setText(Float.toString(funcBase.funcGetGiaTriPhuThu()));
         for (KhachHang kh : lstKhachHangByID) {
             lblTenKhachHang.setText(kh.getTenKhachHang());
@@ -146,9 +149,10 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
             } else {
                 lblGioiTinh.setText("Nữ");
             }
+
         }
     }
-    
+
     public void initDVDSD() {
         lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(maNhanPhong);
         Object[] columnNames = {"STT", "Mã Phòng", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", "Thành tiền"};
@@ -178,9 +182,9 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
             tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
             lblTienDichVu.setText(funcBase.formatTien(tongTienDVu));
         }
-        
+
     }
-    
+
     public int SumTienDV() {
         int rowcount = tblDichVuDaSD.getRowCount();
         int sum = 0;
@@ -189,21 +193,21 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         }
         return sum;
     }
-    
+
     public float sumTongTien() {
         float sum = 0;
         float tongTienDV = 0;
         if (lstDanhSachSuDungDichVu.size() > 0) {
             tongTienDV = (float) SumTienDV();
         }
-        
+
         float tongTienPhong = tienPhong * soNgay;
         float tienPhuThu = tienPhong * funcBase.funcGetGiaTriPhuThu() / 100;
         float tienKhuyenMai = tienKM;
         sum = tongTienDV + tongTienPhong + tienPhuThu - tienKhuyenMai;
         return sum;
     }
-    
+
     public void centerJIF(JInternalFrame jif) {
         Dimension desktopSize = jdek.getSize();
         Dimension jInternalFrameSize = jif.getSize();
@@ -212,7 +216,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         jif.setLocation(width, height);
         jif.setVisible(true);
     }
-    
+
     public void showInternalFrame(JInternalFrame jif) {
         if (!jif.isVisible()) {
             jdek = getDesktopPane();
@@ -222,7 +226,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
             jdek.show();
         }
     }
-    
+
     public void translate(ResourceBundle rb) {
         this.rb = rb;
         btnHuyBo.setText(rb.getString("btnHuyBo"));
@@ -738,7 +742,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         } else {
             row = hoaDonDAO.addNoKM(new HoaDon(maKhachHang, maNhanPhong, tenNhanVien, sumTongTien(), LocalDate.now()));
         }
-        
+
         if (row > 0) {
             List<HoaDon> getIdHoaDon = hoaDonDAO.getIdMAX();
             int row2 = 0;
@@ -746,28 +750,55 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
             if (rdTienThe.isSelected() == true) {
                 hinhThucTT = "Tiền thẻ";
             }
+
+            for (String lstP : lstMaPhong) {
+                List<Phong> lstPhong = phongDAO.getByMaPhong(lstP);
+                for (Phong p : lstPhong) {
+                    List<LoaiPhong> lstLoaiPhong = loaiPhongDAO.getByMa(p.getMaLoaiPhong());
+                    for (LoaiPhong lp : lstLoaiPhong) {
+                        tienPhong += lp.getDonGia();
+                    }
+                }
+            }
+
             for (HoaDon idHoaDon : getIdHoaDon) {
                 _maHoaDon = idHoaDon.getMaHoaDon();
-                for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
-                    row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), maPhong, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
-                            tienPhong, adv.getDonGia(), tienKM, hinhThucTT, soNgay, sumTongTien()));
+                for (String lstP : lstMaPhong) {
+                    float tienPhongz = 0;
+                    List<Phong> lstPhong = phongDAO.getByMaPhong(lstP);
+                    for (Phong p : lstPhong) {
+                        List<LoaiPhong> lstLoaiPhong = loaiPhongDAO.getByMa(p.getMaLoaiPhong());
+                        for (LoaiPhong lp : lstLoaiPhong) {
+                            tienPhongz = lp.getDonGia();
+                        }
+                    }
+
+                    for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
+                        float tongTienPhong = tienPhongz * soNgay;
+                        float tienPhuThu = tienPhong * funcBase.funcGetGiaTriPhuThu() / 100;                       
+                        float sumTienDvu = adv.getDonGia() * adv.getSoLuong();
+                        float thanhTien = tongTienPhong + sumTienDvu + tienPhuThu;
+                        
+                        row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), lstP, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
+                                tienPhongz, adv.getDonGia(), tienKM, hinhThucTT, soNgay, thanhTien));
+                    }
+                    phongDAO.updatePhongDaThanhToan(lstP);
                 }
-                
             }
+
             if (row2 > 0) {
                 phieuNhanPhongDAO.updateTrangThai(maNhanPhong);
-                phongDAO.updatePhongDaThanhToan(maPhong);
                 ChiTietPhieuNhanPhong ctP = new ChiTietPhieuNhanPhong(maNhanPhong, LocalDate.now());
                 chiTietPhieuNhanPhongDAO.updateNgayTraDuKien(ctP);
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công", null, JOptionPane.INFORMATION_MESSAGE);
                 cb.doCheckOut();
-                ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
-                showInternalFrame(jframeChiTietHoaDon);
-                
+                //  ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
+                //showInternalFrame(jframeChiTietHoaDon);
+
                 if (tienKM > 0) {
                     khuyenMaiDAO.updateTrangThai(maPhieuCodeKM);
                 }
-                
+
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Thanh toán thất bại", null, JOptionPane.ERROR_MESSAGE);
@@ -805,7 +836,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                     jlbMaDaTonTai.setText("Mã này đã hết hạn sử dụng !!!");
                     jlbMaDaTonTai.setForeground(Color.RED);
                 }
-                
+
             } else {
                 jlbMaDaTonTai.setText("Mã không tồn tại !!!");
                 jlbMaDaTonTai.setForeground(Color.RED);
