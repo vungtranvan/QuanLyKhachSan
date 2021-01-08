@@ -18,7 +18,7 @@ public class DanhSachSuDungDichVuMapper implements RowMapper<DanhSachSuDungDichV
 
     @Override
     public DanhSachSuDungDichVu mapRow(ResultSet rs) {
-        try {
+        try { 
             DanhSachSuDungDichVu data = new DanhSachSuDungDichVu(rs.getString("MaSuDungDVu"), rs.getString("MaDichVu"),
                     rs.getString("MaNhanPhong"),rs.getString("MaPhong"), rs.getInt("SoLuong"), rs.getString("TenLoaiDichVu"), rs.getString("TenDonVi"),rs.getFloat("DonGia"));
             return data;
