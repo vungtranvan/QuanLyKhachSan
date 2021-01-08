@@ -17,9 +17,9 @@ import java.util.List;
 public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> implements IDanhSachSuDungDichVuDAO {
 
     @Override
-    public List<DanhSachSuDungDichVu> getAll(String maNhanPhong) {
-        String sql = "{Call getDanhSachSuDungDichVu_ByMaNhanPhong(?)}";
-        return query(sql, new DanhSachSuDungDichVuMapper(), maNhanPhong);
+    public List<DanhSachSuDungDichVu> getAll(String maNhanPhong, String maPhong) {
+        String sql = "{Call getDanhSachSuDungDichVu_ByMaNhanPhong(?,?)}";
+        return query(sql, new DanhSachSuDungDichVuMapper(), maNhanPhong, maPhong);
     }
 
     @Override
@@ -30,14 +30,14 @@ public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> i
 
     @Override
     public int add(DanhSachSuDungDichVu dv) {
-        String sql = "{Call insertDanhSachSuDungDichVu(?,?,?,?)}";
-        return this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getSoLuong());
+        String sql = "{Call insertDanhSachSuDungDichVu(?,?,?,?,?)}";
+        return this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getMaPhong(), dv.getSoLuong());
     }
 
     @Override
     public int update(DanhSachSuDungDichVu dv) {
-        String sql = "{Call updateDanhSachSuDungDichVu(?,?,?,?)}";
-        return this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getSoLuong());
+        String sql = "{Call updateDanhSachSuDungDichVu(?,?,?,?,?)}";
+        return this.update(sql, dv.getMaSuDungDVu(), dv.getMaDichVu(), dv.getMaNhanPhong(), dv.getMaPhong(), dv.getSoLuong());
     }
 
     @Override
@@ -47,9 +47,9 @@ public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> i
     }
 
     @Override
-    public int addDefault(String maSuDungDVu, String maNhanPhong) {
+    public int addDefault(String maSuDungDVu, String maNhanPhong, String maPhong) {
         String sql = "{Call insertDanhSachSuDungDichVuDefault(?,?)}";
-        return this.update(sql, maSuDungDVu, maNhanPhong);
+        return this.update(sql, maSuDungDVu, maNhanPhong, maPhong);
     }
 
 }

@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface IDanhSachSuDungDichVuDAO {
 
-    List<DanhSachSuDungDichVu> getAll(String maNhanPhong);
+    List<DanhSachSuDungDichVu> getAll(String maNhanPhong, String maPhong);
 
     List<DanhSachSuDungDichVu> getByMaSuDungDichVu(String maSuDungDVu);
 
     int add(DanhSachSuDungDichVu dv);
 
-    int addDefault(String maSuDungDVu, String maNhanPhong);
+    int addDefault(String maSuDungDVu, String maNhanPhong, String maPhong);
 
     int update(DanhSachSuDungDichVu dv);
 

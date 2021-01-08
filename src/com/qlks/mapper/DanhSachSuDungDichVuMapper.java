@@ -20,7 +20,7 @@ public class DanhSachSuDungDichVuMapper implements RowMapper<DanhSachSuDungDichV
     public DanhSachSuDungDichVu mapRow(ResultSet rs) {
         try {
             DanhSachSuDungDichVu data = new DanhSachSuDungDichVu(rs.getString("MaSuDungDVu"), rs.getString("MaDichVu"),
-                    rs.getString("MaNhanPhong"), rs.getInt("SoLuong"), rs.getString("TenLoaiDichVu"), rs.getString("TenDonVi"),rs.getFloat("DonGia"));
+                    rs.getString("MaNhanPhong"),rs.getString("MaPhong"), rs.getInt("SoLuong"), rs.getString("TenLoaiDichVu"), rs.getString("TenDonVi"),rs.getFloat("DonGia"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);

@@ -190,6 +190,7 @@ CREATE TABLE DanhSachSuDungDichVu
 	MaSuDungDVu varchar (4) PRIMARY KEY NOT NULL,
 	MaDichVu varchar (5) NOT NULL,
 	MaNhanPhong varchar (5) NOT NULL,
+	MaPhong varchar (3) NOT NULL,
 	SoLuong int
 )
 GO
@@ -260,7 +261,7 @@ GO
 
 -- Khóa Ngoại Bảng DanhSachSuDungDichVu 
 ALTER TABLE DanhSachSuDungDichVu
-ADD FOREIGN KEY (MaNhanPhong) REFERENCES PhieuNhanPhong (MaNhanPhong);
+ADD FOREIGN KEY (MaNhanPhong,MaPhong) REFERENCES ChiTietPhieuNhanPhong (MaNhanPhong,MaPhong);
 GO
 ALTER TABLE DanhSachSuDungDichVu
 ADD FOREIGN KEY (MaDichVu) REFERENCES DichVu (MaDichVu);
@@ -2187,7 +2188,8 @@ GO
 
 -- BẢNG DanhSachSuDungDichVu
 CREATE PROC getDanhSachSuDungDichVu_ByMaNhanPhong
-@MaNhanPhong varchar (5)
+@MaNhanPhong varchar (5),
+@MaPhong varchar(3)
 AS
 BEGIN 
 SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
@@ -2195,7 +2197,7 @@ FROM DanhSachSuDungDichVu
 JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
 JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
 JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
-WHERE DanhSachSuDungDichVu.MaNhanPhong = @MaNhanPhong
+WHERE DanhSachSuDungDichVu.MaNhanPhong = @MaNhanPhong AND MaPhong=@MaPhong
 END
 GO
 
@@ -2216,19 +2218,21 @@ CREATE PROC insertDanhSachSuDungDichVu
 @MaSuDungDVu varchar (4),
 @MaDichVu varchar (5),
 @MaNhanPhong varchar (5),
+@MaPhong varchar(3),
 @SoLuong int
 AS
 BEGIN 
-Insert into DanhSachSuDungDichVu(MaSuDungDVu,MaDichVu,MaNhanPhong,SoLuong) Values(@MaSuDungDVu,@MaDichVu,@MaNhanPhong,@SoLuong)
+Insert into DanhSachSuDungDichVu(MaSuDungDVu,MaDichVu,MaNhanPhong,MaPhong,SoLuong) Values(@MaSuDungDVu,@MaDichVu,@MaNhanPhong,@MaPhong,@SoLuong)
 END
 GO
 
 CREATE PROC insertDanhSachSuDungDichVuDefault
 @MaSuDungDVu varchar (4),
-@MaNhanPhong varchar (5)
+@MaNhanPhong varchar (5),
+@MaPhong varchar(3)
 AS
 BEGIN 
-Insert into DanhSachSuDungDichVu(MaSuDungDVu,MaDichVu,MaNhanPhong,SoLuong) Values(@MaSuDungDVu,'DV00',@MaNhanPhong,1)
+Insert into DanhSachSuDungDichVu(MaSuDungDVu,MaDichVu,MaNhanPhong,MaPhong,SoLuong) Values(@MaSuDungDVu,'DV00',@MaNhanPhong,@MaPhong,1)
 END
 GO
 
@@ -2236,10 +2240,11 @@ CREATE PROC updateDanhSachSuDungDichVu
 @MaSuDungDVu varchar (4),
 @MaDichVu varchar (5),
 @MaNhanPhong varchar (5),
+@MaPhong varchar(3),
 @SoLuong int
 AS
 BEGIN 
-Update DanhSachSuDungDichVu set MaDichVu = @MaDichVu, MaNhanPhong=@MaNhanPhong, SoLuong=@SoLuong Where MaSuDungDVu = @MaSuDungDVu
+Update DanhSachSuDungDichVu set MaDichVu = @MaDichVu, MaNhanPhong=@MaNhanPhong, SoLuong=@SoLuong Where MaSuDungDVu = @MaSuDungDVu AND MaPhong=@MaPhong
 END
 GO
 

@@ -101,7 +101,7 @@ public class ChiTietHoaDonView extends javax.swing.JInternalFrame {
     }
 
     public void initDVDSD() {
-        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(maNhanPhong);
+       // lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(maNhanPhong);
         Object[] columnNames = {"STT", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", "Thành tiền"};
         dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
 
