@@ -8,11 +8,18 @@ package com.qlks.utils;
 import com.qlks.main.Main;
 import com.qlks.view.internalframe.ThongBao;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,6 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.time.LocalDate;
+import java.util.Properties;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
@@ -101,7 +109,7 @@ public class MethodMain {
         if (i == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             try {
-               // BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file + ".xls"), "UTF-8"));
+                // BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file + ".xls"), "UTF-8"));
                 FileWriter out = new FileWriter(file + ".xls");
                 try (BufferedWriter bwrite = new BufferedWriter(out)) {
                     DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -158,10 +166,13 @@ public class MethodMain {
 
                 BufferedImage image = new BufferedImage(jPanel.getWidth(), jPanel.getHeight(), BufferedImage.TYPE_INT_RGB);
                 Graphics2D graphics2D = image.createGraphics();
-                jPanel.paint(graphics2D);
-                ImageIO.write(image, "jpeg", new File(file + ".jpeg"));
+
+                jPanel.print(graphics2D);
+
+//                jPanel.paint(graphics2D);
+//                ImageIO.write(image, "jpeg", new File(file + ".jpeg"));
                 JOptionPane.showMessageDialog(null, "Lưu file thành công!");
-            } catch (HeadlessException | IOException exception) {
+            } catch (HeadlessException exception) {
                 JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");
             }
         }
@@ -170,4 +181,31 @@ public class MethodMain {
     public static boolean isOverlapping(LocalDate start1, LocalDate end1, LocalDate start2, LocalDate end2) {
         return start1.isBefore(end2) && start2.isBefore(end1);
     }
+
+    public static void printComponenet(Component component) {
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setJobName(" Print Component ");
+
+        pj.setPrintable((Graphics pg, PageFormat pf, int pageNum) -> {
+            if (pageNum > 0) {
+                return Printable.NO_SUCH_PAGE;
+            }
+
+            Graphics2D g2 = (Graphics2D) pg;
+            g2.translate(pf.getImageableX(), pf.getImageableY());
+            component.paint(g2);
+            return Printable.PAGE_EXISTS;
+        });
+        if (pj.printDialog() == false) {
+            return;
+        }
+
+        try {
+            pj.print();
+        } catch (PrinterException ex) {
+            // handle exception
+            JOptionPane.showMessageDialog(null, "In File thành công !");
+        }
+    }
+
 }

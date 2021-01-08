@@ -6,6 +6,7 @@
 package com.qlks.view.internalframe;
 
 import com.qlks.custom.FunctionBase;
+import com.qlks.custom.RanDomMa;
 import com.qlks.dao.impl.DanhSachSuDungDichVuDAO;
 import com.qlks.dao.impl.DichVuDAO;
 import com.qlks.models.DanhSachSuDungDichVu;
@@ -30,13 +31,17 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     private List<DanhSachSuDungDichVu> lstDanhSachSuDungDichVu;
     private DefaultTableModel dtmDanhSachSuDungDichVu;
     private FunctionBase funcBase;
+    private String maPhong = "";
+    private RanDomMa ranDomMa;
 
     /**
      * Creates new form PhieuSDDichVu
      */
-    public PhieuSDDichVu(String maNhanPhong, String maPhong, String tenKH) {
+    public PhieuSDDichVu(String maNhanPhong, String _maPhong, String tenKH) {
         initComponents();
         resetText();
+        maPhong = _maPhong;
+        ranDomMa = new RanDomMa();
         dtmDichVu = new DefaultTableModel();
         dtmDanhSachSuDungDichVu = new DefaultTableModel();
         dichVuDAO = new DichVuDAO();
@@ -80,7 +85,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     }
 
     public void initDVDSD() {
-        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(lblMaNhanPhong.getText());
+        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(lblMaNhanPhong.getText(), maPhong);
 
         Object[] columnNames = {"STT", "Mã SD dịch vụ", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", ""};
         dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
@@ -486,7 +491,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         String ma_DichVu = lp.getMaDichVu();
 
         if (check == true) {
-            int row = dsSDDichVuDAO.add(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), soLuong));
+            int row = dsSDDichVuDAO.add(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), maPhong, soLuong));
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 initDVDSD();
@@ -527,7 +532,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
         String ma_DichVu = lp.getMaDichVu();
 
         if (check == true) {
-            int row = dsSDDichVuDAO.update(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), soLuong));
+            int row = dsSDDichVuDAO.update(new DanhSachSuDungDichVu(maSDDV, ma_DichVu, lblMaNhanPhong.getText(), maPhong, soLuong));
             if (row > 0) {
                 JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 initDVDSD();
@@ -541,6 +546,7 @@ public class PhieuSDDichVu extends javax.swing.JInternalFrame {
     private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
         int currentRow = tblDichVu.getSelectedRow();
         if (currentRow >= 0) {
+            txtMaSDDicVu.setText(ranDomMa.rDomMaSuDungDvu());
             String maDV = dtmDichVu.getValueAt(currentRow, 1).toString();
             DichVu dv = lstDichVu.stream().filter(x -> x.getMaDichVu().equals(maDV)).findAny().orElse(null);
             modelDichVu.setSelectedItem(dv);

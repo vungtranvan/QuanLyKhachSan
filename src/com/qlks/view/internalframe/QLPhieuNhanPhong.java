@@ -282,18 +282,18 @@ public class QLPhieuNhanPhong extends javax.swing.JInternalFrame implements AddP
                 if (funcBase.IsSelected(i, 13, tblPhieuNhanPhong)) {
                     if (tblPhieuNhanPhong.getValueAt(i, 10).toString().equals("Chưa thanh toán")) {
                         check = true;
-                        List<DanhSachSuDungDichVu> lstDSSĐV = danhSachSuDungDichVuDAO.getAll(tblPhieuNhanPhong.getValueAt(i, 1).toString());
-                        for (DanhSachSuDungDichVu lstDSSĐV1 : lstDSSĐV) {
-                            danhSachSuDungDichVuDAO.delete(lstDSSĐV1.getMaSuDungDVu());
-                        }
-                        int rowSucces1 = chiTietPhieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
-                        int rowSucces2 = phieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
-                        if (rowSucces1 > 0 && rowSucces2 > 0) {
-                            phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
-                            succesDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
-                        } else {
-                            errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
-                        }
+//                        List<DanhSachSuDungDichVu> lstDSSĐV = danhSachSuDungDichVuDAO.getAll(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+//                        for (DanhSachSuDungDichVu lstDSSĐV1 : lstDSSĐV) {
+//                            danhSachSuDungDichVuDAO.delete(lstDSSĐV1.getMaSuDungDVu());
+//                        }
+//                        int rowSucces1 = chiTietPhieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+//                        int rowSucces2 = phieuNhanPhongDAO.delete(tblPhieuNhanPhong.getValueAt(i, 1).toString());
+//                        if (rowSucces1 > 0 && rowSucces2 > 0) {
+//                            phongDAO.updatePhongDaThanhToan(tblPhieuNhanPhong.getValueAt(i, 4).toString());
+//                            succesDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
+//                        } else {
+//                            errDeltete += "\t" + tblPhieuNhanPhong.getValueAt(i, 1).toString() + "\n";
+//                        }
 
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Không thể xóa", "Thông báo", JOptionPane.ERROR_MESSAGE);

@@ -95,4 +95,21 @@ public class RanDomMa {
 
         return ma;
     }
+
+    public String rDomMaSuDungDvu() {
+        String ma = "";
+        Random rd = new Random();
+        int number = rd.nextInt(999);
+        DanhSachSuDungDichVuDAO dao = new DanhSachSuDungDichVuDAO();
+
+        do {
+            ma = generateRandomString() + number;
+            List<DanhSachSuDungDichVu> lst = dao.getByMaSuDungDichVu(ma);
+            if (lst.size() <= 0) {
+                break;
+            }
+        } while (true);
+
+        return ma;
+    }
 }

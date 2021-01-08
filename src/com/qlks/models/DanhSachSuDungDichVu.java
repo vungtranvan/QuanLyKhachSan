@@ -9,6 +9,7 @@ public class DanhSachSuDungDichVu {
     private String maSuDungDVu;
     private String maDichVu;
     private String maNhanPhong;
+    private String maPhong;
     private int soLuong;
     private String tenLoaiDichVu;
     private String tenDonvi;
@@ -17,17 +18,19 @@ public class DanhSachSuDungDichVu {
     public DanhSachSuDungDichVu() {
     }
 
-    public DanhSachSuDungDichVu(String maSuDungDVu, String maDichVu, String maNhanPhong, int soLuong) {
+    public DanhSachSuDungDichVu(String maSuDungDVu, String maDichVu, String maNhanPhong, String maPhong, int soLuong) {
         this.maSuDungDVu = maSuDungDVu;
         this.maDichVu = maDichVu;
         this.maNhanPhong = maNhanPhong;
+        this.maPhong = maPhong;
         this.soLuong = soLuong;
     }
 
-    public DanhSachSuDungDichVu(String maSuDungDVu, String maDichVu, String maNhanPhong, int soLuong, String tenLoaiDichVu, String tenDonvi, float donGia) {
+    public DanhSachSuDungDichVu(String maSuDungDVu, String maDichVu, String maNhanPhong, String maPhong, int soLuong, String tenLoaiDichVu, String tenDonvi, float donGia) {
         this.maSuDungDVu = maSuDungDVu;
         this.maDichVu = maDichVu;
         this.maNhanPhong = maNhanPhong;
+        this.maPhong = maPhong;
         this.soLuong = soLuong;
         this.tenLoaiDichVu = tenLoaiDichVu;
         this.tenDonvi = tenDonvi;
@@ -36,6 +39,14 @@ public class DanhSachSuDungDichVu {
 
     public String getTenLoaiDichVu() {
         return tenLoaiDichVu;
+    }
+
+    public String getMaPhong() {
+        return maPhong;
+    }
+
+    public void setMaPhong(String maPhong) {
+        this.maPhong = maPhong;
     }
 
     public void setTenLoaiDichVu(String tenLoaiDichVu) {
