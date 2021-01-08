@@ -10,6 +10,7 @@ import com.qlks.fonts.FontCustom;
 import com.qlks.models.CauHinhNguoiDung;
 import com.qlks.models.NguoiDung;
 import com.qlks.utils.MethodMain;
+import com.qlks.view.internalframe.BieuDoHieuSuatPhong;
 import com.qlks.view.internalframe.DoiMatKhauNguoiDung;
 import com.qlks.view.internalframe.NgonNgu;
 import com.qlks.view.internalframe.NgonNguItem;
@@ -94,6 +95,7 @@ public class MainJFrame extends javax.swing.JFrame {
     QLPhieuThuePhong qLPhieuThuePhong;
     private JPanel subMenuBook;
     QLPhieuNhanPhong qLPhieuNhanPhong;
+    BieuDoHieuSuatPhong bieuDoHieuSuatPhong;
     private JPanel subMenuCheckIn;
     private JPanel subMenuTax;
     QLHoaDon qLHoaDon;
@@ -102,6 +104,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private JPanel subMenuRoomType;
     QuanLyPhong quanLyPhong;
     private JPanel subMenuRoom;
+    private JPanel submenuStatisticsRoomChart;
+
     QuanLyLoaiTinhTrang quanLyLoaiTinhTrang;
     private JPanel subMenuRoomStatus;
     QuanLyThietBi quanLyThietBi;
@@ -209,12 +213,16 @@ public class MainJFrame extends javax.swing.JFrame {
             qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd, lc);
             listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
             showInternalFrame(subMenuCheckIn, qLPhieuNhanPhong);
+            
+            subMenuCheckIn = new JPanel();
+            qLPhieuNhanPhong = new QLPhieuNhanPhong(listNd, lc);
+            listSubMenuItemChecking.add(makeSubMenuItem(subMenuCheckIn, rb.getString("subMenuCheckIn")));
+            showInternalFrame(subMenuCheckIn, qLPhieuNhanPhong);
 
             subMenuHoaDon = new JPanel();
             qLHoaDon = new QLHoaDon(lc);
             listSubMenuItemChecking.add(makeSubMenuItem(subMenuHoaDon, rb.getString("subMenuHoaDon")));
             showInternalFrame(subMenuHoaDon, qLHoaDon);
-
             subMenuTax = new JPanel();
             visibleSubMenu(menuChecking, rb.getString("SubMenuTitleChecking"), listSubMenuItemChecking, 5);
         }
@@ -303,6 +311,11 @@ public class MainJFrame extends javax.swing.JFrame {
             thongKeDoanhThuPhong = new ThongKeDoanhThuPhong(lc);
             listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom")));
             showInternalFrame(submenuStatisticsRoom, thongKeDoanhThuPhong);
+
+            submenuStatisticsRoomChart = new JPanel();
+            BieuDoHieuSuatPhong bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong();
+            listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoomChart, rb.getString("submenuStatisticsRoom")));
+            showInternalFrame(submenuStatisticsRoomChart, bieuDoHieuSuatPhong);
 
             submenuStatisticsKhachHang = new JPanel();
             thongKeKhachHang = new ThongKeKhachHang(lc);

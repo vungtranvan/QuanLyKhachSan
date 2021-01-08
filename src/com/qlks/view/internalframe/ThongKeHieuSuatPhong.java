@@ -214,10 +214,6 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGhiFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiFileActionPerformed
-        MethodMain.exportExcel(tblThongKeHieuSuatPhong);
-    }//GEN-LAST:event_btnGhiFileActionPerformed
-
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         LocalDate date1 = null;
         if (jDate1.getDate() != null) {
@@ -229,6 +225,10 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
         }
         loadData(date1, date2);
     }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void btnGhiFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiFileActionPerformed
+        MethodMain.exportExcel(tblThongKeHieuSuatPhong);
+    }//GEN-LAST:event_btnGhiFileActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
