@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.qlks.view.internalframe;
+package com.qlks.models;
 
 import javax.swing.Icon;
 

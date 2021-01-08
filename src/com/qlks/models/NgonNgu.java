@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.qlks.view.internalframe;
+package com.qlks.models;
 
+import com.qlks.view.internalframe.action.NgonNguItemRenderer;
 import java.awt.event.ActionEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
