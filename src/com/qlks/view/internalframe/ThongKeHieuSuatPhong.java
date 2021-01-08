@@ -271,7 +271,7 @@ public class ThongKeHieuSuatPhong extends javax.swing.JInternalFrame {
 
     private void btnShowChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowChartActionPerformed
         if (bieuDoHieuSuatPhong == null) {
-            bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong(rb);
+            bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong(rb,lstThongKeHieuSuatPhong);
         } else {
 //            bieuDoHieuSuatPhong.dispose();
 //            bieuDoHieuSuatPhong = new BieuDoHieuSuatPhong(lstThongKePhong, rb, ngayBatDau, ngayKetThuc);
