@@ -103,7 +103,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         lstKhachHangByID = khachHangDAO.getByMa(maKH);
         jlbMaDaTonTai.setText("");
         setData();
-        initDVDSD();
+       // initDVDSD();
         lblTongTien.setText(funcBase.formatTien(sumTongTien()));
     }
 
@@ -146,37 +146,37 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
         }
     }
 
-    public void initDVDSD() {
-        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(maNhanPhong);
-        //lstDanhSachSuDungDichVu.remove(0);
-        Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", "Thành tiền"};
-        dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
-        if (lstDanhSachSuDungDichVu.size() > 0) {
-            int index = 1;
-            for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
-                if (lstDanhSachSuDungDichVu.get(lstDanhSachSuDungDichVu.size() - 1) != adv) {
-                    modelDichVu.addElement(adv);
-                    Object[] o = new Object[7];
-                    o[0] = index;
-                    o[1] = adv.getMaDichVu();
-                    o[2] = adv.getTenLoaiDichVu();
-                    o[3] = adv.getTenDonvi();
-                    o[4] = adv.getSoLuong();
-                    o[5] = (int) adv.getDonGia();
-                    o[6] = adv.getSoLuong() * (int) adv.getDonGia();
-                    dtmDanhSachSuDungDichVu.addRow(o);
-                    index++;
-                }
-            }
-            tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
-            tongTienDVu = SumTienDV();
-            lblTienDichVu.setText(funcBase.formatTien(tongTienDVu));
-        } else {
-            tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
-            lblTienDichVu.setText(funcBase.formatTien(tongTienDVu));
-        }
-
-    }
+//    public void initDVDSD() {
+//        lstDanhSachSuDungDichVu = dsSDDichVuDAO.getAll(maNhanPhong);
+//        //lstDanhSachSuDungDichVu.remove(0);
+//        Object[] columnNames = {"STT", "Mã dịch vụ", "Loại dịch vụ", "Đơn vị", "Số lượng", "Đơn giá", "Thành tiền"};
+//        dtmDanhSachSuDungDichVu = new DefaultTableModel(new Object[0][0], columnNames);
+//        if (lstDanhSachSuDungDichVu.size() > 0) {
+//            int index = 1;
+//            for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
+//                if (lstDanhSachSuDungDichVu.get(lstDanhSachSuDungDichVu.size() - 1) != adv) {
+//                    modelDichVu.addElement(adv);
+//                    Object[] o = new Object[7];
+//                    o[0] = index;
+//                    o[1] = adv.getMaDichVu();
+//                    o[2] = adv.getTenLoaiDichVu();
+//                    o[3] = adv.getTenDonvi();
+//                    o[4] = adv.getSoLuong();
+//                    o[5] = (int) adv.getDonGia();
+//                    o[6] = adv.getSoLuong() * (int) adv.getDonGia();
+//                    dtmDanhSachSuDungDichVu.addRow(o);
+//                    index++;
+//                }
+//            }
+//            tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
+//            tongTienDVu = SumTienDV();
+//            lblTienDichVu.setText(funcBase.formatTien(tongTienDVu));
+//        } else {
+//            tblDichVuDaSD.setModel(dtmDanhSachSuDungDichVu);
+//            lblTienDichVu.setText(funcBase.formatTien(tongTienDVu));
+//        }
+//
+//    }
 
     public int SumTienDV() {
         int rowcount = tblDichVuDaSD.getRowCount();
@@ -806,7 +806,7 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
             tienKM = 0;
         }
         setData();
-        initDVDSD();
+       // initDVDSD();
         lblTongTien.setText(funcBase.formatTien(sumTongTien()));
     }//GEN-LAST:event_btnKiemTraMaKMActionPerformed
 
