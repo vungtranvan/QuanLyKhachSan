@@ -2225,7 +2225,7 @@ FROM DanhSachSuDungDichVu
 JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
 JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
 JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
-WHERE DanhSachSuDungDichVu.MaNhanPhong = @MaNhanPhong AND MaPhong=@MaPhong
+WHERE DanhSachSuDungDichVu.MaDichVu = @MaDichVu AND DanhSachSuDungDichVu.MaNhanPhong = @MaNhanPhong AND MaPhong=@MaPhong
 ORDER BY DanhSachSuDungDichVu.MaDichVu DESC
 END
 GO
