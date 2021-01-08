@@ -23,6 +23,12 @@ public class DanhSachSuDungDichVuDAO extends AbstractDAO<DanhSachSuDungDichVu> i
     }
 
     @Override
+    public List<DanhSachSuDungDichVu> getAll(String maNhanPhong) {
+        String sql = "{Call getDanhSachSuDungDichVu_ByMaNhanPhong_(?)}";
+        return query(sql, new DanhSachSuDungDichVuMapper(), maNhanPhong);
+    }
+
+    @Override
     public List<DanhSachSuDungDichVu> getByMaSuDungDichVu(String maSuDungDVu) {
         String sql = "{Call getByMaSuDungDichVu(?)}";
         return query(sql, new DanhSachSuDungDichVuMapper(), maSuDungDVu);

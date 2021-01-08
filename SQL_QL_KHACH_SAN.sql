@@ -2214,6 +2214,20 @@ ORDER BY DanhSachSuDungDichVu.MaDichVu DESC
 END
 GO
 
+CREATE PROC getDanhSachSuDungDichVu_ByMaNhanPhong_
+@MaNhanPhong varchar (5)
+AS
+BEGIN 
+SELECT DanhSachSuDungDichVu.MaSuDungDVu,DanhSachSuDungDichVu.MaDichVu,DanhSachSuDungDichVu.MaNhanPhong,DanhSachSuDungDichVu.MaPhong,DanhSachSuDungDichVu.SoLuong,LoaiDichVu.TenLoaiDichVu,DonVi.TenDonVi,DichVu.DonGia
+FROM DanhSachSuDungDichVu 
+JOIN DichVu ON DanhSachSuDungDichVu.MaDichVu = DichVu.MaDichVu
+JOIN LoaiDichVu ON DichVu.MaLoaiDichVu = LoaiDichVu.MaLoaiDichVu
+JOIN DonVi ON DichVu.MaDonVi = DonVi.MaDonVi
+WHERE DanhSachSuDungDichVu.MaNhanPhong = @MaNhanPhong
+ORDER BY DanhSachSuDungDichVu.MaDichVu DESC
+END
+GO
+
 CREATE PROC getByMaSuDungDichVu
 @MaSuDungDVu varchar (4)
 AS
