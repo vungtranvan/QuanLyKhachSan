@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
@@ -77,6 +78,10 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         khachHangDAO = new KhachHangDAO();
         modelKhachHang = new DefaultComboBoxModel();
         resetText();
+        LocalDate ngayDk = LocalDate.now();
+
+        Date dateBDDK = java.sql.Date.valueOf(ngayDk);
+        txtNgayDangKy.setDate(dateBDDK);
         initdataTablePhong();
         initdataTableKhachHang();
 

@@ -1900,7 +1900,7 @@ GO
 CREATE PROC getPhieuThuePhong_ChuaXL
 AS
 BEGIN 
- SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang ,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,ChiTietPhieuThuePhong.NgayTraDuKien,PhieuThuePhong.TrangThai
+ SELECT PhieuThuePhong.MaPhieuThue,PhieuThuePhong.MaKhachHang,KhachHang.TenKhachHang,ChiTietPhieuThuePhong.MaPhong ,ChiTietPhieuThuePhong.NgayDangKy,ChiTietPhieuThuePhong.NgayNhan,ChiTietPhieuThuePhong.NgayTraDuKien,PhieuThuePhong.TrangThai
  FROM PhieuThuePhong
  INNER JOIN ChiTietPhieuThuePhong ON PhieuThuePhong.MaPhieuThue = ChiTietPhieuThuePhong.MaPhieuThue
  INNER JOIN KhachHang ON PhieuThuePhong.MaKhachHang = KhachHang.MaKhachHang
