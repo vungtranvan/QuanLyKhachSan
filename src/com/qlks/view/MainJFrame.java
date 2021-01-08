@@ -96,7 +96,6 @@ public class MainJFrame extends javax.swing.JFrame {
     QLPhieuThuePhong qLPhieuThuePhong;
     private JPanel subMenuBook;
     QLPhieuNhanPhong qLPhieuNhanPhong;
-    BieuDoThongKePhong bieuDoThongKePhong;
 
     private JPanel subMenuAddServiceToRoom;
     QLDichVuPhong qLDichVuPhong;
@@ -108,7 +107,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private JPanel subMenuRoomType;
     QuanLyPhong quanLyPhong;
     private JPanel subMenuRoom;
-    private JPanel submenuStatisticsRoomChart;
+
 
     QuanLyLoaiTinhTrang quanLyLoaiTinhTrang;
     private JPanel subMenuRoomStatus;
@@ -316,11 +315,6 @@ public class MainJFrame extends javax.swing.JFrame {
             thongKeDoanhThuPhong = new ThongKeDoanhThuPhong(lc);
             listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom")));
             showInternalFrame(submenuStatisticsRoom, thongKeDoanhThuPhong);
-
-            submenuStatisticsRoomChart = new JPanel();
-            bieuDoThongKePhong= new BieuDoThongKePhong(lc);
-            listSubMenuStatistic.add(makeSubMenuItem(submenuStatisticsRoomChart, rb.getString("submenuStatisticsRoomChart")));
-            showInternalFrame(submenuStatisticsRoomChart, bieuDoThongKePhong);
 
             submenuStatisticsKhachHang = new JPanel();
             thongKeKhachHang = new ThongKeKhachHang(lc);
@@ -841,7 +835,6 @@ public class MainJFrame extends javax.swing.JFrame {
         setTextJlbFromJpn(subMenuCheckIn, rb.getString("subMenuCheckIn"));
         setTextJlbFromJpn(submenuStatisticsRoom, rb.getString("submenuStatisticsRoom"));
         setTextJlbFromJpn(subMenuHoaDon, rb.getString("subMenuHoaDon"));
-        setTextJlbFromJpn(submenuStatisticsRoomChart, rb.getString("submenuStatisticsRoomChart"));
 
         switch (languageKey) {
             case 1:
