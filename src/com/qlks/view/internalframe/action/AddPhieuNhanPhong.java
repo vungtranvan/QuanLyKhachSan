@@ -70,6 +70,10 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
         lstPhieuThuePhong2 = new ArrayList<>();
         resetText();
         initdataTablePhong();
+        LocalDate ngayBD = LocalDate.now();
+
+        Date dateBD = java.sql.Date.valueOf(ngayBD);
+        txtNgayNhan.setDate(dateBD);
     }
 
     List<PhieuThuePhong> getListPtpByMaPt(String maPt, List<PhieuThuePhong> list) {
@@ -414,11 +418,6 @@ public class AddPhieuNhanPhong extends javax.swing.JInternalFrame {
         List<ChiTietPhieuThuePhong> lstPhieuThue = chiTietPhieuThuePhongDAO.getByMaPhieuThue(ma_PhieuThue);
 
         for (ChiTietPhieuThuePhong adm : lstPhieuThue) {
-            LocalDate ngayBD = adm.getNgayNhan();
-
-            Date dateBD = java.sql.Date.valueOf(ngayBD);
-            txtNgayNhan.setDate(dateBD);
-
             LocalDate ngayTraDK = adm.getNgayTraDuKien();
             Date dateTra = java.sql.Date.valueOf(ngayTraDK);
             txtNgayTraDuKien.setDate(dateTra);
