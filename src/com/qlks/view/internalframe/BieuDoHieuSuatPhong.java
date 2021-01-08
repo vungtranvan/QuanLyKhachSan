@@ -29,29 +29,34 @@ public class BieuDoHieuSuatPhong extends javax.swing.JInternalFrame {
     private FunctionBase funcBase;
     ResourceBundle rb;
 
-    public BieuDoHieuSuatPhong(ResourceBundle rb) {
+    public BieuDoHieuSuatPhong(ResourceBundle rb,List<ThongKePhong> lstThongKeHieuSuatPhong) {
         initComponents();
         this.rb = rb;
-        thongKeHieuSuatPhongDAO = new ThongKeHieuSuatPhongDAO();
+        this.lstThongKeHieuSuatPhong = lstThongKeHieuSuatPhong;
         funcBase = new FunctionBase();
         JFreeChart pieChart = createChart(createDataset());
         ChartPanel chartPanel = new ChartPanel(pieChart);
         jPanel1.add(chartPanel);
     }
 
-    private static JFreeChart createChart(PieDataset dataset) {
+    private JFreeChart createChart(PieDataset dataset) {
         JFreeChart chart = ChartFactory.createPieChart(
-                "CƠ CẤU DÂN SỐ THEO NHÓM TUỔI NĂM 2010", dataset, true, true, true);
+                "BẢNG ĐỒ HIỆU SUẤT PHÒNG", dataset, true, true, true);
         return chart;
     }
 
-    private static PieDataset createDataset() {
+    private PieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("Nhóm 0 - 14", new Double(25.0));
-        dataset.setValue("Nhóm 15 - 59", new Double(66.0));
-        dataset.setValue("Nhóm trên 60", new Double(9.0));
+      
+        for (ThongKePhong thongKePhong : this.lstThongKeHieuSuatPhong) {
+            if (thongKePhong.getHieuSuatPhong() != 0) {
+                dataset.setValue(thongKePhong.getMaPhong()+": "+thongKePhong.getHieuSuatPhong()+"%", thongKePhong.getHieuSuatPhong());
+            }
+        }
+
         return dataset;
     }
+    
 
 //    public void loadData(LocalDate ngayInput1, LocalDate ngayInput2) {
 //        LocalDate date1 = LocalDate.parse("2000-01-15");
@@ -102,21 +107,24 @@ public class BieuDoHieuSuatPhong extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("Thống kê hiệu suất phòng");
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(683, 514));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 800));
+
         javax.swing.GroupLayout jpanelMainLayout = new javax.swing.GroupLayout(jpanelMain);
         jpanelMain.setLayout(jpanelMainLayout);
         jpanelMainLayout.setHorizontalGroup(
             jpanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelMainLayout.createSequentialGroup()
+            .addGroup(jpanelMainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpanelMainLayout.setVerticalGroup(
             jpanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelMainLayout.createSequentialGroup()
+            .addGroup(jpanelMainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

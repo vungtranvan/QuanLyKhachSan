@@ -98,6 +98,7 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("Thống kê khách hàng");
 
+        btnTimKiem.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +107,7 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
             }
         });
 
+        btnGhiFile.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
         btnGhiFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlks/icon/icon_printer.png"))); // NOI18N
         btnGhiFile.setText("Ghi file excel");
         btnGhiFile.addActionListener(new java.awt.event.ActionListener() {
@@ -118,10 +120,10 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
 
         jDate2.setDateFormatString("dd/MM/yyyy");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
         jLabel1.setText("Từ ngày:");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
         jLabel2.setText("Đến ngày:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -138,9 +140,9 @@ public class ThongKeKhachHang extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
-                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGhiFile, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGhiFile, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)

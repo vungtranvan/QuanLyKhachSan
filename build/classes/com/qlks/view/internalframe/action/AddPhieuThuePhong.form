@@ -112,7 +112,7 @@
                                   <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btnThemMoiKhachHang" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <Component id="btnThemMoiKhachHang" min="-2" pref="188" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -127,7 +127,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnThemMoiKhachHang" min="-2" pref="33" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel1" pref="27" max="32767" attributes="0"/>
+                  <Component id="jLabel1" pref="28" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtMaPhieuThue" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -159,7 +159,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtErrorNgayNhan" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtNgayTraDuKien" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" pref="32" max="-2" attributes="0"/>
