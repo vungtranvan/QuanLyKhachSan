@@ -774,14 +774,14 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
                     }
 
                     for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
-                        float thanhTien = 0;
-                        float tongTienPhong = tienPhongz * soNgay;
-                        float tienPhuThu = tienPhong * funcBase.funcGetGiaTriPhuThu() / 100;
-                        float sumTienDvu = adv.getDonGia() * adv.getSoLuong();
-                        thanhTien = tongTienPhong + sumTienDvu + tienPhuThu;
+//                        float thanhTien = 0;
+//                        float tongTienPhong = tienPhongz * soNgay;
+//                        float tienPhuThu = tienPhong * funcBase.funcGetGiaTriPhuThu() / 100;
+//                        float sumTienDvu = adv.getDonGia() * adv.getSoLuong();
+//                        thanhTien = tongTienPhong + sumTienDvu + tienPhuThu;
 
                         row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), lstP, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
-                                tienPhongz, adv.getDonGia(), tienKM, hinhThucTT, soNgay, thanhTien));
+                                tienPhongz, adv.getDonGia(), tienKM, hinhThucTT, soNgay, sumTongTien()));
                     }
                     phongDAO.updatePhongDaThanhToan(lstP);
                 }
