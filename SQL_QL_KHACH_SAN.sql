@@ -2530,7 +2530,7 @@ ON PhieuNhanPhong.MaNhanPhong = HoaDon.MaNhanPhong
 JOIN ChiTietPhieuNhanPhong
 ON ChiTietPhieuNhanPhong.MaNhanPhong = PhieuNhanPhong.MaNhanPhong
 go
-
+/*
 CREATE PROC ThongKePhong
 @NgayBatDau datetime,
 @NgayKetThuc datetime
@@ -2561,7 +2561,7 @@ JOIN DistinctGiaDichVu
 ON DistinctGiaDichVu.MaPhong = dv.MaPhong
 GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu
 GO
-
+*/
 CREATE PROC ThongKeKhachHang
 @tuNgay DATETIME,
 @denNgay DATETIME
@@ -2594,13 +2594,13 @@ FROM (Select DISTINCT(MaHoaDon),MaPhong from ChiTietHoaDon) dt
 GROUP by dt.MaPhong
 Go
 
-CREATE PROC ThongKeHieuSuatPhong
+/*CREATE PROC ThongKeHieuSuatPhong
 @NgayBatDau datetime,
 @NgayKetThuc datetime
 as
 select Phong.MaPhong,isnull(HsPhong.HiieuSuatPhong,0) as HieuSuatThue ,isnull(SUM(SoNgay),0) as SoNgay,COUNT(dt.MaPhong) as SoLanThue,
 isnull(SUM(TienPhong),0) as TienPhong, isnull(DistinctGiaDichVu.TienDichVu,0) as TienDichVu,isnull(SUM(GiamGiaKH),0) as GiamGia,
-isnull(SUM(ThanhTien),0) AS TongTien
+isnull(hd4.tong,0) AS TongTien
 FROM (Select DISTINCT(MaHoaDon),MaPhong,TienPhong,GiamGiaKH,SoNgay,ThanhTien from ChiTietKinhDoanh) dt
 JOIN (
 select dt.MaPhong,Sum(dt.ThanhTien) as TongTien
@@ -2628,9 +2628,21 @@ JOIN HsPhong
 ON dt.MaPhong = HsPhong.MaPhong
 right JOIN Phong
 ON dt.MaPhong  = Phong.MaPhong
-GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu,HsPhong.HiieuSuatPhong,Phong.MaPhong
-GO
+JOIN (select DISTINCT hd3.MaHoaDon,hd3.MaPhong,tong
+from(
+select hd1.MaHoaDon,hd1.TienPhong + hd2.tdv as tong,hd2.tdv ,hd1.MaPhong from ChiTietHoaDon hd1
+join
+(select MaHoaDon,MaPhong,sum(TienDichVu) as tdv from ChiTietHoaDon
+group by MaHoaDon,MaPhong) hd2
+on hd1.MaHoaDon = hd2.MaHoaDon
+) hd3
+) hd4  on hd4.MaHoaDon = dt.MaHoaDon
+GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu,HsPhong.HiieuSuatPhong,Phong.MaPhong,hd4.tong
 
+
+
+GO
+*/
 CREATE PROC GetChiTietPhieuNhanPhongByMaPhong
 @MaPhong VARCHAR(10)
 as
@@ -2640,3 +2652,56 @@ JOIN Phong on ChiTietPhieuNhanPhong.MaPhong = Phong.MaPhong
 Where ChiTietPhieuNhanPhong.MaPhong = @MaPhong
 END
 GO  
+
+select * from ChiTietHoaDon
+
+
+go
+CREATE PROC ThongKeHieuSuatPhong
+@NgayBatDau datetime,
+@NgayKetThuc datetime
+as
+select DISTINCT hd3.MaPhong,HsPhong.HiieuSuatPhong as HieuSuatThue,hd3.SoNgay,
+SolanThue.SoNgay As SolanThue,TienPhong,hd3.tdv as TienDichVu,hd3.GiamGiaKH,hd3.TongTien
+from(
+select hd1.MaHoaDon,TienPhong,TienDichVu,hd1.TienPhong + hd2.tdv as TongTien,hd2.GiamGiaKH,hd2.tdv,hd2.SoNgay as SoNgay ,hd1.MaPhong from ChiTietHoaDon hd1
+join
+(select DISTINCT MaHoaDon,MaPhong,sum(TienDichVu) as tdv,sum(GiamGiaKH) as GiamGiaKH,SoNgay as SoNgay from ChiTietHoaDon
+group by MaHoaDon,MaPhong,SoNgay) hd2
+on hd1.MaHoaDon = hd2.MaHoaDon
+) hd3
+join HsPhong
+on HsPhong.MaPhong = hd3.MaPhong
+join (select DISTINCT  MaHoaDon , MaPhong,MaSuDungDichVu , count(MaPhong) as SoNgay from ChiTietHoaDon
+group by ChiTietHoaDon.MaHoaDon,ChiTietHoaDon.MaPhong,ChiTietHoaDon.MaSuDungDichVu) as SolanThue
+on hd3.MaHoaDon = SolanThue.MaHoaDon
+Join HoaDon on hd3.MaHoaDon = HoaDon.MaHoaDon
+join PhieuNhanPhong on HoaDon.MaNhanPhong =PhieuNhanPhong.MaNhanPhong
+join ChiTietPhieuNhanPhong on PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+Group by hd3.MaHoaDon,HsPhong.HiieuSuatPhong,hd3.SoNgay,hd3.MaPhong,hd3.TongTien,SolanThue.SoNgay,hd3.TienPhong,hd3.tdv,hd3.GiamGiaKH,ChiTietPhieuNhanPhong.NgayTraThucTe
+Having ChiTietPhieuNhanPhong.NgayTraThucTe between @NgayBatDau and @NgayKetThuc
+
+
+CREATE PROC ThongKePhong
+@NgayBatDau datetime,
+@NgayKetThuc datetime
+as
+select DISTINCT hd3.MaPhong,hd3.SoNgay,
+SolanThue.SoNgay As SolanThue,TienPhong,hd3.tdv as TienDichVu,hd3.GiamGiaKH,hd3.TongTien
+from(
+select hd1.MaHoaDon,TienPhong,TienDichVu,hd1.TienPhong + hd2.tdv as TongTien,hd2.GiamGiaKH,hd2.tdv,hd2.SoNgay as SoNgay ,hd1.MaPhong from ChiTietHoaDon hd1
+join
+(select DISTINCT MaHoaDon,MaPhong,sum(TienDichVu) as tdv,sum(GiamGiaKH) as GiamGiaKH,SoNgay as SoNgay from ChiTietHoaDon
+group by MaHoaDon,MaPhong,SoNgay) hd2
+on hd1.MaHoaDon = hd2.MaHoaDon
+) hd3
+join HsPhong
+on HsPhong.MaPhong = hd3.MaPhong
+join (select DISTINCT  MaHoaDon , MaPhong,MaSuDungDichVu , count(MaPhong) as SoNgay from ChiTietHoaDon
+group by ChiTietHoaDon.MaHoaDon,ChiTietHoaDon.MaPhong,ChiTietHoaDon.MaSuDungDichVu) as SolanThue
+on hd3.MaHoaDon = SolanThue.MaHoaDon
+Join HoaDon on hd3.MaHoaDon = HoaDon.MaHoaDon
+join PhieuNhanPhong on HoaDon.MaNhanPhong =PhieuNhanPhong.MaNhanPhong
+join ChiTietPhieuNhanPhong on PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
+Group by hd3.MaHoaDon,HsPhong.HiieuSuatPhong,hd3.SoNgay,hd3.MaPhong,hd3.TongTien,SolanThue.SoNgay,hd3.TienPhong,hd3.tdv,hd3.GiamGiaKH,ChiTietPhieuNhanPhong.NgayTraThucTe
+Having ChiTietPhieuNhanPhong.NgayTraThucTe between @NgayBatDau and @NgayKetThuc

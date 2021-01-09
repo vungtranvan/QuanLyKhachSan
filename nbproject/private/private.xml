@@ -3,24 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/MainJFrame.java</file>
-=======
-<<<<<<< HEAD
-            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/action/AddPhieuThuePhong.java</file>
-            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/dao/impl/ChiTietPhieuThuePhongDAO.java</file>
-=======
->>>>>>> 3e3fac6f66b45b82f34c07b9207c2ae5bbff2838
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/action/AddPhieuThuePhong.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/action/AddPhieuNhanPhong.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/ThongKeDoanhThuPhong.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/BieuDoThongKePhong.java</file>
-<<<<<<< HEAD
-=======
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/BieuDoHieuSuatPhong.java</file>
-            <file>file:/home/hoangdung/NetBeansProjects/QuanLyKhachSan/src/com/qlks/view/internalframe/QLPhieuThuePhong.java</file>
->>>>>>> 377d16592890ce100b514c80c3c6951a870a83da
->>>>>>> 3e3fac6f66b45b82f34c07b9207c2ae5bbff2838
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/ThanhToanHoaDon.java</file>
+            <file>file:/D:/DoAn/QuanLyKhachSan/src/com/qlks/view/internalframe/action/AddPhieuNhanPhong.java</file>
         </group>
     </open-files>
 </project-private>

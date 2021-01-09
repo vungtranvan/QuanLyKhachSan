@@ -20,7 +20,7 @@ public class HieuSuatPhongMapper implements RowMapper<ThongKePhong> {
     public ThongKePhong mapRow(ResultSet rs) {
         try {
             ThongKePhong data = new ThongKePhong(rs.getString("MaPhong"), rs.getFloat("HieuSuatThue"), rs.getInt("SoNgay"), rs.getInt("SoLanThue"), rs.getFloat("TienPhong"), rs.getFloat("TienDichVu"),
-                    rs.getFloat("GiamGia"), rs.getFloat("TongTien"));
+                    rs.getFloat("GiamGiaKH"), rs.getFloat("TongTien"));
             return data;
         } catch (Exception ex) {
             Logger.getLogger(NguoiDungMapper.class.getName()).log(Level.SEVERE, null, ex);
