@@ -2530,7 +2530,7 @@ ON PhieuNhanPhong.MaNhanPhong = HoaDon.MaNhanPhong
 JOIN ChiTietPhieuNhanPhong
 ON ChiTietPhieuNhanPhong.MaNhanPhong = PhieuNhanPhong.MaNhanPhong
 go
-/*
+
 CREATE PROC ThongKePhong
 @NgayBatDau datetime,
 @NgayKetThuc datetime
@@ -2561,7 +2561,7 @@ JOIN DistinctGiaDichVu
 ON DistinctGiaDichVu.MaPhong = dv.MaPhong
 GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu
 GO
-*/
+
 CREATE PROC ThongKeKhachHang
 @tuNgay DATETIME,
 @denNgay DATETIME
@@ -2594,7 +2594,7 @@ FROM (Select DISTINCT(MaHoaDon),MaPhong from ChiTietHoaDon) dt
 GROUP by dt.MaPhong
 Go
 
-/*CREATE PROC ThongKeHieuSuatPhong
+CREATE PROC ThongKeHieuSuatPhong
 @NgayBatDau datetime,
 @NgayKetThuc datetime
 as
@@ -2642,7 +2642,7 @@ GROUP by dt.MaPhong,dv.TongTien,DistinctGiaDichVu.TienDichVu,HsPhong.HiieuSuatPh
 
 
 GO
-*/
+
 CREATE PROC GetChiTietPhieuNhanPhongByMaPhong
 @MaPhong VARCHAR(10)
 as
@@ -2653,10 +2653,8 @@ Where ChiTietPhieuNhanPhong.MaPhong = @MaPhong
 END
 GO  
 
-select * from ChiTietHoaDon
 
-
-go
+/*
 CREATE PROC ThongKeHieuSuatPhong
 @NgayBatDau datetime,
 @NgayKetThuc datetime
@@ -2680,7 +2678,7 @@ join PhieuNhanPhong on HoaDon.MaNhanPhong =PhieuNhanPhong.MaNhanPhong
 join ChiTietPhieuNhanPhong on PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
 Group by hd3.MaHoaDon,HsPhong.HiieuSuatPhong,hd3.SoNgay,hd3.MaPhong,hd3.TongTien,SolanThue.SoNgay,hd3.TienPhong,hd3.tdv,hd3.GiamGiaKH,ChiTietPhieuNhanPhong.NgayTraThucTe
 Having ChiTietPhieuNhanPhong.NgayTraThucTe between @NgayBatDau and @NgayKetThuc
-
+go
 
 CREATE PROC ThongKePhong
 @NgayBatDau datetime,
@@ -2705,3 +2703,4 @@ join PhieuNhanPhong on HoaDon.MaNhanPhong =PhieuNhanPhong.MaNhanPhong
 join ChiTietPhieuNhanPhong on PhieuNhanPhong.MaNhanPhong = ChiTietPhieuNhanPhong.MaNhanPhong
 Group by hd3.MaHoaDon,HsPhong.HiieuSuatPhong,hd3.SoNgay,hd3.MaPhong,hd3.TongTien,SolanThue.SoNgay,hd3.TienPhong,hd3.tdv,hd3.GiamGiaKH,ChiTietPhieuNhanPhong.NgayTraThucTe
 Having ChiTietPhieuNhanPhong.NgayTraThucTe between @NgayBatDau and @NgayKetThuc
+*/
