@@ -736,75 +736,80 @@ public class ThanhToanHoaDon extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        int row = 0;
-        if (tienKM > 0) {
-            row = hoaDonDAO.add(new HoaDon(maKhachHang, maNhanPhong, maKhuyenMai, tenNhanVien, sumTongTien(), LocalDate.now()));
-        } else {
-            row = hoaDonDAO.addNoKM(new HoaDon(maKhachHang, maNhanPhong, tenNhanVien, sumTongTien(), LocalDate.now()));
-        }
-
-        if (row > 0) {
-            List<HoaDon> getIdHoaDon = hoaDonDAO.getIdMAX();
-            int row2 = 0;
-            String hinhThucTT = "Tiền mặt";
-            if (rdTienThe.isSelected() == true) {
-                hinhThucTT = "Tiền thẻ";
+        if (soNgay >= 0) {
+            int row = 0;
+            if (tienKM > 0) {
+                row = hoaDonDAO.add(new HoaDon(maKhachHang, maNhanPhong, maKhuyenMai, tenNhanVien, sumTongTien(), LocalDate.now()));
+            } else {
+                row = hoaDonDAO.addNoKM(new HoaDon(maKhachHang, maNhanPhong, tenNhanVien, sumTongTien(), LocalDate.now()));
             }
 
-            for (String lstP : lstMaPhong) {
-                List<Phong> lstPhong = phongDAO.getByMaPhong(lstP);
-                for (Phong p : lstPhong) {
-                    List<LoaiPhong> lstLoaiPhong = loaiPhongDAO.getByMa(p.getMaLoaiPhong());
-                    for (LoaiPhong lp : lstLoaiPhong) {
-                        tienPhong += lp.getDonGia();
-                    }
+            if (row > 0) {
+                List<HoaDon> getIdHoaDon = hoaDonDAO.getIdMAX();
+                int row2 = 0;
+                String hinhThucTT = "Tiền mặt";
+                if (rdTienThe.isSelected() == true) {
+                    hinhThucTT = "Tiền thẻ";
                 }
-            }
 
-            for (HoaDon idHoaDon : getIdHoaDon) {
-                _maHoaDon = idHoaDon.getMaHoaDon();
                 for (String lstP : lstMaPhong) {
-                    float tienPhongz = 0;
                     List<Phong> lstPhong = phongDAO.getByMaPhong(lstP);
                     for (Phong p : lstPhong) {
                         List<LoaiPhong> lstLoaiPhong = loaiPhongDAO.getByMa(p.getMaLoaiPhong());
                         for (LoaiPhong lp : lstLoaiPhong) {
-                            tienPhongz = lp.getDonGia();
+                            tienPhong += lp.getDonGia();
                         }
                     }
+                }
 
-                    for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
+                for (HoaDon idHoaDon : getIdHoaDon) {
+                    _maHoaDon = idHoaDon.getMaHoaDon();
+                    for (String lstP : lstMaPhong) {
+                        float tienPhongz = 0;
+                        List<Phong> lstPhong = phongDAO.getByMaPhong(lstP);
+                        for (Phong p : lstPhong) {
+                            List<LoaiPhong> lstLoaiPhong = loaiPhongDAO.getByMa(p.getMaLoaiPhong());
+                            for (LoaiPhong lp : lstLoaiPhong) {
+                                tienPhongz = lp.getDonGia();
+                            }
+                        }
+
+                        for (DanhSachSuDungDichVu adv : lstDanhSachSuDungDichVu) {
 //                        float thanhTien = 0;
 //                        float tongTienPhong = tienPhongz * soNgay;
 //                        float tienPhuThu = tienPhong * funcBase.funcGetGiaTriPhuThu() / 100;
 //                        float sumTienDvu = adv.getDonGia() * adv.getSoLuong();
 //                        thanhTien = tongTienPhong + sumTienDvu + tienPhuThu;
 
-                        row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), lstP, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
-                                tienPhongz, adv.getDonGia(), tienKM, hinhThucTT, soNgay, sumTongTien()));
+                            row2 = chiTietHoaDonDAO.addCoDV(new ChiTietHoaDon(idHoaDon.getMaHoaDon(), lstP, adv.getMaSuDungDVu(), funcBase.funcGetMaPhuThu(), funcBase.funcGetGiaTriPhuThu(),
+                                    tienPhongz, adv.getDonGia(), tienKM, hinhThucTT, soNgay, sumTongTien()));
+                        }
+                        phongDAO.updatePhongDaThanhToan(lstP);
                     }
-                    phongDAO.updatePhongDaThanhToan(lstP);
-                }
-            }
-
-            if (row2 > 0) {
-                phieuNhanPhongDAO.updateTrangThai(maNhanPhong);
-                ChiTietPhieuNhanPhong ctP = new ChiTietPhieuNhanPhong(maNhanPhong, LocalDate.now());
-                chiTietPhieuNhanPhongDAO.updateNgayTraDuKien(ctP);
-                JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công", null, JOptionPane.INFORMATION_MESSAGE);
-                cb.doCheckOut();
-                ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
-                showInternalFrame(jframeChiTietHoaDon);
-
-                if (tienKM > 0) {
-                    khuyenMaiDAO.updateTrangThai(maPhieuCodeKM);
                 }
 
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Thanh toán thất bại", null, JOptionPane.ERROR_MESSAGE);
+                if (row2 > 0) {
+                    phieuNhanPhongDAO.updateTrangThai(maNhanPhong);
+                    ChiTietPhieuNhanPhong ctP = new ChiTietPhieuNhanPhong(maNhanPhong, LocalDate.now());
+                    chiTietPhieuNhanPhongDAO.updateNgayTraDuKien(ctP);
+                    JOptionPane.showMessageDialog(rootPane, "Thanh toán thành công", null, JOptionPane.INFORMATION_MESSAGE);
+                    cb.doCheckOut();
+                    ChiTietHoaDonView jframeChiTietHoaDon = new ChiTietHoaDonView(_maHoaDon);
+                    showInternalFrame(jframeChiTietHoaDon);
+
+                    if (tienKM > 0) {
+                        khuyenMaiDAO.updateTrangThai(maPhieuCodeKM);
+                    }
+
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Thanh toán thất bại", null, JOptionPane.ERROR_MESSAGE);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Không được thanh toán trước ngày trả dự kiến", null, JOptionPane.WARNING_MESSAGE);
         }
+
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyBoActionPerformed

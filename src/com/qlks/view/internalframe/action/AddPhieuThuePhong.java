@@ -187,7 +187,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         txtMaPhieuThue = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jcbxKhachHang = new javax.swing.JComboBox<>();
+        jcbxKhachHang = new javax.swing.JComboBox<KhachHang>();
         txtNgayDangKy = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         txtNgayNhan = new com.toedter.calendar.JDateChooser();
@@ -223,6 +223,7 @@ public class AddPhieuThuePhong extends javax.swing.JInternalFrame implements Add
         jcbxKhachHang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         txtNgayDangKy.setDateFormatString("dd/MM/yyyy");
+        txtNgayDangKy.setEnabled(false);
         txtNgayDangKy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
